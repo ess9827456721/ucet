@@ -76,9 +76,9 @@ app.whenReady().then(() => {
   ipcMain.handle('get-simple-forecast', (_, debtId, payment) => getSimpleForecast(debtId, payment))
 
   // ── Analytics ────────────────────────────────────────
-  ipcMain.handle('get-summary', (_, dateFrom, dateTo) => getSummary(dateFrom, dateTo))
-  ipcMain.handle('get-expenses-by-category', (_, dateFrom, dateTo) => getExpensesByCategory(dateFrom, dateTo))
-  ipcMain.handle('get-daily-expenses', (_, dateFrom, dateTo) => getDailyExpenses(dateFrom, dateTo))
+  ipcMain.handle('get-summary', (_, dateFrom, dateTo, expenseType) => getSummary(dateFrom, dateTo, expenseType))
+  ipcMain.handle('get-expenses-by-category', (_, dateFrom, dateTo, expenseType) => getExpensesByCategory(dateFrom, dateTo, expenseType))
+  ipcMain.handle('get-daily-expenses', (_, dateFrom, dateTo, expenseType) => getDailyExpenses(dateFrom, dateTo, expenseType))
   ipcMain.handle('get-expenses-by-type', (_, dateFrom, dateTo) => getExpensesByType(dateFrom, dateTo))
   ipcMain.handle('get-monthly-expenses', (_, dateFrom, dateTo) => getMonthlyExpenses(dateFrom, dateTo))
   ipcMain.handle('get-expenses-by-day-of-week', (_, dateFrom, dateTo) => getExpensesByDayOfWeek(dateFrom, dateTo))

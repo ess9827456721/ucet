@@ -34,9 +34,9 @@ const api = {
   getSimpleForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-simple-forecast', debtId, payment),
 
   // Analytics
-  getSummary: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo),
-  getExpensesByCategory: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-category', dateFrom, dateTo),
-  getDailyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-daily-expenses', dateFrom, dateTo),
+  getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo, expenseType),
+  getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-expenses-by-category', dateFrom, dateTo, expenseType),
+  getDailyExpenses: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-daily-expenses', dateFrom, dateTo, expenseType),
   getExpensesByType: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-type', dateFrom, dateTo),
   getMonthlyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-monthly-expenses', dateFrom, dateTo),
   getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-day-of-week', dateFrom, dateTo),

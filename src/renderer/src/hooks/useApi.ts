@@ -29,9 +29,9 @@ export function useApi() {
     getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
     getSimpleForecast: (debtId: number, payment: number) => Promise<unknown[]>
 
-    getSummary: (dateFrom: string, dateTo: string) => Promise<unknown>
-    getExpensesByCategory: (dateFrom: string, dateTo: string) => Promise<unknown[]>
-    getDailyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown>
+    getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
+    getDailyExpenses: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
     getExpensesByType: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getMonthlyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => Promise<unknown[]>

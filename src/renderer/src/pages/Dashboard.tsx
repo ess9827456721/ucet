@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend
+  BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, AlertCircle } from 'lucide-react'
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Summary, Debt, Operation } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
@@ -45,10 +45,9 @@ function subtractPeriod(from: string, to: string): { from: string; to: string } 
 
 export default function Dashboard() {
   const api = useApi()
-  const now = new Date()
 
-  const initFrom = monthStart(now.getFullYear(), now.getMonth() + 1)
-  const initTo = monthEnd(now.getFullYear(), now.getMonth() + 1)
+  const initFrom = monthStart(new Date().getFullYear(), new Date().getMonth() + 1)
+  const initTo = monthEnd(new Date().getFullYear(), new Date().getMonth() + 1)
   const [dateFrom, setDateFrom] = useState(initFrom)
   const [dateTo, setDateTo] = useState(initTo)
   const [expenseTypeFilter, setExpenseTypeFilter] = useState('')
@@ -69,12 +68,14 @@ export default function Dashboard() {
 
   const load = useCallback(async () => {
     setLoading(true)
+    const now = new Date()
+    const et = expenseTypeFilter || undefined
     const prev = subtractPeriod(dateFrom, dateTo)
     const [s, prevS, cats, d, mo, dow, debts] = await Promise.all([
-      api.getSummary(dateFrom, dateTo),
-      api.getSummary(prev.from, prev.to),
-      api.getExpensesByCategory(dateFrom, dateTo),
-      api.getDailyExpenses(dateFrom, dateTo),
+      api.getSummary(dateFrom, dateTo, et),
+      api.getSummary(prev.from, prev.to, et),
+      api.getExpensesByCategory(dateFrom, dateTo, et),
+      api.getDailyExpenses(dateFrom, dateTo, et),
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
       api.getDebts('active'),
@@ -90,7 +91,7 @@ export default function Dashboard() {
     const cf = await api.getCashFlow(now.getFullYear(), now.getMonth() + 1)
     setCashFlow(cf as CashFlowData)
     setLoading(false)
-  }, [dateFrom, dateTo])
+  }, [dateFrom, dateTo, expenseTypeFilter])
 
   useEffect(() => { load() }, [load])
 
@@ -105,10 +106,6 @@ export default function Dashboard() {
     const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id })
     setDrillOps(ops as Operation[])
   }
-
-  const filteredDaily = expenseTypeFilter
-    ? daily.map(d => ({ ...d, expenses: 0 }))
-    : daily
 
   const topCategories = categories.slice(0, 5)
   const totalExpense = summary?.expense || 1
@@ -188,7 +185,6 @@ export default function Dashboard() {
 
           {/* Daily budget + Debt widget */}
           <div className="grid grid-cols-2 gap-4">
-            {/* Daily budget card */}
             {cashFlow && (
               <div className="card">
                 <div className="flex items-center gap-2 mb-3">
@@ -221,7 +217,6 @@ export default function Dashboard() {
               </div>
             )}
 
-            {/* Debt widget */}
             <div className="card">
               <div className="flex items-center gap-2 mb-3">
                 <CreditCard size={16} className="text-red-400" />
@@ -326,7 +321,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Monthly chart (shown only for long periods) */}
+          {/* Monthly chart */}
           {showMonthly && monthly.length > 1 && (
             <div className="card">
               <h2 className="text-base font-semibold mb-4">Расходы по месяцам</h2>

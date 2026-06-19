@@ -513,28 +513,32 @@ export function getSimpleForecast(debtId: number, monthlyPayment: number): unkno
 // Analytics
 // ──────────────────────────────────────────────────────────────
 
-export function getSummary(dateFrom: string, dateTo: string): unknown {
+export function getSummary(dateFrom: string, dateTo: string, expenseType?: string): unknown {
   const d = getDb()
   const income = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='income' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
-  const expense = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
+  const etClause = expenseType ? ` AND expense_type = '${expenseType}'` : ''
+  const expense = (d.prepare(`SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense'${etClause} AND date >= ? AND date <= ?`).get(dateFrom, dateTo) as { total: number }).total
   const days = Math.max(1, Math.round((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / 86400000) + 1)
   return { income, expense, balance: income - expense, avgPerDay: expense / days }
 }
 
-export function getExpensesByCategory(dateFrom: string, dateTo: string): unknown[] {
+export function getExpensesByCategory(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
+  const etClause = expenseType ? ` AND o.expense_type = '${expenseType}'` : ''
   return getDb().prepare(`
     SELECT c.id, c.name, c.color, SUM(o.amount) as total
     FROM operations o
     JOIN categories c ON o.category_id = c.id
-    WHERE o.type = 'expense' AND o.date >= ? AND o.date <= ?
+    WHERE o.type = 'expense'${etClause} AND o.date >= ? AND o.date <= ?
     GROUP BY c.id ORDER BY total DESC
   `).all(dateFrom, dateTo)
 }
 
-export function getDailyExpenses(dateFrom: string, dateTo: string): unknown[] {
+export function getDailyExpenses(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
+  const etFilter = expenseType ? ` AND expense_type = '${expenseType}'` : ''
   return getDb().prepare(`
-    SELECT date, SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as expenses,
-           SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as income
+    SELECT date,
+      SUM(CASE WHEN type='expense'${etFilter} THEN amount ELSE 0 END) as expenses,
+      SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as income
     FROM operations WHERE date >= ? AND date <= ?
     GROUP BY date ORDER BY date ASC
   `).all(dateFrom, dateTo)

@@ -51,7 +51,6 @@ export default function ImportModal({ onClose, onImported }: Props) {
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
   const [catMapping, setCatMapping] = useState<Record<string, number>>({})
-  const [subcatMapping, setSubcatMapping] = useState<Record<string, number>>({})
   const [newCatNames, setNewCatNames] = useState<Set<string>>(new Set())
   const [importing, setImporting] = useState(false)
   const [error, setError] = useState('')
@@ -148,43 +147,48 @@ export default function ImportModal({ onClose, onImported }: Props) {
 
   async function runImport() {
     setImporting(true)
-    // Create new categories first
-    const newCatMap: Record<string, number> = { ...catMapping }
-    for (const name of newCatNames) {
-      if (!newCatMap[name]) {
-        const id = await api.addCategory({ name, type: 'expense', color: '#94A3B8' })
-        newCatMap[name] = id
+    setError('')
+    try {
+      const newCatMap: Record<string, number> = { ...catMapping }
+      for (const name of newCatNames) {
+        if (!newCatMap[name]) {
+          const id = await api.addCategory({ name, type: 'expense', color: '#94A3B8' })
+          newCatMap[name] = id
+        }
       }
+
+      const catCol = colRoles.indexOf('category')
+      const subcatCol = colRoles.indexOf('subcategory')
+      const commentCol = colRoles.indexOf('comment')
+      const dateCol = colRoles.indexOf('date')
+      const amtCol = colRoles.indexOf('amount')
+
+      const ops = rows
+        .map(row => {
+          const rawAmt = amtCol >= 0 ? row[amtCol] ?? '' : ''
+          const amount = parseAmount(rawAmt)
+          if (!amount) return null
+          const rawDate = dateCol >= 0 ? row[dateCol] ?? '' : ''
+          const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? '' : ''
+          const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? '' : ''
+          const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? '' : ''
+          const date = parseDate(rawDate) ?? today()
+          const catId = rawCat ? newCatMap[rawCat] ?? null : null
+          const subcatId = rawSubcat && catId
+            ? subcategories.find(s => s.category_id === catId && s.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null
+            : null
+          return { date, type: 'expense', amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null }
+        })
+        .filter(Boolean) as Record<string, unknown>[]
+
+      const count = await api.importOperations(ops)
+      setImportedCount(count)
+      setStep('done')
+    } catch (e) {
+      setError(String(e))
+    } finally {
+      setImporting(false)
     }
-
-    const catCol = colRoles.indexOf('category')
-    const subcatCol = colRoles.indexOf('subcategory')
-    const commentCol = colRoles.indexOf('comment')
-    const dateCol = colRoles.indexOf('date')
-    const amtCol = colRoles.indexOf('amount')
-
-    const ops = rows
-      .map(row => {
-        const rawAmt = amtCol >= 0 ? row[amtCol] ?? '' : ''
-        const amount = parseAmount(rawAmt)
-        if (!amount) return null
-        const rawDate = dateCol >= 0 ? row[dateCol] ?? '' : ''
-        const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? '' : ''
-        const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? '' : ''
-        const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? '' : ''
-        const date = parseDate(rawDate) ?? today()
-        const catId = rawCat ? newCatMap[rawCat] ?? null : null
-        const subcatId = rawSubcat && catId
-          ? subcategories.find(s => s.category_id === catId && s.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null
-          : null
-        return { date, type: 'expense', amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null }
-      })
-      .filter(Boolean) as Record<string, unknown>[]
-
-    const count = await api.importOperations(ops)
-    setImportedCount(count)
-    setImporting(false)
-    setStep('done')
   }
 
   const parsed = step === 'preview' ? parsedRows() : []
