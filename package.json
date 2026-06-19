@@ -7,7 +7,40 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
+    "package": "electron-vite build && electron-builder",
     "test": "vitest run"
+  },
+  "build": {
+    "appId": "com.ucet.app",
+    "productName": "Учёт финансов",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "resources/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "resources/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "resources/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["Russian"],
+      "language": "1049"
+    },
+    "extraResources": [],
+    "asar": true
   },
   "dependencies": {
     "better-sqlite3": "^9.4.3",
