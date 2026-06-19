@@ -1,0 +1,45 @@
+// Typed wrapper around the window.api bridge
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const api = (window as any).api
+
+export function useApi() {
+  return api as {
+    getOperations: (filters: Record<string, unknown>) => Promise<unknown[]>
+    addOperation: (op: Record<string, unknown>) => Promise<number>
+    updateOperation: (id: number, op: Record<string, unknown>) => Promise<void>
+    deleteOperation: (id: number) => Promise<void>
+
+    getCategories: (type?: string) => Promise<unknown[]>
+    getSubcategories: (catId?: number) => Promise<unknown[]>
+    addCategory: (cat: Record<string, unknown>) => Promise<number>
+    updateCategory: (id: number, data: Record<string, unknown>) => Promise<void>
+    addSubcategory: (sub: Record<string, unknown>) => Promise<number>
+    updateSubcategory: (id: number, data: Record<string, unknown>) => Promise<void>
+
+    getDebts: (status?: string) => Promise<unknown[]>
+    getDebt: (id: number) => Promise<unknown>
+    addDebt: (debt: Record<string, unknown>) => Promise<number>
+    updateDebt: (id: number, data: Record<string, unknown>) => Promise<void>
+    getTranches: (debtId: number) => Promise<unknown[]>
+    addTranche: (tranche: Record<string, unknown>) => Promise<number>
+    processDadPayment: (debtId: number, amount: number, date: string, days: number) => Promise<unknown>
+    getDadPaymentHistory: (debtId: number) => Promise<unknown[]>
+    getSimpleDebtPayments: (debtId: number) => Promise<unknown[]>
+    processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) => Promise<void>
+    getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
+
+    getSummary: (dateFrom: string, dateTo: string) => Promise<unknown>
+    getExpensesByCategory: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getDailyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getExpensesByType: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+
+    getBudgetSettings: () => Promise<Record<string, string>>
+    setBudgetSetting: (key: string, value: string) => Promise<void>
+    getCashFlow: (year: number, month: number) => Promise<unknown>
+
+    exportDb: () => Promise<string | null>
+    importDb: () => Promise<boolean>
+    exportJson: (data: unknown) => Promise<string | null>
+    getDbPath: () => Promise<string>
+  }
+}

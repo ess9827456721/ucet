@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-900 text-white font-sans;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+
+  input, textarea, select {
+    user-select: text;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-dark-800 rounded-2xl p-5 shadow-lg border border-dark-600;
+  }
+
+  .card-sm {
+    @apply bg-dark-800 rounded-xl p-4 shadow border border-dark-600;
+  }
+
+  .btn-primary {
+    @apply bg-yellow-400 text-dark-900 font-semibold rounded-xl px-5 py-2.5 hover:bg-yellow-300 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-600 text-white font-medium rounded-xl px-5 py-2.5 hover:bg-dark-500 transition-colors;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white font-medium rounded-xl px-5 py-2.5 hover:bg-red-500 transition-colors;
+  }
+
+  .input {
+    @apply bg-dark-700 border border-dark-500 rounded-xl px-4 py-2.5 text-white placeholder-gray-500
+           focus:outline-none focus:border-yellow-400 transition-colors w-full;
+  }
+
+  .select {
+    @apply bg-dark-700 border border-dark-500 rounded-xl px-4 py-2.5 text-white
+           focus:outline-none focus:border-yellow-400 transition-colors w-full;
+  }
+
+  .label {
+    @apply text-sm text-gray-400 mb-1 block;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-dark-700 transition-all cursor-pointer;
+  }
+
+  .nav-item.active {
+    @apply text-yellow-400 bg-dark-700;
+  }
+
+  .amount-positive {
+    @apply text-green-400;
+  }
+
+  .amount-negative {
+    @apply text-red-400;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .table-row {
+    @apply border-b border-dark-600 hover:bg-dark-700 transition-colors;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #3A3A3A transparent;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3A3A3A;
+  border-radius: 3px;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 150ms;
+}
