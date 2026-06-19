@@ -1,11 +1,16 @@
 @echo off
-chcp 65001 >nul
-echo Запуск приложения "Учёт финансов"...
+
+echo Starting Uchet Finansov...
+echo.
 
 if not exist node_modules (
-    echo Зависимости не установлены. Запускаю setup.bat...
+    echo Dependencies not installed. Running setup first...
+    echo.
     call setup.bat
-    if %ERRORLEVEL% neq 0 exit /b 1
+    if %ERRORLEVEL% neq 0 (
+        pause
+        exit /b 1
+    )
 )
 
 npm run dev
