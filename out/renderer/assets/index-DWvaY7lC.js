@@ -7030,6 +7030,17 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const AlertCircle = createLucideIcon("AlertCircle", [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const AlertTriangle = createLucideIcon("AlertTriangle", [
   [
     "path",
@@ -7084,6 +7095,13 @@ const CheckCircle = createLucideIcon("CheckCircle", [
   ["path", { d: "M22 11.08V12a10 10 0 1 1-5.93-9.14", key: "g774vq" }],
   ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
 ]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Check = createLucideIcon("Check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
 /**
  * @license lucide-react v0.344.0 - ISC
  *
@@ -30494,129 +30512,285 @@ function nextPaymentDate(paymentDay) {
   }
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
-const PERIODS$1 = [
-  { id: "day", label: "День" },
-  { id: "week", label: "Неделя" },
-  { id: "month", label: "Месяц" },
-  { id: "quarter", label: "Квартал" },
+const PRESETS = [
+  { id: "week", label: "Нед" },
+  { id: "month", label: "Мес" },
+  { id: "quarter", label: "Кв" },
   { id: "year", label: "Год" }
 ];
+const DOW_NAMES = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+const EXPENSE_TYPES = [
+  { id: "", label: "Все" },
+  { id: "daily", label: "Повседн." },
+  { id: "big", label: "Крупные" },
+  { id: "apartment", label: "Квартира" }
+];
+function subtractPeriod(from, to) {
+  const d1 = /* @__PURE__ */ new Date(from + "T00:00:00");
+  const d2 = /* @__PURE__ */ new Date(to + "T00:00:00");
+  const days = Math.round((d2.getTime() - d1.getTime()) / 864e5) + 1;
+  const prev2 = new Date(d1);
+  prev2.setDate(prev2.getDate() - 1);
+  const prev1 = new Date(prev2);
+  prev1.setDate(prev1.getDate() - (days - 1));
+  return {
+    from: prev1.toISOString().slice(0, 10),
+    to: prev2.toISOString().slice(0, 10)
+  };
+}
 function Dashboard() {
   const api = useApi();
-  const [period, setPeriod] = reactExports.useState("month");
+  const now2 = /* @__PURE__ */ new Date();
+  const initFrom = monthStart(now2.getFullYear(), now2.getMonth() + 1);
+  const initTo = monthEnd(now2.getFullYear(), now2.getMonth() + 1);
+  const [dateFrom, setDateFrom] = reactExports.useState(initFrom);
+  const [dateTo, setDateTo] = reactExports.useState(initTo);
+  const [expenseTypeFilter, setExpenseTypeFilter] = reactExports.useState("");
   const [summary, setSummary] = reactExports.useState(null);
+  const [prevSummary, setPrevSummary] = reactExports.useState(null);
   const [categories, setCategories] = reactExports.useState([]);
   const [daily, setDaily] = reactExports.useState([]);
+  const [monthly, setMonthly] = reactExports.useState([]);
+  const [dowData, setDowData] = reactExports.useState([]);
+  const [cashFlow, setCashFlow] = reactExports.useState(null);
+  const [activeDebts, setActiveDebts] = reactExports.useState([]);
+  const [drillCategory, setDrillCategory] = reactExports.useState(null);
+  const [drillOps, setDrillOps] = reactExports.useState([]);
   const [loading, setLoading] = reactExports.useState(true);
+  const periodDays = Math.round(((/* @__PURE__ */ new Date(dateTo + "T00:00:00")).getTime() - (/* @__PURE__ */ new Date(dateFrom + "T00:00:00")).getTime()) / 864e5) + 1;
   const load = reactExports.useCallback(async () => {
     setLoading(true);
-    const { from, to } = getPeriodDates(period);
-    const [s2, cats, d2] = await Promise.all([
-      api.getSummary(from, to),
-      api.getExpensesByCategory(from, to),
-      api.getDailyExpenses(from, to)
+    const prev = subtractPeriod(dateFrom, dateTo);
+    const [s2, prevS, cats, d2, mo, dow, debts] = await Promise.all([
+      api.getSummary(dateFrom, dateTo),
+      api.getSummary(prev.from, prev.to),
+      api.getExpensesByCategory(dateFrom, dateTo),
+      api.getDailyExpenses(dateFrom, dateTo),
+      api.getMonthlyExpenses(dateFrom, dateTo),
+      api.getExpensesByDayOfWeek(dateFrom, dateTo),
+      api.getDebts("active")
     ]);
     setSummary(s2);
+    setPrevSummary(prevS);
     setCategories(cats);
     setDaily(d2);
+    setMonthly(mo);
+    setDowData(dow);
+    setActiveDebts(debts);
+    const cf2 = await api.getCashFlow(now2.getFullYear(), now2.getMonth() + 1);
+    setCashFlow(cf2);
     setLoading(false);
-  }, [period]);
+  }, [dateFrom, dateTo]);
   reactExports.useEffect(() => {
     load();
   }, [load]);
+  function applyPreset(id2) {
+    const { from, to } = getPeriodDates(id2);
+    setDateFrom(from);
+    setDateTo(to);
+  }
+  async function openDrill(cat) {
+    setDrillCategory(cat);
+    const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id });
+    setDrillOps(ops);
+  }
+  expenseTypeFilter ? daily.map((d2) => ({ ...d2, expenses: 0 })) : daily;
   const topCategories = categories.slice(0, 5);
   const totalExpense = summary?.expense || 1;
+  const showMonthly = periodDays > 45;
+  const todayStr = today();
+  const todayExpenses = daily.find((d2) => d2.date === todayStr)?.expenses ?? 0;
+  const cfJournal = cashFlow?.journal ?? [];
+  const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null;
+  const totalDebtOwed = activeDebts.filter((d2) => d2.direction === "i_owe").reduce((s2, d2) => s2 + (d2.initial_amount || 0), 0);
+  const dowRows = Array.from({ length: 7 }, (_, i) => {
+    const found = dowData.find((d2) => d2.dow === i);
+    return { dow: i, total: found?.total ?? 0, count: found?.count ?? 0 };
+  });
+  const maxDow = Math.max(...dowRows.map((r2) => r2.total), 1);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Дашборд" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: PERIODS$1.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white flex-shrink-0", children: "Дашборд" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: PRESETS.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
-          onClick: () => setPeriod(p2.id),
-          className: `px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${period === p2.id ? "bg-yellow-400 text-dark-900" : "text-gray-400 hover:text-white"}`,
+          onClick: () => applyPreset(p2.id),
+          className: "px-3 py-1.5 rounded-lg text-sm font-medium transition-all text-gray-400 hover:text-white",
           children: p2.label
         },
         p2.id
-      )) })
+      )) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: dateFrom, onChange: (e3) => setDateFrom(e3.target.value), className: "input py-1.5 text-sm w-36" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-500 text-sm", children: "—" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: dateTo, onChange: (e3) => setDateTo(e3.target.value), className: "input py-1.5 text-sm w-36" })
+      ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-4 gap-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        StatCard,
-        {
-          label: "Расходы",
-          value: summary ? formatMoney(summary.expense) : "—",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingDown, { className: "text-red-400", size: 20 }),
-          valueClass: "text-red-400"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        StatCard,
-        {
-          label: "Доходы",
-          value: summary ? formatMoney(summary.income) : "—",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingUp, { className: "text-green-400", size: 20 }),
-          valueClass: "text-green-400"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        StatCard,
-        {
-          label: "Остаток",
-          value: summary ? formatMoney(summary.balance) : "—",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "text-yellow-400", size: 20 }),
-          valueClass: summary && summary.balance >= 0 ? "text-white" : "text-red-400"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        StatCard,
-        {
-          label: "Средний расход/день",
-          value: summary ? formatMoney(summary.avgPerDay) : "—",
-          icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "text-blue-400", size: 20 }),
-          valueClass: "text-white"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Расходы по категориям" }),
-        categories.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 240, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Pie,
-            {
-              data: categories,
-              cx: "50%",
-              cy: "50%",
-              innerRadius: 60,
-              outerRadius: 100,
-              dataKey: "total",
-              nameKey: "name",
-              children: categories.map((cat, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: cat.color || "#FFD600" }, i))
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Tooltip,
-            {
-              formatter: (value) => formatMoney(value),
-              contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
-              labelStyle: { color: "#fff" }
-            }
-          )
-        ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-60 flex items-center justify-center text-gray-500", children: "Нет данных" })
+    loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-16 text-gray-500", children: "Загрузка..." }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-4 gap-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          StatCard,
+          {
+            label: "Расходы",
+            value: summary ? formatMoney(summary.expense) : "—",
+            icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingDown, { className: "text-red-400", size: 20 }),
+            valueClass: "text-red-400",
+            sub: prevSummary && prevSummary.expense > 0 ? (() => {
+              const pct = Math.round((summary.expense - prevSummary.expense) / prevSummary.expense * 100);
+              return /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: pct > 0 ? "text-red-400" : "text-green-400", children: [
+                pct > 0 ? "+" : "",
+                pct,
+                "% к пред. пер."
+              ] });
+            })() : null
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          StatCard,
+          {
+            label: "Доходы",
+            value: summary ? formatMoney(summary.income) : "—",
+            icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingUp, { className: "text-green-400", size: 20 }),
+            valueClass: "text-green-400"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          StatCard,
+          {
+            label: "Остаток",
+            value: summary ? formatMoney(summary.balance) : "—",
+            icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "text-yellow-400", size: 20 }),
+            valueClass: summary && summary.balance >= 0 ? "text-white" : "text-red-400"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          StatCard,
+          {
+            label: "Средний расход/день",
+            value: summary ? formatMoney(summary.avgPerDay) : "—",
+            icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "text-blue-400", size: 20 }),
+            valueClass: "text-white"
+          }
+        )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Динамика расходов" }),
-        daily.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 240, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: daily, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            XAxis,
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
+        cashFlow && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { size: 16, className: "text-yellow-400" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Бюджет на сегодня" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end gap-3 mb-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Лимит / день" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg font-bold text-white", children: formatMoney(cashFlow.dailyBudget) })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Потрачено сегодня" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `text-lg font-bold ${todayExpenses > cashFlow.dailyBudget ? "text-red-400" : "text-green-400"}`, children: formatMoney(todayExpenses) })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full bg-dark-600 rounded-full h-2 mb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
             {
-              dataKey: "date",
-              tickFormatter: formatDateShort,
-              tick: { fontSize: 10, fill: "#6B7280" },
-              interval: "preserveStartEnd"
+              className: `h-2 rounded-full transition-all ${todayExpenses > cashFlow.dailyBudget ? "bg-red-500" : "bg-green-500"}`,
+              style: { width: `${Math.min(100, Math.round(todayExpenses / Math.max(cashFlow.dailyBudget, 1) * 100))}%` }
             }
-          ),
+          ) }),
+          lastSaldo !== null && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: `text-xs mt-2 ${lastSaldo >= 0 ? "text-green-400" : "text-red-400"}`, children: [
+            "Сальдо месяца: ",
+            lastSaldo >= 0 ? "+" : "",
+            formatMoney(lastSaldo),
+            " — ",
+            lastSaldo >= 0 ? "В норме" : "Превышение"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CreditCard, { size: 16, className: "text-red-400" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Долговая нагрузка" })
+          ] }),
+          activeDebts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Нет активных долгов" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400 mb-2", children: formatMoney(totalDebtOwed) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+              activeDebts.slice(0, 3).map((d2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-xs", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400 truncate max-w-[60%]", children: d2.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: formatMoney(d2.initial_amount || 0) })
+              ] }, d2.id)),
+              activeDebts.length > 3 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500", children: [
+                "+",
+                activeDebts.length - 3,
+                " ещё"
+              ] })
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "Тип расхода:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: EXPENSE_TYPES.map((et) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => setExpenseTypeFilter(et.id),
+            className: `px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${expenseTypeFilter === et.id ? "bg-yellow-400 text-dark-900" : "text-gray-400 hover:text-white"}`,
+            children: et.label
+          },
+          et.id
+        )) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-1", children: "Расходы по категориям" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mb-3", children: "Нажмите на сегмент для просмотра операций" }),
+          categories.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 220, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Pie,
+              {
+                data: categories,
+                cx: "50%",
+                cy: "50%",
+                innerRadius: 55,
+                outerRadius: 90,
+                dataKey: "total",
+                nameKey: "name",
+                onClick: (data) => openDrill(data),
+                className: "cursor-pointer",
+                children: categories.map((cat, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: cat.color || "#FFD600" }, i))
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Tooltip,
+              {
+                formatter: (value) => formatMoney(value),
+                contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
+                labelStyle: { color: "#fff" }
+              }
+            )
+          ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-56 flex items-center justify-center text-gray-500", children: "Нет данных" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Динамика расходов" }),
+          daily.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 220, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: daily, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "date", tickFormatter: formatDateShort, tick: { fontSize: 10, fill: "#6B7280" }, interval: "preserveStartEnd" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Tooltip,
+              {
+                formatter: (value) => formatMoney(value),
+                contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
+                labelStyle: { color: "#fff" }
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "expenses", fill: "#EF4444", name: "Расходы", radius: [4, 4, 0, 0] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "income", fill: "#22C55E", name: "Доходы", radius: [4, 4, 0, 0] })
+          ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-56 flex items-center justify-center text-gray-500", children: "Нет данных" })
+        ] })
+      ] }),
+      showMonthly && monthly.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Расходы по месяцам" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: monthly, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "month", tick: { fontSize: 11, fill: "#6B7280" } }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             Tooltip,
@@ -30626,55 +30800,107 @@ function Dashboard() {
               labelStyle: { color: "#fff" }
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "expenses", fill: "#EF4444", name: "Расходы", radius: [4, 4, 0, 0] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "income", fill: "#22C55E", name: "Доходы", radius: [4, 4, 0, 0] })
-        ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-60 flex items-center justify-center text-gray-500", children: "Нет данных" })
-      ] })
-    ] }),
-    topCategories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Топ-5 категорий" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: topCategories.map((cat, i) => {
-        const pct = Math.round(cat.total / totalExpense * 100);
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-500 text-sm w-5", children: i + 1 }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "total", fill: "#FFD600", name: "Расходы", radius: [4, 4, 0, 0] })
+        ] }) })
+      ] }),
+      dowData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Расходы по дням недели" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: dowRows.map((row) => {
+          const isWeekend = row.dow === 0 || row.dow === 6;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-xs w-6 font-medium ${isWeekend ? "text-yellow-400" : "text-gray-400"}`, children: DOW_NAMES[row.dow] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 bg-dark-600 rounded-full h-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: `h-2 rounded-full ${isWeekend ? "bg-yellow-400" : "bg-blue-500"}`,
+                style: { width: `${Math.round(row.total / maxDow * 100)}%` }
+              }
+            ) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-white w-28 text-right", children: row.total > 0 ? formatMoney(row.total) : "—" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 w-16 text-right", children: row.count > 0 ? `${row.count} оп.` : "" })
+          ] }, row.dow);
+        }) }),
+        (() => {
+          const weekdayTotal = dowRows.filter((r2) => r2.dow >= 1 && r2.dow <= 5).reduce((s2, r2) => s2 + r2.total, 0);
+          const weekendTotal = dowRows.filter((r2) => r2.dow === 0 || r2.dow === 6).reduce((s2, r2) => s2 + r2.total, 0);
+          const total = weekdayTotal + weekendTotal;
+          if (total === 0) return null;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3 pt-3 border-t border-dark-600 flex gap-6 text-xs text-gray-400", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+              "Будни: ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("b", { className: "text-white", children: formatMoney(weekdayTotal) }),
+              " (",
+              Math.round(weekdayTotal / total * 100),
+              "%)"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+              "Выходные: ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("b", { className: "text-yellow-400", children: formatMoney(weekendTotal) }),
+              " (",
+              Math.round(weekendTotal / total * 100),
+              "%)"
+            ] })
+          ] });
+        })()
+      ] }),
+      topCategories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Топ-5 категорий" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: topCategories.map((cat, i) => {
+          const pct = Math.round(cat.total / totalExpense * 100);
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 cursor-pointer hover:opacity-80", onClick: () => openDrill(cat), children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-500 text-sm w-5", children: i + 1 }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full flex-shrink-0", style: { backgroundColor: cat.color || "#FFD600" } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: cat.name }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-gray-400 text-sm", children: [
+              pct,
+              "%"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium text-sm w-28 text-right", children: formatMoney(cat.total) })
+          ] }, cat.id);
+        }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 space-y-2", children: topCategories.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 w-28 truncate", children: cat.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 bg-dark-600 rounded-full h-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
             {
-              className: "w-3 h-3 rounded-full flex-shrink-0",
-              style: { backgroundColor: cat.color || "#FFD600" }
+              className: "h-1.5 rounded-full",
+              style: { width: `${Math.round(cat.total / totalExpense * 100)}%`, backgroundColor: cat.color || "#FFD600" }
             }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: cat.name }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-gray-400 text-sm", children: [
-            pct,
-            "%"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium text-sm w-28 text-right", children: formatMoney(cat.total) })
-        ] }, cat.id);
-      }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4 space-y-2", children: topCategories.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 w-28 truncate", children: cat.name }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 bg-dark-600 rounded-full h-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "div",
-          {
-            className: "h-1.5 rounded-full",
-            style: {
-              width: `${Math.round(cat.total / totalExpense * 100)}%`,
-              backgroundColor: cat.color || "#FFD600"
-            }
-          }
-        ) })
-      ] }, cat.id)) })
-    ] })
+          ) })
+        ] }, cat.id)) })
+      ] })
+    ] }),
+    drillCategory && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm", onClick: () => setDrillCategory(null), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-dark-800 rounded-3xl w-full max-w-lg mx-4 shadow-2xl border border-dark-500 max-h-[80vh] flex flex-col", onClick: (e3) => e3.stopPropagation(), children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-6 pt-5 pb-4 border-b border-dark-600 flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: drillCategory.color } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold text-white", children: drillCategory.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400 text-sm", children: formatMoney(drillCategory.total) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setDrillCategory(null), className: "text-gray-500 hover:text-white text-xl", children: "×" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto scrollbar-thin", children: drillOps.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-center text-gray-500 py-8", children: "Нет операций" }) : drillOps.map((op) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-3 border-b border-dark-700", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-white", children: op.date }),
+          op.subcategory_name && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: op.subcategory_name }),
+          op.comment && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400", children: op.comment })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-semibold text-red-400", children: [
+          "−",
+          formatMoney(op.amount)
+        ] })
+      ] }, op.id)) })
+    ] }) })
   ] });
 }
-function StatCard({ label, value, icon, valueClass }) {
+function StatCard({ label, value, icon, valueClass, sub }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-400 uppercase tracking-wide", children: label }),
       icon
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `text-2xl font-bold ${valueClass}`, children: value })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `text-2xl font-bold ${valueClass}`, children: value }),
+    sub && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs mt-1", children: sub })
   ] });
 }
 function TransactionModal({ onClose, onSaved, editOperation }) {
@@ -30876,6 +31102,340 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
     ] })
   ] }) });
 }
+const COL_ROLES = [
+  { id: "date", label: "Дата" },
+  { id: "amount", label: "Сумма" },
+  { id: "category", label: "Категория" },
+  { id: "subcategory", label: "Подкатегория" },
+  { id: "comment", label: "Комментарий" },
+  { id: "ignore", label: "Игнорировать" }
+];
+function parseDate(raw) {
+  const s2 = raw.trim();
+  const m1 = s2.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  if (m1) return `${m1[3]}-${m1[2]}-${m1[1]}`;
+  const m2 = s2.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m2) return s2;
+  const m3 = s2.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (m3) return `${m3[3]}-${m3[2]}-${m3[1]}`;
+  return null;
+}
+function parseAmount(raw) {
+  const s2 = raw.trim().replace(/\s/g, "").replace(",", ".");
+  const n2 = parseFloat(s2);
+  return isNaN(n2) || n2 <= 0 ? null : n2;
+}
+function ImportModal({ onClose, onImported }) {
+  const api = useApi();
+  const [step, setStep] = reactExports.useState("idle");
+  const [headers, setHeaders] = reactExports.useState([]);
+  const [rows, setRows] = reactExports.useState([]);
+  const [colRoles, setColRoles] = reactExports.useState([]);
+  const [expenseType, setExpenseType] = reactExports.useState("daily");
+  const [categories, setCategories] = reactExports.useState([]);
+  const [subcategories, setSubcategories] = reactExports.useState([]);
+  const [catMapping, setCatMapping] = reactExports.useState({});
+  const [subcatMapping, setSubcatMapping] = reactExports.useState({});
+  const [newCatNames, setNewCatNames] = reactExports.useState(/* @__PURE__ */ new Set());
+  const [importing, setImporting] = reactExports.useState(false);
+  const [error, setError] = reactExports.useState("");
+  const [importedCount, setImportedCount] = reactExports.useState(0);
+  const [loading, setLoading] = reactExports.useState(false);
+  async function openFile() {
+    setLoading(true);
+    setError("");
+    try {
+      const result = await api.openImportFile();
+      if (!result) {
+        setLoading(false);
+        return;
+      }
+      if ("error" in result) {
+        setError(result.error);
+        setLoading(false);
+        return;
+      }
+      setHeaders(result.headers);
+      setRows(result.rows.filter((r2) => r2.some((c2) => c2.trim())));
+      const roles = result.headers.map((h2) => {
+        const l2 = h2.toLowerCase();
+        if (l2.includes("дата") || l2.includes("date")) return "date";
+        if (l2.includes("сумм") || l2.includes("amount") || l2.includes("стоим")) return "amount";
+        if (l2.includes("подкатег") || l2.includes("subcat")) return "subcategory";
+        if (l2.includes("катег") || l2.includes("category")) return "category";
+        if (l2.includes("коммент") || l2.includes("comment") || l2.includes("наимен")) return "comment";
+        return "ignore";
+      });
+      setColRoles(roles);
+      setStep("mapping");
+    } catch (e3) {
+      setError(String(e3));
+    }
+    setLoading(false);
+  }
+  async function proceedToCategories() {
+    const catCol = colRoles.indexOf("category");
+    if (catCol === -1) {
+      proceedToPreview();
+      return;
+    }
+    const allCats = await api.getCategories("expense");
+    setCategories(allCats);
+    const allSubs = await api.getSubcategories();
+    setSubcategories(allSubs);
+    const uniqueCats = Array.from(new Set(rows.map((r2) => r2[catCol]?.trim()).filter(Boolean)));
+    const mapping = {};
+    for (const name of uniqueCats) {
+      const match = allCats.find((c2) => c2.name.toLowerCase() === name.toLowerCase());
+      if (match) mapping[name] = match.id;
+    }
+    setCatMapping(mapping);
+    setStep("categories");
+  }
+  function proceedToPreview() {
+    setStep("preview");
+  }
+  function parsedRows() {
+    const dateCol = colRoles.indexOf("date");
+    const amtCol = colRoles.indexOf("amount");
+    const catCol = colRoles.indexOf("category");
+    const subcatCol = colRoles.indexOf("subcategory");
+    const commentCol = colRoles.indexOf("comment");
+    return rows.map((row, i) => {
+      const rawDate = dateCol >= 0 ? row[dateCol] ?? "" : "";
+      const rawAmt = amtCol >= 0 ? row[amtCol] ?? "" : "";
+      const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? "" : "";
+      const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? "" : "";
+      const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? "" : "";
+      const date2 = parseDate(rawDate) ?? today();
+      const amount = parseAmount(rawAmt);
+      const catId = rawCat ? catMapping[rawCat] ?? null : null;
+      const subcatId = rawSubcat && catId ? subcategories.find((s2) => s2.category_id === catId && s2.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null : null;
+      return {
+        rowIdx: i,
+        date: date2,
+        amount,
+        category_id: catId,
+        subcategory_id: subcatId,
+        comment: comment || null,
+        rawDate,
+        rawAmt,
+        valid: amount !== null
+      };
+    });
+  }
+  async function runImport() {
+    setImporting(true);
+    const newCatMap = { ...catMapping };
+    for (const name of newCatNames) {
+      if (!newCatMap[name]) {
+        const id2 = await api.addCategory({ name, type: "expense", color: "#94A3B8" });
+        newCatMap[name] = id2;
+      }
+    }
+    const catCol = colRoles.indexOf("category");
+    const subcatCol = colRoles.indexOf("subcategory");
+    const commentCol = colRoles.indexOf("comment");
+    const dateCol = colRoles.indexOf("date");
+    const amtCol = colRoles.indexOf("amount");
+    const ops = rows.map((row) => {
+      const rawAmt = amtCol >= 0 ? row[amtCol] ?? "" : "";
+      const amount = parseAmount(rawAmt);
+      if (!amount) return null;
+      const rawDate = dateCol >= 0 ? row[dateCol] ?? "" : "";
+      const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? "" : "";
+      const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? "" : "";
+      const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? "" : "";
+      const date2 = parseDate(rawDate) ?? today();
+      const catId = rawCat ? newCatMap[rawCat] ?? null : null;
+      const subcatId = rawSubcat && catId ? subcategories.find((s2) => s2.category_id === catId && s2.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null : null;
+      return { date: date2, type: "expense", amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null };
+    }).filter(Boolean);
+    const count = await api.importOperations(ops);
+    setImportedCount(count);
+    setImporting(false);
+    setStep("done");
+  }
+  const parsed = step === "preview" ? parsedRows() : [];
+  const validCount = parsed.filter((r2) => r2.valid).length;
+  const skippedCount = parsed.filter((r2) => !r2.valid);
+  const uniqueCatValues = step === "categories" ? Array.from(new Set(rows.map((r2) => r2[colRoles.indexOf("category")]?.trim()).filter(Boolean))) : [];
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-dark-800 rounded-3xl w-full max-w-2xl mx-4 shadow-2xl border border-dark-500 max-h-[90vh] flex flex-col", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 pt-5 pb-4 border-b border-dark-600", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-lg font-semibold text-white flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Upload, { size: 18, className: "text-yellow-400" }),
+        "Импорт из файла"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "text-gray-400 hover:text-white", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 20 }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto scrollbar-thin px-6 py-5", children: [
+      step === "idle" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-400 text-sm", children: "Поддерживаются файлы Excel (.xlsx, .xls) и CSV. После выбора файла вы сможете указать, какие колонки соответствуют дате, сумме и категории." }),
+        error && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-red-400 text-sm bg-red-900/20 rounded-xl p-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AlertCircle, { size: 14 }),
+          error
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: openFile, disabled: loading, className: "btn-primary w-full", children: loading ? "Открытие..." : "Выбрать файл..." })
+      ] }),
+      step === "mapping" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-400", children: "Укажите, что содержит каждая колонка файла. Строки 1–3 для примера:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full text-xs", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: headers.map((h2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left pb-2 pr-3 text-gray-400 font-normal", children: h2 || `Колонка ${i + 1}` }, i)) }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: rows.slice(0, 3).map((row, ri2) => /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: headers.map((_, ci2) => /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "pr-3 pb-1 text-gray-300 max-w-[120px] truncate", children: row[ci2] ?? "" }, ci2)) }, ri2)) })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: headers.map((h2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-white w-40 truncate", children: h2 || `Колонка ${i + 1}` }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "select",
+            {
+              value: colRoles[i] ?? "ignore",
+              onChange: (e3) => {
+                const r2 = [...colRoles];
+                r2[i] = e3.target.value;
+                setColRoles(r2);
+              },
+              className: "select flex-1",
+              children: COL_ROLES.map((cr) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: cr.id, children: cr.label }, cr.id))
+            }
+          )
+        ] }, i)) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Тип расхода для всего импорта" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: [["daily", "Повседневный"], ["big", "Крупный"], ["apartment", "На квартиру"]].map(([v2, l2]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setExpenseType(v2),
+              className: `flex-1 py-2 rounded-xl text-sm font-medium transition-all ${expenseType === v2 ? "bg-yellow-400 text-dark-900" : "bg-dark-700 text-gray-400 hover:text-white"}`,
+              children: l2
+            },
+            v2
+          )) })
+        ] }),
+        !colRoles.includes("amount") && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-yellow-400 text-xs flex items-center gap-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AlertCircle, { size: 12 }),
+          " Укажите колонку «Сумма»"
+        ] })
+      ] }),
+      step === "categories" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-400", children: "Сопоставьте категории из файла с категориями приложения:" }),
+        uniqueCatValues.map((name) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-white w-40 truncate", children: name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-500 text-sm", children: "→" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "select",
+            {
+              value: catMapping[name] ?? "",
+              onChange: (e3) => {
+                const val = e3.target.value;
+                setCatMapping((prev) => ({ ...prev, [name]: val ? parseInt(val) : 0 }));
+                if (!val) {
+                  setNewCatNames((prev) => /* @__PURE__ */ new Set([...prev, name]));
+                } else {
+                  setNewCatNames((prev) => {
+                    const s2 = new Set(prev);
+                    s2.delete(name);
+                    return s2;
+                  });
+                }
+              },
+              className: "select flex-1",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("option", { value: "", children: [
+                  "Создать новую «",
+                  name,
+                  "»"
+                ] }),
+                categories.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: c2.id, children: c2.name }, c2.id))
+              ]
+            }
+          )
+        ] }, name)),
+        uniqueCatValues.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Колонка категорий не выбрана — все операции будут импортированы без категории." })
+      ] }),
+      step === "preview" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-3 gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card text-center", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-white", children: parsed.length }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "Строк всего" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card text-center", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-green-400", children: validCount }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "Будет импортировано" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card text-center", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400", children: skippedCount.length }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "Пропущено (нет суммы)" })
+          ] })
+        ] }),
+        skippedCount.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("details", { className: "text-xs text-gray-500", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("summary", { className: "cursor-pointer hover:text-white", children: "Показать пропущенные строки" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 space-y-1", children: skippedCount.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            "Строка ",
+            r2.rowIdx + 2,
+            ": дата=",
+            r2.rawDate,
+            ", сумма=",
+            r2.rawAmt
+          ] }, r2.rowIdx)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-h-48 overflow-y-auto scrollbar-thin", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full text-xs", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { className: "sticky top-0 bg-dark-800", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left py-2 pr-3 text-gray-400", children: "Дата" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right py-2 pr-3 text-gray-400", children: "Сумма" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left py-2 pr-3 text-gray-400", children: "Комментарий" })
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: parsed.filter((r2) => r2.valid).slice(0, 30).map((r2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-700", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-1 pr-3 text-gray-300", children: r2.date }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "py-1 pr-3 text-right text-white", children: [
+                r2.amount?.toLocaleString("ru-RU"),
+                " ₽"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-1 pr-3 text-gray-400 max-w-[200px] truncate", children: r2.comment ?? "" })
+            ] }, i)) })
+          ] }),
+          validCount > 30 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 py-2 text-center", children: [
+            "...и ещё ",
+            validCount - 30,
+            " строк"
+          ] })
+        ] })
+      ] }),
+      step === "done" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8 space-y-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 48, className: "text-green-400 mx-auto" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-white", children: "Импорт завершён" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-gray-400", children: [
+          "Импортировано операций: ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("b", { className: "text-white", children: importedCount })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-6 py-4 border-t border-dark-600 flex gap-3", children: step === "done" ? /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onImported, className: "btn-primary flex-1", children: "Готово" }) : step === "mapping" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setStep("idle"), className: "btn-secondary flex-1", children: "Назад" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          onClick: proceedToCategories,
+          disabled: !colRoles.includes("amount"),
+          className: "btn-primary flex-1 flex items-center justify-center gap-2",
+          children: [
+            "Далее ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { size: 16 })
+          ]
+        }
+      )
+    ] }) : step === "categories" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setStep("mapping"), className: "btn-secondary flex-1", children: "Назад" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: proceedToPreview, className: "btn-primary flex-1 flex items-center justify-center gap-2", children: [
+        "Далее ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { size: 16 })
+      ] })
+    ] }) : step === "preview" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setStep("categories"), className: "btn-secondary flex-1", children: "Назад" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: runImport, disabled: importing || validCount === 0, className: "btn-primary flex-1", children: importing ? "Импорт..." : `Импортировать ${validCount} операций` })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "btn-secondary flex-1", children: "Отмена" }) })
+  ] }) });
+}
 const PERIODS = [
   { id: "week", label: "Неделя" },
   { id: "month", label: "Месяц" },
@@ -30888,6 +31448,7 @@ function Operations({ onAdd }) {
   const [period, setPeriod] = reactExports.useState("month");
   const [typeFilter, setTypeFilter] = reactExports.useState("");
   const [editOp, setEditOp] = reactExports.useState(null);
+  const [showImport, setShowImport] = reactExports.useState(false);
   const [loading, setLoading] = reactExports.useState(true);
   const load = reactExports.useCallback(async () => {
     setLoading(true);
@@ -30935,9 +31496,15 @@ function Operations({ onAdd }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-5", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Операции" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: onAdd, className: "btn-primary flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 }),
-        " Добавить"
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setShowImport(true), className: "btn-secondary flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Upload, { size: 16 }),
+          " Импорт"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: onAdd, className: "btn-primary flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 }),
+          " Добавить"
+        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 items-center", children: [
@@ -31024,6 +31591,16 @@ function Operations({ onAdd }) {
         onClose: () => setEditOp(null),
         onSaved: () => {
           setEditOp(null);
+          load();
+        }
+      }
+    ),
+    showImport && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ImportModal,
+      {
+        onClose: () => setShowImport(false),
+        onImported: () => {
+          setShowImport(false);
           load();
         }
       }
@@ -31131,15 +31708,16 @@ function CashFlow() {
     ] })
   ] });
 }
-function AddDebtModal({ onClose, onSaved }) {
+function AddDebtModal({ onClose, onSaved, editDebt }) {
   const api = useApi();
-  const [name, setName] = reactExports.useState("");
-  const [direction, setDirection] = reactExports.useState("i_owe");
-  const [debtType, setDebtType] = reactExports.useState("simple");
-  const [initialAmount, setInitialAmount] = reactExports.useState("");
-  const [interestRate, setInterestRate] = reactExports.useState("");
-  const [paymentDay, setPaymentDay] = reactExports.useState("");
-  const [monthlyPayment, setMonthlyPayment] = reactExports.useState("");
+  const isEdit = !!editDebt;
+  const [name, setName] = reactExports.useState(editDebt?.name ?? "");
+  const [direction, setDirection] = reactExports.useState(editDebt?.direction ?? "i_owe");
+  const [debtType, setDebtType] = reactExports.useState(editDebt?.debt_type ?? "simple");
+  const [initialAmount, setInitialAmount] = reactExports.useState(editDebt?.initial_amount != null ? String(editDebt.initial_amount) : "");
+  const [interestRate, setInterestRate] = reactExports.useState(editDebt?.interest_rate != null ? String((editDebt.interest_rate * 100).toFixed(2)) : "");
+  const [paymentDay, setPaymentDay] = reactExports.useState(editDebt?.payment_day != null ? String(editDebt.payment_day) : "");
+  const [monthlyPayment, setMonthlyPayment] = reactExports.useState(editDebt?.monthly_payment != null ? String(editDebt.monthly_payment) : "");
   const [trancheDate, setTrancheDate] = reactExports.useState(today());
   const [trancheAmount, setTrancheAmount] = reactExports.useState("");
   const [trancheRate, setTrancheRate] = reactExports.useState("");
@@ -31151,8 +31729,18 @@ function AddDebtModal({ onClose, onSaved }) {
       return;
     }
     setSaving(true);
+    setError("");
     try {
-      if (debtType === "dad") {
+      if (isEdit) {
+        await api.updateDebt(editDebt.id, {
+          name,
+          direction,
+          initial_amount: initialAmount ? parseFloat(initialAmount) : null,
+          interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
+          payment_day: paymentDay ? parseInt(paymentDay) : null,
+          monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null
+        });
+      } else if (debtType === "dad") {
         if (!trancheAmount || !trancheRate) {
           setError("Укажите сумму и ставку транша");
           setSaving(false);
@@ -31189,7 +31777,7 @@ function AddDebtModal({ onClose, onSaved }) {
         });
       }
       onSaved();
-    } catch (e3) {
+    } catch {
       setError("Ошибка при сохранении");
     } finally {
       setSaving(false);
@@ -31197,7 +31785,7 @@ function AddDebtModal({ onClose, onSaved }) {
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-dark-800 rounded-3xl w-full max-w-md mx-4 shadow-2xl border border-dark-500", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 pt-6 pb-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-white", children: "Новый долг" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-white", children: isEdit ? "Редактировать долг" : "Новый долг" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "text-gray-400 hover:text-white", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 20 }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-6 pb-6 space-y-4", children: [
@@ -31217,7 +31805,7 @@ function AddDebtModal({ onClose, onSaved }) {
           v2
         )) })
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+      !isEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Тип долга" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: [["simple", "Обычный"], ["dad", "Долг папе (транши)"]].map(([v2, l2]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
@@ -31229,7 +31817,7 @@ function AddDebtModal({ onClose, onSaved }) {
           v2
         )) })
       ] }),
-      debtType === "simple" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      (isEdit ? editDebt?.debt_type === "simple" : debtType === "simple") ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма долга, ₽" }),
@@ -31250,7 +31838,7 @@ function AddDebtModal({ onClose, onSaved }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: monthlyPayment, onChange: (e3) => setMonthlyPayment(e3.target.value), className: "input" })
           ] })
         ] })
-      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      ] }) : !isEdit ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Первый транш. Следующие можно добавить в карточке долга." }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -31272,11 +31860,11 @@ function AddDebtModal({ onClose, onSaved }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: paymentDay, onChange: (e3) => setPaymentDay(e3.target.value), placeholder: "30", min: "1", max: "31", className: "input" })
           ] })
         ] })
-      ] }),
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Редактирование траншей — в карточке долга." }),
       error && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-400 text-sm", children: error }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 pt-2", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "btn-secondary flex-1", children: "Отмена" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSave, disabled: saving, className: "btn-primary flex-1", children: saving ? "Сохранение..." : "Создать" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSave, disabled: saving, className: "btn-primary flex-1", children: saving ? "Сохранение..." : isEdit ? "Сохранить" : "Создать" })
       ] })
     ] })
   ] }) });
@@ -31286,6 +31874,7 @@ function Debts({ onOpenDebt, onOpenForecast }) {
   const [debts, setDebts] = reactExports.useState([]);
   const [showClosed, setShowClosed] = reactExports.useState(false);
   const [showAddModal, setShowAddModal] = reactExports.useState(false);
+  const [editDebt, setEditDebt] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
   async function load() {
     setLoading(true);
@@ -31296,6 +31885,12 @@ function Debts({ onOpenDebt, onOpenForecast }) {
   reactExports.useEffect(() => {
     load();
   }, []);
+  async function handleDelete(debt, e3) {
+    e3.stopPropagation();
+    if (!confirm(`Удалить долг «${debt.name}» и всю историю платежей по нему? Это действие нельзя отменить.`)) return;
+    await api.deleteDebt(debt.id);
+    load();
+  }
   const active = debts.filter((d2) => d2.status === "active");
   const closed = debts.filter((d2) => d2.status === "closed");
   const totalOwed = active.filter((d2) => d2.direction === "i_owe").reduce((s2, d2) => s2 + (d2.initial_amount || 0), 0);
@@ -31321,7 +31916,12 @@ function Debts({ onOpenDebt, onOpenForecast }) {
         {
           debt,
           onClick: () => onOpenDebt(debt.id),
-          onForecast: () => onOpenForecast(debt.id)
+          onForecast: () => onOpenForecast(debt.id),
+          onEdit: (e3) => {
+            e3.stopPropagation();
+            setEditDebt(debt);
+          },
+          onDelete: (e3) => handleDelete(debt, e3)
         },
         debt.id
       )),
@@ -31342,23 +31942,46 @@ function Debts({ onOpenDebt, onOpenForecast }) {
           ]
         }
       ),
-      showClosed && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3 opacity-60", children: closed.map((debt) => /* @__PURE__ */ jsxRuntimeExports.jsx(DebtCard, { debt, onClick: () => onOpenDebt(debt.id) }, debt.id)) })
+      showClosed && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3 opacity-60", children: closed.map((debt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        DebtCard,
+        {
+          debt,
+          onClick: () => onOpenDebt(debt.id),
+          onEdit: (e3) => {
+            e3.stopPropagation();
+            setEditDebt(debt);
+          },
+          onDelete: (e3) => handleDelete(debt, e3)
+        },
+        debt.id
+      )) })
     ] }),
-    showAddModal && /* @__PURE__ */ jsxRuntimeExports.jsx(
+    (showAddModal || editDebt) && /* @__PURE__ */ jsxRuntimeExports.jsx(
       AddDebtModal,
       {
-        onClose: () => setShowAddModal(false),
+        editDebt: editDebt ?? void 0,
+        onClose: () => {
+          setShowAddModal(false);
+          setEditDebt(null);
+        },
         onSaved: () => {
           setShowAddModal(false);
+          setEditDebt(null);
           load();
         }
       }
     )
   ] });
 }
-function DebtCard({ debt, onClick, onForecast }) {
-  const isOverduePayment = debt.payment_day ? /* @__PURE__ */ new Date() > new Date((/* @__PURE__ */ new Date()).getFullYear(), (/* @__PURE__ */ new Date()).getMonth(), debt.payment_day) : false;
+function DebtCard({
+  debt,
+  onClick,
+  onForecast,
+  onEdit,
+  onDelete
+}) {
   const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null;
+  const isOverduePayment = debt.payment_day ? /* @__PURE__ */ new Date() > new Date((/* @__PURE__ */ new Date()).getFullYear(), (/* @__PURE__ */ new Date()).getMonth(), debt.payment_day) : false;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
@@ -31394,8 +32017,8 @@ function DebtCard({ debt, onClick, onForecast }) {
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 ml-4", children: [
-          isOverduePayment && debt.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(AlertTriangle, { size: 16, className: "text-yellow-400" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 ml-4", onClick: (e3) => e3.stopPropagation(), children: [
+          isOverduePayment && debt.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(AlertTriangle, { size: 16, className: "text-yellow-400 mr-1" }),
           onForecast && /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
@@ -31407,7 +32030,25 @@ function DebtCard({ debt, onClick, onForecast }) {
               children: "Прогноз"
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { size: 18, className: "text-gray-500" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onEdit,
+              className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors",
+              title: "Редактировать",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 14 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onDelete,
+              className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors",
+              title: "Удалить",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 14 })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { size: 18, className: "text-gray-500 ml-1" })
         ] })
       ] })
     }

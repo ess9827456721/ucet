@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Plus, Pencil, Trash2, Filter } from 'lucide-react'
+import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Operation } from '../types'
 import { formatMoney, formatDate, expenseTypeLabel, getPeriodDates } from '../utils'
 import TransactionModal from '../components/TransactionModal'
+import ImportModal from '../components/ImportModal'
 
 interface Props {
   onAdd: () => void
@@ -22,6 +23,7 @@ export default function Operations({ onAdd }: Props) {
   const [period, setPeriod] = useState('month')
   const [typeFilter, setTypeFilter] = useState<string>('')
   const [editOp, setEditOp] = useState<Operation | null>(null)
+  const [showImport, setShowImport] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
@@ -65,9 +67,14 @@ export default function Operations({ onAdd }: Props) {
     <div className="p-6 space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Операции</h1>
-        <button onClick={onAdd} className="btn-primary flex items-center gap-2">
-          <Plus size={16} /> Добавить
-        </button>
+        <div className="flex gap-2">
+          <button onClick={() => setShowImport(true)} className="btn-secondary flex items-center gap-2">
+            <Upload size={16} /> Импорт
+          </button>
+          <button onClick={onAdd} className="btn-primary flex items-center gap-2">
+            <Plus size={16} /> Добавить
+          </button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -174,6 +181,12 @@ export default function Operations({ onAdd }: Props) {
           editOperation={editOp as unknown as Record<string, unknown>}
           onClose={() => setEditOp(null)}
           onSaved={() => { setEditOp(null); load() }}
+        />
+      )}
+      {showImport && (
+        <ImportModal
+          onClose={() => setShowImport(false)}
+          onImported={() => { setShowImport(false); load() }}
         />
       )}
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Plus, ChevronRight, AlertTriangle, CheckCircle } from 'lucide-react'
+import { Plus, ChevronRight, AlertTriangle, CheckCircle, Pencil, Trash2 } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Debt } from '../types'
 import { formatMoney, formatDate, nextPaymentDate } from '../utils'
@@ -15,6 +15,7 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
   const [debts, setDebts] = useState<Debt[]>([])
   const [showClosed, setShowClosed] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+  const [editDebt, setEditDebt] = useState<Debt | null>(null)
   const [loading, setLoading] = useState(true)
 
   async function load() {
@@ -25,6 +26,13 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
   }
 
   useEffect(() => { load() }, [])
+
+  async function handleDelete(debt: Debt, e: React.MouseEvent) {
+    e.stopPropagation()
+    if (!confirm(`Удалить долг «${debt.name}» и всю историю платежей по нему? Это действие нельзя отменить.`)) return
+    await api.deleteDebt(debt.id)
+    load()
+  }
 
   const active = debts.filter(d => d.status === 'active')
   const closed = debts.filter(d => d.status === 'closed')
@@ -39,14 +47,12 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
         </button>
       </div>
 
-      {/* Total */}
       <div className="card">
         <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Общая долговая нагрузка</p>
         <p className="text-3xl font-bold text-red-400">{formatMoney(totalOwed)}</p>
         <p className="text-sm text-gray-500 mt-1">{active.filter(d => d.direction === 'i_owe').length} активных долга</p>
       </div>
 
-      {/* Active debts */}
       {loading ? (
         <div className="text-center py-10 text-gray-500">Загрузка...</div>
       ) : (
@@ -57,6 +63,8 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
               debt={debt}
               onClick={() => onOpenDebt(debt.id)}
               onForecast={() => onOpenForecast(debt.id)}
+              onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
+              onDelete={e => handleDelete(debt, e)}
             />
           ))}
           {active.length === 0 && (
@@ -65,7 +73,6 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
         </div>
       )}
 
-      {/* Closed debts */}
       {closed.length > 0 && (
         <div>
           <button
@@ -78,28 +85,43 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
           {showClosed && (
             <div className="space-y-3 opacity-60">
               {closed.map(debt => (
-                <DebtCard key={debt.id} debt={debt} onClick={() => onOpenDebt(debt.id)} />
+                <DebtCard
+                  key={debt.id}
+                  debt={debt}
+                  onClick={() => onOpenDebt(debt.id)}
+                  onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
+                  onDelete={e => handleDelete(debt, e)}
+                />
               ))}
             </div>
           )}
         </div>
       )}
 
-      {showAddModal && (
+      {(showAddModal || editDebt) && (
         <AddDebtModal
-          onClose={() => setShowAddModal(false)}
-          onSaved={() => { setShowAddModal(false); load() }}
+          editDebt={editDebt ?? undefined}
+          onClose={() => { setShowAddModal(false); setEditDebt(null) }}
+          onSaved={() => { setShowAddModal(false); setEditDebt(null); load() }}
         />
       )}
     </div>
   )
 }
 
-function DebtCard({ debt, onClick, onForecast }: { debt: Debt; onClick: () => void; onForecast?: () => void }) {
+function DebtCard({
+  debt, onClick, onForecast, onEdit, onDelete
+}: {
+  debt: Debt
+  onClick: () => void
+  onForecast?: () => void
+  onEdit: (e: React.MouseEvent) => void
+  onDelete: (e: React.MouseEvent) => void
+}) {
+  const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null
   const isOverduePayment = debt.payment_day
     ? new Date() > new Date(new Date().getFullYear(), new Date().getMonth(), debt.payment_day)
     : false
-  const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null
 
   return (
     <div
@@ -111,9 +133,7 @@ function DebtCard({ debt, onClick, onForecast }: { debt: Debt; onClick: () => vo
           <div className="flex items-center gap-3 mb-2">
             <h3 className="text-base font-semibold text-white">{debt.name}</h3>
             <span className={`badge ${
-              debt.direction === 'i_owe'
-                ? 'bg-red-900/40 text-red-400'
-                : 'bg-green-900/40 text-green-400'
+              debt.direction === 'i_owe' ? 'bg-red-900/40 text-red-400' : 'bg-green-900/40 text-green-400'
             }`}>
               {debt.direction === 'i_owe' ? 'Я должен' : 'Мне должны'}
             </span>
@@ -153,9 +173,9 @@ function DebtCard({ debt, onClick, onForecast }: { debt: Debt; onClick: () => vo
           </div>
         </div>
 
-        <div className="flex items-center gap-2 ml-4">
+        <div className="flex items-center gap-1 ml-4" onClick={e => e.stopPropagation()}>
           {isOverduePayment && debt.status === 'active' && (
-            <AlertTriangle size={16} className="text-yellow-400" />
+            <AlertTriangle size={16} className="text-yellow-400 mr-1" />
           )}
           {onForecast && (
             <button
@@ -165,7 +185,21 @@ function DebtCard({ debt, onClick, onForecast }: { debt: Debt; onClick: () => vo
               Прогноз
             </button>
           )}
-          <ChevronRight size={18} className="text-gray-500" />
+          <button
+            onClick={onEdit}
+            className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
+            title="Редактировать"
+          >
+            <Pencil size={14} />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
+            title="Удалить"
+          >
+            <Trash2 size={14} />
+          </button>
+          <ChevronRight size={18} className="text-gray-500 ml-1" />
         </div>
       </div>
     </div>

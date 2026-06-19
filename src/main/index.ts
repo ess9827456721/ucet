@@ -3,14 +3,15 @@ import path from 'path'
 import fs from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import {
-  getOperations, addOperation, updateOperation, deleteOperation,
+  getOperations, addOperation, updateOperation, deleteOperation, importOperations,
   getCategories, getSubcategories, addCategory, updateCategory, addSubcategory, updateSubcategory,
-  getDebts, getDebt, addDebt, updateDebt, getTranches, addTranche,
+  getDebts, getDebt, addDebt, updateDebt, deleteDebt, getTranches, addTranche,
   processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
-  getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType,
+  getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
   exportDb, importDb, getDbPath
 } from './database'
+import ExcelJS from 'exceljs'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -47,6 +48,7 @@ app.whenReady().then(() => {
   // ── Operations ──────────────────────────────────────
   ipcMain.handle('get-operations', (_, filters) => getOperations(filters))
   ipcMain.handle('add-operation', (_, op) => addOperation(op))
+  ipcMain.handle('import-operations', (_, ops) => importOperations(ops))
   ipcMain.handle('update-operation', (_, id, op) => updateOperation(id, op))
   ipcMain.handle('delete-operation', (_, id) => deleteOperation(id))
 
@@ -63,6 +65,7 @@ app.whenReady().then(() => {
   ipcMain.handle('get-debt', (_, id) => getDebt(id))
   ipcMain.handle('add-debt', (_, debt) => addDebt(debt))
   ipcMain.handle('update-debt', (_, id, data) => updateDebt(id, data))
+  ipcMain.handle('delete-debt', (_, id) => deleteDebt(id))
   ipcMain.handle('get-tranches', (_, debtId) => getTranches(debtId))
   ipcMain.handle('add-tranche', (_, tranche) => addTranche(tranche))
   ipcMain.handle('process-dad-payment', (_, debtId, amount, date, days) => processDadPayment(debtId, amount, date, days))
@@ -77,6 +80,8 @@ app.whenReady().then(() => {
   ipcMain.handle('get-expenses-by-category', (_, dateFrom, dateTo) => getExpensesByCategory(dateFrom, dateTo))
   ipcMain.handle('get-daily-expenses', (_, dateFrom, dateTo) => getDailyExpenses(dateFrom, dateTo))
   ipcMain.handle('get-expenses-by-type', (_, dateFrom, dateTo) => getExpensesByType(dateFrom, dateTo))
+  ipcMain.handle('get-monthly-expenses', (_, dateFrom, dateTo) => getMonthlyExpenses(dateFrom, dateTo))
+  ipcMain.handle('get-expenses-by-day-of-week', (_, dateFrom, dateTo) => getExpensesByDayOfWeek(dateFrom, dateTo))
 
   // ── Budget ───────────────────────────────────────────
   ipcMain.handle('get-budget-settings', () => getBudgetSettings())
@@ -121,6 +126,43 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('get-db-path', () => getDbPath())
+
+  ipcMain.handle('open-import-file', async () => {
+    const result = await dialog.showOpenDialog({
+      filters: [
+        { name: 'Таблицы (Excel, CSV)', extensions: ['xlsx', 'xls', 'csv'] }
+      ],
+      properties: ['openFile']
+    })
+    if (result.canceled || !result.filePaths[0]) return null
+
+    const filePath = result.filePaths[0]
+    const ext = path.extname(filePath).toLowerCase()
+
+    try {
+      if (ext === '.csv') {
+        const text = fs.readFileSync(filePath, 'utf-8')
+        const lines = text.split(/\r?\n/).filter(l => l.trim())
+        if (lines.length === 0) return { error: 'Файл пустой' }
+        const sep = lines[0].includes(';') ? ';' : ','
+        const rows = lines.map(l => l.split(sep).map(c => c.trim().replace(/^"|"$/g, '')))
+        return { headers: rows[0], rows: rows.slice(1) }
+      } else {
+        const wb = new ExcelJS.Workbook()
+        await wb.xlsx.readFile(filePath)
+        const ws = wb.worksheets[0]
+        if (!ws) return { error: 'Нет листов в файле' }
+        const rows: string[][] = []
+        ws.eachRow(row => {
+          rows.push((row.values as (string | number | null | undefined)[]).slice(1).map(v => v == null ? '' : String(v)))
+        })
+        if (rows.length === 0) return { error: 'Файл пустой' }
+        return { headers: rows[0], rows: rows.slice(1) }
+      }
+    } catch (e) {
+      return { error: String(e) }
+    }
+  })
 
   createWindow()
 

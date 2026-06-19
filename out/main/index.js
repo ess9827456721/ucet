@@ -3,6 +3,7 @@ const electron = require("electron");
 const path = require("path");
 const fs = require("fs");
 const Database = require("better-sqlite3");
+const ExcelJS = require("exceljs");
 const is = {
   dev: !electron.app.isPackaged
 };
@@ -392,8 +393,36 @@ function addOperation(op) {
   const r = d.prepare(`
     INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
     VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id)
-  `).run(op);
+  `).run({
+    ...op,
+    category_id: op.category_id ?? null,
+    subcategory_id: op.subcategory_id ?? null,
+    expense_type: op.expense_type ?? null,
+    account_id: op.account_id ?? null,
+    comment: op.comment ?? null,
+    debt_id: op.debt_id ?? null
+  });
   return r.lastInsertRowid;
+}
+function importOperations(ops) {
+  const d = getDb();
+  const stmt = d.prepare(`
+    INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
+    VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, NULL, @comment, NULL)
+  `);
+  const insertMany = d.transaction((rows) => {
+    for (const op of rows) {
+      stmt.run({
+        ...op,
+        category_id: op.category_id ?? null,
+        subcategory_id: op.subcategory_id ?? null,
+        expense_type: op.expense_type ?? null,
+        comment: op.comment ?? null
+      });
+    }
+    return rows.length;
+  });
+  return insertMany(ops);
 }
 function updateOperation(id, op) {
   const d = getDb();
@@ -446,7 +475,22 @@ function addDebt(debt) {
 }
 function updateDebt(id, data) {
   const fields = Object.entries(data).filter(([, v]) => v !== void 0).map(([k]) => `${k} = @${k}`).join(", ");
+  if (!fields) return;
   getDb().prepare(`UPDATE debts SET ${fields} WHERE id = @id`).run({ ...data, id });
+}
+function deleteDebt(id) {
+  const d = getDb();
+  d.transaction(() => {
+    const paymentIds = d.prepare("SELECT id FROM dad_debt_payments WHERE debt_id = ?").all(id);
+    for (const p of paymentIds) {
+      d.prepare("DELETE FROM dad_debt_tranche_payments WHERE payment_id = ?").run(p.id);
+    }
+    d.prepare("DELETE FROM dad_debt_payments WHERE debt_id = ?").run(id);
+    d.prepare("DELETE FROM debt_tranches WHERE debt_id = ?").run(id);
+    d.prepare("DELETE FROM simple_debt_payments WHERE debt_id = ?").run(id);
+    d.prepare("DELETE FROM operations WHERE debt_id = ?").run(id);
+    d.prepare("DELETE FROM debts WHERE id = ?").run(id);
+  })();
 }
 function getTranches(debtId) {
   return getDb().prepare("SELECT * FROM debt_tranches WHERE debt_id = ? ORDER BY date ASC").all(debtId);
@@ -582,6 +626,20 @@ function getExpensesByType(dateFrom, dateTo) {
     GROUP BY expense_type
   `).all(dateFrom, dateTo);
 }
+function getMonthlyExpenses(dateFrom, dateTo) {
+  return getDb().prepare(`
+    SELECT strftime('%Y-%m', date) as month, SUM(amount) as total
+    FROM operations WHERE type='expense' AND date >= ? AND date <= ?
+    GROUP BY month ORDER BY month ASC
+  `).all(dateFrom, dateTo);
+}
+function getExpensesByDayOfWeek(dateFrom, dateTo) {
+  return getDb().prepare(`
+    SELECT CAST(strftime('%w', date) AS INTEGER) as dow, SUM(amount) as total, COUNT(*) as count
+    FROM operations WHERE type='expense' AND date >= ? AND date <= ?
+    GROUP BY dow ORDER BY dow ASC
+  `).all(dateFrom, dateTo);
+}
 function getBudgetSettings() {
   const rows = getDb().prepare("SELECT key, value FROM budget_settings").all();
   return Object.fromEntries(rows.map((r) => [r.key, r.value]));
@@ -660,6 +718,7 @@ electron.app.whenReady().then(() => {
   electron.app.on("browser-window-created", (_, w) => optimizer.watchWindowShortcuts(w));
   electron.ipcMain.handle("get-operations", (_, filters) => getOperations(filters));
   electron.ipcMain.handle("add-operation", (_, op) => addOperation(op));
+  electron.ipcMain.handle("import-operations", (_, ops) => importOperations(ops));
   electron.ipcMain.handle("update-operation", (_, id, op) => updateOperation(id, op));
   electron.ipcMain.handle("delete-operation", (_, id) => deleteOperation(id));
   electron.ipcMain.handle("get-categories", (_, type) => getCategories(type));
@@ -672,6 +731,7 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.handle("get-debt", (_, id) => getDebt(id));
   electron.ipcMain.handle("add-debt", (_, debt) => addDebt(debt));
   electron.ipcMain.handle("update-debt", (_, id, data) => updateDebt(id, data));
+  electron.ipcMain.handle("delete-debt", (_, id) => deleteDebt(id));
   electron.ipcMain.handle("get-tranches", (_, debtId) => getTranches(debtId));
   electron.ipcMain.handle("add-tranche", (_, tranche) => addTranche(tranche));
   electron.ipcMain.handle("process-dad-payment", (_, debtId, amount, date, days) => processDadPayment(debtId, amount, date, days));
@@ -684,6 +744,8 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.handle("get-expenses-by-category", (_, dateFrom, dateTo) => getExpensesByCategory(dateFrom, dateTo));
   electron.ipcMain.handle("get-daily-expenses", (_, dateFrom, dateTo) => getDailyExpenses(dateFrom, dateTo));
   electron.ipcMain.handle("get-expenses-by-type", (_, dateFrom, dateTo) => getExpensesByType(dateFrom, dateTo));
+  electron.ipcMain.handle("get-monthly-expenses", (_, dateFrom, dateTo) => getMonthlyExpenses(dateFrom, dateTo));
+  electron.ipcMain.handle("get-expenses-by-day-of-week", (_, dateFrom, dateTo) => getExpensesByDayOfWeek(dateFrom, dateTo));
   electron.ipcMain.handle("get-budget-settings", () => getBudgetSettings());
   electron.ipcMain.handle("set-budget-setting", (_, key, value) => setBudgetSetting(key, value));
   electron.ipcMain.handle("get-cash-flow", (_, year, month) => getCashFlow(year, month));
@@ -721,6 +783,40 @@ electron.app.whenReady().then(() => {
     return null;
   });
   electron.ipcMain.handle("get-db-path", () => getDbPath());
+  electron.ipcMain.handle("open-import-file", async () => {
+    const result = await electron.dialog.showOpenDialog({
+      filters: [
+        { name: "Таблицы (Excel, CSV)", extensions: ["xlsx", "xls", "csv"] }
+      ],
+      properties: ["openFile"]
+    });
+    if (result.canceled || !result.filePaths[0]) return null;
+    const filePath = result.filePaths[0];
+    const ext = path.extname(filePath).toLowerCase();
+    try {
+      if (ext === ".csv") {
+        const text = fs.readFileSync(filePath, "utf-8");
+        const lines = text.split(/\r?\n/).filter((l) => l.trim());
+        if (lines.length === 0) return { error: "Файл пустой" };
+        const sep = lines[0].includes(";") ? ";" : ",";
+        const rows = lines.map((l) => l.split(sep).map((c) => c.trim().replace(/^"|"$/g, "")));
+        return { headers: rows[0], rows: rows.slice(1) };
+      } else {
+        const wb = new ExcelJS.Workbook();
+        await wb.xlsx.readFile(filePath);
+        const ws = wb.worksheets[0];
+        if (!ws) return { error: "Нет листов в файле" };
+        const rows = [];
+        ws.eachRow((row) => {
+          rows.push(row.values.slice(1).map((v) => v == null ? "" : String(v)));
+        });
+        if (rows.length === 0) return { error: "Файл пустой" };
+        return { headers: rows[0], rows: rows.slice(1) };
+      }
+    } catch (e) {
+      return { error: String(e) };
+    }
+  });
   createWindow();
   electron.app.on("activate", () => {
     if (electron.BrowserWindow.getAllWindows().length === 0) createWindow();

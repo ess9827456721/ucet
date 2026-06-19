@@ -208,19 +208,56 @@ export function addOperation(op: {
   date: string
   type: string
   amount: number
-  category_id?: number
-  subcategory_id?: number
-  expense_type?: string
-  account_id?: number
-  comment?: string
-  debt_id?: number
+  category_id?: number | null
+  subcategory_id?: number | null
+  expense_type?: string | null
+  account_id?: number | null
+  comment?: string | null
+  debt_id?: number | null
 }): number {
   const d = getDb()
   const r = d.prepare(`
     INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
     VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id)
-  `).run(op)
+  `).run({
+    ...op,
+    category_id: op.category_id ?? null,
+    subcategory_id: op.subcategory_id ?? null,
+    expense_type: op.expense_type ?? null,
+    account_id: op.account_id ?? null,
+    comment: op.comment ?? null,
+    debt_id: op.debt_id ?? null,
+  })
   return r.lastInsertRowid as number
+}
+
+export function importOperations(ops: Array<{
+  date: string
+  type: string
+  amount: number
+  category_id?: number | null
+  subcategory_id?: number | null
+  expense_type?: string | null
+  comment?: string | null
+}>): number {
+  const d = getDb()
+  const stmt = d.prepare(`
+    INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
+    VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, NULL, @comment, NULL)
+  `)
+  const insertMany = d.transaction((rows: typeof ops) => {
+    for (const op of rows) {
+      stmt.run({
+        ...op,
+        category_id: op.category_id ?? null,
+        subcategory_id: op.subcategory_id ?? null,
+        expense_type: op.expense_type ?? null,
+        comment: op.comment ?? null,
+      })
+    }
+    return rows.length
+  })
+  return insertMany(ops) as number
 }
 
 export function updateOperation(id: number, op: {
@@ -310,9 +347,34 @@ export function addDebt(debt: {
   return r.lastInsertRowid as number
 }
 
-export function updateDebt(id: number, data: { status?: string; overdue_interest_pool?: number; name?: string }): void {
+export function updateDebt(id: number, data: {
+  name?: string
+  status?: string
+  direction?: string
+  initial_amount?: number | null
+  interest_rate?: number | null
+  payment_day?: number | null
+  monthly_payment?: number | null
+  overdue_interest_pool?: number
+}): void {
   const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
+  if (!fields) return
   getDb().prepare(`UPDATE debts SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+export function deleteDebt(id: number): void {
+  const d = getDb()
+  d.transaction(() => {
+    const paymentIds = d.prepare('SELECT id FROM dad_debt_payments WHERE debt_id = ?').all(id) as Array<{ id: number }>
+    for (const p of paymentIds) {
+      d.prepare('DELETE FROM dad_debt_tranche_payments WHERE payment_id = ?').run(p.id)
+    }
+    d.prepare('DELETE FROM dad_debt_payments WHERE debt_id = ?').run(id)
+    d.prepare('DELETE FROM debt_tranches WHERE debt_id = ?').run(id)
+    d.prepare('DELETE FROM simple_debt_payments WHERE debt_id = ?').run(id)
+    d.prepare('DELETE FROM operations WHERE debt_id = ?').run(id)
+    d.prepare('DELETE FROM debts WHERE id = ?').run(id)
+  })()
 }
 
 export function getTranches(debtId: number): unknown[] {
@@ -483,6 +545,22 @@ export function getExpensesByType(dateFrom: string, dateTo: string): unknown[] {
     SELECT expense_type, SUM(amount) as total
     FROM operations WHERE type='expense' AND date >= ? AND date <= ?
     GROUP BY expense_type
+  `).all(dateFrom, dateTo)
+}
+
+export function getMonthlyExpenses(dateFrom: string, dateTo: string): unknown[] {
+  return getDb().prepare(`
+    SELECT strftime('%Y-%m', date) as month, SUM(amount) as total
+    FROM operations WHERE type='expense' AND date >= ? AND date <= ?
+    GROUP BY month ORDER BY month ASC
+  `).all(dateFrom, dateTo)
+}
+
+export function getExpensesByDayOfWeek(dateFrom: string, dateTo: string): unknown[] {
+  return getDb().prepare(`
+    SELECT CAST(strftime('%w', date) AS INTEGER) as dow, SUM(amount) as total, COUNT(*) as count
+    FROM operations WHERE type='expense' AND date >= ? AND date <= ?
+    GROUP BY dow ORDER BY dow ASC
   `).all(dateFrom, dateTo)
 }
 

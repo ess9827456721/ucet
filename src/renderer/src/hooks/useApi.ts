@@ -6,6 +6,7 @@ export function useApi() {
     addOperation: (op: Record<string, unknown>) => Promise<number>
     updateOperation: (id: number, op: Record<string, unknown>) => Promise<void>
     deleteOperation: (id: number) => Promise<void>
+    importOperations: (ops: Record<string, unknown>[]) => Promise<number>
 
     getCategories: (type?: string) => Promise<unknown[]>
     getSubcategories: (catId?: number) => Promise<unknown[]>
@@ -18,6 +19,7 @@ export function useApi() {
     getDebt: (id: number) => Promise<unknown>
     addDebt: (debt: Record<string, unknown>) => Promise<number>
     updateDebt: (id: number, data: Record<string, unknown>) => Promise<void>
+    deleteDebt: (id: number) => Promise<void>
     getTranches: (debtId: number) => Promise<unknown[]>
     addTranche: (tranche: Record<string, unknown>) => Promise<number>
     processDadPayment: (debtId: number, amount: number, date: string, days: number) => Promise<unknown>
@@ -31,11 +33,14 @@ export function useApi() {
     getExpensesByCategory: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getDailyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getExpensesByType: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getMonthlyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => Promise<unknown[]>
 
     getBudgetSettings: () => Promise<Record<string, string>>
     setBudgetSetting: (key: string, value: string) => Promise<void>
     getCashFlow: (year: number, month: number) => Promise<unknown>
 
+    openImportFile: () => Promise<{ headers: string[]; rows: string[][] } | { error: string } | null>
     exportDb: () => Promise<string | null>
     importDb: () => Promise<boolean>
     exportJson: (data: unknown) => Promise<string | null>

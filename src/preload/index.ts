@@ -4,6 +4,7 @@ const api = {
   // Operations
   getOperations: (filters: Record<string, unknown>) => ipcRenderer.invoke('get-operations', filters),
   addOperation: (op: Record<string, unknown>) => ipcRenderer.invoke('add-operation', op),
+  importOperations: (ops: Record<string, unknown>[]) => ipcRenderer.invoke('import-operations', ops),
   updateOperation: (id: number, op: Record<string, unknown>) => ipcRenderer.invoke('update-operation', id, op),
   deleteOperation: (id: number) => ipcRenderer.invoke('delete-operation', id),
 
@@ -20,6 +21,7 @@ const api = {
   getDebt: (id: number) => ipcRenderer.invoke('get-debt', id),
   addDebt: (debt: Record<string, unknown>) => ipcRenderer.invoke('add-debt', debt),
   updateDebt: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-debt', id, data),
+  deleteDebt: (id: number) => ipcRenderer.invoke('delete-debt', id),
   getTranches: (debtId: number) => ipcRenderer.invoke('get-tranches', debtId),
   addTranche: (tranche: Record<string, unknown>) => ipcRenderer.invoke('add-tranche', tranche),
   processDadPayment: (debtId: number, amount: number, date: string, days: number) =>
@@ -36,6 +38,8 @@ const api = {
   getExpensesByCategory: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-category', dateFrom, dateTo),
   getDailyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-daily-expenses', dateFrom, dateTo),
   getExpensesByType: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-type', dateFrom, dateTo),
+  getMonthlyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-monthly-expenses', dateFrom, dateTo),
+  getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-day-of-week', dateFrom, dateTo),
 
   // Budget / Cash flow
   getBudgetSettings: () => ipcRenderer.invoke('get-budget-settings'),
@@ -43,6 +47,7 @@ const api = {
   getCashFlow: (year: number, month: number) => ipcRenderer.invoke('get-cash-flow', year, month),
 
   // Backup
+  openImportFile: () => ipcRenderer.invoke('open-import-file'),
   exportDb: () => ipcRenderer.invoke('export-db'),
   importDb: () => ipcRenderer.invoke('import-db'),
   exportJson: (data: unknown) => ipcRenderer.invoke('export-json', data),
