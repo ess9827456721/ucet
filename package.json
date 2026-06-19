@@ -8,8 +8,7 @@
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "package": "electron-vite build && electron-builder",
-    "test": "vitest run",
-    "postinstall": "electron-rebuild -f -w better-sqlite3"
+    "test": "vitest run"
   },
   "build": {
     "appId": "com.ucet.app",
