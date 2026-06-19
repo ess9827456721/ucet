@@ -12,34 +12,30 @@
   },
   "build": {
     "appId": "com.ucet.app",
-    "productName": "Учёт финансов",
+    "productName": "Uchet Finansov",
     "directories": {
       "output": "dist"
     },
     "files": [
       "out/**/*",
-      "node_modules/**/*",
       "package.json"
     ],
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**/*"
+    ],
     "win": {
-      "target": "nsis",
-      "icon": "resources/icon.ico"
+      "target": "nsis"
     },
     "mac": {
-      "target": "dmg",
-      "icon": "resources/icon.icns"
+      "target": "dmg"
     },
     "linux": {
-      "target": "AppImage",
-      "icon": "resources/icon.png"
+      "target": "AppImage"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "installerLanguages": ["Russian"],
-      "language": "1049"
+      "allowToChangeInstallationDirectory": true
     },
-    "extraResources": [],
     "asar": true
   },
   "dependencies": {
