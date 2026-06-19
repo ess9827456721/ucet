@@ -20,6 +20,25 @@ interface ForecastRow {
   overduePool: number
 }
 
+// Merge two forecast arrays by month for dual-line chart
+function mergeForChart(
+  f1: ForecastRow[],
+  f2: ForecastRow[]
+): Array<{ month: number; balance1?: number; balance2?: number }> {
+  const maxMonth = Math.max(f1.length > 0 ? f1[f1.length - 1].month : 0, f2.length > 0 ? f2[f2.length - 1].month : 0)
+  const result = []
+  for (let m = 1; m <= maxMonth; m++) {
+    const r1 = f1.find(r => r.month === m)
+    const r2 = f2.find(r => r.month === m)
+    result.push({
+      month: m,
+      balance1: r1?.totalBalance,
+      balance2: r2?.totalBalance,
+    })
+  }
+  return result
+}
+
 export default function DebtForecast({ debtId, onBack }: Props) {
   const api = useApi()
   const [debt, setDebt] = useState<Debt | null>(null)
@@ -34,13 +53,20 @@ export default function DebtForecast({ debtId, onBack }: Props) {
     api.getDebt(debtId).then(d => setDebt(d as Debt))
   }, [debtId])
 
+  async function getForecast(payment: number): Promise<ForecastRow[]> {
+    if (debt?.debt_type === 'dad') {
+      return api.getDadForecast(debtId, payment) as Promise<ForecastRow[]>
+    }
+    return api.getSimpleForecast(debtId, payment) as Promise<ForecastRow[]>
+  }
+
   async function generate() {
-    if (!payment1) return
+    if (!payment1 || !debt) return
     setLoading(true)
     setGenerated(false)
     const [f1, f2] = await Promise.all([
-      api.getDadForecast(debtId, parseFloat(payment1)),
-      payment2 ? api.getDadForecast(debtId, parseFloat(payment2)) : Promise.resolve([]),
+      getForecast(parseFloat(payment1)),
+      payment2 ? getForecast(parseFloat(payment2)) : Promise.resolve([]),
     ])
     setForecast1(f1 as ForecastRow[])
     setForecast2(f2 as ForecastRow[])
@@ -50,6 +76,8 @@ export default function DebtForecast({ debtId, onBack }: Props) {
 
   const totalInterest1 = forecast1.reduce((s, r) => s + r.interestCovered + r.poolCovered, 0)
   const totalInterest2 = forecast2.reduce((s, r) => s + r.interestCovered + r.poolCovered, 0)
+  const chartData = mergeForChart(forecast1, forecast2)
+  const isDad = debt?.debt_type === 'dad'
 
   return (
     <div className="p-6 space-y-6">
@@ -64,6 +92,7 @@ export default function DebtForecast({ debtId, onBack }: Props) {
 
       <p className="text-gray-500 text-sm">
         Расчётный инструмент «что если» — не записывает фактические платежи в историю.
+        {isDad && ' Расчёт по точному алгоритму: проценты по траншам, пул просроченных %.'}
       </p>
 
       {/* Scenario inputs */}
@@ -91,7 +120,7 @@ export default function DebtForecast({ debtId, onBack }: Props) {
             />
           </div>
         </div>
-        <button onClick={generate} disabled={!payment1 || loading} className="btn-primary">
+        <button onClick={generate} disabled={!payment1 || loading || !debt} className="btn-primary">
           {loading ? 'Расчёт...' : 'Рассчитать прогноз'}
         </button>
       </div>
@@ -100,13 +129,13 @@ export default function DebtForecast({ debtId, onBack }: Props) {
         <>
           {/* Summary comparison */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="card border-yellow-400/30">
+            <div className="card" style={{ borderColor: 'rgba(255,214,0,0.3)' }}>
               <p className="text-xs text-gray-400 uppercase mb-2">Сценарий 1 — {formatMoney(parseFloat(payment1))}/мес</p>
               <p className="text-sm text-gray-300 mb-1">Месяцев до погашения: <span className="text-white font-bold">{forecast1.length}</span></p>
               <p className="text-sm text-gray-300">Всего процентов: <span className="text-red-400 font-bold">{formatMoney(totalInterest1)}</span></p>
             </div>
             {forecast2.length > 0 && (
-              <div className="card border-blue-400/30">
+              <div className="card" style={{ borderColor: 'rgba(59,130,246,0.3)' }}>
                 <p className="text-xs text-gray-400 uppercase mb-2">Сценарий 2 — {formatMoney(parseFloat(payment2))}/мес</p>
                 <p className="text-sm text-gray-300 mb-1">Месяцев до погашения: <span className="text-white font-bold">{forecast2.length}</span></p>
                 <p className="text-sm text-gray-300">Всего процентов: <span className="text-red-400 font-bold">{formatMoney(totalInterest2)}</span></p>
@@ -119,25 +148,51 @@ export default function DebtForecast({ debtId, onBack }: Props) {
             )}
           </div>
 
-          {/* Chart */}
+          {/* Chart — merged data on single LineChart */}
           <div className="card">
             <h2 className="text-base font-semibold mb-4">Динамика остатка долга</h2>
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+              <LineChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
-                <XAxis dataKey="month" type="number" tickCount={8} tick={{ fontSize: 10, fill: '#6B7280' }} label={{ value: 'месяц', position: 'insideBottom', fill: '#6B7280', fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={v => `${(v / 1000).toFixed(0)}к`} />
-                <Tooltip formatter={(value: number) => formatMoney(value)} contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }} />
-                <Legend />
-                <Line data={forecast1} dataKey="totalBalance" stroke="#FFD600" name={`Сценарий 1 (${formatMoney(parseFloat(payment1))})`} dot={false} strokeWidth={2} />
+                <XAxis
+                  dataKey="month"
+                  tick={{ fontSize: 10, fill: '#6B7280' }}
+                  label={{ value: 'месяц', position: 'insideBottom', offset: -10, fill: '#6B7280', fontSize: 10 }}
+                />
+                <YAxis
+                  tick={{ fontSize: 10, fill: '#6B7280' }}
+                  tickFormatter={v => `${(v / 1000).toFixed(0)}к`}
+                />
+                <Tooltip
+                  formatter={(value: number, name: string) => [formatMoney(value), name]}
+                  contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
+                  labelStyle={{ color: '#9CA3AF', marginBottom: 4 }}
+                  labelFormatter={v => `Месяц ${v}`}
+                />
+                <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
+                <Line
+                  dataKey="balance1"
+                  stroke="#FFD600"
+                  name={`Сценарий 1 (${formatMoney(parseFloat(payment1))}/мес)`}
+                  dot={false}
+                  strokeWidth={2}
+                  connectNulls={false}
+                />
                 {forecast2.length > 0 && (
-                  <Line data={forecast2} dataKey="totalBalance" stroke="#3B82F6" name={`Сценарий 2 (${formatMoney(parseFloat(payment2))})`} dot={false} strokeWidth={2} />
+                  <Line
+                    dataKey="balance2"
+                    stroke="#3B82F6"
+                    name={`Сценарий 2 (${formatMoney(parseFloat(payment2))}/мес)`}
+                    dot={false}
+                    strokeWidth={2}
+                    connectNulls={false}
+                  />
                 )}
               </LineChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Table - Scenario 1 */}
+          {/* Table — Scenario 1 */}
           <div className="card p-0 overflow-hidden">
             <div className="px-5 py-4 border-b border-dark-600">
               <h2 className="text-base font-semibold">Прогнозный график — Сценарий 1</h2>
@@ -149,7 +204,7 @@ export default function DebtForecast({ debtId, onBack }: Props) {
                     <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Месяц</th>
                     <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Платёж</th>
                     <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Проценты</th>
-                    <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Пул %</th>
+                    {isDad && <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Пул %</th>}
                     <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Тело</th>
                     <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Остаток</th>
                   </tr>
@@ -160,7 +215,11 @@ export default function DebtForecast({ debtId, onBack }: Props) {
                       <td className="px-5 py-2.5 text-sm text-gray-300">{row.month}</td>
                       <td className="px-5 py-2.5 text-sm text-right text-white">{formatMoney(row.payment)}</td>
                       <td className="px-5 py-2.5 text-sm text-right text-red-400">{formatMoney(row.interestCovered)}</td>
-                      <td className="px-5 py-2.5 text-sm text-right text-orange-400">{row.poolCovered > 0 ? formatMoney(row.poolCovered) : '—'}</td>
+                      {isDad && (
+                        <td className="px-5 py-2.5 text-sm text-right text-orange-400">
+                          {row.poolCovered > 0 ? formatMoney(row.poolCovered) : '—'}
+                        </td>
+                      )}
                       <td className="px-5 py-2.5 text-sm text-right text-green-400">{formatMoney(row.bodyCovered)}</td>
                       <td className="px-5 py-2.5 text-sm text-right font-semibold text-white">{formatMoney(row.totalBalance)}</td>
                     </tr>

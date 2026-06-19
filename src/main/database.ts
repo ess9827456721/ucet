@@ -416,6 +416,37 @@ export function getDadForecast(debtId: number, monthlyPayment: number): unknown[
   return getForecastPayments(tranches, debt.overdue_interest_pool, monthlyPayment)
 }
 
+export function getSimpleForecast(debtId: number, monthlyPayment: number): unknown[] {
+  const d = getDb()
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as {
+    initial_amount: number; interest_rate: number | null
+  }
+
+  const paid = (d.prepare('SELECT COALESCE(SUM(body_part),0) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total
+
+  let balance = Math.max(0, (debt.initial_amount || 0) - paid)
+  const rate = debt.interest_rate || 0
+  const result = []
+
+  for (let m = 1; m <= 360 && balance > 0; m++) {
+    const interest = balance * rate * (30 / 365)
+    const bodyPayment = Math.min(balance, Math.max(0, monthlyPayment - interest))
+    const actualInterest = Math.min(interest, monthlyPayment)
+    balance -= bodyPayment
+    result.push({
+      month: m,
+      payment: monthlyPayment,
+      interestCovered: actualInterest,
+      poolCovered: 0,
+      bodyCovered: bodyPayment,
+      totalBalance: Math.max(0, balance),
+      overduePool: 0,
+    })
+    if (balance <= 0) break
+  }
+  return result
+}
+
 // ──────────────────────────────────────────────────────────────
 // Analytics
 // ──────────────────────────────────────────────────────────────

@@ -2,7 +2,7 @@
   "name": "ucet",
   "version": "1.0.0",
   "description": "Учёт личных финансов",
-  "main": "dist-electron/main.js",
+  "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",

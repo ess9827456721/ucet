@@ -29,6 +29,7 @@ const api = {
   processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) =>
     ipcRenderer.invoke('process-simple-payment', debtId, amount, date, interestPart),
   getDadForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-dad-forecast', debtId, payment),
+  getSimpleForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-simple-forecast', debtId, payment),
 
   // Analytics
   getSummary: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo),

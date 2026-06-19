@@ -6,7 +6,7 @@ import {
   getOperations, addOperation, updateOperation, deleteOperation,
   getCategories, getSubcategories, addCategory, updateCategory, addSubcategory, updateSubcategory,
   getDebts, getDebt, addDebt, updateDebt, getTranches, addTranche,
-  processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast,
+  processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
   getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType,
   getBudgetSettings, setBudgetSetting, getCashFlow,
   exportDb, importDb, getDbPath
@@ -70,6 +70,7 @@ app.whenReady().then(() => {
   ipcMain.handle('get-simple-debt-payments', (_, debtId) => getSimpleDebtPayments(debtId))
   ipcMain.handle('process-simple-payment', (_, debtId, amount, date, interestPart) => processSimplePayment(debtId, amount, date, interestPart))
   ipcMain.handle('get-dad-forecast', (_, debtId, payment) => getDadForecast(debtId, payment))
+  ipcMain.handle('get-simple-forecast', (_, debtId, payment) => getSimpleForecast(debtId, payment))
 
   // ── Analytics ────────────────────────────────────────
   ipcMain.handle('get-summary', (_, dateFrom, dateTo) => getSummary(dateFrom, dateTo))

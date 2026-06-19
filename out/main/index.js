@@ -526,6 +526,31 @@ function getDadForecast(debtId, monthlyPayment) {
   }));
   return getForecastPayments(tranches, debt.overdue_interest_pool, monthlyPayment);
 }
+function getSimpleForecast(debtId, monthlyPayment) {
+  const d = getDb();
+  const debt = d.prepare("SELECT * FROM debts WHERE id = ?").get(debtId);
+  const paid = d.prepare("SELECT COALESCE(SUM(body_part),0) as total FROM simple_debt_payments WHERE debt_id = ?").get(debtId).total;
+  let balance = Math.max(0, (debt.initial_amount || 0) - paid);
+  const rate = debt.interest_rate || 0;
+  const result = [];
+  for (let m = 1; m <= 360 && balance > 0; m++) {
+    const interest = balance * rate * (30 / 365);
+    const bodyPayment = Math.min(balance, Math.max(0, monthlyPayment - interest));
+    const actualInterest = Math.min(interest, monthlyPayment);
+    balance -= bodyPayment;
+    result.push({
+      month: m,
+      payment: monthlyPayment,
+      interestCovered: actualInterest,
+      poolCovered: 0,
+      bodyCovered: bodyPayment,
+      totalBalance: Math.max(0, balance),
+      overduePool: 0
+    });
+    if (balance <= 0) break;
+  }
+  return result;
+}
 function getSummary(dateFrom, dateTo) {
   const d = getDb();
   const income = d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='income' AND date >= ? AND date <= ?").get(dateFrom, dateTo).total;
@@ -654,6 +679,7 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.handle("get-simple-debt-payments", (_, debtId) => getSimpleDebtPayments(debtId));
   electron.ipcMain.handle("process-simple-payment", (_, debtId, amount, date, interestPart) => processSimplePayment(debtId, amount, date, interestPart));
   electron.ipcMain.handle("get-dad-forecast", (_, debtId, payment) => getDadForecast(debtId, payment));
+  electron.ipcMain.handle("get-simple-forecast", (_, debtId, payment) => getSimpleForecast(debtId, payment));
   electron.ipcMain.handle("get-summary", (_, dateFrom, dateTo) => getSummary(dateFrom, dateTo));
   electron.ipcMain.handle("get-expenses-by-category", (_, dateFrom, dateTo) => getExpensesByCategory(dateFrom, dateTo));
   electron.ipcMain.handle("get-daily-expenses", (_, dateFrom, dateTo) => getDailyExpenses(dateFrom, dateTo));

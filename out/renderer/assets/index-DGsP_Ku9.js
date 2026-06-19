@@ -30411,9 +30411,8 @@ var PieChart = generateCategoricalChart({
     outerRadius: "80%"
   }
 });
-const api = window.api;
 function useApi() {
-  return api;
+  return window.api;
 }
 function formatMoney(amount) {
   return new Intl.NumberFormat("ru-RU", {
@@ -30503,7 +30502,7 @@ const PERIODS$1 = [
   { id: "year", label: "Год" }
 ];
 function Dashboard() {
-  const api2 = useApi();
+  const api = useApi();
   const [period, setPeriod] = reactExports.useState("month");
   const [summary, setSummary] = reactExports.useState(null);
   const [categories, setCategories] = reactExports.useState([]);
@@ -30513,9 +30512,9 @@ function Dashboard() {
     setLoading(true);
     const { from, to } = getPeriodDates(period);
     const [s2, cats, d2] = await Promise.all([
-      api2.getSummary(from, to),
-      api2.getExpensesByCategory(from, to),
-      api2.getDailyExpenses(from, to)
+      api.getSummary(from, to),
+      api.getExpensesByCategory(from, to),
+      api.getDailyExpenses(from, to)
     ]);
     setSummary(s2);
     setCategories(cats);
@@ -30679,7 +30678,7 @@ function StatCard({ label, value, icon, valueClass }) {
   ] });
 }
 function TransactionModal({ onClose, onSaved, editOperation }) {
-  const api2 = useApi();
+  const api = useApi();
   const [type, setType] = reactExports.useState(editOperation?.type || "expense");
   const [date2, setDate] = reactExports.useState(editOperation?.date || today());
   const [amount, setAmount] = reactExports.useState(editOperation?.amount ? String(editOperation.amount) : "");
@@ -30695,12 +30694,12 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
   const [saving, setSaving] = reactExports.useState(false);
   reactExports.useEffect(() => {
     const catType = type === "income" ? "income" : "expense";
-    api2.getCategories(catType).then((d2) => setCategories(d2));
-    api2.getDebts("active").then((d2) => setDebts(d2));
+    api.getCategories(catType).then((d2) => setCategories(d2));
+    api.getDebts("active").then((d2) => setDebts(d2));
   }, [type]);
   reactExports.useEffect(() => {
     if (categoryId) {
-      api2.getSubcategories(categoryId).then((d2) => setSubcategories(d2));
+      api.getSubcategories(categoryId).then((d2) => setSubcategories(d2));
     } else {
       setSubcategories([]);
     }
@@ -30730,9 +30729,9 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
         debt_id: type === "debt_op" ? debtId || null : null
       };
       if (editOperation?.id) {
-        await api2.updateOperation(editOperation.id, op);
+        await api.updateOperation(editOperation.id, op);
       } else {
-        await api2.addOperation(op);
+        await api.addOperation(op);
       }
       onSaved();
     } finally {
@@ -30884,7 +30883,7 @@ const PERIODS = [
   { id: "year", label: "Год" }
 ];
 function Operations({ onAdd }) {
-  const api2 = useApi();
+  const api = useApi();
   const [operations, setOperations] = reactExports.useState([]);
   const [period, setPeriod] = reactExports.useState("month");
   const [typeFilter, setTypeFilter] = reactExports.useState("");
@@ -30895,7 +30894,7 @@ function Operations({ onAdd }) {
     const { from, to } = getPeriodDates(period);
     const filters = { dateFrom: from, dateTo: to };
     if (typeFilter) filters.type = typeFilter;
-    const ops = await api2.getOperations(filters);
+    const ops = await api.getOperations(filters);
     setOperations(ops);
     setLoading(false);
   }, [period, typeFilter]);
@@ -30904,7 +30903,7 @@ function Operations({ onAdd }) {
   }, [load]);
   async function handleDelete(id2) {
     if (!confirm("Удалить операцию?")) return;
-    await api2.deleteOperation(id2);
+    await api.deleteOperation(id2);
     load();
   }
   function typeLabel(type) {
@@ -31046,7 +31045,7 @@ const MONTHS_RU = [
   "Декабрь"
 ];
 function CashFlow() {
-  const api2 = useApi();
+  const api = useApi();
   const now2 = /* @__PURE__ */ new Date();
   const [year, setYear] = reactExports.useState(now2.getFullYear());
   const [month, setMonth] = reactExports.useState(now2.getMonth() + 1);
@@ -31054,7 +31053,7 @@ function CashFlow() {
   const [loading, setLoading] = reactExports.useState(true);
   const load = reactExports.useCallback(async () => {
     setLoading(true);
-    const d2 = await api2.getCashFlow(year, month);
+    const d2 = await api.getCashFlow(year, month);
     setData(d2);
     setLoading(false);
   }, [year, month]);
@@ -31133,7 +31132,7 @@ function CashFlow() {
   ] });
 }
 function AddDebtModal({ onClose, onSaved }) {
-  const api2 = useApi();
+  const api = useApi();
   const [name, setName] = reactExports.useState("");
   const [direction, setDirection] = reactExports.useState("i_owe");
   const [debtType, setDebtType] = reactExports.useState("simple");
@@ -31159,7 +31158,7 @@ function AddDebtModal({ onClose, onSaved }) {
           setSaving(false);
           return;
         }
-        const debtId = await api2.addDebt({
+        const debtId = await api.addDebt({
           name,
           direction,
           debt_type: "dad",
@@ -31167,7 +31166,7 @@ function AddDebtModal({ onClose, onSaved }) {
           interest_rate: parseFloat(trancheRate) / 100,
           payment_day: paymentDay ? parseInt(paymentDay) : 30
         });
-        await api2.addTranche({
+        await api.addTranche({
           debt_id: debtId,
           date: trancheDate,
           initial_amount: parseFloat(trancheAmount),
@@ -31179,7 +31178,7 @@ function AddDebtModal({ onClose, onSaved }) {
           setSaving(false);
           return;
         }
-        await api2.addDebt({
+        await api.addDebt({
           name,
           direction,
           debt_type: "simple",
@@ -31283,14 +31282,14 @@ function AddDebtModal({ onClose, onSaved }) {
   ] }) });
 }
 function Debts({ onOpenDebt, onOpenForecast }) {
-  const api2 = useApi();
+  const api = useApi();
   const [debts, setDebts] = reactExports.useState([]);
   const [showClosed, setShowClosed] = reactExports.useState(false);
   const [showAddModal, setShowAddModal] = reactExports.useState(false);
   const [loading, setLoading] = reactExports.useState(true);
   async function load() {
     setLoading(true);
-    const d2 = await api2.getDebts();
+    const d2 = await api.getDebts();
     setDebts(d2);
     setLoading(false);
   }
@@ -31415,7 +31414,7 @@ function DebtCard({ debt, onClick, onForecast }) {
   );
 }
 function DebtDetail({ debtId, onBack, onForecast }) {
-  const api2 = useApi();
+  const api = useApi();
   const [debt, setDebt] = reactExports.useState(null);
   const [tranches, setTranches] = reactExports.useState([]);
   const [dadPayments, setDadPayments] = reactExports.useState([]);
@@ -31436,16 +31435,16 @@ function DebtDetail({ debtId, onBack, onForecast }) {
   async function load() {
     setLoading(true);
     const [d2, t2] = await Promise.all([
-      api2.getDebt(debtId),
-      api2.getTranches(debtId)
+      api.getDebt(debtId),
+      api.getTranches(debtId)
     ]);
     setDebt(d2);
     setTranches(t2);
     if (d2.debt_type === "dad") {
-      const ph2 = await api2.getDadPaymentHistory(debtId);
+      const ph2 = await api.getDadPaymentHistory(debtId);
       setDadPayments(ph2);
     } else {
-      const ph2 = await api2.getSimpleDebtPayments(debtId);
+      const ph2 = await api.getSimpleDebtPayments(debtId);
       setSimplePayments(ph2);
     }
     setLoading(false);
@@ -31461,9 +31460,9 @@ function DebtDetail({ debtId, onBack, onForecast }) {
     setPaying(true);
     try {
       if (debt?.debt_type === "dad") {
-        await api2.processDadPayment(debtId, parseFloat(payAmount), payDate, parseInt(daysSince) || 30);
+        await api.processDadPayment(debtId, parseFloat(payAmount), payDate, parseInt(daysSince) || 30);
       } else {
-        await api2.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0);
+        await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0);
       }
       setShowPaymentForm(false);
       setPayAmount("");
@@ -31478,13 +31477,13 @@ function DebtDetail({ debtId, onBack, onForecast }) {
     if (!trancheAmount || !trancheRate) return;
     setSavingTranche(true);
     try {
-      await api2.addTranche({
+      await api.addTranche({
         debt_id: debtId,
         date: trancheDate,
         initial_amount: parseFloat(trancheAmount),
         interest_rate: parseFloat(trancheRate) / 100
       });
-      await api2.updateDebt(debtId, {
+      await api.updateDebt(debtId, {
         initial_amount: tranches.reduce((s2, t2) => s2 + t2.initial_amount, 0) + parseFloat(trancheAmount)
       });
       setShowAddTranche(false);
@@ -31663,8 +31662,22 @@ function DebtDetail({ debtId, onBack, onForecast }) {
     ] })
   ] });
 }
+function mergeForChart(f1, f2) {
+  const maxMonth = Math.max(f1.length > 0 ? f1[f1.length - 1].month : 0, f2.length > 0 ? f2[f2.length - 1].month : 0);
+  const result = [];
+  for (let m2 = 1; m2 <= maxMonth; m2++) {
+    const r1 = f1.find((r3) => r3.month === m2);
+    const r2 = f2.find((r3) => r3.month === m2);
+    result.push({
+      month: m2,
+      balance1: r1?.totalBalance,
+      balance2: r2?.totalBalance
+    });
+  }
+  return result;
+}
 function DebtForecast({ debtId, onBack }) {
-  const api2 = useApi();
+  const api = useApi();
   const [debt, setDebt] = reactExports.useState(null);
   const [payment1, setPayment1] = reactExports.useState("");
   const [payment2, setPayment2] = reactExports.useState("");
@@ -31673,15 +31686,21 @@ function DebtForecast({ debtId, onBack }) {
   const [loading, setLoading] = reactExports.useState(false);
   const [generated, setGenerated] = reactExports.useState(false);
   reactExports.useEffect(() => {
-    api2.getDebt(debtId).then((d2) => setDebt(d2));
+    api.getDebt(debtId).then((d2) => setDebt(d2));
   }, [debtId]);
+  async function getForecast(payment) {
+    if (debt?.debt_type === "dad") {
+      return api.getDadForecast(debtId, payment);
+    }
+    return api.getSimpleForecast(debtId, payment);
+  }
   async function generate() {
-    if (!payment1) return;
+    if (!payment1 || !debt) return;
     setLoading(true);
     setGenerated(false);
     const [f1, f2] = await Promise.all([
-      api2.getDadForecast(debtId, parseFloat(payment1)),
-      payment2 ? api2.getDadForecast(debtId, parseFloat(payment2)) : Promise.resolve([])
+      getForecast(parseFloat(payment1)),
+      payment2 ? getForecast(parseFloat(payment2)) : Promise.resolve([])
     ]);
     setForecast1(f1);
     setForecast2(f2);
@@ -31690,6 +31709,8 @@ function DebtForecast({ debtId, onBack }) {
   }
   const totalInterest1 = forecast1.reduce((s2, r2) => s2 + r2.interestCovered + r2.poolCovered, 0);
   const totalInterest2 = forecast2.reduce((s2, r2) => s2 + r2.interestCovered + r2.poolCovered, 0);
+  const chartData = mergeForChart(forecast1, forecast2);
+  const isDad = debt?.debt_type === "dad";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onBack, className: "text-gray-400 hover:text-white p-2 -ml-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 20 }) }),
@@ -31698,7 +31719,10 @@ function DebtForecast({ debtId, onBack }) {
         debt ? ` — ${debt.name}` : ""
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Расчётный инструмент «что если» — не записывает фактические платежи в историю." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-gray-500 text-sm", children: [
+      "Расчётный инструмент «что если» — не записывает фактические платежи в историю.",
+      isDad && " Расчёт по точному алгоритму: проценты по траншам, пул просроченных %."
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card space-y-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-semibold text-white", children: "Сценарии" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
@@ -31729,11 +31753,11 @@ function DebtForecast({ debtId, onBack }) {
           )
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: generate, disabled: !payment1 || loading, className: "btn-primary", children: loading ? "Расчёт..." : "Рассчитать прогноз" })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: generate, disabled: !payment1 || loading || !debt, className: "btn-primary", children: loading ? "Расчёт..." : "Рассчитать прогноз" })
     ] }),
     generated && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-yellow-400/30", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { borderColor: "rgba(255,214,0,0.3)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-400 uppercase mb-2", children: [
             "Сценарий 1 — ",
             formatMoney(parseFloat(payment1)),
@@ -31748,7 +31772,7 @@ function DebtForecast({ debtId, onBack }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-red-400 font-bold", children: formatMoney(totalInterest1) })
           ] })
         ] }),
-        forecast2.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-blue-400/30", children: [
+        forecast2.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { borderColor: "rgba(59,130,246,0.3)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-400 uppercase mb-2", children: [
             "Сценарий 2 — ",
             formatMoney(parseFloat(payment2)),
@@ -31772,14 +31796,55 @@ function DebtForecast({ debtId, onBack }) {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Динамика остатка долга" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(LineChart, { margin: { top: 5, right: 20, left: 10, bottom: 5 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(LineChart, { data: chartData, margin: { top: 5, right: 20, left: 10, bottom: 20 }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "month", type: "number", tickCount: 8, tick: { fontSize: 10, fill: "#6B7280" }, label: { value: "месяц", position: "insideBottom", fill: "#6B7280", fontSize: 10 } }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" } }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, {}),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Line, { data: forecast1, dataKey: "totalBalance", stroke: "#FFD600", name: `Сценарий 1 (${formatMoney(parseFloat(payment1))})`, dot: false, strokeWidth: 2 }),
-          forecast2.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(Line, { data: forecast2, dataKey: "totalBalance", stroke: "#3B82F6", name: `Сценарий 2 (${formatMoney(parseFloat(payment2))})`, dot: false, strokeWidth: 2 })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            XAxis,
+            {
+              dataKey: "month",
+              tick: { fontSize: 10, fill: "#6B7280" },
+              label: { value: "месяц", position: "insideBottom", offset: -10, fill: "#6B7280", fontSize: 10 }
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            YAxis,
+            {
+              tick: { fontSize: 10, fill: "#6B7280" },
+              tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к`
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Tooltip,
+            {
+              formatter: (value, name) => [formatMoney(value), name],
+              contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
+              labelStyle: { color: "#9CA3AF", marginBottom: 4 },
+              labelFormatter: (v2) => `Месяц ${v2}`
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, paddingTop: 8 } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Line,
+            {
+              dataKey: "balance1",
+              stroke: "#FFD600",
+              name: `Сценарий 1 (${formatMoney(parseFloat(payment1))}/мес)`,
+              dot: false,
+              strokeWidth: 2,
+              connectNulls: false
+            }
+          ),
+          forecast2.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Line,
+            {
+              dataKey: "balance2",
+              stroke: "#3B82F6",
+              name: `Сценарий 2 (${formatMoney(parseFloat(payment2))}/мес)`,
+              dot: false,
+              strokeWidth: 2,
+              connectNulls: false
+            }
+          )
         ] }) })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
@@ -31789,7 +31854,7 @@ function DebtForecast({ debtId, onBack }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Месяц" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Платёж" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Проценты" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Пул %" }),
+            isDad && /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Пул %" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Тело" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Остаток" })
           ] }) }),
@@ -31797,7 +31862,7 @@ function DebtForecast({ debtId, onBack }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-gray-300", children: row.month }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right text-white", children: formatMoney(row.payment) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right text-red-400", children: formatMoney(row.interestCovered) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right text-orange-400", children: row.poolCovered > 0 ? formatMoney(row.poolCovered) : "—" }),
+            isDad && /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right text-orange-400", children: row.poolCovered > 0 ? formatMoney(row.poolCovered) : "—" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right text-green-400", children: formatMoney(row.bodyCovered) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2.5 text-sm text-right font-semibold text-white", children: formatMoney(row.totalBalance) })
           ] }, row.month)) })
@@ -31807,7 +31872,7 @@ function DebtForecast({ debtId, onBack }) {
   ] });
 }
 function SettingsPage() {
-  const api2 = useApi();
+  const api = useApi();
   const [categories, setCategories] = reactExports.useState([]);
   const [subcategories, setSubcategories] = reactExports.useState([]);
   const [selectedCat, setSelectedCat] = reactExports.useState(null);
@@ -31818,16 +31883,16 @@ function SettingsPage() {
   const [newCatColor, setNewCatColor] = reactExports.useState("#FFD600");
   const [newSubName, setNewSubName] = reactExports.useState("");
   async function loadCategories() {
-    const cats = await api2.getCategories();
+    const cats = await api.getCategories();
     setCategories(cats);
   }
   async function loadSubs(catId) {
-    const subs = await api2.getSubcategories(catId);
+    const subs = await api.getSubcategories(catId);
     setSubcategories(subs);
   }
   reactExports.useEffect(() => {
     loadCategories();
-    api2.getDbPath().then((p2) => setDbPath(p2));
+    api.getDbPath().then((p2) => setDbPath(p2));
   }, []);
   reactExports.useEffect(() => {
     if (selectedCat) loadSubs(selectedCat.id);
@@ -31835,36 +31900,36 @@ function SettingsPage() {
   }, [selectedCat]);
   async function addCategory() {
     if (!newCatName.trim()) return;
-    await api2.addCategory({ name: newCatName, type: newCatType, color: newCatColor });
+    await api.addCategory({ name: newCatName, type: newCatType, color: newCatColor });
     setNewCatName("");
     loadCategories();
     showStatus("Категория добавлена");
   }
   async function archiveCategory(id2) {
-    await api2.updateCategory(id2, { archived: 1 });
+    await api.updateCategory(id2, { archived: 1 });
     loadCategories();
     if (selectedCat?.id === id2) setSelectedCat(null);
     showStatus("Категория архивирована");
   }
   async function addSubcategory() {
     if (!newSubName.trim() || !selectedCat) return;
-    await api2.addSubcategory({ category_id: selectedCat.id, name: newSubName });
+    await api.addSubcategory({ category_id: selectedCat.id, name: newSubName });
     setNewSubName("");
     loadSubs(selectedCat.id);
     showStatus("Подкатегория добавлена");
   }
   async function archiveSubcategory(id2) {
-    await api2.updateSubcategory(id2, { archived: 1 });
+    await api.updateSubcategory(id2, { archived: 1 });
     if (selectedCat) loadSubs(selectedCat.id);
     showStatus("Подкатегория архивирована");
   }
   async function handleExportDb() {
-    const path = await api2.exportDb();
+    const path = await api.exportDb();
     if (path) showStatus(`Резервная копия сохранена: ${path}`);
   }
   async function handleImportDb() {
     if (!confirm("Текущие данные будут заменены данными из файла. Продолжить?")) return;
-    const ok2 = await api2.importDb();
+    const ok2 = await api.importDb();
     if (ok2) {
       showStatus("База данных восстановлена. Перезапустите приложение.");
     }

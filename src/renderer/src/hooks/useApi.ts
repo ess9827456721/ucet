@@ -1,9 +1,7 @@
-// Typed wrapper around the window.api bridge
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const api = (window as any).api
-
+// Typed wrapper around the window.api bridge exposed by preload via contextBridge
 export function useApi() {
-  return api as {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (window as any).api as {
     getOperations: (filters: Record<string, unknown>) => Promise<unknown[]>
     addOperation: (op: Record<string, unknown>) => Promise<number>
     updateOperation: (id: number, op: Record<string, unknown>) => Promise<void>
@@ -27,6 +25,7 @@ export function useApi() {
     getSimpleDebtPayments: (debtId: number) => Promise<unknown[]>
     processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) => Promise<void>
     getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
+    getSimpleForecast: (debtId: number, payment: number) => Promise<unknown[]>
 
     getSummary: (dateFrom: string, dateTo: string) => Promise<unknown>
     getExpensesByCategory: (dateFrom: string, dateTo: string) => Promise<unknown[]>

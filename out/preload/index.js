@@ -25,6 +25,7 @@ const api = {
   getSimpleDebtPayments: (debtId) => electron.ipcRenderer.invoke("get-simple-debt-payments", debtId),
   processSimplePayment: (debtId, amount, date, interestPart) => electron.ipcRenderer.invoke("process-simple-payment", debtId, amount, date, interestPart),
   getDadForecast: (debtId, payment) => electron.ipcRenderer.invoke("get-dad-forecast", debtId, payment),
+  getSimpleForecast: (debtId, payment) => electron.ipcRenderer.invoke("get-simple-forecast", debtId, payment),
   // Analytics
   getSummary: (dateFrom, dateTo) => electron.ipcRenderer.invoke("get-summary", dateFrom, dateTo),
   getExpensesByCategory: (dateFrom, dateTo) => electron.ipcRenderer.invoke("get-expenses-by-category", dateFrom, dateTo),
