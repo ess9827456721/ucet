@@ -117,6 +117,16 @@ function initSchema(): void {
     );
   `)
   seedDefaultData(d)
+
+  // Schema migrations
+  const dadCols = (d.prepare('PRAGMA table_info(dad_debt_payments)').all() as Array<{ name: string }>).map(c => c.name)
+  if (!dadCols.includes('operation_id')) {
+    d.exec('ALTER TABLE dad_debt_payments ADD COLUMN operation_id INTEGER')
+  }
+  const simpleCols = (d.prepare('PRAGMA table_info(simple_debt_payments)').all() as Array<{ name: string }>).map(c => c.name)
+  if (!simpleCols.includes('operation_id')) {
+    d.exec('ALTER TABLE simple_debt_payments ADD COLUMN operation_id INTEGER')
+  }
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -513,10 +523,11 @@ export function processDadPayment(debtId: number, paymentAmount: number, payment
 
     d.prepare('UPDATE debts SET overdue_interest_pool = ? WHERE id = ?').run(result.newOverduePool, debtId)
 
-    d.prepare(`
+    const opId = d.prepare(`
       INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
       VALUES (?, 'debt_op', ?, NULL, NULL, NULL, NULL, ?, ?)
-    `).run(paymentDate, paymentAmount, `Платёж по долгу: ${debt.name}`, debtId)
+    `).run(paymentDate, paymentAmount, `Платёж по долгу: ${debt.name}`, debtId).lastInsertRowid
+    d.prepare('UPDATE dad_debt_payments SET operation_id = ? WHERE id = ?').run(opId, paymentId)
 
     return paymentId
   })
@@ -548,16 +559,123 @@ export function processSimplePayment(debtId: number, amount: number, paymentDate
   const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { initial_amount: number; name: string }
   d.transaction(() => {
     const bodyPart = amount - interestPart
-    d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part) VALUES (?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart)
+    const paymentId = d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part) VALUES (?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart).lastInsertRowid
     const paid = (d.prepare('SELECT SUM(body_part) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total || 0
     if (paid >= debt.initial_amount) {
       d.prepare("UPDATE debts SET status = 'closed' WHERE id = ?").run(debtId)
     }
-    d.prepare(`
+    const opId = d.prepare(`
       INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
       VALUES (?, 'debt_op', ?, NULL, NULL, NULL, NULL, ?, ?)
-    `).run(paymentDate, amount, `Платёж по долгу: ${debt.name}`, debtId)
+    `).run(paymentDate, amount, `Платёж по долгу: ${debt.name}`, debtId).lastInsertRowid
+    d.prepare('UPDATE simple_debt_payments SET operation_id = ? WHERE id = ?').run(opId, paymentId)
   })()
+}
+
+export function deleteDadPayment(paymentId: number): void {
+  const d = getDb()
+  d.transaction(() => {
+    const payment = d.prepare('SELECT * FROM dad_debt_payments WHERE id = ?').get(paymentId) as {
+      id: number; debt_id: number; pool_covered: number; overdue_added_to_pool: number; operation_id: number | null
+      total_amount: number; payment_date: string
+    }
+    // Restore tranche balances
+    const tranchePayments = d.prepare('SELECT * FROM dad_debt_tranche_payments WHERE payment_id = ?').all(paymentId) as Array<{
+      tranche_id: number; amount_applied: number
+    }>
+    for (const tp of tranchePayments) {
+      d.prepare("UPDATE debt_tranches SET current_balance = current_balance + ?, status = 'active' WHERE id = ?").run(tp.amount_applied, tp.tranche_id)
+    }
+    // Restore pool: reverse pool_covered applied and overdue_added_to_pool added
+    d.prepare('UPDATE debts SET overdue_interest_pool = overdue_interest_pool + ? - ? WHERE id = ?')
+      .run(payment.pool_covered, payment.overdue_added_to_pool, payment.debt_id)
+    // Delete linked operation
+    if (payment.operation_id) {
+      d.prepare('DELETE FROM operations WHERE id = ?').run(payment.operation_id)
+    } else {
+      d.prepare("DELETE FROM operations WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
+        .run(payment.debt_id, payment.payment_date, payment.total_amount)
+    }
+    d.prepare('DELETE FROM dad_debt_tranche_payments WHERE payment_id = ?').run(paymentId)
+    d.prepare('DELETE FROM dad_debt_payments WHERE id = ?').run(paymentId)
+  })()
+}
+
+export function updateDadPaymentDate(paymentId: number, newDate: string): void {
+  const d = getDb()
+  d.transaction(() => {
+    const payment = d.prepare('SELECT * FROM dad_debt_payments WHERE id = ?').get(paymentId) as {
+      operation_id: number | null; debt_id: number; total_amount: number; payment_date: string
+    }
+    d.prepare('UPDATE dad_debt_payments SET payment_date = ? WHERE id = ?').run(newDate, paymentId)
+    if (payment.operation_id) {
+      d.prepare('UPDATE operations SET date = ? WHERE id = ?').run(newDate, payment.operation_id)
+    } else {
+      d.prepare("UPDATE operations SET date = ? WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
+        .run(newDate, payment.debt_id, payment.payment_date, payment.total_amount)
+    }
+  })()
+}
+
+export function deleteSimpleDebtPayment(paymentId: number): void {
+  const d = getDb()
+  d.transaction(() => {
+    const payment = d.prepare('SELECT * FROM simple_debt_payments WHERE id = ?').get(paymentId) as {
+      id: number; debt_id: number; total_amount: number; payment_date: string; operation_id: number | null
+    }
+    const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(payment.debt_id) as { initial_amount: number }
+    if (payment.operation_id) {
+      d.prepare('DELETE FROM operations WHERE id = ?').run(payment.operation_id)
+    } else {
+      d.prepare("DELETE FROM operations WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
+        .run(payment.debt_id, payment.payment_date, payment.total_amount)
+    }
+    d.prepare('DELETE FROM simple_debt_payments WHERE id = ?').run(paymentId)
+    // Reopen debt if it was closed
+    const paid = (d.prepare('SELECT COALESCE(SUM(body_part),0) as total FROM simple_debt_payments WHERE debt_id = ?').get(payment.debt_id) as { total: number }).total
+    if (paid < debt.initial_amount) {
+      d.prepare("UPDATE debts SET status = 'active' WHERE id = ?").run(payment.debt_id)
+    }
+  })()
+}
+
+export function updateSimpleDebtPayment(paymentId: number, newAmount: number, newDate: string, newInterestPart: number): void {
+  const d = getDb()
+  d.transaction(() => {
+    const payment = d.prepare('SELECT * FROM simple_debt_payments WHERE id = ?').get(paymentId) as {
+      id: number; debt_id: number; operation_id: number | null; payment_date: string; total_amount: number
+    }
+    const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(payment.debt_id) as { initial_amount: number }
+    const newBodyPart = newAmount - newInterestPart
+    d.prepare('UPDATE simple_debt_payments SET total_amount = ?, payment_date = ?, interest_part = ?, body_part = ? WHERE id = ?')
+      .run(newAmount, newDate, newInterestPart, newBodyPart, paymentId)
+    if (payment.operation_id) {
+      d.prepare('UPDATE operations SET amount = ?, date = ? WHERE id = ?').run(newAmount, newDate, payment.operation_id)
+    } else {
+      d.prepare("UPDATE operations SET amount = ?, date = ? WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
+        .run(newAmount, newDate, payment.debt_id, payment.payment_date, payment.total_amount)
+    }
+    const paid = (d.prepare('SELECT COALESCE(SUM(body_part),0) as total FROM simple_debt_payments WHERE debt_id = ?').get(payment.debt_id) as { total: number }).total
+    if (paid >= debt.initial_amount) {
+      d.prepare("UPDATE debts SET status = 'closed' WHERE id = ?").run(payment.debt_id)
+    } else {
+      d.prepare("UPDATE debts SET status = 'active' WHERE id = ?").run(payment.debt_id)
+    }
+  })()
+}
+
+export function hasDadPaymentsAfter(paymentId: number): boolean {
+  const d = getDb()
+  const payment = d.prepare('SELECT * FROM dad_debt_payments WHERE id = ?').get(paymentId) as { debt_id: number; payment_date: string }
+  const count = (d.prepare('SELECT COUNT(*) as c FROM dad_debt_payments WHERE debt_id = ? AND payment_date > ?').get(payment.debt_id, payment.payment_date) as { c: number }).c
+  return count > 0
+}
+
+export function hasSimplePaymentsAfter(paymentId: number): boolean {
+  const d = getDb()
+  const payment = d.prepare('SELECT * FROM simple_debt_payments WHERE id = ?').get(paymentId) as { debt_id: number; payment_date: string }
+  const count = (d.prepare('SELECT COUNT(*) as c FROM simple_debt_payments WHERE debt_id = ? AND payment_date > ?').get(payment.debt_id, payment.payment_date) as { c: number }).c
+  return count > 0
 }
 
 export function getDadForecast(debtId: number, monthlyPayment: number): unknown[] {

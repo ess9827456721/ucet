@@ -209,20 +209,24 @@ export default function Operations({ onAdd }: Props) {
                 </td>
                 <td className="px-5 py-3 text-sm text-gray-400 max-w-xs truncate">{op.comment || ''}</td>
                 <td className="px-5 py-3">
-                  <div className="flex gap-1 justify-end">
-                    <button
-                      onClick={() => setEditOp(op)}
-                      className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
-                    >
-                      <Pencil size={14} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(op.id)}
-                      className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  </div>
+                  {op.type === 'debt_op' ? (
+                    <span className="text-xs text-gray-600 px-2" title="Платёж по долгу — редактируйте на странице долга">на стр. долга</span>
+                  ) : (
+                    <div className="flex gap-1 justify-end">
+                      <button
+                        onClick={() => setEditOp(op)}
+                        className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
+                      >
+                        <Pencil size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(op.id)}
+                        className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

@@ -3,7 +3,8 @@ import {
   PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X } from 'lucide-react'
+// Legend is used in monthly/daily charts
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Summary, Debt, Operation } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
@@ -152,30 +153,61 @@ export default function Dashboard() {
   })
   const maxDow = Math.max(...dowRows.map(r => r.total), 1)
 
-  const DonutChart = ({ height = 220 }: { height?: number }) => (
+  const RADIAN = Math.PI / 180
+
+  function makeRadialLabel(outerRadius: number, threshold: number) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return ({ cx, cy, midAngle, name, value, percent }: any) => {
+      if ((percent as number) < threshold) return null
+      const cos = Math.cos(-midAngle * RADIAN)
+      const sin = Math.sin(-midAngle * RADIAN)
+      const r1 = outerRadius + 8
+      const r2 = outerRadius + 28
+      const x1 = cx + r1 * cos
+      const y1 = cy + r1 * sin
+      const x2 = cx + r2 * cos
+      const y2 = cy + r2 * sin
+      const isRight = cos >= 0
+      const xText = isRight ? x2 + 6 : x2 - 6
+      const anchor = isRight ? 'start' : 'end'
+      const pct = ((percent as number) * 100).toFixed(1)
+      return (
+        <g>
+          <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#4B5563" strokeWidth={1} />
+          <line x1={x2} y1={y2} x2={isRight ? x2 + 12 : x2 - 12} y2={y2} stroke="#4B5563" strokeWidth={1} />
+          <text x={xText} y={y2 - 4} textAnchor={anchor} fill="#E5E5E5" fontSize={10} fontWeight={500}>{name}</text>
+          <text x={xText} y={y2 + 8} textAnchor={anchor} fill="#9CA3AF" fontSize={9}>
+            {formatMoney(value as number)} · {pct}%
+          </text>
+        </g>
+      )
+    }
+  }
+
+  const DonutChart = ({ outerRadius = 105, innerRadius = 65, height = 280, threshold = 0.03 }: {
+    outerRadius?: number; innerRadius?: number; height?: number; threshold?: number
+  }) => (
     categories.length > 0 ? (
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
           <Pie
             data={categories}
             cx="50%"
-            cy="45%"
-            innerRadius={55}
-            outerRadius={85}
+            cy="50%"
+            innerRadius={innerRadius}
+            outerRadius={outerRadius}
             dataKey="total"
             nameKey="name"
             onClick={(data) => openDrill(data as CategoryData)}
             className="cursor-pointer"
+            label={makeRadialLabel(outerRadius, threshold)}
+            labelLine={false}
           >
             {categories.map((cat, i) => (
               <Cell key={i} fill={cat.color || '#FFD600'} />
             ))}
           </Pie>
           <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
-          <Legend
-            wrapperStyle={{ fontSize: 11, color: '#9CA3AF' }}
-            formatter={(value) => <span style={{ color: '#9CA3AF' }}>{value}</span>}
-          />
         </PieChart>
       </ResponsiveContainer>
     ) : (
@@ -441,7 +473,12 @@ export default function Dashboard() {
           {/* Top categories */}
           {topCategories.length > 0 && (
             <div className="card">
-              <h2 className="text-base font-semibold mb-4">Топ-5 категорий</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-semibold">Топ-5 категорий</h2>
+                <button onClick={() => setExpandedCard('top5')} className="text-gray-500 hover:text-white p-1" title="Все категории">
+                  <List size={14} />
+                </button>
+              </div>
               <div className="space-y-3">
                 {topCategories.map((cat, i) => {
                   const pct = Math.round((cat.total / totalExpense) * 100)
@@ -507,7 +544,7 @@ export default function Dashboard() {
       {/* Expanded card modals */}
       {expandedCard === 'donut' && (
         <ExpandModal title="Расходы по категориям" onClose={() => setExpandedCard(null)}>
-          <DonutChart height={400} />
+          <DonutChart outerRadius={180} innerRadius={110} height={480} threshold={0.02} />
         </ExpandModal>
       )}
       {expandedCard === 'daily' && (
@@ -515,6 +552,29 @@ export default function Dashboard() {
           <DailyChart height={400} />
         </ExpandModal>
       )}
+      {expandedCard === 'top5' && (
+        <ExpandModal title="Все категории за период" onClose={() => setExpandedCard(null)}>
+          <div className="grid grid-cols-2 gap-8">
+            <div className="space-y-3">
+              {categories.map((cat, i) => {
+                const pct = Math.round((cat.total / totalExpense) * 100)
+                return (
+                  <div key={cat.id} className="flex items-center gap-3 cursor-pointer hover:opacity-80" onClick={() => { openDrill(cat); setExpandedCard(null) }}>
+                    <span className="text-gray-500 text-sm w-6">{i + 1}</span>
+                    <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: cat.color || '#FFD600' }} />
+                    <span className="flex-1 text-sm text-white">{cat.name}</span>
+                    <span className="text-gray-400 text-sm w-10 text-right">{pct}%</span>
+                    <span className="text-white font-medium text-sm w-32 text-right">{formatMoney(cat.total)}</span>
+                  </div>
+                )
+              })}
+              {categories.length === 0 && <p className="text-gray-500 text-sm">Нет данных</p>}
+            </div>
+            <DonutChart outerRadius={140} innerRadius={85} height={420} threshold={0.02} />
+          </div>
+        </ExpandModal>
+      )}
+
       {expandedCard === 'monthly' && showMonthly && monthly.length > 1 && (
         <ExpandModal title="Расходы по месяцам" onClose={() => setExpandedCard(null)}>
           <ResponsiveContainer width="100%" height={400}>

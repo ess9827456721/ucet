@@ -34,6 +34,12 @@ const api = {
     ipcRenderer.invoke('process-simple-payment', debtId, amount, date, interestPart),
   getDadForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-dad-forecast', debtId, payment),
   getSimpleForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-simple-forecast', debtId, payment),
+  deleteDadPayment: (paymentId: number) => ipcRenderer.invoke('delete-dad-payment', paymentId),
+  updateDadPaymentDate: (paymentId: number, date: string) => ipcRenderer.invoke('update-dad-payment-date', paymentId, date),
+  deleteSimpleDebtPayment: (paymentId: number) => ipcRenderer.invoke('delete-simple-debt-payment', paymentId),
+  updateSimpleDebtPayment: (paymentId: number, amount: number, date: string, interestPart: number) => ipcRenderer.invoke('update-simple-debt-payment', paymentId, amount, date, interestPart),
+  hasDadPaymentsAfter: (paymentId: number) => ipcRenderer.invoke('has-dad-payments-after', paymentId),
+  hasSimplePaymentsAfter: (paymentId: number) => ipcRenderer.invoke('has-simple-payments-after', paymentId),
 
   // Analytics
   getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo, expenseType),

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft, Plus, TrendingDown, BarChart2, Pencil, Trash2 } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Debt, Tranche, DadPayment, SimpleDebtPayment, Operation } from '../types'
+import { Debt, Tranche, DadPayment, SimpleDebtPayment } from '../types'
 import { formatMoney, formatDate, today } from '../utils'
-import TransactionModal from '../components/TransactionModal'
 
 interface Props {
   debtId: number
@@ -12,16 +11,19 @@ interface Props {
   onAnalytics: () => void
 }
 
+interface EditDadPayment { id: number; date: string }
+interface EditSimplePayment { id: number; date: string; amount: string; interestPart: string }
+
 export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: Props) {
   const api = useApi()
   const [debt, setDebt] = useState<Debt | null>(null)
   const [tranches, setTranches] = useState<Tranche[]>([])
   const [dadPayments, setDadPayments] = useState<DadPayment[]>([])
   const [simplePayments, setSimplePayments] = useState<SimpleDebtPayment[]>([])
-  const [linkedOps, setLinkedOps] = useState<Operation[]>([])
   const [showPaymentForm, setShowPaymentForm] = useState(false)
   const [showAddTranche, setShowAddTranche] = useState(false)
-  const [editOp, setEditOp] = useState<Operation | null>(null)
+  const [editDadPay, setEditDadPay] = useState<EditDadPayment | null>(null)
+  const [editSimplePay, setEditSimplePay] = useState<EditSimplePayment | null>(null)
   const [loading, setLoading] = useState(true)
 
   // Payment form state
@@ -42,14 +44,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
 
   async function load() {
     setLoading(true)
-    const [d, t, ops] = await Promise.all([
+    const [d, t] = await Promise.all([
       api.getDebt(debtId),
       api.getTranches(debtId),
-      api.getOperations({ debtId }),
     ])
     setDebt(d as Debt)
     setTranches(t as Tranche[])
-    setLinkedOps(ops as Operation[])
     if ((d as Debt).debt_type === 'dad') {
       const ph = await api.getDadPaymentHistory(debtId)
       setDadPayments(ph as DadPayment[])
@@ -79,7 +79,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
       setIsEarlyRepayment(false)
       setNewMonthlyPayment('')
       load()
-    } catch (e) {
+    } catch {
       setPayError('Ошибка при сохранении платежа')
     } finally {
       setPaying(false)
@@ -105,9 +105,38 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     }
   }
 
-  async function handleDeleteOp(id: number) {
-    if (!confirm('Удалить операцию?')) return
-    await api.deleteOperation(id)
+  async function handleDeleteDadPayment(paymentId: number) {
+    const hasLater = await api.hasDadPaymentsAfter(paymentId)
+    const warning = hasLater ? '\n⚠️ Этот платёж не последний. Удаление не пересчитает последующие платежи — баланс долга будет исправлен только для данного платежа.' : ''
+    if (!confirm(`Удалить платёж?${warning}`)) return
+    await api.deleteDadPayment(paymentId)
+    load()
+  }
+
+  async function handleDeleteSimplePayment(paymentId: number) {
+    const hasLater = await api.hasSimplePaymentsAfter(paymentId)
+    const warning = hasLater ? '\n⚠️ Этот платёж не последний. Удаление пересчитает общий остаток долга.' : ''
+    if (!confirm(`Удалить платёж?${warning}`)) return
+    await api.deleteSimpleDebtPayment(paymentId)
+    load()
+  }
+
+  async function handleSaveDadPayment() {
+    if (!editDadPay) return
+    await api.updateDadPaymentDate(editDadPay.id, editDadPay.date)
+    setEditDadPay(null)
+    load()
+  }
+
+  async function handleSaveSimplePayment() {
+    if (!editSimplePay) return
+    await api.updateSimpleDebtPayment(
+      editSimplePay.id,
+      parseFloat(editSimplePay.amount),
+      editSimplePay.date,
+      parseFloat(editSimplePay.interestPart) || 0
+    )
+    setEditSimplePay(null)
     load()
   }
 
@@ -219,8 +248,6 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               <input type="number" value={interestPart} onChange={e => setInterestPart(e.target.value)} className="input w-48" />
             </div>
           )}
-
-          {/* Early repayment option */}
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"
@@ -242,7 +269,6 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               />
             </div>
           )}
-
           {payError && <p className="text-red-400 text-sm">{payError}</p>}
           <div className="flex gap-3">
             <button onClick={() => { setShowPaymentForm(false); setPayError(''); setIsEarlyRepayment(false) }} className="btn-secondary">Отмена</button>
@@ -315,12 +341,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
         </div>
       )}
 
-      {/* Payment history */}
-      <div className="card p-0 overflow-hidden">
-        <div className="px-5 py-4 border-b border-dark-600">
-          <h2 className="text-base font-semibold">История платежей</h2>
-        </div>
-        {debt.debt_type === 'dad' ? (
+      {/* Payment history — dad */}
+      {debt.debt_type === 'dad' && (
+        <div className="card p-0 overflow-hidden">
+          <div className="px-5 py-4 border-b border-dark-600">
+            <h2 className="text-base font-semibold">История платежей</h2>
+          </div>
           <table className="w-full">
             <thead>
               <tr className="border-b border-dark-600">
@@ -330,26 +356,60 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Пул %</th>
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Тело</th>
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">В пул</th>
+                <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
               {dadPayments.length === 0 ? (
-                <tr><td colSpan={6} className="text-center py-8 text-gray-500">Платежей нет</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-gray-500">Платежей нет</td></tr>
               ) : dadPayments.map(p => (
-                <tr key={p.id} className="border-b border-dark-600 hover:bg-dark-700">
-                  <td className="px-5 py-3 text-sm text-gray-300">{formatDate(p.payment_date)}</td>
-                  <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(p.total_amount)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-red-400">{formatMoney(p.interest_covered)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-orange-400">{formatMoney(p.pool_covered)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-green-400">{formatMoney(p.body_covered)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-gray-400">
-                    {p.overdue_added_to_pool > 0 ? <span className="text-red-400">+{formatMoney(p.overdue_added_to_pool)}</span> : '—'}
-                  </td>
-                </tr>
+                <React.Fragment key={p.id}>
+                  <tr className="border-b border-dark-600 hover:bg-dark-700">
+                    <td className="px-5 py-3 text-sm text-gray-300">{formatDate(p.payment_date)}</td>
+                    <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(p.total_amount)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-red-400">{formatMoney(p.interest_covered)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-orange-400">{formatMoney(p.pool_covered)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-green-400">{formatMoney(p.body_covered)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-gray-400">
+                      {p.overdue_added_to_pool > 0 ? <span className="text-red-400">+{formatMoney(p.overdue_added_to_pool)}</span> : '—'}
+                    </td>
+                    <td className="px-5 py-3">
+                      <div className="flex gap-1 justify-end">
+                        <button onClick={() => setEditDadPay({ id: p.id, date: p.payment_date })} className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors">
+                          <Pencil size={13} />
+                        </button>
+                        <button onClick={() => handleDeleteDadPayment(p.id)} className="p-1.5 text-gray-500 hover:text-red-400 transition-colors">
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {editDadPay?.id === p.id && (
+                    <tr className="bg-dark-700 border-b border-dark-600">
+                      <td colSpan={7} className="px-5 py-3">
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm text-gray-400">Дата:</span>
+                          <input type="date" value={editDadPay.date} onChange={e => setEditDadPay({ ...editDadPay, date: e.target.value })} className="input py-1 text-sm w-36" />
+                          <span className="text-xs text-gray-500">Сумма платежа изменяется только через удаление и повторный ввод</span>
+                          <button onClick={handleSaveDadPayment} className="btn-primary text-sm py-1 px-3">Сохранить</button>
+                          <button onClick={() => setEditDadPay(null)} className="btn-secondary text-sm py-1 px-3">Отмена</button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))}
             </tbody>
           </table>
-        ) : (
+        </div>
+      )}
+
+      {/* Payment history — simple */}
+      {debt.debt_type === 'simple' && (
+        <div className="card p-0 overflow-hidden">
+          <div className="px-5 py-4 border-b border-dark-600">
+            <h2 className="text-base font-semibold">История платежей</h2>
+          </div>
           <table className="w-full">
             <thead>
               <tr className="border-b border-dark-600">
@@ -357,74 +417,60 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Платёж</th>
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Проценты</th>
                 <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Тело</th>
-              </tr>
-            </thead>
-            <tbody>
-              {simplePayments.length === 0 ? (
-                <tr><td colSpan={4} className="text-center py-8 text-gray-500">Платежей нет</td></tr>
-              ) : simplePayments.map(p => (
-                <tr key={p.id} className="border-b border-dark-600 hover:bg-dark-700">
-                  <td className="px-5 py-3 text-sm text-gray-300">{formatDate(p.payment_date)}</td>
-                  <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(p.total_amount)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-red-400">{formatMoney(p.interest_part)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-green-400">{formatMoney(p.body_part)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* Linked operations */}
-      {linkedOps.length > 0 && (
-        <div className="card p-0 overflow-hidden">
-          <div className="px-5 py-4 border-b border-dark-600">
-            <h2 className="text-base font-semibold">Операции по долгу</h2>
-          </div>
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-dark-600">
-                <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Дата</th>
-                <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Сумма</th>
-                <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Комментарий</th>
                 <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
-              {linkedOps.map(op => (
-                <tr key={op.id} className="border-b border-dark-600 hover:bg-dark-700">
-                  <td className="px-5 py-3 text-sm text-gray-300">{formatDate(op.date)}</td>
-                  <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(op.amount)}</td>
-                  <td className="px-5 py-3 text-sm text-gray-400">{op.comment || '—'}</td>
-                  <td className="px-5 py-3">
-                    <div className="flex gap-1 justify-end">
-                      <button
-                        onClick={() => setEditOp(op)}
-                        className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
-                      >
-                        <Pencil size={14} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteOp(op.id)}
-                        className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+              {simplePayments.length === 0 ? (
+                <tr><td colSpan={5} className="text-center py-8 text-gray-500">Платежей нет</td></tr>
+              ) : simplePayments.map(p => (
+                <React.Fragment key={p.id}>
+                  <tr className="border-b border-dark-600 hover:bg-dark-700">
+                    <td className="px-5 py-3 text-sm text-gray-300">{formatDate(p.payment_date)}</td>
+                    <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(p.total_amount)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-red-400">{formatMoney(p.interest_part)}</td>
+                    <td className="px-5 py-3 text-sm text-right text-green-400">{formatMoney(p.body_part)}</td>
+                    <td className="px-5 py-3">
+                      <div className="flex gap-1 justify-end">
+                        <button
+                          onClick={() => setEditSimplePay({ id: p.id, date: p.payment_date, amount: String(p.total_amount), interestPart: String(p.interest_part) })}
+                          className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
+                        >
+                          <Pencil size={13} />
+                        </button>
+                        <button onClick={() => handleDeleteSimplePayment(p.id)} className="p-1.5 text-gray-500 hover:text-red-400 transition-colors">
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {editSimplePay?.id === p.id && (
+                    <tr className="bg-dark-700 border-b border-dark-600">
+                      <td colSpan={5} className="px-5 py-3">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-400">Дата:</span>
+                            <input type="date" value={editSimplePay.date} onChange={e => setEditSimplePay({ ...editSimplePay, date: e.target.value })} className="input py-1 text-sm w-36" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-400">Сумма:</span>
+                            <input type="number" value={editSimplePay.amount} onChange={e => setEditSimplePay({ ...editSimplePay, amount: e.target.value })} className="input py-1 text-sm w-32" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-400">Из них %:</span>
+                            <input type="number" value={editSimplePay.interestPart} onChange={e => setEditSimplePay({ ...editSimplePay, interestPart: e.target.value })} className="input py-1 text-sm w-28" />
+                          </div>
+                          <button onClick={handleSaveSimplePayment} className="btn-primary text-sm py-1 px-3">Сохранить</button>
+                          <button onClick={() => setEditSimplePay(null)} className="btn-secondary text-sm py-1 px-3">Отмена</button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))}
             </tbody>
           </table>
         </div>
-      )}
-
-      {editOp && (
-        <TransactionModal
-          editOperation={editOp as unknown as Record<string, unknown>}
-          onClose={() => setEditOp(null)}
-          onSaved={() => { setEditOp(null); load() }}
-        />
       )}
     </div>
   )
