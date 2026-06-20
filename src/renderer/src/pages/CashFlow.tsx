@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { ChevronLeft, ChevronRight, Plus, Pencil, Trash2, Lock } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Plus, Pencil, Trash2, Lock } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { CashFlowData, MandatoryExpenseItem } from '../types'
 import { formatMoney, formatDate } from '../utils'
@@ -16,6 +16,8 @@ export default function CashFlow() {
   const [month, setMonth] = useState(now.getMonth() + 1)
   const [data, setData] = useState<CashFlowData | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const [mandatoryExpanded, setMandatoryExpanded] = useState(true)
 
   // Mandatory items edit state
   const [editItemId, setEditItemId] = useState<number | null>(null)
@@ -121,17 +123,30 @@ export default function CashFlow() {
           {/* Mandatory expenses plan */}
           <div className="card p-0 overflow-hidden">
             <div className="px-5 py-4 border-b border-dark-600 flex items-center justify-between">
-              <h2 className="text-base font-semibold text-white">Обязательные расходы месяца</h2>
               <button
-                onClick={() => setShowAddItem(v => !v)}
-                className="text-gray-500 hover:text-yellow-400 transition-colors p-1"
-                title="Добавить статью"
+                onClick={() => setMandatoryExpanded(v => !v)}
+                className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
               >
-                <Plus size={16} />
+                {mandatoryExpanded ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                <span className="text-base font-semibold">Обязательные расходы месяца</span>
+                {!mandatoryExpanded && data.mandatoryItems.length > 0 && (
+                  <span className="text-sm text-gray-400 ml-1">
+                    — {formatMoney(data.mandatoryItems.reduce((s, i) => s + i.plannedAmount, 0))} план
+                  </span>
+                )}
               </button>
+              {mandatoryExpanded && (
+                <button
+                  onClick={() => setShowAddItem(v => !v)}
+                  className="text-gray-500 hover:text-yellow-400 transition-colors p-1"
+                  title="Добавить статью"
+                >
+                  <Plus size={16} />
+                </button>
+              )}
             </div>
 
-            {showAddItem && (
+            {mandatoryExpanded && showAddItem && (
               <div className="px-5 py-3 border-b border-dark-600 bg-dark-700 flex items-center gap-3 flex-wrap">
                 <input
                   type="text"
@@ -154,11 +169,11 @@ export default function CashFlow() {
               </div>
             )}
 
-            {data.mandatoryItems.length === 0 ? (
+            {mandatoryExpanded && data.mandatoryItems.length === 0 ? (
               <div className="px-5 py-8 text-center text-gray-500 text-sm">
                 Нет статей обязательных расходов. Нажмите + чтобы добавить.
               </div>
-            ) : (
+            ) : mandatoryExpanded ? (
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-dark-600">
@@ -227,7 +242,7 @@ export default function CashFlow() {
                   </tr>
                 </tbody>
               </table>
-            )}
+            ) : null}
           </div>
 
           {/* Daily journal */}
