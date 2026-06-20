@@ -9,6 +9,7 @@ import CashFlow from './pages/CashFlow'
 import Debts from './pages/Debts'
 import DebtDetail from './pages/DebtDetail'
 import DebtForecast from './pages/DebtForecast'
+import DebtAnalytics from './pages/DebtAnalytics'
 import SettingsPage from './pages/SettingsPage'
 import TransactionModal from './components/TransactionModal'
 
@@ -40,6 +41,11 @@ export default function App() {
     setPage('debt-forecast')
   }
 
+  function navigateToAnalytics(id: number) {
+    setSelectedDebtId(id)
+    setPage('debt-analytics')
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-dark-900">
       {/* Sidebar */}
@@ -56,7 +62,7 @@ export default function App() {
             <button
               key={item.id}
               onClick={() => setPage(item.id)}
-              className={`nav-item text-left ${page === item.id || (page === 'debt-detail' && item.id === 'debts') || (page === 'debt-forecast' && item.id === 'debts') ? 'active' : ''}`}
+              className={`nav-item text-left ${page === item.id || (page === 'debt-detail' && item.id === 'debts') || (page === 'debt-forecast' && item.id === 'debts') || (page === 'debt-analytics' && item.id === 'debts') ? 'active' : ''}`}
             >
               <item.icon size={18} />
               <span className="text-sm font-medium">{item.label}</span>
@@ -92,6 +98,14 @@ export default function App() {
             debtId={selectedDebtId}
             onBack={() => setPage('debts')}
             onForecast={() => navigateToForecast(selectedDebtId)}
+            onAnalytics={() => navigateToAnalytics(selectedDebtId)}
+          />
+        )}
+        {page === 'debt-analytics' && selectedDebtId && (
+          <DebtAnalytics
+            key={selectedDebtId}
+            debtId={selectedDebtId}
+            onBack={() => navigateToDebt(selectedDebtId)}
           />
         )}
         {page === 'debt-forecast' && selectedDebtId && (

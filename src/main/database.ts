@@ -184,6 +184,7 @@ export function getOperations(filters: {
   commentSearch?: string
   amountFrom?: number
   amountTo?: number
+  debtId?: number
   limit?: number
   offset?: number
 }): unknown[] {
@@ -197,6 +198,7 @@ export function getOperations(filters: {
   if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
   if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
   if (filters.amountFrom != null) { parts.push('o.amount >= ?'); params.push(filters.amountFrom) }
+  if (filters.debtId != null) { parts.push('o.debt_id = ?'); params.push(filters.debtId) }
   if (filters.amountTo != null) { parts.push('o.amount <= ?'); params.push(filters.amountTo) }
 
   const sql = `
@@ -380,6 +382,54 @@ export function getDebtsWithBalance(): unknown[] {
       currentBalance = Math.max(0, (debt.initial_amount || 0) - row.paid)
     }
     return { ...debt, current_balance: currentBalance }
+  })
+}
+
+export function getDebtsWithDetails(): unknown[] {
+  const d = getDb()
+  const debts = d.prepare('SELECT * FROM debts ORDER BY created_at DESC').all() as Array<{
+    id: number; debt_type: string; initial_amount: number | null; interest_rate: number | null
+    overdue_interest_pool: number; created_at: string; [key: string]: unknown
+  }>
+  const today = new Date()
+  return debts.map(debt => {
+    let currentBalance: number
+    let accruedInterest: number
+    let lastPaymentDate: Date
+
+    if (debt.debt_type === 'dad') {
+      const row = d.prepare(
+        "SELECT COALESCE(SUM(current_balance),0) as bal FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
+      ).get(debt.id) as { bal: number }
+      currentBalance = row.bal
+
+      const lastPay = d.prepare(
+        'SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?'
+      ).get(debt.id) as { dt: string | null }
+      lastPaymentDate = lastPay.dt ? new Date(lastPay.dt) : new Date(debt.created_at as string)
+
+      const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
+      const tranches = d.prepare(
+        "SELECT current_balance, interest_rate FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
+      ).all(debt.id) as Array<{ current_balance: number; interest_rate: number }>
+      const trancheInterest = tranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
+      accruedInterest = trancheInterest + debt.overdue_interest_pool
+    } else {
+      const row = d.prepare(
+        'SELECT COALESCE(SUM(body_part),0) as paid FROM simple_debt_payments WHERE debt_id = ?'
+      ).get(debt.id) as { paid: number }
+      currentBalance = Math.max(0, (debt.initial_amount || 0) - row.paid)
+
+      const lastPay = d.prepare(
+        'SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?'
+      ).get(debt.id) as { dt: string | null }
+      lastPaymentDate = lastPay.dt ? new Date(lastPay.dt) : new Date(debt.created_at as string)
+
+      const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
+      accruedInterest = debt.interest_rate ? currentBalance * debt.interest_rate * (days / 365) : 0
+    }
+
+    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest }
   })
 }
 

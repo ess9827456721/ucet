@@ -44,6 +44,7 @@ export interface Debt {
   overdue_interest_pool: number
   created_at: string
   current_balance?: number
+  accrued_interest?: number
 }
 
 export interface Tranche {
@@ -103,4 +104,4 @@ export interface CashFlowData {
   }>
 }
 
-export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'settings'
+export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'settings'

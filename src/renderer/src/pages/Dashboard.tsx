@@ -3,10 +3,11 @@ import {
   PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard } from 'lucide-react'
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Summary, Debt, Operation } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
+import InfoTooltip from '../components/InfoTooltip'
 
 interface CategoryData { id: number; name: string; color: string; total: number }
 interface DailyData { date: string; expenses: number; income: number }
@@ -29,6 +30,12 @@ const EXPENSE_TYPES = [
   { id: 'apartment', label: 'Квартира' },
 ]
 
+const TOOLTIP_STYLE = {
+  contentStyle: { backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' },
+  labelStyle: { color: '#FFFFFF', fontWeight: 600 },
+  itemStyle: { color: '#E5E5E5' },
+}
+
 function subtractPeriod(from: string, to: string): { from: string; to: string } {
   const d1 = new Date(from + 'T00:00:00')
   const d2 = new Date(to + 'T00:00:00')
@@ -41,6 +48,23 @@ function subtractPeriod(from: string, to: string): { from: string; to: string } 
     from: prev1.toISOString().slice(0, 10),
     to: prev2.toISOString().slice(0, 10),
   }
+}
+
+function ExpandModal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
+      <div
+        className="bg-dark-800 rounded-3xl w-full max-w-4xl mx-4 shadow-2xl border border-dark-500 max-h-[90vh] flex flex-col"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-dark-600">
+          <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-white p-1"><X size={20} /></button>
+        </div>
+        <div className="overflow-y-auto p-6 flex-1">{children}</div>
+      </div>
+    </div>
+  )
 }
 
 export default function Dashboard() {
@@ -63,6 +87,7 @@ export default function Dashboard() {
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedCard, setExpandedCard] = useState<string | null>(null)
 
   const periodDays = Math.round((new Date(dateTo + 'T00:00:00').getTime() - new Date(dateFrom + 'T00:00:00').getTime()) / 86400000) + 1
 
@@ -78,7 +103,7 @@ export default function Dashboard() {
       api.getDailyExpenses(dateFrom, dateTo, et),
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
-      api.getDebtsWithBalance(),
+      api.getDebtsWithDetails(),
     ])
     setSummary(s as Summary)
     setPrevSummary(prevS as Summary)
@@ -116,13 +141,64 @@ export default function Dashboard() {
   const cfJournal = cashFlow?.journal ?? []
   const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null
 
-  const totalDebtOwed = activeDebts.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+  const debtOwed = activeDebts.filter(d => d.direction === 'i_owe')
+  const totalDebtOwed = debtOwed.reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+  const totalAccrued = debtOwed.reduce((s, d) => s + (d.accrued_interest ?? 0), 0)
+  const totalMonthlyPayment = debtOwed.reduce((s, d) => s + (d.monthly_payment ?? 0), 0)
 
   const dowRows = Array.from({ length: 7 }, (_, i) => {
     const found = dowData.find(d => d.dow === i)
     return { dow: i, total: found?.total ?? 0, count: found?.count ?? 0 }
   })
   const maxDow = Math.max(...dowRows.map(r => r.total), 1)
+
+  const DonutChart = ({ height = 220 }: { height?: number }) => (
+    categories.length > 0 ? (
+      <ResponsiveContainer width="100%" height={height}>
+        <PieChart>
+          <Pie
+            data={categories}
+            cx="50%"
+            cy="45%"
+            innerRadius={55}
+            outerRadius={85}
+            dataKey="total"
+            nameKey="name"
+            onClick={(data) => openDrill(data as CategoryData)}
+            className="cursor-pointer"
+          >
+            {categories.map((cat, i) => (
+              <Cell key={i} fill={cat.color || '#FFD600'} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
+          <Legend
+            wrapperStyle={{ fontSize: 11, color: '#9CA3AF' }}
+            formatter={(value) => <span style={{ color: '#9CA3AF' }}>{value}</span>}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    ) : (
+      <div className="flex items-center justify-center text-gray-500" style={{ height }}>Нет данных</div>
+    )
+  )
+
+  const DailyChart = ({ height = 220 }: { height?: number }) => (
+    daily.length > 0 ? (
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart data={daily} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
+          <XAxis dataKey="date" tickFormatter={formatDateShort} tick={{ fontSize: 10, fill: '#6B7280' }} interval="preserveStartEnd" />
+          <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={v => `${(v / 1000).toFixed(0)}к`} />
+          <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
+          <Bar dataKey="expenses" fill="#EF4444" name="Расходы" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="income" fill="#22C55E" name="Доходы" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    ) : (
+      <div className="flex items-center justify-center text-gray-500" style={{ height }}>Нет данных</div>
+    )
+  )
 
   return (
     <div className="p-6 space-y-6">
@@ -158,6 +234,7 @@ export default function Dashboard() {
               value={summary ? formatMoney(summary.expense) : '—'}
               icon={<TrendingDown className="text-red-400" size={20} />}
               valueClass="text-red-400"
+              tooltip="Сумма всех расходных операций за выбранный период"
               sub={prevSummary && prevSummary.expense > 0 ? (() => {
                 const pct = Math.round(((summary!.expense - prevSummary.expense) / prevSummary.expense) * 100)
                 return <span className={pct > 0 ? 'text-red-400' : 'text-green-400'}>{pct > 0 ? '+' : ''}{pct}% к пред. пер.</span>
@@ -168,18 +245,21 @@ export default function Dashboard() {
               value={summary ? formatMoney(summary.income) : '—'}
               icon={<TrendingUp className="text-green-400" size={20} />}
               valueClass="text-green-400"
+              tooltip="Сумма всех доходных операций за выбранный период"
             />
             <StatCard
               label="Остаток"
               value={summary ? formatMoney(summary.balance) : '—'}
               icon={<Wallet className="text-yellow-400" size={20} />}
               valueClass={summary && summary.balance >= 0 ? 'text-white' : 'text-red-400'}
+              tooltip="Доходы минус расходы за период. Не учитывает переводы и операции по долгам."
             />
             <StatCard
               label="Средний расход/день"
               value={summary ? formatMoney(summary.avgPerDay) : '—'}
               icon={<Calendar className="text-blue-400" size={20} />}
               valueClass="text-white"
+              tooltip="Общие расходы делённые на количество дней в периоде"
             />
           </div>
 
@@ -190,6 +270,7 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar size={16} className="text-yellow-400" />
                   <h2 className="text-sm font-semibold text-white">Бюджет на сегодня</h2>
+                  <InfoTooltip text="Дневной лимит = (доход месяца − обязательные платежи) ÷ число дней в месяце. Сальдо = накопленный лимит − фактические расходы." />
                 </div>
                 <div className="flex items-end gap-3 mb-3">
                   <div>
@@ -221,21 +302,28 @@ export default function Dashboard() {
               <div className="flex items-center gap-2 mb-3">
                 <CreditCard size={16} className="text-red-400" />
                 <h2 className="text-sm font-semibold text-white">Долговая нагрузка</h2>
+                <InfoTooltip text="Остаток тела — сумма невыплаченного основного долга. Нач. % — проценты, накопившиеся с последнего платежа по текущий момент. Обяз. платёж/мес — сумма ежемесячных платежей по всем активным долгам." />
               </div>
-              {activeDebts.length === 0 ? (
+              {debtOwed.length === 0 ? (
                 <p className="text-gray-500 text-sm">Нет активных долгов</p>
               ) : (
                 <>
-                  <p className="text-2xl font-bold text-red-400 mb-2">{formatMoney(totalDebtOwed)}</p>
+                  <p className="text-2xl font-bold text-red-400 mb-1">{formatMoney(totalDebtOwed)}</p>
+                  {totalAccrued > 0 && (
+                    <p className="text-xs text-orange-400 mb-2">+ нач. % ≈ {formatMoney(totalAccrued)}</p>
+                  )}
+                  {totalMonthlyPayment > 0 && (
+                    <p className="text-xs text-gray-400 mb-2">Обяз. платёж/мес: <span className="text-white font-medium">{formatMoney(totalMonthlyPayment)}</span></p>
+                  )}
                   <div className="space-y-1">
-                    {activeDebts.slice(0, 3).map(d => (
+                    {debtOwed.slice(0, 3).map(d => (
                       <div key={d.id} className="flex justify-between text-xs">
                         <span className="text-gray-400 truncate max-w-[60%]">{d.name}</span>
                         <span className="text-white font-medium">{formatMoney(d.current_balance ?? d.initial_amount ?? 0)}</span>
                       </div>
                     ))}
-                    {activeDebts.length > 3 && (
-                      <p className="text-xs text-gray-500">+{activeDebts.length - 3} ещё</p>
+                    {debtOwed.length > 3 && (
+                      <p className="text-xs text-gray-500">+{debtOwed.length - 3} ещё</p>
                     )}
                   </div>
                 </>
@@ -265,79 +353,43 @@ export default function Dashboard() {
           <div className="grid grid-cols-2 gap-6">
             {/* Donut chart with drill-down */}
             <div className="card">
-              <h2 className="text-base font-semibold mb-1">Расходы по категориям</h2>
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-base font-semibold">Расходы по категориям</h2>
+                <button onClick={() => setExpandedCard('donut')} className="text-gray-500 hover:text-white p-1">
+                  <Maximize2 size={14} />
+                </button>
+              </div>
               <p className="text-xs text-gray-500 mb-3">Нажмите на сегмент для просмотра операций</p>
-              {categories.length > 0 ? (
-                <ResponsiveContainer width="100%" height={220}>
-                  <PieChart>
-                    <Pie
-                      data={categories}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={55}
-                      outerRadius={90}
-                      dataKey="total"
-                      nameKey="name"
-                      onClick={(data) => openDrill(data as CategoryData)}
-                      className="cursor-pointer"
-                    >
-                      {categories.map((cat, i) => (
-                        <Cell key={i} fill={cat.color || '#FFD600'} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value: number) => formatMoney(value)}
-                      contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                      labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
-                      itemStyle={{ color: '#E5E5E5' }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="h-56 flex items-center justify-center text-gray-500">Нет данных</div>
-              )}
+              <DonutChart />
             </div>
 
             {/* Bar chart — daily */}
             <div className="card">
-              <h2 className="text-base font-semibold mb-4">Динамика расходов</h2>
-              {daily.length > 0 ? (
-                <ResponsiveContainer width="100%" height={220}>
-                  <BarChart data={daily} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
-                    <XAxis dataKey="date" tickFormatter={formatDateShort} tick={{ fontSize: 10, fill: '#6B7280' }} interval="preserveStartEnd" />
-                    <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={v => `${(v / 1000).toFixed(0)}к`} />
-                    <Tooltip
-                      formatter={(value: number) => formatMoney(value)}
-                      contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                      labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
-                      itemStyle={{ color: '#E5E5E5' }}
-                    />
-                    <Bar dataKey="expenses" fill="#EF4444" name="Расходы" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="income" fill="#22C55E" name="Доходы" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="h-56 flex items-center justify-center text-gray-500">Нет данных</div>
-              )}
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-semibold">Динамика расходов</h2>
+                <button onClick={() => setExpandedCard('daily')} className="text-gray-500 hover:text-white p-1">
+                  <Maximize2 size={14} />
+                </button>
+              </div>
+              <DailyChart />
             </div>
           </div>
 
           {/* Monthly chart */}
           {showMonthly && monthly.length > 1 && (
             <div className="card">
-              <h2 className="text-base font-semibold mb-4">Расходы по месяцам</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-semibold">Расходы по месяцам</h2>
+                <button onClick={() => setExpandedCard('monthly')} className="text-gray-500 hover:text-white p-1">
+                  <Maximize2 size={14} />
+                </button>
+              </div>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={monthly} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
                   <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6B7280' }} />
                   <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={v => `${(v / 1000).toFixed(0)}к`} />
-                  <Tooltip
-                    formatter={(value: number) => formatMoney(value)}
-                    contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                    labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
-                    itemStyle={{ color: '#E5E5E5' }}
-                  />
+                  <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
                   <Legend wrapperStyle={{ fontSize: 12, color: '#9CA3AF' }} />
                   <Bar dataKey="daily" stackId="a" fill="#FFD600" name="Повседневные" />
                   <Bar dataKey="big" stackId="a" fill="#F97316" name="Крупные" />
@@ -451,17 +503,48 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Expanded card modals */}
+      {expandedCard === 'donut' && (
+        <ExpandModal title="Расходы по категориям" onClose={() => setExpandedCard(null)}>
+          <DonutChart height={400} />
+        </ExpandModal>
+      )}
+      {expandedCard === 'daily' && (
+        <ExpandModal title="Динамика расходов" onClose={() => setExpandedCard(null)}>
+          <DailyChart height={400} />
+        </ExpandModal>
+      )}
+      {expandedCard === 'monthly' && showMonthly && monthly.length > 1 && (
+        <ExpandModal title="Расходы по месяцам" onClose={() => setExpandedCard(null)}>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={monthly} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6B7280' }} />
+              <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={v => `${(v / 1000).toFixed(0)}к`} />
+              <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
+              <Legend wrapperStyle={{ fontSize: 12, color: '#9CA3AF' }} />
+              <Bar dataKey="daily" stackId="a" fill="#FFD600" name="Повседневные" />
+              <Bar dataKey="big" stackId="a" fill="#F97316" name="Крупные" />
+              <Bar dataKey="apartment" stackId="a" fill="#3B82F6" name="Квартира" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ExpandModal>
+      )}
     </div>
   )
 }
 
-function StatCard({ label, value, icon, valueClass, sub }: {
-  label: string; value: string; icon: React.ReactNode; valueClass: string; sub?: React.ReactNode
+function StatCard({ label, value, icon, valueClass, sub, tooltip }: {
+  label: string; value: string; icon: React.ReactNode; valueClass: string; sub?: React.ReactNode; tooltip?: string
 }) {
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs text-gray-400 uppercase tracking-wide">{label}</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs text-gray-400 uppercase tracking-wide">{label}</span>
+          {tooltip && <InfoTooltip text={tooltip} />}
+        </div>
         {icon}
       </div>
       <div className={`text-2xl font-bold ${valueClass}`}>{value}</div>

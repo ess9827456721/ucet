@@ -17,6 +17,7 @@ export function useApi() {
 
     getDebts: (status?: string) => Promise<unknown[]>
     getDebtsWithBalance: () => Promise<unknown[]>
+    getDebtsWithDetails: () => Promise<unknown[]>
     getDebt: (id: number) => Promise<unknown>
     addDebt: (debt: Record<string, unknown>) => Promise<number>
     updateDebt: (id: number, data: Record<string, unknown>) => Promise<void>

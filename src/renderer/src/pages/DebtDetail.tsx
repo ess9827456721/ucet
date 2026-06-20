@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, Plus, TrendingDown } from 'lucide-react'
+import { ArrowLeft, Plus, TrendingDown, BarChart2, Pencil, Trash2 } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Debt, Tranche, DadPayment, SimpleDebtPayment } from '../types'
+import { Debt, Tranche, DadPayment, SimpleDebtPayment, Operation } from '../types'
 import { formatMoney, formatDate, today } from '../utils'
+import TransactionModal from '../components/TransactionModal'
 
 interface Props {
   debtId: number
   onBack: () => void
   onForecast: () => void
+  onAnalytics: () => void
 }
 
-export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
+export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: Props) {
   const api = useApi()
   const [debt, setDebt] = useState<Debt | null>(null)
   const [tranches, setTranches] = useState<Tranche[]>([])
   const [dadPayments, setDadPayments] = useState<DadPayment[]>([])
   const [simplePayments, setSimplePayments] = useState<SimpleDebtPayment[]>([])
+  const [linkedOps, setLinkedOps] = useState<Operation[]>([])
   const [showPaymentForm, setShowPaymentForm] = useState(false)
   const [showAddTranche, setShowAddTranche] = useState(false)
+  const [editOp, setEditOp] = useState<Operation | null>(null)
   const [loading, setLoading] = useState(true)
 
   // Payment form state
@@ -25,6 +29,8 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
   const [payDate, setPayDate] = useState(today())
   const [daysSince, setDaysSince] = useState('30')
   const [interestPart, setInterestPart] = useState('')
+  const [isEarlyRepayment, setIsEarlyRepayment] = useState(false)
+  const [newMonthlyPayment, setNewMonthlyPayment] = useState('')
   const [payError, setPayError] = useState('')
   const [paying, setPaying] = useState(false)
 
@@ -36,12 +42,14 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
 
   async function load() {
     setLoading(true)
-    const [d, t] = await Promise.all([
+    const [d, t, ops] = await Promise.all([
       api.getDebt(debtId),
       api.getTranches(debtId),
+      api.getOperations({ debtId }),
     ])
     setDebt(d as Debt)
     setTranches(t as Tranche[])
+    setLinkedOps(ops as Operation[])
     if ((d as Debt).debt_type === 'dad') {
       const ph = await api.getDadPaymentHistory(debtId)
       setDadPayments(ph as DadPayment[])
@@ -63,8 +71,13 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
       } else {
         await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0)
       }
+      if (isEarlyRepayment && newMonthlyPayment && parseFloat(newMonthlyPayment) > 0) {
+        await api.updateDebt(debtId, { monthly_payment: parseFloat(newMonthlyPayment) })
+      }
       setShowPaymentForm(false)
       setPayAmount('')
+      setIsEarlyRepayment(false)
+      setNewMonthlyPayment('')
       load()
     } catch (e) {
       setPayError('Ошибка при сохранении платежа')
@@ -90,6 +103,12 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
     } finally {
       setSavingTranche(false)
     }
+  }
+
+  async function handleDeleteOp(id: number) {
+    if (!confirm('Удалить операцию?')) return
+    await api.deleteOperation(id)
+    load()
   }
 
   if (loading || !debt) {
@@ -121,6 +140,9 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
             </span>
           </div>
         </div>
+        <button onClick={onAnalytics} className="btn-secondary text-sm flex items-center gap-1.5">
+          <BarChart2 size={14} /> Аналитика
+        </button>
         <button onClick={onForecast} className="btn-secondary text-sm">
           Прогноз погашения
         </button>
@@ -197,9 +219,33 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
               <input type="number" value={interestPart} onChange={e => setInterestPart(e.target.value)} className="input w-48" />
             </div>
           )}
+
+          {/* Early repayment option */}
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={isEarlyRepayment}
+              onChange={e => setIsEarlyRepayment(e.target.checked)}
+              className="w-4 h-4 accent-yellow-400"
+            />
+            <span className="text-sm text-gray-300">Досрочное погашение (обновить ежемесячный платёж)</span>
+          </label>
+          {isEarlyRepayment && (
+            <div>
+              <label className="label">Новый ежемесячный платёж, ₽</label>
+              <input
+                type="number"
+                value={newMonthlyPayment}
+                onChange={e => setNewMonthlyPayment(e.target.value)}
+                placeholder={debt.monthly_payment ? String(debt.monthly_payment) : '0'}
+                className="input w-48"
+              />
+            </div>
+          )}
+
           {payError && <p className="text-red-400 text-sm">{payError}</p>}
           <div className="flex gap-3">
-            <button onClick={() => { setShowPaymentForm(false); setPayError('') }} className="btn-secondary">Отмена</button>
+            <button onClick={() => { setShowPaymentForm(false); setPayError(''); setIsEarlyRepayment(false) }} className="btn-secondary">Отмена</button>
             <button onClick={handlePay} disabled={paying} className="btn-primary">
               {paying ? 'Обработка...' : 'Провести'}
             </button>
@@ -328,6 +374,58 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
           </table>
         )}
       </div>
+
+      {/* Linked operations */}
+      {linkedOps.length > 0 && (
+        <div className="card p-0 overflow-hidden">
+          <div className="px-5 py-4 border-b border-dark-600">
+            <h2 className="text-base font-semibold">Операции по долгу</h2>
+          </div>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-dark-600">
+                <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Дата</th>
+                <th className="text-right text-xs text-gray-400 uppercase px-5 py-3">Сумма</th>
+                <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Комментарий</th>
+                <th className="px-5 py-3" />
+              </tr>
+            </thead>
+            <tbody>
+              {linkedOps.map(op => (
+                <tr key={op.id} className="border-b border-dark-600 hover:bg-dark-700">
+                  <td className="px-5 py-3 text-sm text-gray-300">{formatDate(op.date)}</td>
+                  <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(op.amount)}</td>
+                  <td className="px-5 py-3 text-sm text-gray-400">{op.comment || '—'}</td>
+                  <td className="px-5 py-3">
+                    <div className="flex gap-1 justify-end">
+                      <button
+                        onClick={() => setEditOp(op)}
+                        className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
+                      >
+                        <Pencil size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteOp(op.id)}
+                        className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {editOp && (
+        <TransactionModal
+          editOperation={editOp as unknown as Record<string, unknown>}
+          onClose={() => setEditOp(null)}
+          onSaved={() => { setEditOp(null); load() }}
+        />
+      )}
     </div>
   )
 }
