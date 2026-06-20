@@ -109,7 +109,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
             <div>
               <label className="label">Тип долга</label>
               <div className="flex gap-2">
-                {[['simple', 'Обычный'], ['dad', 'Долг папе (транши)']].map(([v, l]) => (
+                {[['simple', 'Обычный'], ['dad', 'Сложный (несколько траншей)']].map(([v, l]) => (
                   <button
                     key={v}
                     onClick={() => setDebtType(v as 'simple' | 'dad')}

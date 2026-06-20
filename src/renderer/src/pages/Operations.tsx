@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Operation } from '../types'
+import { Category, Subcategory, Operation } from '../types'
 import { formatMoney, formatDate, expenseTypeLabel, getPeriodDates } from '../utils'
 import TransactionModal from '../components/TransactionModal'
 import ImportModal from '../components/ImportModal'
@@ -22,19 +22,46 @@ export default function Operations({ onAdd }: Props) {
   const [operations, setOperations] = useState<Operation[]>([])
   const [period, setPeriod] = useState('month')
   const [typeFilter, setTypeFilter] = useState<string>('')
+  const [catFilter, setCatFilter] = useState<number | ''>('')
+  const [subcatFilter, setSubcatFilter] = useState<number | ''>('')
+  const [commentSearch, setCommentSearch] = useState('')
+  const [debouncedComment, setDebouncedComment] = useState('')
+  const [cats, setCats] = useState<Category[]>([])
+  const [subcats, setSubcats] = useState<Subcategory[]>([])
   const [editOp, setEditOp] = useState<Operation | null>(null)
   const [showImport, setShowImport] = useState(false)
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    api.getCategories().then(d => setCats(d as Category[]))
+  }, [])
+
+  useEffect(() => {
+    if (catFilter) {
+      api.getSubcategories(catFilter as number).then(d => setSubcats(d as Subcategory[]))
+    } else {
+      setSubcats([])
+      setSubcatFilter('')
+    }
+  }, [catFilter])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedComment(commentSearch), 300)
+    return () => clearTimeout(t)
+  }, [commentSearch])
 
   const load = useCallback(async () => {
     setLoading(true)
     const { from, to } = getPeriodDates(period)
     const filters: Record<string, unknown> = { dateFrom: from, dateTo: to }
     if (typeFilter) filters.type = typeFilter
+    if (catFilter) filters.categoryId = catFilter
+    if (subcatFilter) filters.subcategoryId = subcatFilter
+    if (debouncedComment) filters.commentSearch = debouncedComment
     const ops = await api.getOperations(filters)
     setOperations(ops as Operation[])
     setLoading(false)
-  }, [period, typeFilter])
+  }, [period, typeFilter, catFilter, subcatFilter, debouncedComment])
 
   useEffect(() => { load() }, [load])
 
@@ -78,31 +105,58 @@ export default function Operations({ onAdd }: Props) {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-3 items-center">
-        <div className="flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600">
-          {PERIODS.map(p => (
-            <button
-              key={p.id}
-              onClick={() => setPeriod(p.id)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                period === p.id ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
-              }`}
+      <div className="space-y-2">
+        <div className="flex gap-3 items-center flex-wrap">
+          <div className="flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600">
+            {PERIODS.map(p => (
+              <button
+                key={p.id}
+                onClick={() => setPeriod(p.id)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                  period === p.id ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <select
+            value={typeFilter}
+            onChange={e => setTypeFilter(e.target.value)}
+            className="select w-36"
+          >
+            <option value="">Все типы</option>
+            <option value="expense">Расходы</option>
+            <option value="income">Доходы</option>
+            <option value="transfer">Переводы</option>
+            <option value="debt_op">По долгу</option>
+          </select>
+          <select
+            value={catFilter}
+            onChange={e => setCatFilter(e.target.value ? Number(e.target.value) : '')}
+            className="select w-44"
+          >
+            <option value="">Все категории</option>
+            {cats.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+          {subcats.length > 0 && (
+            <select
+              value={subcatFilter}
+              onChange={e => setSubcatFilter(e.target.value ? Number(e.target.value) : '')}
+              className="select w-44"
             >
-              {p.label}
-            </button>
-          ))}
+              <option value="">Все подкатегории</option>
+              {subcats.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+          )}
+          <input
+            type="text"
+            value={commentSearch}
+            onChange={e => setCommentSearch(e.target.value)}
+            placeholder="Поиск по комментарию..."
+            className="input w-52 py-1.5 text-sm"
+          />
         </div>
-        <select
-          value={typeFilter}
-          onChange={e => setTypeFilter(e.target.value)}
-          className="select w-40"
-        >
-          <option value="">Все типы</option>
-          <option value="expense">Расходы</option>
-          <option value="income">Доходы</option>
-          <option value="transfer">Переводы</option>
-          <option value="debt_op">По долгу</option>
-        </select>
       </div>
 
       {/* Table */}

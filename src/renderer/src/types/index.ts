@@ -43,6 +43,7 @@ export interface Debt {
   monthly_payment: number | null
   overdue_interest_pool: number
   created_at: string
+  current_balance?: number
 }
 
 export interface Tranche {

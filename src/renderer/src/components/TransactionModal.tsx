@@ -85,7 +85,7 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     { id: 'expense', label: 'Расход' },
     { id: 'income', label: 'Доход' },
     { id: 'transfer', label: 'Перевод' },
-    { id: 'debt_op', label: 'По долгу' },
+    ...(editOperation ? [{ id: 'debt_op' as OpType, label: 'По долгу' }] : []),
   ]
 
   const expenseTypes: Array<{ id: ExpenseType; label: string }> = [

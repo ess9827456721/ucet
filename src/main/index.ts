@@ -5,7 +5,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import {
   getOperations, addOperation, updateOperation, deleteOperation, importOperations,
   getCategories, getSubcategories, addCategory, updateCategory, addSubcategory, updateSubcategory,
-  getDebts, getDebt, addDebt, updateDebt, deleteDebt, getTranches, addTranche,
+  getDebts, getDebt, addDebt, updateDebt, deleteDebt, getDebtsWithBalance, getTranches, addTranche,
   processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
   getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
@@ -62,6 +62,7 @@ app.whenReady().then(() => {
 
   // ── Debts ────────────────────────────────────────────
   ipcMain.handle('get-debts', (_, status) => getDebts(status))
+  ipcMain.handle('get-debts-with-balance', () => getDebtsWithBalance())
   ipcMain.handle('get-debt', (_, id) => getDebt(id))
   ipcMain.handle('add-debt', (_, debt) => addDebt(debt))
   ipcMain.handle('update-debt', (_, id, data) => updateDebt(id, data))

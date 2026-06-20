@@ -18,6 +18,7 @@ const api = {
 
   // Debts
   getDebts: (status?: string) => ipcRenderer.invoke('get-debts', status),
+  getDebtsWithBalance: () => ipcRenderer.invoke('get-debts-with-balance'),
   getDebt: (id: number) => ipcRenderer.invoke('get-debt', id),
   addDebt: (debt: Record<string, unknown>) => ipcRenderer.invoke('add-debt', debt),
   updateDebt: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-debt', id, data),

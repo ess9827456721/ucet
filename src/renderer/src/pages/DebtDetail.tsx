@@ -83,10 +83,6 @@ export default function DebtDetail({ debtId, onBack, onForecast }: Props) {
         initial_amount: parseFloat(trancheAmount),
         interest_rate: parseFloat(trancheRate) / 100,
       })
-      // Update total
-      await api.updateDebt(debtId, {
-        initial_amount: tranches.reduce((s, t) => s + t.initial_amount, 0) + parseFloat(trancheAmount)
-      })
       setShowAddTranche(false)
       setTrancheAmount('')
       setTrancheRate('')

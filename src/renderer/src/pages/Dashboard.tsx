@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import {
-  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
 import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard } from 'lucide-react'
@@ -10,7 +10,7 @@ import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthE
 
 interface CategoryData { id: number; name: string; color: string; total: number }
 interface DailyData { date: string; expenses: number; income: number }
-interface MonthlyData { month: string; total: number }
+interface MonthlyData { month: string; daily: number; big: number; apartment: number }
 interface DowData { dow: number; total: number; count: number }
 interface CashFlowData { dailyBudget: number; journal: Array<{ date: string; dayExpenses: number; cumLimit: number; saldo: number }> }
 
@@ -78,7 +78,7 @@ export default function Dashboard() {
       api.getDailyExpenses(dateFrom, dateTo, et),
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
-      api.getDebts('active'),
+      api.getDebtsWithBalance(),
     ])
     setSummary(s as Summary)
     setPrevSummary(prevS as Summary)
@@ -116,7 +116,7 @@ export default function Dashboard() {
   const cfJournal = cashFlow?.journal ?? []
   const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null
 
-  const totalDebtOwed = activeDebts.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.initial_amount || 0), 0)
+  const totalDebtOwed = activeDebts.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
 
   const dowRows = Array.from({ length: 7 }, (_, i) => {
     const found = dowData.find(d => d.dow === i)
@@ -231,7 +231,7 @@ export default function Dashboard() {
                     {activeDebts.slice(0, 3).map(d => (
                       <div key={d.id} className="flex justify-between text-xs">
                         <span className="text-gray-400 truncate max-w-[60%]">{d.name}</span>
-                        <span className="text-white font-medium">{formatMoney(d.initial_amount || 0)}</span>
+                        <span className="text-white font-medium">{formatMoney(d.current_balance ?? d.initial_amount ?? 0)}</span>
                       </div>
                     ))}
                     {activeDebts.length > 3 && (
@@ -288,7 +288,8 @@ export default function Dashboard() {
                     <Tooltip
                       formatter={(value: number) => formatMoney(value)}
                       contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                      labelStyle={{ color: '#fff' }}
+                      labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
+                      itemStyle={{ color: '#E5E5E5' }}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -309,7 +310,8 @@ export default function Dashboard() {
                     <Tooltip
                       formatter={(value: number) => formatMoney(value)}
                       contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                      labelStyle={{ color: '#fff' }}
+                      labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
+                      itemStyle={{ color: '#E5E5E5' }}
                     />
                     <Bar dataKey="expenses" fill="#EF4444" name="Расходы" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="income" fill="#22C55E" name="Доходы" radius={[4, 4, 0, 0]} />
@@ -325,7 +327,7 @@ export default function Dashboard() {
           {showMonthly && monthly.length > 1 && (
             <div className="card">
               <h2 className="text-base font-semibold mb-4">Расходы по месяцам</h2>
-              <ResponsiveContainer width="100%" height={200}>
+              <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={monthly} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#2E2E2E" />
                   <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6B7280' }} />
@@ -333,9 +335,13 @@ export default function Dashboard() {
                   <Tooltip
                     formatter={(value: number) => formatMoney(value)}
                     contentStyle={{ backgroundColor: '#242424', border: '1px solid #3A3A3A', borderRadius: '12px' }}
-                    labelStyle={{ color: '#fff' }}
+                    labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
+                    itemStyle={{ color: '#E5E5E5' }}
                   />
-                  <Bar dataKey="total" fill="#FFD600" name="Расходы" radius={[4, 4, 0, 0]} />
+                  <Legend wrapperStyle={{ fontSize: 12, color: '#9CA3AF' }} />
+                  <Bar dataKey="daily" stackId="a" fill="#FFD600" name="Повседневные" />
+                  <Bar dataKey="big" stackId="a" fill="#F97316" name="Крупные" />
+                  <Bar dataKey="apartment" stackId="a" fill="#3B82F6" name="Квартира" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

@@ -180,6 +180,10 @@ export function getOperations(filters: {
   dateTo?: string
   type?: string
   categoryId?: number
+  subcategoryId?: number
+  commentSearch?: string
+  amountFrom?: number
+  amountTo?: number
   limit?: number
   offset?: number
 }): unknown[] {
@@ -190,6 +194,10 @@ export function getOperations(filters: {
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
   if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
+  if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
+  if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
+  if (filters.amountFrom != null) { parts.push('o.amount >= ?'); params.push(filters.amountFrom) }
+  if (filters.amountTo != null) { parts.push('o.amount <= ?'); params.push(filters.amountTo) }
 
   const sql = `
     SELECT o.*, c.name as category_name, c.color as category_color,
@@ -335,16 +343,44 @@ export function addDebt(debt: {
   name: string
   direction: string
   debt_type: string
-  initial_amount?: number
-  interest_rate?: number
-  payment_day?: number
-  monthly_payment?: number
+  initial_amount?: number | null
+  interest_rate?: number | null
+  payment_day?: number | null
+  monthly_payment?: number | null
 }): number {
   const r = getDb().prepare(`
     INSERT INTO debts (name, direction, debt_type, initial_amount, interest_rate, payment_day, monthly_payment)
     VALUES (@name, @direction, @debt_type, @initial_amount, @interest_rate, @payment_day, @monthly_payment)
-  `).run(debt)
+  `).run({
+    ...debt,
+    initial_amount: debt.initial_amount ?? null,
+    interest_rate: debt.interest_rate ?? null,
+    payment_day: debt.payment_day ?? null,
+    monthly_payment: debt.monthly_payment ?? null,
+  })
   return r.lastInsertRowid as number
+}
+
+export function getDebtsWithBalance(): unknown[] {
+  const d = getDb()
+  const debts = d.prepare('SELECT * FROM debts ORDER BY created_at DESC').all() as Array<{
+    id: number; debt_type: string; initial_amount: number | null; [key: string]: unknown
+  }>
+  return debts.map(debt => {
+    let currentBalance: number
+    if (debt.debt_type === 'dad') {
+      const row = d.prepare(
+        "SELECT COALESCE(SUM(current_balance),0) as bal FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
+      ).get(debt.id) as { bal: number }
+      currentBalance = row.bal
+    } else {
+      const row = d.prepare(
+        'SELECT COALESCE(SUM(body_part),0) as paid FROM simple_debt_payments WHERE debt_id = ?'
+      ).get(debt.id) as { paid: number }
+      currentBalance = Math.max(0, (debt.initial_amount || 0) - row.paid)
+    }
+    return { ...debt, current_balance: currentBalance }
+  })
 }
 
 export function updateDebt(id: number, data: {
@@ -396,7 +432,7 @@ export function addTranche(tranche: {
 
 export function processDadPayment(debtId: number, paymentAmount: number, paymentDate: string, daysSince: number): unknown {
   const d = getDb()
-  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { overdue_interest_pool: number }
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { overdue_interest_pool: number; name: string }
   const tranchesRaw = d.prepare('SELECT * FROM debt_tranches WHERE debt_id = ?').all(debtId) as Array<{
     id: number; current_balance: number; interest_rate: number; status: string
   }>
@@ -427,6 +463,11 @@ export function processDadPayment(debtId: number, paymentAmount: number, payment
 
     d.prepare('UPDATE debts SET overdue_interest_pool = ? WHERE id = ?').run(result.newOverduePool, debtId)
 
+    d.prepare(`
+      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
+      VALUES (?, 'debt_op', ?, NULL, NULL, NULL, NULL, ?, ?)
+    `).run(paymentDate, paymentAmount, `Платёж по долгу: ${debt.name}`, debtId)
+
     return paymentId
   })
 
@@ -454,13 +495,19 @@ export function getSimpleDebtPayments(debtId: number): unknown[] {
 
 export function processSimplePayment(debtId: number, amount: number, paymentDate: string, interestPart = 0): void {
   const d = getDb()
-  const bodyPart = amount - interestPart
-  d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part) VALUES (?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart)
-  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { initial_amount: number }
-  const paid = (d.prepare('SELECT SUM(body_part) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total || 0
-  if (paid >= debt.initial_amount) {
-    d.prepare("UPDATE debts SET status = 'closed' WHERE id = ?").run(debtId)
-  }
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { initial_amount: number; name: string }
+  d.transaction(() => {
+    const bodyPart = amount - interestPart
+    d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part) VALUES (?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart)
+    const paid = (d.prepare('SELECT SUM(body_part) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total || 0
+    if (paid >= debt.initial_amount) {
+      d.prepare("UPDATE debts SET status = 'closed' WHERE id = ?").run(debtId)
+    }
+    d.prepare(`
+      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
+      VALUES (?, 'debt_op', ?, NULL, NULL, NULL, NULL, ?, ?)
+    `).run(paymentDate, amount, `Платёж по долгу: ${debt.name}`, debtId)
+  })()
 }
 
 export function getDadForecast(debtId: number, monthlyPayment: number): unknown[] {
@@ -554,7 +601,10 @@ export function getExpensesByType(dateFrom: string, dateTo: string): unknown[] {
 
 export function getMonthlyExpenses(dateFrom: string, dateTo: string): unknown[] {
   return getDb().prepare(`
-    SELECT strftime('%Y-%m', date) as month, SUM(amount) as total
+    SELECT strftime('%Y-%m', date) as month,
+           SUM(CASE WHEN expense_type='daily' THEN amount ELSE 0 END) as daily,
+           SUM(CASE WHEN expense_type='big' THEN amount ELSE 0 END) as big,
+           SUM(CASE WHEN expense_type='apartment' THEN amount ELSE 0 END) as apartment
     FROM operations WHERE type='expense' AND date >= ? AND date <= ?
     GROUP BY month ORDER BY month ASC
   `).all(dateFrom, dateTo)

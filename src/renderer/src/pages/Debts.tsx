@@ -20,7 +20,7 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
 
   async function load() {
     setLoading(true)
-    const d = await api.getDebts()
+    const d = await api.getDebtsWithBalance()
     setDebts(d as Debt[])
     setLoading(false)
   }
@@ -36,7 +36,7 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
 
   const active = debts.filter(d => d.status === 'active')
   const closed = debts.filter(d => d.status === 'closed')
-  const totalOwed = active.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.initial_amount || 0), 0)
+  const totalOwed = active.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
 
   return (
     <div className="p-6 space-y-6">
@@ -138,7 +138,7 @@ function DebtCard({
               {debt.direction === 'i_owe' ? 'Я должен' : 'Мне должны'}
             </span>
             {debt.debt_type === 'dad' && (
-              <span className="badge bg-yellow-900/40 text-yellow-400">Папа</span>
+              <span className="badge bg-yellow-900/40 text-yellow-400">Транши</span>
             )}
             {debt.status === 'closed' && (
               <span className="badge bg-dark-600 text-gray-400">Закрыт</span>
@@ -147,8 +147,8 @@ function DebtCard({
 
           <div className="flex items-center gap-6">
             <div>
-              <p className="text-xs text-gray-500">Сумма</p>
-              <p className="text-xl font-bold text-white">{formatMoney(debt.initial_amount || 0)}</p>
+              <p className="text-xs text-gray-500">Остаток</p>
+              <p className="text-xl font-bold text-white">{formatMoney(debt.current_balance ?? debt.initial_amount ?? 0)}</p>
             </div>
             {debt.interest_rate && (
               <div>
