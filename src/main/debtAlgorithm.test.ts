@@ -78,6 +78,36 @@ describe('Алгоритм долга папе', () => {
     expect(upd?.newBalance).toBe(0)
   })
 
+  it('Первый платёж: проценты считаются от дат траншей, не от created_at', () => {
+    // Имитируем сценарий пользователя: транши получены в ноябре-декабре 2025,
+    // а запись в БД создана позже (например, в июне 2026 при вводе задним числом).
+    // daysSinceInterestStart вычислен в processDadPayment от MIN(tranche.date),
+    // а НЕ от debt.created_at. Здесь тестируем сам алгоритм с per-tranche днями.
+
+    // Транш 1: 941 000 × 38.3% выдан 22.11.2025, первый платёж 12.05.2026
+    // Дней от 22.11.2025 до 12.05.2026 = 171 день
+    // Проценты ≈ 941_000 × 0.383 × (171/365) ≈ 169_124
+
+    // Транш 2: 100 000 × 35.9% выдан 15.12.2025, первый платёж 12.05.2026
+    // Дней от 15.12.2025 до 12.05.2026 = 148 дней
+    // Проценты ≈ 100_000 × 0.359 × (148/365) ≈ 14_563
+
+    const t1 = { id: 1, currentBalance: 941_000, interestRate: 0.383, status: 'active' as const, daysSinceInterestStart: 171 }
+    const t2 = { id: 2, currentBalance: 100_000, interestRate: 0.359, status: 'active' as const, daysSinceInterestStart: 148 }
+
+    const expectedInt1 = 941_000 * 0.383 * (171 / 365)
+    const expectedInt2 = 100_000 * 0.359 * (148 / 365)
+    const totalExpectedInterest = expectedInt1 + expectedInt2 // ≈ 183 687
+
+    // Платёж 27 000 — не покрывает даже проценты: всё уходит в проценты, остаток в пул
+    const result = calculateDadDebtPayment([t1, t2], 0, 27_000, 0)
+
+    expect(result.interestCovered).toBeCloseTo(27_000, 0)
+    expect(result.bodyCovered).toBe(0)
+    expect(result.overdueAddedToPool).toBeCloseTo(totalExpectedInterest - 27_000, 0)
+    expect(result.newOverduePool).toBeGreaterThan(150_000) // намного больше нуля
+  })
+
   it('Распределение тела: самая высокая ставка гасится первой', () => {
     const t1 = { id: 1, currentBalance: 200_000, interestRate: 0.20, status: 'active' as const }
     const t2 = { id: 2, currentBalance: 200_000, interestRate: 0.40, status: 'active' as const }

@@ -84,7 +84,7 @@ export default function App() {
       <main className="flex-1 overflow-y-auto scrollbar-thin">
         {page === 'dashboard' && <Dashboard key={refreshKey} />}
         {page === 'operations' && <Operations key={refreshKey} onAdd={() => setShowAddModal(true)} />}
-        {page === 'cashflow' && <CashFlow key={refreshKey} />}
+        {page === 'cashflow' && <CashFlow key={refreshKey} onGoToDebt={navigateToDebt} />}
         {page === 'debts' && (
           <Debts
             key={refreshKey}

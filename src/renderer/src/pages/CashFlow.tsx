@@ -9,7 +9,11 @@ const MONTHS_RU = [
   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
 ]
 
-export default function CashFlow() {
+interface Props {
+  onGoToDebt?: (id: number) => void
+}
+
+export default function CashFlow({ onGoToDebt }: Props) {
   const api = useApi()
   const now = new Date()
   const [year, setYear] = useState(now.getFullYear())
@@ -196,7 +200,17 @@ export default function CashFlow() {
                           {item.actualAmount != null ? formatMoney(item.actualAmount) : '—'}
                         </td>
                         <td className="px-5 py-3">
-                          {!item.isDebtLinked && item.id != null && (
+                          {item.isDebtLinked && item.debtId != null && onGoToDebt ? (
+                            <div className="flex justify-end">
+                              <button
+                                onClick={() => onGoToDebt(item.debtId!)}
+                                className="text-xs text-gray-600 hover:text-blue-400 transition-colors px-2 py-1 rounded-lg hover:bg-dark-600"
+                                title="Перейти на страницу долга для редактирования"
+                              >
+                                → долг
+                              </button>
+                            </div>
+                          ) : !item.isDebtLinked && item.id != null ? (
                             <div className="flex gap-1 justify-end">
                               <button onClick={() => startEditItem(item)} className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors">
                                 <Pencil size={13} />
@@ -205,7 +219,7 @@ export default function CashFlow() {
                                 <Trash2 size={13} />
                               </button>
                             </div>
-                          )}
+                          ) : null}
                         </td>
                       </tr>
                       {editItemId !== null && editItemId === item.id && (

@@ -580,7 +580,12 @@ export function getDaysSinceLastPayment(debtId: number, asOfDate: string): { day
   let since: string
   if (debt.debt_type === 'dad') {
     const row = d.prepare('SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
-    since = row.dt ?? debt.created_at.slice(0, 10)
+    if (row.dt) {
+      since = row.dt
+    } else {
+      const earliest = d.prepare('SELECT MIN(date) as dt FROM debt_tranches WHERE debt_id = ?').get(debtId) as { dt: string | null }
+      since = earliest.dt ?? debt.created_at.slice(0, 10)
+    }
   } else {
     const row = d.prepare('SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
     since = row.dt ?? debt.created_at.slice(0, 10)
@@ -597,9 +602,16 @@ export function processDadPayment(debtId: number, paymentAmount: number, payment
     overdue_interest_pool: number; name: string; created_at: string
   }
 
-  // Compute last payment date for the debt
+  // Compute last payment date: if no payments yet, use the earliest tranche date
+  // (not debt.created_at — that's the DB record creation time, not the economic start date)
   const lastPayRow = d.prepare('SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
-  const lastPayDate = new Date((lastPayRow.dt ?? debt.created_at.slice(0, 10)) + 'T00:00:00')
+  let lastPayDate: Date
+  if (lastPayRow.dt) {
+    lastPayDate = new Date(lastPayRow.dt + 'T00:00:00')
+  } else {
+    const earliestTranche = d.prepare('SELECT MIN(date) as dt FROM debt_tranches WHERE debt_id = ?').get(debtId) as { dt: string | null }
+    lastPayDate = new Date((earliestTranche.dt ?? debt.created_at.slice(0, 10)) + 'T00:00:00')
+  }
   const payDateObj = new Date(paymentDate + 'T00:00:00')
 
   const tranchesRaw = d.prepare('SELECT * FROM debt_tranches WHERE debt_id = ?').all(debtId) as Array<{
@@ -1036,12 +1048,12 @@ export function getCashFlow(year: number, month: number): unknown {
   }>
 
   // Auto: active debts with monthly_payment (included per spec, even if hidden)
-  const debtItems = d.prepare("SELECT id, name, monthly_payment FROM debts WHERE status = 'active' AND direction = 'i_owe' AND monthly_payment IS NOT NULL AND monthly_payment > 0").all() as Array<{
-    id: number; name: string; monthly_payment: number
+  const debtItems = d.prepare("SELECT id, name, monthly_payment, debt_type FROM debts WHERE status = 'active' AND direction = 'i_owe' AND monthly_payment IS NOT NULL AND monthly_payment > 0").all() as Array<{
+    id: number; name: string; monthly_payment: number; debt_type: string
   }>
 
   const manualTotal = manualItems.reduce((s, item) => s + (item.actual_amount ?? item.planned_amount), 0)
-  const debtTotal = debtItems.reduce((s, d) => s + d.monthly_payment, 0)
+  const debtTotal = debtItems.reduce((s, debt) => s + debt.monthly_payment, 0)
   const mandatory = manualTotal + debtTotal
   const dailyBudget = (income - mandatory) / lastDay
 
@@ -1073,14 +1085,18 @@ export function getCashFlow(year: number, month: number): unknown {
       isDebtLinked: false,
       debtId: null as number | null,
     })),
-    ...debtItems.map(debt => ({
-      id: null as number | null,
-      category: debt.name,
-      plannedAmount: debt.monthly_payment,
-      actualAmount: null as number | null,
-      isDebtLinked: true,
-      debtId: debt.id,
-    })),
+    ...debtItems.map(debt => {
+      const table = debt.debt_type === 'dad' ? 'dad_debt_payments' : 'simple_debt_payments'
+      const row = d.prepare(`SELECT COALESCE(SUM(total_amount),0) as paid FROM ${table} WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ?`).get(debt.id, dateFrom, dateTo) as { paid: number }
+      return {
+        id: null as number | null,
+        category: debt.name,
+        plannedAmount: debt.monthly_payment,
+        actualAmount: row.paid > 0 ? row.paid : null,
+        isDebtLinked: true,
+        debtId: debt.id,
+      }
+    }),
   ]
 
   return { income, mandatory, dailyBudget, journal, dateFrom, dateTo, mandatoryItems }
