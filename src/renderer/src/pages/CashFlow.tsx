@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Plus, Pencil, Trash2, Lock } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Plus, Pencil, Trash2, Lock, Info } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { CashFlowData, MandatoryExpenseItem } from '../types'
 import { formatMoney, formatDate } from '../utils'
@@ -108,7 +108,7 @@ export default function CashFlow({ onGoToDebt }: Props) {
       ) : data && (
         <>
           {/* Summary cards */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             <div className="card">
               <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Доходы за период</p>
               <p className="text-2xl font-bold text-green-400">{formatMoney(data.income)}</p>
@@ -118,10 +118,23 @@ export default function CashFlow({ onGoToDebt }: Props) {
               <p className="text-2xl font-bold text-red-400">{formatMoney(data.mandatory)}</p>
             </div>
             <div className="card">
-              <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Бюджет на день</p>
+              <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Средний бюджет на день</p>
               <p className="text-2xl font-bold text-yellow-400">{formatMoney(data.dailyBudget)}</p>
               <p className="text-xs text-gray-500 mt-1">(Доходы − Обязательные) / дни</p>
             </div>
+            {(() => {
+              const today = new Date().toISOString().slice(0, 10)
+              const todayRow = data.journal.find(r => r.date === today)
+              return todayRow ? (
+                <div className="card">
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Сальдо на сегодня</p>
+                  <p className={`text-2xl font-bold ${todayRow.saldo >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    {todayRow.saldo >= 0 ? '+' : ''}{formatMoney(todayRow.saldo)}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">Лимит накоплен с начала месяца</p>
+                </div>
+              ) : null
+            })()}
           </div>
 
           {/* Mandatory expenses plan */}
@@ -269,7 +282,14 @@ export default function CashFlow({ onGoToDebt }: Props) {
                 <tr className="border-b border-dark-600">
                   <th className="text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Дата</th>
                   <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Траты за день</th>
-                  <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Накопленный лимит</th>
+                  <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">
+                    <span className="inline-flex items-center gap-1 justify-end">
+                      Накопленный лимит
+                      <span title="Лимит с начала месяца по эту дату: средний бюджет на день × прошедшие дни, скорректированный на фактические траты предыдущих дней" className="cursor-help text-gray-600 hover:text-gray-400">
+                        <Info size={11} />
+                      </span>
+                    </span>
+                  </th>
                   <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Сальдо</th>
                 </tr>
               </thead>

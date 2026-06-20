@@ -1063,18 +1063,22 @@ export function getCashFlow(year: number, month: number): unknown {
     FROM operations WHERE date >= ? AND date <= ? GROUP BY date ORDER BY date ASC
   `).all(dateFrom, dateTo) as Array<{ date: string; day_expenses: number }>
 
-  let cumExpenses = 0
-  const journal = dailyRows.map(row => {
-    cumExpenses += row.day_expenses
-    const dayNum = parseInt(row.date.split('-')[2])
-    const cumLimit = dailyBudget * dayNum
-    return {
-      date: row.date,
-      dayExpenses: row.day_expenses,
+  const expensesByDate = new Map(dailyRows.map(r => [r.date, r.day_expenses]))
+  let prevSaldo = 0
+  const journal: Array<{ date: string; dayExpenses: number; cumLimit: number; saldo: number }> = []
+  for (let day = 1; day <= lastDay; day++) {
+    const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+    const dayExpenses = expensesByDate.get(dateStr) ?? 0
+    const cumLimit = day === 1 ? dailyBudget : prevSaldo + dailyBudget
+    const saldo = cumLimit - dayExpenses
+    journal.push({
+      date: dateStr,
+      dayExpenses,
       cumLimit: Math.round(cumLimit * 100) / 100,
-      saldo: Math.round((cumLimit - cumExpenses) * 100) / 100
-    }
-  })
+      saldo: Math.round(saldo * 100) / 100
+    })
+    prevSaldo = saldo
+  }
 
   const mandatoryItems = [
     ...manualItems.map(item => ({
