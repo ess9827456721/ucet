@@ -193,7 +193,7 @@ export default function CashFlow() {
                           )}
                         </td>
                       </tr>
-                      {editItemId === item.id && (
+                      {editItemId !== null && editItemId === item.id && (
                         <tr className="bg-dark-700 border-b border-dark-600">
                           <td colSpan={4} className="px-5 py-3">
                             <div className="flex items-center gap-3 flex-wrap">
