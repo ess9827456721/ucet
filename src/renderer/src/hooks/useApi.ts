@@ -44,6 +44,18 @@ export function useApi() {
     getMonthlyExpenses: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => Promise<unknown[]>
 
+    getRecurringOperations: (activeOnly?: boolean) => Promise<unknown[]>
+    addRecurringOperation: (r: Record<string, unknown>) => Promise<number>
+    updateRecurringOperation: (id: number, data: Record<string, unknown>) => Promise<void>
+    deleteRecurringOperation: (id: number) => Promise<void>
+    getPendingRecurringOperations: () => Promise<unknown[]>
+    confirmRecurringOperation: (id: number, date: string) => Promise<void>
+
+    getSavingsGoals: () => Promise<unknown[]>
+    addSavingsGoal: (goal: Record<string, unknown>) => Promise<number>
+    updateSavingsGoal: (id: number, data: Record<string, unknown>) => Promise<void>
+    deleteSavingsGoal: (id: number) => Promise<void>
+
     getBudgetSettings: () => Promise<Record<string, string>>
     setBudgetSetting: (key: string, value: string) => Promise<void>
     getCashFlow: (year: number, month: number) => Promise<unknown>

@@ -30,6 +30,8 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   const [debts, setDebts] = useState<Debt[]>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
+  const [isRecurring, setIsRecurring] = useState(false)
+  const [recurringDay, setRecurringDay] = useState(new Date().getDate())
 
   useEffect(() => {
     const catType = type === 'income' ? 'income' : 'expense'
@@ -74,6 +76,17 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
         await api.updateOperation(editOperation.id as number, op)
       } else {
         await api.addOperation(op)
+        if (isRecurring && (type === 'expense' || type === 'income')) {
+          await api.addRecurringOperation({
+            type,
+            amount: parseFloat(amount),
+            category_id: categoryId || null,
+            subcategory_id: subcategoryId || null,
+            expense_type: type === 'expense' ? expenseType : null,
+            day_of_month: recurringDay,
+            comment: comment || null,
+          })
+        }
       }
       onSaved()
     } finally {
@@ -222,6 +235,29 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
                   <option key={d.id} value={d.id}>{d.name}</option>
                 ))}
               </select>
+            </div>
+          )}
+
+          {/* Recurring */}
+          {!editOperation && (type === 'expense' || type === 'income') && (
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={isRecurring} onChange={e => setIsRecurring(e.target.checked)} className="w-4 h-4 accent-yellow-400" />
+                <span className="text-sm text-gray-300">Повторять ежемесячно</span>
+              </label>
+              {isRecurring && (
+                <div>
+                  <label className="label">День месяца</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={31}
+                    value={recurringDay}
+                    onChange={e => setRecurringDay(Number(e.target.value))}
+                    className="input w-24"
+                  />
+                </div>
+              )}
             </div>
           )}
 

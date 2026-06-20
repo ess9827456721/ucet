@@ -49,6 +49,20 @@ const api = {
   getMonthlyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-monthly-expenses', dateFrom, dateTo),
   getExpensesByDayOfWeek: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-day-of-week', dateFrom, dateTo),
 
+  // Recurring operations
+  getRecurringOperations: (activeOnly?: boolean) => ipcRenderer.invoke('get-recurring-operations', activeOnly),
+  addRecurringOperation: (r: Record<string, unknown>) => ipcRenderer.invoke('add-recurring-operation', r),
+  updateRecurringOperation: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-recurring-operation', id, data),
+  deleteRecurringOperation: (id: number) => ipcRenderer.invoke('delete-recurring-operation', id),
+  getPendingRecurringOperations: () => ipcRenderer.invoke('get-pending-recurring-operations'),
+  confirmRecurringOperation: (id: number, date: string) => ipcRenderer.invoke('confirm-recurring-operation', id, date),
+
+  // Savings goals
+  getSavingsGoals: () => ipcRenderer.invoke('get-savings-goals'),
+  addSavingsGoal: (goal: Record<string, unknown>) => ipcRenderer.invoke('add-savings-goal', goal),
+  updateSavingsGoal: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-savings-goal', id, data),
+  deleteSavingsGoal: (id: number) => ipcRenderer.invoke('delete-savings-goal', id),
+
   // Budget / Cash flow
   getBudgetSettings: () => ipcRenderer.invoke('get-budget-settings'),
   setBudgetSetting: (key: string, value: string) => ipcRenderer.invoke('set-budget-setting', key, value),

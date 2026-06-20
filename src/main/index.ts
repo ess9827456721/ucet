@@ -10,6 +10,8 @@ import {
   deleteDadPayment, updateDadPaymentDate, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
   getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
+  getRecurringOperations, addRecurringOperation, updateRecurringOperation, deleteRecurringOperation, getPendingRecurringOperations, confirmRecurringOperation,
+  getSavingsGoals, addSavingsGoal, updateSavingsGoal, deleteSavingsGoal,
   exportDb, importDb, getDbPath
 } from './database'
 import ExcelJS from 'exceljs'
@@ -83,6 +85,20 @@ app.whenReady().then(() => {
   ipcMain.handle('update-simple-debt-payment', (_, paymentId, amount, date, interestPart) => updateSimpleDebtPayment(paymentId, amount, date, interestPart))
   ipcMain.handle('has-dad-payments-after', (_, paymentId) => hasDadPaymentsAfter(paymentId))
   ipcMain.handle('has-simple-payments-after', (_, paymentId) => hasSimplePaymentsAfter(paymentId))
+
+  // ── Recurring operations ─────────────────────────────
+  ipcMain.handle('get-recurring-operations', (_, activeOnly) => getRecurringOperations(activeOnly))
+  ipcMain.handle('add-recurring-operation', (_, r) => addRecurringOperation(r))
+  ipcMain.handle('update-recurring-operation', (_, id, data) => updateRecurringOperation(id, data))
+  ipcMain.handle('delete-recurring-operation', (_, id) => deleteRecurringOperation(id))
+  ipcMain.handle('get-pending-recurring-operations', () => getPendingRecurringOperations())
+  ipcMain.handle('confirm-recurring-operation', (_, id, date) => confirmRecurringOperation(id, date))
+
+  // ── Savings goals ────────────────────────────────────
+  ipcMain.handle('get-savings-goals', () => getSavingsGoals())
+  ipcMain.handle('add-savings-goal', (_, goal) => addSavingsGoal(goal))
+  ipcMain.handle('update-savings-goal', (_, id, data) => updateSavingsGoal(id, data))
+  ipcMain.handle('delete-savings-goal', (_, id) => deleteSavingsGoal(id))
 
   // ── Analytics ────────────────────────────────────────
   ipcMain.handle('get-summary', (_, dateFrom, dateTo, expenseType) => getSummary(dateFrom, dateTo, expenseType))

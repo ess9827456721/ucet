@@ -4,11 +4,12 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
 // Legend is used in monthly/daily charts
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List } from 'lucide-react'
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Summary, Debt, Operation } from '../types'
+import { Summary, Debt, Operation, SavingsGoal } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
 import InfoTooltip from '../components/InfoTooltip'
+import AddGoalModal from '../components/AddGoalModal'
 
 interface CategoryData { id: number; name: string; color: string; total: number }
 interface DailyData { date: string; expenses: number; income: number }
@@ -85,10 +86,12 @@ export default function Dashboard() {
   const [dowData, setDowData] = useState<DowData[]>([])
   const [cashFlow, setCashFlow] = useState<CashFlowData | null>(null)
   const [activeDebts, setActiveDebts] = useState<Debt[]>([])
+  const [goals, setGoals] = useState<SavingsGoal[]>([])
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
   const [loading, setLoading] = useState(true)
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
+  const [goalModal, setGoalModal] = useState<{ edit?: SavingsGoal } | null>(null)
 
   const periodDays = Math.round((new Date(dateTo + 'T00:00:00').getTime() - new Date(dateFrom + 'T00:00:00').getTime()) / 86400000) + 1
 
@@ -97,7 +100,7 @@ export default function Dashboard() {
     const now = new Date()
     const et = expenseTypeFilter || undefined
     const prev = subtractPeriod(dateFrom, dateTo)
-    const [s, prevS, cats, d, mo, dow, debts] = await Promise.all([
+    const [s, prevS, cats, d, mo, dow, debts, g] = await Promise.all([
       api.getSummary(dateFrom, dateTo, et),
       api.getSummary(prev.from, prev.to, et),
       api.getExpensesByCategory(dateFrom, dateTo, et),
@@ -105,6 +108,7 @@ export default function Dashboard() {
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
       api.getDebtsWithDetails(),
+      api.getSavingsGoals(),
     ])
     setSummary(s as Summary)
     setPrevSummary(prevS as Summary)
@@ -113,6 +117,7 @@ export default function Dashboard() {
     setMonthly(mo as MonthlyData[])
     setDowData(dow as DowData[])
     setActiveDebts(debts as Debt[])
+    setGoals(g as SavingsGoal[])
 
     const cf = await api.getCashFlow(now.getFullYear(), now.getMonth() + 1)
     setCashFlow(cf as CashFlowData)
@@ -141,6 +146,13 @@ export default function Dashboard() {
   const todayExpenses = daily.find(d => d.date === todayStr)?.expenses ?? 0
   const cfJournal = cashFlow?.journal ?? []
   const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null
+
+  const nowDay = new Date().getDate()
+  const upcomingDebts = activeDebts.filter(d => {
+    if (d.status !== 'active' || !d.payment_day) return false
+    const daysUntil = d.payment_day >= nowDay ? d.payment_day - nowDay : 0
+    return daysUntil <= 7
+  })
 
   const debtOwed = activeDebts.filter(d => d.direction === 'i_owe')
   const totalDebtOwed = debtOwed.reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
@@ -322,11 +334,20 @@ export default function Dashboard() {
                     style={{ width: `${Math.min(100, Math.round((todayExpenses / Math.max(cashFlow.dailyBudget, 1)) * 100))}%` }}
                   />
                 </div>
-                {lastSaldo !== null && (
-                  <p className={`text-xs mt-2 ${lastSaldo >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                    Сальдо месяца: {lastSaldo >= 0 ? '+' : ''}{formatMoney(lastSaldo)} — {lastSaldo >= 0 ? 'В норме' : 'Превышение'}
-                  </p>
-                )}
+                {lastSaldo !== null && (() => {
+                  const isGood = lastSaldo >= 0
+                  const isWarn = lastSaldo < 0 && lastSaldo > -(cashFlow!.dailyBudget * 3)
+                  const label = isGood ? 'В норме' : isWarn ? 'Внимание' : 'Превышение'
+                  const cls = isGood ? 'bg-green-500/20 text-green-400 border-green-500/30' : isWarn ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'
+                  return (
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${cls}`}>{label}</span>
+                      <span className={`text-xs ${isGood ? 'text-green-400' : isWarn ? 'text-yellow-400' : 'text-red-400'}`}>
+                        Сальдо: {lastSaldo >= 0 ? '+' : ''}{formatMoney(lastSaldo)}
+                      </span>
+                    </div>
+                  )
+                })()}
               </div>
             )}
 
@@ -362,6 +383,89 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+
+          {/* Upcoming debt payments (C) */}
+          {upcomingDebts.length > 0 && (
+            <div className="card border-blue-400/30 bg-blue-400/5">
+              <div className="flex items-center gap-2 mb-3">
+                <Bell size={15} className="text-blue-400" />
+                <h3 className="text-sm font-semibold text-white">Ближайшие платежи по долгам</h3>
+                <span className="badge bg-blue-400/20 text-blue-400">{upcomingDebts.length}</span>
+              </div>
+              <div className="space-y-2">
+                {upcomingDebts.map(d => {
+                  const daysUntil = d.payment_day! - nowDay
+                  return (
+                    <div key={d.id} className="flex items-center justify-between text-sm py-1 border-t border-dark-600 first:border-t-0">
+                      <span className="text-white">{d.name}</span>
+                      <div className="flex items-center gap-3">
+                        {d.monthly_payment && <span className="text-gray-400">{formatMoney(d.monthly_payment)}</span>}
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${daysUntil === 0 ? 'bg-red-500/20 text-red-400' : daysUntil <= 3 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                          {daysUntil === 0 ? 'Сегодня' : `Через ${daysUntil} дн.`} ({d.payment_day}-го)
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Savings goals (B) */}
+          {(goals.length > 0 || true) && (
+            <div className="card">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Target size={16} className="text-yellow-400" />
+                  <h2 className="text-sm font-semibold text-white">Цели накопления</h2>
+                </div>
+                <button onClick={() => setGoalModal({})} className="text-gray-500 hover:text-yellow-400 p-1 transition-colors" title="Добавить цель">
+                  <Plus size={16} />
+                </button>
+              </div>
+              {goals.filter(g => g.status === 'active').length === 0 ? (
+                <p className="text-gray-500 text-sm">Нет активных целей. <button onClick={() => setGoalModal({})} className="text-yellow-400 hover:underline">Добавить</button></p>
+              ) : (
+                <div className="space-y-4">
+                  {goals.filter(g => g.status === 'active').map(goal => {
+                    const pct = Math.min(100, Math.round((goal.current_amount / goal.target_amount) * 100))
+                    return (
+                      <div key={goal.id}>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: goal.color }} />
+                            <span className="text-sm text-white">{goal.name}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-400">{formatMoney(goal.current_amount)} / {formatMoney(goal.target_amount)}</span>
+                            <button onClick={() => setGoalModal({ edit: goal })} className="p-1 text-gray-600 hover:text-yellow-400 transition-colors">
+                              <Pencil size={11} />
+                            </button>
+                            <button onClick={async () => {
+                              if (!confirm('Удалить цель?')) return
+                              await api.deleteSavingsGoal(goal.id)
+                              load()
+                            }} className="p-1 text-gray-600 hover:text-red-400 transition-colors">
+                              <Trash2 size={11} />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-dark-600 rounded-full h-2">
+                            <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: goal.color }} />
+                          </div>
+                          <span className="text-xs text-gray-400 w-8 text-right">{pct}%</span>
+                        </div>
+                        {goal.target_date && (
+                          <p className="text-xs text-gray-600 mt-0.5">До {goal.target_date}</p>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Expense type filter */}
           <div className="flex items-center gap-2">
@@ -573,6 +677,14 @@ export default function Dashboard() {
             <DonutChart outerRadius={140} innerRadius={85} height={420} threshold={0.02} />
           </div>
         </ExpandModal>
+      )}
+
+      {goalModal !== null && (
+        <AddGoalModal
+          editGoal={goalModal.edit}
+          onClose={() => setGoalModal(null)}
+          onSaved={() => { setGoalModal(null); load() }}
+        />
       )}
 
       {expandedCard === 'monthly' && showMonthly && monthly.length > 1 && (

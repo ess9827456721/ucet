@@ -104,4 +104,30 @@ export interface CashFlowData {
   }>
 }
 
+export interface RecurringOperation {
+  id: number
+  type: 'income' | 'expense' | 'transfer'
+  amount: number
+  category_id: number | null
+  subcategory_id: number | null
+  expense_type: 'daily' | 'big' | 'apartment' | null
+  day_of_month: number
+  comment: string | null
+  active: number
+  last_created: string | null
+  category_name?: string
+  category_color?: string
+}
+
+export interface SavingsGoal {
+  id: number
+  name: string
+  target_amount: number
+  current_amount: number
+  color: string
+  target_date: string | null
+  status: 'active' | 'completed'
+  created_at: string
+}
+
 export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'settings'

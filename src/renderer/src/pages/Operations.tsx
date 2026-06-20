@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
+import { Plus, Pencil, Trash2, Upload, RefreshCw, Check, X, ChevronDown, ChevronUp } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Operation } from '../types'
-import { formatMoney, formatDate, expenseTypeLabel, getPeriodDates } from '../utils'
+import { Category, Subcategory, Operation, RecurringOperation } from '../types'
+import { formatMoney, formatDate, expenseTypeLabel, getPeriodDates, today } from '../utils'
 import TransactionModal from '../components/TransactionModal'
 import ImportModal from '../components/ImportModal'
 
@@ -21,6 +21,7 @@ export default function Operations({ onAdd }: Props) {
   const api = useApi()
   const [operations, setOperations] = useState<Operation[]>([])
   const [period, setPeriod] = useState('month')
+  const [noPeriod, setNoPeriod] = useState(false)
   const [typeFilter, setTypeFilter] = useState<string>('')
   const [catFilter, setCatFilter] = useState<number | ''>('')
   const [subcatFilter, setSubcatFilter] = useState<number | ''>('')
@@ -31,10 +32,25 @@ export default function Operations({ onAdd }: Props) {
   const [editOp, setEditOp] = useState<Operation | null>(null)
   const [showImport, setShowImport] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [pendingRecurring, setPendingRecurring] = useState<RecurringOperation[]>([])
+  const [recurringDates, setRecurringDates] = useState<Record<number, string>>({})
+  const [showRecurring, setShowRecurring] = useState(true)
+  const [confirmingAll, setConfirmingAll] = useState(false)
 
   useEffect(() => {
     api.getCategories().then(d => setCats(d as Category[]))
+    loadPending()
   }, [])
+
+  async function loadPending() {
+    const pending = await api.getPendingRecurringOperations()
+    setPendingRecurring(pending as RecurringOperation[])
+    const dates: Record<number, string> = {}
+    ;(pending as RecurringOperation[]).forEach(r => {
+      dates[r.id] = today()
+    })
+    setRecurringDates(dates)
+  }
 
   useEffect(() => {
     if (catFilter) {
@@ -52,8 +68,12 @@ export default function Operations({ onAdd }: Props) {
 
   const load = useCallback(async () => {
     setLoading(true)
-    const { from, to } = getPeriodDates(period)
-    const filters: Record<string, unknown> = { dateFrom: from, dateTo: to }
+    const filters: Record<string, unknown> = {}
+    if (!noPeriod) {
+      const { from, to } = getPeriodDates(period)
+      filters.dateFrom = from
+      filters.dateTo = to
+    }
     if (typeFilter) filters.type = typeFilter
     if (catFilter) filters.categoryId = catFilter
     if (subcatFilter) filters.subcategoryId = subcatFilter
@@ -61,7 +81,7 @@ export default function Operations({ onAdd }: Props) {
     const ops = await api.getOperations(filters)
     setOperations(ops as Operation[])
     setLoading(false)
-  }, [period, typeFilter, catFilter, subcatFilter, debouncedComment])
+  }, [period, noPeriod, typeFilter, catFilter, subcatFilter, debouncedComment])
 
   useEffect(() => { load() }, [load])
 
@@ -69,6 +89,26 @@ export default function Operations({ onAdd }: Props) {
     if (!confirm('Удалить операцию?')) return
     await api.deleteOperation(id)
     load()
+  }
+
+  async function handleConfirmRecurring(id: number) {
+    const date = recurringDates[id] || today()
+    await api.confirmRecurringOperation(id, date)
+    await loadPending()
+    load()
+  }
+
+  async function handleConfirmAll() {
+    setConfirmingAll(true)
+    try {
+      for (const r of pendingRecurring) {
+        await api.confirmRecurringOperation(r.id, recurringDates[r.id] || today())
+      }
+      await loadPending()
+      load()
+    } finally {
+      setConfirmingAll(false)
+    }
   }
 
   function typeLabel(type: string): string {
@@ -104,6 +144,68 @@ export default function Operations({ onAdd }: Props) {
         </div>
       </div>
 
+      {/* Recurring prompt */}
+      {pendingRecurring.length > 0 && (
+        <div className="card border-yellow-400/30 bg-yellow-400/5">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <RefreshCw size={16} className="text-yellow-400" />
+              <h3 className="text-sm font-semibold text-white">Регулярные операции за этот месяц</h3>
+              <span className="badge bg-yellow-400/20 text-yellow-400">{pendingRecurring.length}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleConfirmAll}
+                disabled={confirmingAll}
+                className="btn-primary text-xs py-1 px-3 flex items-center gap-1"
+              >
+                <Check size={12} /> Подтвердить все
+              </button>
+              <button
+                onClick={() => setShowRecurring(v => !v)}
+                className="text-gray-500 hover:text-white p-1"
+              >
+                {showRecurring ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </button>
+            </div>
+          </div>
+          {showRecurring && (
+            <div className="space-y-2">
+              {pendingRecurring.map(r => (
+                <div key={r.id} className="flex items-center gap-3 py-1.5 border-t border-dark-600">
+                  {r.category_color && (
+                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: r.category_color }} />
+                  )}
+                  <span className="flex-1 text-sm text-white">{r.category_name || r.type} — {formatMoney(r.amount)}</span>
+                  {r.comment && <span className="text-xs text-gray-500 truncate max-w-[150px]">{r.comment}</span>}
+                  <span className="text-xs text-gray-500">{r.day_of_month}-го</span>
+                  <input
+                    type="date"
+                    value={recurringDates[r.id] || today()}
+                    onChange={e => setRecurringDates(prev => ({ ...prev, [r.id]: e.target.value }))}
+                    className="input py-0.5 text-xs w-32"
+                  />
+                  <button
+                    onClick={() => handleConfirmRecurring(r.id)}
+                    className="p-1 text-green-500 hover:text-green-400 transition-colors"
+                    title="Создать"
+                  >
+                    <Check size={14} />
+                  </button>
+                  <button
+                    onClick={() => setPendingRecurring(prev => prev.filter(x => x.id !== r.id))}
+                    className="p-1 text-gray-500 hover:text-gray-300 transition-colors"
+                    title="Пропустить"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Filters */}
       <div className="space-y-2">
         <div className="flex gap-3 items-center flex-wrap">
@@ -111,14 +213,22 @@ export default function Operations({ onAdd }: Props) {
             {PERIODS.map(p => (
               <button
                 key={p.id}
-                onClick={() => setPeriod(p.id)}
+                onClick={() => { setPeriod(p.id); setNoPeriod(false) }}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                  period === p.id ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
+                  period === p.id && !noPeriod ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
                 }`}
               >
                 {p.label}
               </button>
             ))}
+            <button
+              onClick={() => setNoPeriod(v => !v)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                noPeriod ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Все
+            </button>
           </div>
           <select
             value={typeFilter}

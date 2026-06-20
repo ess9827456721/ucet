@@ -115,6 +115,31 @@ function initSchema(): void {
       key TEXT UNIQUE NOT NULL,
       value TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS recurring_operations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      type TEXT NOT NULL CHECK(type IN ('income','expense','transfer')),
+      amount REAL NOT NULL,
+      category_id INTEGER REFERENCES categories(id),
+      subcategory_id INTEGER REFERENCES subcategories(id),
+      expense_type TEXT CHECK(expense_type IN ('daily','big','apartment')),
+      day_of_month INTEGER NOT NULL,
+      comment TEXT,
+      active INTEGER DEFAULT 1,
+      last_created TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS savings_goals (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      target_amount REAL NOT NULL,
+      current_amount REAL DEFAULT 0,
+      color TEXT DEFAULT '#22C55E',
+      target_date TEXT,
+      status TEXT DEFAULT 'active' CHECK(status IN ('active','completed')),
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `)
   seedDefaultData(d)
 
@@ -722,6 +747,113 @@ export function getSimpleForecast(debtId: number, monthlyPayment: number): unkno
     if (balance <= 0) break
   }
   return result
+}
+
+// ──────────────────────────────────────────────────────────────
+// Recurring Operations
+// ──────────────────────────────────────────────────────────────
+
+export function getRecurringOperations(activeOnly = false): unknown[] {
+  if (activeOnly) return getDb().prepare('SELECT * FROM recurring_operations WHERE active = 1 ORDER BY day_of_month ASC').all()
+  return getDb().prepare('SELECT * FROM recurring_operations ORDER BY day_of_month ASC').all()
+}
+
+export function addRecurringOperation(r: {
+  type: string; amount: number; category_id?: number | null; subcategory_id?: number | null
+  expense_type?: string | null; day_of_month: number; comment?: string | null
+}): number {
+  const res = getDb().prepare(`
+    INSERT INTO recurring_operations (type, amount, category_id, subcategory_id, expense_type, day_of_month, comment)
+    VALUES (@type, @amount, @category_id, @subcategory_id, @expense_type, @day_of_month, @comment)
+  `).run({
+    ...r,
+    category_id: r.category_id ?? null,
+    subcategory_id: r.subcategory_id ?? null,
+    expense_type: r.expense_type ?? null,
+    comment: r.comment ?? null,
+  })
+  return res.lastInsertRowid as number
+}
+
+export function updateRecurringOperation(id: number, data: {
+  amount?: number; category_id?: number | null; subcategory_id?: number | null
+  expense_type?: string | null; day_of_month?: number; comment?: string | null; active?: number
+}): void {
+  const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
+  if (!fields) return
+  getDb().prepare(`UPDATE recurring_operations SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+export function deleteRecurringOperation(id: number): void {
+  getDb().prepare('DELETE FROM recurring_operations WHERE id = ?').run(id)
+}
+
+export function getPendingRecurringOperations(): unknown[] {
+  const d = getDb()
+  const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM
+  return d.prepare(`
+    SELECT r.*, c.name as category_name, c.color as category_color
+    FROM recurring_operations r
+    LEFT JOIN categories c ON r.category_id = c.id
+    WHERE r.active = 1 AND (r.last_created IS NULL OR strftime('%Y-%m', r.last_created) < ?)
+  `).all(currentMonth)
+}
+
+export function confirmRecurringOperation(id: number, date: string): void {
+  const d = getDb()
+  d.transaction(() => {
+    const r = d.prepare('SELECT * FROM recurring_operations WHERE id = ?').get(id) as {
+      type: string; amount: number; category_id: number | null; subcategory_id: number | null
+      expense_type: string | null; comment: string | null
+    }
+    d.prepare(`
+      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
+      VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, NULL, @comment, NULL)
+    `).run({
+      date, type: r.type, amount: r.amount,
+      category_id: r.category_id ?? null,
+      subcategory_id: r.subcategory_id ?? null,
+      expense_type: r.expense_type ?? null,
+      comment: r.comment ?? null,
+    })
+    d.prepare('UPDATE recurring_operations SET last_created = ? WHERE id = ?').run(date, id)
+  })()
+}
+
+// ──────────────────────────────────────────────────────────────
+// Savings Goals
+// ──────────────────────────────────────────────────────────────
+
+export function getSavingsGoals(): unknown[] {
+  return getDb().prepare("SELECT * FROM savings_goals ORDER BY created_at DESC").all()
+}
+
+export function addSavingsGoal(goal: {
+  name: string; target_amount: number; color?: string; target_date?: string | null
+}): number {
+  const res = getDb().prepare(`
+    INSERT INTO savings_goals (name, target_amount, color, target_date)
+    VALUES (@name, @target_amount, @color, @target_date)
+  `).run({
+    name: goal.name,
+    target_amount: goal.target_amount,
+    color: goal.color ?? '#22C55E',
+    target_date: goal.target_date ?? null,
+  })
+  return res.lastInsertRowid as number
+}
+
+export function updateSavingsGoal(id: number, data: {
+  name?: string; target_amount?: number; current_amount?: number
+  color?: string; target_date?: string | null; status?: string
+}): void {
+  const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
+  if (!fields) return
+  getDb().prepare(`UPDATE savings_goals SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+export function deleteSavingsGoal(id: number): void {
+  getDb().prepare('DELETE FROM savings_goals WHERE id = ?').run(id)
 }
 
 // ──────────────────────────────────────────────────────────────
