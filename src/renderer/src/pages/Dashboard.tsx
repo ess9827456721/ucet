@@ -145,7 +145,7 @@ export default function Dashboard() {
   const todayStr = today()
   const todayExpenses = daily.find(d => d.date === todayStr)?.expenses ?? 0
   const cfJournal = cashFlow?.journal ?? []
-  const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null
+  const lastSaldo = cfJournal.find(r => r.date === todayStr)?.saldo ?? null
 
   const nowDay = new Date().getDate()
   const upcomingDebts = activeDebts.filter(d => {
