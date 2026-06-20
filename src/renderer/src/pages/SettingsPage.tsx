@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Plus, Archive, Download, Upload, FolderOpen } from 'lucide-react'
+import { Plus, Archive, Download, Upload, FolderOpen, Pencil, Check, X as XIcon } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Category, Subcategory } from '../types'
+
+interface EditCatState { id: number; name: string; color: string }
+interface EditSubState { id: number; name: string }
 
 export default function SettingsPage() {
   const api = useApi()
@@ -10,6 +13,10 @@ export default function SettingsPage() {
   const [selectedCat, setSelectedCat] = useState<Category | null>(null)
   const [dbPath, setDbPath] = useState('')
   const [statusMsg, setStatusMsg] = useState('')
+
+  // Inline edit state
+  const [editCat, setEditCat] = useState<EditCatState | null>(null)
+  const [editSub, setEditSub] = useState<EditSubState | null>(null)
 
   // New category form
   const [newCatName, setNewCatName] = useState('')
@@ -66,6 +73,22 @@ export default function SettingsPage() {
     await api.updateSubcategory(id, { archived: 1 })
     if (selectedCat) loadSubs(selectedCat.id)
     showStatus('Подкатегория архивирована')
+  }
+
+  async function saveEditCat() {
+    if (!editCat || !editCat.name.trim()) return
+    await api.updateCategory(editCat.id, { name: editCat.name.trim(), color: editCat.color })
+    setEditCat(null)
+    loadCategories()
+    showStatus('Категория обновлена')
+  }
+
+  async function saveEditSub() {
+    if (!editSub || !editSub.name.trim()) return
+    await api.updateSubcategory(editSub.id, { name: editSub.name.trim() })
+    setEditSub(null)
+    if (selectedCat) loadSubs(selectedCat.id)
+    showStatus('Подкатегория обновлена')
   }
 
   async function handleExportDb() {
@@ -151,56 +174,72 @@ export default function SettingsPage() {
         <div className="grid grid-cols-2 gap-6">
           {/* Category lists */}
           <div className="space-y-4">
-            <div>
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Расходы ({expenseCats.length})</h3>
-              <div className="space-y-1 max-h-64 overflow-y-auto scrollbar-thin">
-                {expenseCats.map(cat => (
-                  <div
-                    key={cat.id}
-                    onClick={() => setSelectedCat(selectedCat?.id === cat.id ? null : cat)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all ${
-                      selectedCat?.id === cat.id
-                        ? 'bg-dark-600 border border-yellow-400/30'
-                        : 'hover:bg-dark-700'
-                    }`}
-                  >
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
-                    <span className="flex-1 text-sm text-white">{cat.name}</span>
-                    <button
-                      onClick={e => { e.stopPropagation(); archiveCategory(cat.id) }}
-                      className="text-gray-600 hover:text-yellow-400 transition-colors"
-                      title="Архивировать"
-                    >
-                      <Archive size={14} />
-                    </button>
-                  </div>
-                ))}
+            {([
+              { label: 'Расходы', cats: expenseCats },
+              { label: 'Доходы', cats: incomeCats },
+            ] as const).map(({ label, cats }) => (
+              <div key={label}>
+                <h3 className="text-sm font-medium text-gray-400 mb-2">{label} ({cats.length})</h3>
+                <div className="space-y-1 max-h-64 overflow-y-auto scrollbar-thin">
+                  {cats.length === 0 && (
+                    <p className="text-xs text-gray-600 px-3 py-1">Нет категорий</p>
+                  )}
+                  {cats.map(cat => (
+                    <div key={cat.id}>
+                      {editCat?.id === cat.id ? (
+                        <div className="flex items-center gap-2 px-2 py-1.5 rounded-xl bg-dark-600 border border-yellow-400/30">
+                          <input
+                            type="color"
+                            value={editCat.color}
+                            onChange={e => setEditCat({ ...editCat, color: e.target.value })}
+                            className="w-6 h-6 rounded cursor-pointer border-0 bg-transparent p-0 flex-shrink-0"
+                          />
+                          <input
+                            value={editCat.name}
+                            onChange={e => setEditCat({ ...editCat, name: e.target.value })}
+                            onKeyDown={e => { if (e.key === 'Enter') saveEditCat(); if (e.key === 'Escape') setEditCat(null) }}
+                            className="input py-0.5 text-sm flex-1 h-7"
+                            autoFocus
+                          />
+                          <button onClick={saveEditCat} className="text-green-400 hover:text-green-300 transition-colors p-1" title="Сохранить">
+                            <Check size={14} />
+                          </button>
+                          <button onClick={() => setEditCat(null)} className="text-gray-500 hover:text-white transition-colors p-1" title="Отмена">
+                            <XIcon size={14} />
+                          </button>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => { setSelectedCat(selectedCat?.id === cat.id ? null : cat); setEditCat(null) }}
+                          className={`flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all group ${
+                            selectedCat?.id === cat.id
+                              ? 'bg-dark-600 border border-yellow-400/30'
+                              : 'hover:bg-dark-700'
+                          }`}
+                        >
+                          <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: cat.color }} />
+                          <span className="flex-1 text-sm text-white">{cat.name}</span>
+                          <button
+                            onClick={e => { e.stopPropagation(); setEditCat({ id: cat.id, name: cat.name, color: cat.color }); setSelectedCat(null) }}
+                            className="text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100"
+                            title="Переименовать"
+                          >
+                            <Pencil size={13} />
+                          </button>
+                          <button
+                            onClick={e => { e.stopPropagation(); archiveCategory(cat.id) }}
+                            className="text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100"
+                            title="Архивировать"
+                          >
+                            <Archive size={14} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-gray-400 mb-2">Доходы ({incomeCats.length})</h3>
-              <div className="space-y-1 max-h-40 overflow-y-auto scrollbar-thin">
-                {incomeCats.map(cat => (
-                  <div
-                    key={cat.id}
-                    onClick={() => setSelectedCat(selectedCat?.id === cat.id ? null : cat)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all ${
-                      selectedCat?.id === cat.id ? 'bg-dark-600 border border-yellow-400/30' : 'hover:bg-dark-700'
-                    }`}
-                  >
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
-                    <span className="flex-1 text-sm text-white">{cat.name}</span>
-                    <button
-                      onClick={e => { e.stopPropagation(); archiveCategory(cat.id) }}
-                      className="text-gray-600 hover:text-yellow-400 transition-colors"
-                    >
-                      <Archive size={14} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Subcategories */}
@@ -226,14 +265,41 @@ export default function SettingsPage() {
                   {subcategories.length === 0 ? (
                     <p className="text-sm text-gray-500 px-3">Нет подкатегорий</p>
                   ) : subcategories.map(sub => (
-                    <div key={sub.id} className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-dark-700">
-                      <span className="flex-1 text-sm text-white">{sub.name}</span>
-                      <button
-                        onClick={() => archiveSubcategory(sub.id)}
-                        className="text-gray-600 hover:text-yellow-400 transition-colors"
-                      >
-                        <Archive size={14} />
-                      </button>
+                    <div key={sub.id}>
+                      {editSub?.id === sub.id ? (
+                        <div className="flex items-center gap-2 px-2 py-1.5 rounded-xl bg-dark-600 border border-yellow-400/30">
+                          <input
+                            value={editSub.name}
+                            onChange={e => setEditSub({ ...editSub, name: e.target.value })}
+                            onKeyDown={e => { if (e.key === 'Enter') saveEditSub(); if (e.key === 'Escape') setEditSub(null) }}
+                            className="input py-0.5 text-sm flex-1 h-7"
+                            autoFocus
+                          />
+                          <button onClick={saveEditSub} className="text-green-400 hover:text-green-300 transition-colors p-1">
+                            <Check size={14} />
+                          </button>
+                          <button onClick={() => setEditSub(null)} className="text-gray-500 hover:text-white transition-colors p-1">
+                            <XIcon size={14} />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-dark-700 group">
+                          <span className="flex-1 text-sm text-white">{sub.name}</span>
+                          <button
+                            onClick={() => setEditSub({ id: sub.id, name: sub.name })}
+                            className="text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100"
+                            title="Переименовать"
+                          >
+                            <Pencil size={13} />
+                          </button>
+                          <button
+                            onClick={() => archiveSubcategory(sub.id)}
+                            className="text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100"
+                          >
+                            <Archive size={14} />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
