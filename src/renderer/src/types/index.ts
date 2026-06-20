@@ -43,8 +43,12 @@ export interface Debt {
   monthly_payment: number | null
   overdue_interest_pool: number
   created_at: string
+  category: string | null
+  sort_order: number | null
+  is_hidden: number
   current_balance?: number
   accrued_interest?: number
+  last_payment_date?: string | null
 }
 
 export interface Tranche {
@@ -55,6 +59,16 @@ export interface Tranche {
   current_balance: number
   interest_rate: number
   status: 'active' | 'paid'
+  created_at: string
+}
+
+export interface MandatoryExpenseItem {
+  id: number | null
+  category: string
+  plannedAmount: number
+  actualAmount: number | null
+  isDebtLinked: boolean
+  debtId: number | null
 }
 
 export interface DadPayment {
@@ -102,6 +116,7 @@ export interface CashFlowData {
     cumLimit: number
     saldo: number
   }>
+  mandatoryItems: MandatoryExpenseItem[]
 }
 
 export interface RecurringOperation {

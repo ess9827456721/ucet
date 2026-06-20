@@ -13,6 +13,7 @@ interface Props {
 
 interface EditDadPayment { id: number; date: string }
 interface EditSimplePayment { id: number; date: string; amount: string; interestPart: string }
+interface EditTrancheState { id: number; date: string; rate: string }
 
 export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: Props) {
   const api = useApi()
@@ -24,12 +25,13 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
   const [showAddTranche, setShowAddTranche] = useState(false)
   const [editDadPay, setEditDadPay] = useState<EditDadPayment | null>(null)
   const [editSimplePay, setEditSimplePay] = useState<EditSimplePayment | null>(null)
+  const [editTranche, setEditTranche] = useState<EditTrancheState | null>(null)
   const [loading, setLoading] = useState(true)
 
   // Payment form state
   const [payAmount, setPayAmount] = useState('')
   const [payDate, setPayDate] = useState(today())
-  const [daysSince, setDaysSince] = useState('30')
+  const [computedDays, setComputedDays] = useState<{ days: number; since: string } | null>(null)
   const [interestPart, setInterestPart] = useState('')
   const [isEarlyRepayment, setIsEarlyRepayment] = useState(false)
   const [newMonthlyPayment, setNewMonthlyPayment] = useState('')
@@ -62,12 +64,18 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
 
   useEffect(() => { load() }, [debtId])
 
+  // Auto-compute days since last payment when payment date changes
+  useEffect(() => {
+    if (!showPaymentForm || debt?.debt_type !== 'dad') return
+    api.getDaysSinceLastPayment(debtId, payDate).then(r => setComputedDays(r))
+  }, [payDate, showPaymentForm, debt?.debt_type])
+
   async function handlePay() {
     if (!payAmount || parseFloat(payAmount) <= 0) { setPayError('Укажите сумму'); return }
     setPaying(true)
     try {
       if (debt?.debt_type === 'dad') {
-        await api.processDadPayment(debtId, parseFloat(payAmount), payDate, parseInt(daysSince) || 30)
+        await api.processDadPayment(debtId, parseFloat(payAmount), payDate)
       } else {
         await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0)
       }
@@ -103,6 +111,30 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     } finally {
       setSavingTranche(false)
     }
+  }
+
+  async function handleSaveTranche() {
+    if (!editTranche) return
+    const result = await api.updateTranche(editTranche.id, {
+      date: editTranche.date,
+      interest_rate: parseFloat(editTranche.rate) / 100,
+    })
+    if (!result.ok) {
+      alert(result.reason ?? 'Ошибка при обновлении транша')
+      return
+    }
+    setEditTranche(null)
+    load()
+  }
+
+  async function handleDeleteTranche(t: Tranche) {
+    if (!confirm(`Удалить транш от ${formatDate(t.date)}?`)) return
+    const result = await api.deleteTranche(t.id)
+    if (!result.ok) {
+      alert(result.reason ?? 'Невозможно удалить транш')
+      return
+    }
+    load()
   }
 
   async function handleDeleteDadPayment(paymentId: number) {
@@ -236,11 +268,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               <input type="number" value={payAmount} onChange={e => setPayAmount(e.target.value)} className="input" />
             </div>
           </div>
-          {debt.debt_type === 'dad' && (
-            <div>
-              <label className="label">Дней с предыдущего платежа</label>
-              <input type="number" value={daysSince} onChange={e => setDaysSince(e.target.value)} className="input w-40" />
-            </div>
+          {debt.debt_type === 'dad' && computedDays && (
+            <p className="text-sm text-gray-400">
+              Дней с предыдущего платежа:{' '}
+              <span className="text-white font-medium">{computedDays.days}</span>
+              {' '}(с {formatDate(computedDays.since)})
+            </p>
           )}
           {debt.debt_type === 'simple' && (
             <div>
@@ -320,22 +353,68 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
                 <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Остаток тела</th>
                 <th className="text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Ставка</th>
                 <th className="text-center text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Статус</th>
+                <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
-              {tranches.map(t => (
-                <tr key={t.id} className="border-b border-dark-600 hover:bg-dark-700">
-                  <td className="px-5 py-3 text-sm text-gray-300">{formatDate(t.date)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-gray-300">{formatMoney(t.initial_amount)}</td>
-                  <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(t.current_balance)}</td>
-                  <td className="px-5 py-3 text-sm text-right text-yellow-400">{(t.interest_rate * 100).toFixed(1)}%</td>
-                  <td className="px-5 py-3 text-center">
-                    <span className={`badge ${t.status === 'active' ? 'bg-green-900/40 text-green-400' : 'bg-dark-600 text-gray-500'}`}>
-                      {t.status === 'active' ? 'Активен' : 'Погашен'}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {tranches.map(t => {
+                const partiallyPaid = t.current_balance < t.initial_amount - 0.01
+                return (
+                  <React.Fragment key={t.id}>
+                    <tr className="border-b border-dark-600 hover:bg-dark-700">
+                      <td className="px-5 py-3 text-sm text-gray-300">{formatDate(t.date)}</td>
+                      <td className="px-5 py-3 text-sm text-right text-gray-300">{formatMoney(t.initial_amount)}</td>
+                      <td className="px-5 py-3 text-sm text-right font-semibold text-white">{formatMoney(t.current_balance)}</td>
+                      <td className="px-5 py-3 text-sm text-right text-yellow-400">{(t.interest_rate * 100).toFixed(1)}%</td>
+                      <td className="px-5 py-3 text-center">
+                        <span className={`badge ${t.status === 'active' ? 'bg-green-900/40 text-green-400' : 'bg-dark-600 text-gray-500'}`}>
+                          {t.status === 'active' ? 'Активен' : 'Погашен'}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3">
+                        <div className="flex gap-1 justify-end">
+                          <button
+                            onClick={() => setEditTranche({ id: t.id, date: t.date, rate: String((t.interest_rate * 100).toFixed(2)) })}
+                            className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"
+                            title="Редактировать транш"
+                          >
+                            <Pencil size={13} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTranche(t)}
+                            disabled={partiallyPaid}
+                            className={`p-1.5 transition-colors ${partiallyPaid ? 'text-gray-700 cursor-not-allowed' : 'text-gray-500 hover:text-red-400'}`}
+                            title={partiallyPaid ? 'Нельзя удалить частично погашенный транш' : 'Удалить транш'}
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    {editTranche?.id === t.id && (
+                      <tr className="bg-dark-700 border-b border-dark-600">
+                        <td colSpan={6} className="px-5 py-3">
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-400">Дата:</span>
+                              <input type="date" value={editTranche.date} onChange={e => setEditTranche({ ...editTranche, date: e.target.value })} className="input py-1 text-sm w-36" />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-400">Ставка, % год.:</span>
+                              <input type="number" value={editTranche.rate} onChange={e => setEditTranche({ ...editTranche, rate: e.target.value })} className="input py-1 text-sm w-24" />
+                            </div>
+                            {partiallyPaid && (
+                              <span className="text-xs text-gray-500">Сумма транша не редактируется — уже частично погашен</span>
+                            )}
+                            <button onClick={handleSaveTranche} className="btn-primary text-sm py-1 px-3">Сохранить</button>
+                            <button onClick={() => setEditTranche(null)} className="btn-secondary text-sm py-1 px-3">Отмена</button>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                )
+              })}
             </tbody>
           </table>
         </div>

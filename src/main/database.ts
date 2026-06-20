@@ -140,6 +140,16 @@ function initSchema(): void {
       status TEXT DEFAULT 'active' CHECK(status IN ('active','completed')),
       created_at TEXT DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS mandatory_expense_plan (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      year INTEGER NOT NULL,
+      month INTEGER NOT NULL,
+      category TEXT NOT NULL,
+      planned_amount REAL NOT NULL,
+      actual_amount REAL,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `)
   seedDefaultData(d)
 
@@ -152,6 +162,10 @@ function initSchema(): void {
   if (!simpleCols.includes('operation_id')) {
     d.exec('ALTER TABLE simple_debt_payments ADD COLUMN operation_id INTEGER')
   }
+  const debtCols = (d.prepare('PRAGMA table_info(debts)').all() as Array<{ name: string }>).map(c => c.name)
+  if (!debtCols.includes('category')) d.exec('ALTER TABLE debts ADD COLUMN category TEXT')
+  if (!debtCols.includes('sort_order')) d.exec('ALTER TABLE debts ADD COLUMN sort_order INTEGER DEFAULT 0')
+  if (!debtCols.includes('is_hidden')) d.exec('ALTER TABLE debts ADD COLUMN is_hidden INTEGER DEFAULT 0')
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -368,8 +382,8 @@ export function updateSubcategory(id: number, data: { name?: string; archived?: 
 
 export function getDebts(status?: string): unknown[] {
   const d = getDb()
-  if (status) return d.prepare('SELECT * FROM debts WHERE status = ? ORDER BY created_at DESC').all(status)
-  return d.prepare('SELECT * FROM debts ORDER BY created_at DESC').all()
+  if (status) return d.prepare('SELECT * FROM debts WHERE status = ? ORDER BY COALESCE(sort_order, 9999), id ASC').all(status)
+  return d.prepare('SELECT * FROM debts ORDER BY COALESCE(sort_order, 9999), id ASC').all()
 }
 
 export function getDebt(id: number): unknown {
@@ -384,23 +398,31 @@ export function addDebt(debt: {
   interest_rate?: number | null
   payment_day?: number | null
   monthly_payment?: number | null
+  category?: string | null
 }): number {
   const r = getDb().prepare(`
-    INSERT INTO debts (name, direction, debt_type, initial_amount, interest_rate, payment_day, monthly_payment)
-    VALUES (@name, @direction, @debt_type, @initial_amount, @interest_rate, @payment_day, @monthly_payment)
+    INSERT INTO debts (name, direction, debt_type, initial_amount, interest_rate, payment_day, monthly_payment, category)
+    VALUES (@name, @direction, @debt_type, @initial_amount, @interest_rate, @payment_day, @monthly_payment, @category)
   `).run({
     ...debt,
     initial_amount: debt.initial_amount ?? null,
     interest_rate: debt.interest_rate ?? null,
     payment_day: debt.payment_day ?? null,
     monthly_payment: debt.monthly_payment ?? null,
+    category: debt.category ?? null,
   })
   return r.lastInsertRowid as number
 }
 
+export function updateDebtsOrder(orderedIds: number[]): void {
+  const d = getDb()
+  const upd = d.prepare('UPDATE debts SET sort_order = ? WHERE id = ?')
+  d.transaction(() => { orderedIds.forEach((id, i) => upd.run(i, id)) })()
+}
+
 export function getDebtsWithBalance(): unknown[] {
   const d = getDb()
-  const debts = d.prepare('SELECT * FROM debts ORDER BY created_at DESC').all() as Array<{
+  const debts = d.prepare('SELECT * FROM debts ORDER BY COALESCE(sort_order, 9999), id ASC').all() as Array<{
     id: number; debt_type: string; initial_amount: number | null; [key: string]: unknown
   }>
   return debts.map(debt => {
@@ -422,7 +444,7 @@ export function getDebtsWithBalance(): unknown[] {
 
 export function getDebtsWithDetails(): unknown[] {
   const d = getDb()
-  const debts = d.prepare('SELECT * FROM debts ORDER BY created_at DESC').all() as Array<{
+  const debts = d.prepare('SELECT * FROM debts ORDER BY COALESCE(sort_order, 9999), id ASC').all() as Array<{
     id: number; debt_type: string; initial_amount: number | null; interest_rate: number | null
     overdue_interest_pool: number; created_at: string; [key: string]: unknown
   }>
@@ -430,7 +452,7 @@ export function getDebtsWithDetails(): unknown[] {
   return debts.map(debt => {
     let currentBalance: number
     let accruedInterest: number
-    let lastPaymentDate: Date
+    let lastPaymentDateStr: string | null
 
     if (debt.debt_type === 'dad') {
       const row = d.prepare(
@@ -441,7 +463,8 @@ export function getDebtsWithDetails(): unknown[] {
       const lastPay = d.prepare(
         'SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?'
       ).get(debt.id) as { dt: string | null }
-      lastPaymentDate = lastPay.dt ? new Date(lastPay.dt) : new Date(debt.created_at as string)
+      lastPaymentDateStr = lastPay.dt
+      const lastPaymentDate = lastPay.dt ? new Date(lastPay.dt + 'T00:00:00') : new Date(debt.created_at as string)
 
       const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
       const tranches = d.prepare(
@@ -458,13 +481,14 @@ export function getDebtsWithDetails(): unknown[] {
       const lastPay = d.prepare(
         'SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?'
       ).get(debt.id) as { dt: string | null }
-      lastPaymentDate = lastPay.dt ? new Date(lastPay.dt) : new Date(debt.created_at as string)
+      lastPaymentDateStr = lastPay.dt
+      const lastPaymentDate = lastPay.dt ? new Date(lastPay.dt + 'T00:00:00') : new Date(debt.created_at as string)
 
       const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
       accruedInterest = debt.interest_rate ? currentBalance * debt.interest_rate * (days / 365) : 0
     }
 
-    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest }
+    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest, last_payment_date: lastPaymentDateStr }
   })
 }
 
@@ -477,6 +501,8 @@ export function updateDebt(id: number, data: {
   payment_day?: number | null
   monthly_payment?: number | null
   overdue_interest_pool?: number
+  category?: string | null
+  is_hidden?: number
 }): void {
   const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
   if (!fields) return
@@ -515,21 +541,86 @@ export function addTranche(tranche: {
   return r.lastInsertRowid as number
 }
 
-export function processDadPayment(debtId: number, paymentAmount: number, paymentDate: string, daysSince: number): unknown {
+export function updateTranche(trancheId: number, data: { date?: string; interest_rate?: number; initial_amount?: number }): { ok: boolean; reason?: string } {
   const d = getDb()
-  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { overdue_interest_pool: number; name: string }
+  const t = d.prepare('SELECT * FROM debt_tranches WHERE id = ?').get(trancheId) as {
+    initial_amount: number; current_balance: number
+  } | null
+  if (!t) return { ok: false, reason: 'not_found' }
+
+  const isPartiallyPaid = t.current_balance < t.initial_amount - 0.01
+  const updateData: Record<string, unknown> = {}
+  if (data.date !== undefined) updateData.date = data.date
+  if (data.interest_rate !== undefined) updateData.interest_rate = data.interest_rate
+  if (data.initial_amount !== undefined && !isPartiallyPaid) {
+    updateData.initial_amount = data.initial_amount
+    updateData.current_balance = data.initial_amount
+  }
+
+  const fields = Object.keys(updateData).map(k => `${k} = @${k}`).join(', ')
+  if (!fields) return { ok: true }
+  d.prepare(`UPDATE debt_tranches SET ${fields} WHERE id = @id`).run({ ...updateData, id: trancheId })
+  return { ok: true }
+}
+
+export function deleteTranche(trancheId: number): { ok: boolean; reason?: string } {
+  const d = getDb()
+  const t = d.prepare('SELECT * FROM debt_tranches WHERE id = ?').get(trancheId) as {
+    initial_amount: number; current_balance: number
+  } | null
+  if (!t) return { ok: false, reason: 'not_found' }
+  if (t.current_balance < t.initial_amount - 0.01) return { ok: false, reason: 'partially_paid' }
+  d.prepare('DELETE FROM debt_tranches WHERE id = ?').run(trancheId)
+  return { ok: true }
+}
+
+export function getDaysSinceLastPayment(debtId: number, asOfDate: string): { days: number; since: string } {
+  const d = getDb()
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { debt_type: string; created_at: string }
+  let since: string
+  if (debt.debt_type === 'dad') {
+    const row = d.prepare('SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
+    since = row.dt ?? debt.created_at.slice(0, 10)
+  } else {
+    const row = d.prepare('SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
+    since = row.dt ?? debt.created_at.slice(0, 10)
+  }
+  const lastDate = new Date(since + 'T00:00:00')
+  const asOf = new Date(asOfDate + 'T00:00:00')
+  const days = Math.max(0, Math.round((asOf.getTime() - lastDate.getTime()) / 86400000))
+  return { days, since }
+}
+
+export function processDadPayment(debtId: number, paymentAmount: number, paymentDate: string): unknown {
+  const d = getDb()
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as {
+    overdue_interest_pool: number; name: string; created_at: string
+  }
+
+  // Compute last payment date for the debt
+  const lastPayRow = d.prepare('SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?').get(debtId) as { dt: string | null }
+  const lastPayDate = new Date((lastPayRow.dt ?? debt.created_at.slice(0, 10)) + 'T00:00:00')
+  const payDateObj = new Date(paymentDate + 'T00:00:00')
+
   const tranchesRaw = d.prepare('SELECT * FROM debt_tranches WHERE debt_id = ?').all(debtId) as Array<{
-    id: number; current_balance: number; interest_rate: number; status: string
+    id: number; date: string; current_balance: number; interest_rate: number; status: string
   }>
 
-  const tranches = tranchesRaw.map(t => ({
-    id: t.id,
-    currentBalance: t.current_balance,
-    interestRate: t.interest_rate,
-    status: t.status as 'active' | 'paid'
-  }))
+  // Per-tranche: interest accrues from max(lastPayDate, trancheDate) to paymentDate
+  const tranches = tranchesRaw.map(t => {
+    const trancheDate = new Date(t.date + 'T00:00:00')
+    const interestStart = trancheDate > lastPayDate ? trancheDate : lastPayDate
+    const daysSince = Math.max(0, Math.round((payDateObj.getTime() - interestStart.getTime()) / 86400000))
+    return {
+      id: t.id,
+      currentBalance: t.current_balance,
+      interestRate: t.interest_rate,
+      status: t.status as 'active' | 'paid',
+      daysSinceInterestStart: daysSince,
+    }
+  })
 
-  const result = calculateDadDebtPayment(tranches, debt.overdue_interest_pool, paymentAmount, daysSince)
+  const result = calculateDadDebtPayment(tranches, debt.overdue_interest_pool, paymentAmount, 0)
 
   const processPayment = d.transaction(() => {
     const paymentId = d.prepare(`
@@ -938,20 +1029,33 @@ export function getCashFlow(year: number, month: number): unknown {
   const dateTo = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`
 
   const income = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='income' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
-  const mandatory = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense' AND expense_type='apartment' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
+
+  // Manual mandatory expense items (rent, utilities, etc.)
+  const manualItems = d.prepare('SELECT * FROM mandatory_expense_plan WHERE year = ? AND month = ? ORDER BY id ASC').all(year, month) as Array<{
+    id: number; category: string; planned_amount: number; actual_amount: number | null
+  }>
+
+  // Auto: active debts with monthly_payment (included per spec, even if hidden)
+  const debtItems = d.prepare("SELECT id, name, monthly_payment FROM debts WHERE status = 'active' AND direction = 'i_owe' AND monthly_payment IS NOT NULL AND monthly_payment > 0").all() as Array<{
+    id: number; name: string; monthly_payment: number
+  }>
+
+  const manualTotal = manualItems.reduce((s, item) => s + (item.actual_amount ?? item.planned_amount), 0)
+  const debtTotal = debtItems.reduce((s, d) => s + d.monthly_payment, 0)
+  const mandatory = manualTotal + debtTotal
   const dailyBudget = (income - mandatory) / lastDay
 
+  // day_expenses includes both expense and debt_op
   const dailyRows = d.prepare(`
-    SELECT date, SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as day_expenses
+    SELECT date, SUM(CASE WHEN type='expense' OR type='debt_op' THEN amount ELSE 0 END) as day_expenses
     FROM operations WHERE date >= ? AND date <= ? GROUP BY date ORDER BY date ASC
   `).all(dateFrom, dateTo) as Array<{ date: string; day_expenses: number }>
 
   let cumExpenses = 0
-  let cumLimit = 0
   const journal = dailyRows.map(row => {
     cumExpenses += row.day_expenses
     const dayNum = parseInt(row.date.split('-')[2])
-    cumLimit = dailyBudget * dayNum
+    const cumLimit = dailyBudget * dayNum
     return {
       date: row.date,
       dayExpenses: row.day_expenses,
@@ -960,7 +1064,45 @@ export function getCashFlow(year: number, month: number): unknown {
     }
   })
 
-  return { income, mandatory, dailyBudget, journal, dateFrom, dateTo }
+  const mandatoryItems = [
+    ...manualItems.map(item => ({
+      id: item.id,
+      category: item.category,
+      plannedAmount: item.planned_amount,
+      actualAmount: item.actual_amount,
+      isDebtLinked: false,
+      debtId: null as number | null,
+    })),
+    ...debtItems.map(debt => ({
+      id: null as number | null,
+      category: debt.name,
+      plannedAmount: debt.monthly_payment,
+      actualAmount: null as number | null,
+      isDebtLinked: true,
+      debtId: debt.id,
+    })),
+  ]
+
+  return { income, mandatory, dailyBudget, journal, dateFrom, dateTo, mandatoryItems }
+}
+
+export function getMandatoryExpensePlan(year: number, month: number): unknown[] {
+  return getDb().prepare('SELECT * FROM mandatory_expense_plan WHERE year = ? AND month = ? ORDER BY id ASC').all(year, month)
+}
+
+export function addMandatoryExpenseItem(year: number, month: number, category: string, plannedAmount: number): number {
+  const r = getDb().prepare('INSERT INTO mandatory_expense_plan (year, month, category, planned_amount) VALUES (?, ?, ?, ?)').run(year, month, category, plannedAmount)
+  return r.lastInsertRowid as number
+}
+
+export function updateMandatoryExpenseItem(id: number, data: { planned_amount?: number; actual_amount?: number | null; category?: string }): void {
+  const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
+  if (!fields) return
+  getDb().prepare(`UPDATE mandatory_expense_plan SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+export function deleteMandatoryExpenseItem(id: number): void {
+  getDb().prepare('DELETE FROM mandatory_expense_plan WHERE id = ?').run(id)
 }
 
 // ──────────────────────────────────────────────────────────────

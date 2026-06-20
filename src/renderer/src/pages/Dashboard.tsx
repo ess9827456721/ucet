@@ -149,12 +149,19 @@ export default function Dashboard() {
 
   const nowDay = new Date().getDate()
   const upcomingDebts = activeDebts.filter(d => {
-    if (d.status !== 'active' || !d.payment_day) return false
+    if (d.status !== 'active' || !d.payment_day || d.is_hidden) return false
     const daysUntil = d.payment_day >= nowDay ? d.payment_day - nowDay : 0
-    return daysUntil <= 7
+    if (daysUntil > 7) return false
+    // Skip if payment was already made this month
+    if (d.last_payment_date) {
+      const lp = new Date(d.last_payment_date + 'T00:00:00')
+      const now = new Date()
+      if (lp.getFullYear() === now.getFullYear() && lp.getMonth() === now.getMonth()) return false
+    }
+    return true
   })
 
-  const debtOwed = activeDebts.filter(d => d.direction === 'i_owe')
+  const debtOwed = activeDebts.filter(d => d.direction === 'i_owe' && !d.is_hidden)
   const totalDebtOwed = debtOwed.reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
   const totalAccrued = debtOwed.reduce((s, d) => s + (d.accrued_interest ?? 0), 0)
   const totalMonthlyPayment = debtOwed.reduce((s, d) => s + (d.monthly_payment ?? 0), 0)

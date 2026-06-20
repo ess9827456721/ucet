@@ -5,11 +5,13 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import {
   getOperations, addOperation, updateOperation, deleteOperation, importOperations,
   getCategories, getSubcategories, addCategory, updateCategory, addSubcategory, updateSubcategory,
-  getDebts, getDebt, addDebt, updateDebt, deleteDebt, getDebtsWithBalance, getDebtsWithDetails, getTranches, addTranche,
-  processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
+  getDebts, getDebt, addDebt, updateDebt, deleteDebt, getDebtsWithBalance, getDebtsWithDetails,
+  getTranches, addTranche, updateTranche, deleteTranche, updateDebtsOrder,
+  getDaysSinceLastPayment, processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
   deleteDadPayment, updateDadPaymentDate, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
   getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
+  getMandatoryExpensePlan, addMandatoryExpenseItem, updateMandatoryExpenseItem, deleteMandatoryExpenseItem,
   getRecurringOperations, addRecurringOperation, updateRecurringOperation, deleteRecurringOperation, getPendingRecurringOperations, confirmRecurringOperation,
   getSavingsGoals, addSavingsGoal, updateSavingsGoal, deleteSavingsGoal,
   exportDb, importDb, getDbPath
@@ -73,7 +75,11 @@ app.whenReady().then(() => {
   ipcMain.handle('delete-debt', (_, id) => deleteDebt(id))
   ipcMain.handle('get-tranches', (_, debtId) => getTranches(debtId))
   ipcMain.handle('add-tranche', (_, tranche) => addTranche(tranche))
-  ipcMain.handle('process-dad-payment', (_, debtId, amount, date, days) => processDadPayment(debtId, amount, date, days))
+  ipcMain.handle('update-tranche', (_, id, data) => updateTranche(id, data))
+  ipcMain.handle('delete-tranche', (_, id) => deleteTranche(id))
+  ipcMain.handle('update-debts-order', (_, ids) => updateDebtsOrder(ids))
+  ipcMain.handle('get-days-since-last-payment', (_, debtId, date) => getDaysSinceLastPayment(debtId, date))
+  ipcMain.handle('process-dad-payment', (_, debtId, amount, date) => processDadPayment(debtId, amount, date))
   ipcMain.handle('get-dad-payment-history', (_, debtId) => getDadPaymentHistory(debtId))
   ipcMain.handle('get-simple-debt-payments', (_, debtId) => getSimpleDebtPayments(debtId))
   ipcMain.handle('process-simple-payment', (_, debtId, amount, date, interestPart) => processSimplePayment(debtId, amount, date, interestPart))
@@ -112,6 +118,10 @@ app.whenReady().then(() => {
   ipcMain.handle('get-budget-settings', () => getBudgetSettings())
   ipcMain.handle('set-budget-setting', (_, key, value) => setBudgetSetting(key, value))
   ipcMain.handle('get-cash-flow', (_, year, month) => getCashFlow(year, month))
+  ipcMain.handle('get-mandatory-expense-plan', (_, year, month) => getMandatoryExpensePlan(year, month))
+  ipcMain.handle('add-mandatory-expense-item', (_, year, month, category, amount) => addMandatoryExpenseItem(year, month, category, amount))
+  ipcMain.handle('update-mandatory-expense-item', (_, id, data) => updateMandatoryExpenseItem(id, data))
+  ipcMain.handle('delete-mandatory-expense-item', (_, id) => deleteMandatoryExpenseItem(id))
 
   // ── Backup ───────────────────────────────────────────
   ipcMain.handle('export-db', async () => {

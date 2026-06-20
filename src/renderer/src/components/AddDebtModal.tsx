@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Debt } from '../types'
@@ -15,6 +15,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
   const isEdit = !!editDebt
 
   const [name, setName] = useState(editDebt?.name ?? '')
+  const [category, setCategory] = useState(editDebt?.category ?? '')
   const [direction, setDirection] = useState<'i_owe' | 'owe_me'>(editDebt?.direction ?? 'i_owe')
   const [debtType, setDebtType] = useState<'simple' | 'dad'>(editDebt?.debt_type ?? 'simple')
   const [initialAmount, setInitialAmount] = useState(editDebt?.initial_amount != null ? String(editDebt.initial_amount) : '')
@@ -27,6 +28,14 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
   const [trancheRate, setTrancheRate] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [existingCategories, setExistingCategories] = useState<string[]>([])
+
+  useEffect(() => {
+    api.getDebtsWithBalance().then(debts => {
+      const cats = [...new Set((debts as Debt[]).map(d => d.category).filter(Boolean))] as string[]
+      setExistingCategories(cats)
+    })
+  }, [])
 
   async function handleSave() {
     if (!name.trim()) { setError('Укажите имя/название долга'); return }
@@ -36,6 +45,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
       if (isEdit) {
         await api.updateDebt(editDebt!.id, {
           name,
+          category: category.trim() || null,
           direction,
           initial_amount: initialAmount ? parseFloat(initialAmount) : null,
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
@@ -45,7 +55,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
       } else if (debtType === 'dad') {
         if (!trancheAmount || !trancheRate) { setError('Укажите сумму и ставку транша'); setSaving(false); return }
         const debtId = await api.addDebt({
-          name, direction, debt_type: 'dad',
+          name, category: category.trim() || null, direction, debt_type: 'dad',
           initial_amount: parseFloat(trancheAmount),
           interest_rate: parseFloat(trancheRate) / 100,
           payment_day: paymentDay ? parseInt(paymentDay) : 30,
@@ -59,7 +69,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
       } else {
         if (!initialAmount) { setError('Укажите сумму долга'); setSaving(false); return }
         await api.addDebt({
-          name, direction, debt_type: 'simple',
+          name, category: category.trim() || null, direction, debt_type: 'simple',
           initial_amount: parseFloat(initialAmount),
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
           payment_day: paymentDay ? parseInt(paymentDay) : null,
@@ -86,6 +96,20 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
           <div>
             <label className="label">Имя / Название</label>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Папа, Альфабанк..." className="input" />
+          </div>
+
+          <div>
+            <label className="label">Категория (необязательно)</label>
+            <input
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+              placeholder="Банк, Родственники..."
+              list="debt-categories-list"
+              className="input"
+            />
+            <datalist id="debt-categories-list">
+              {existingCategories.map(c => <option key={c} value={c} />)}
+            </datalist>
           </div>
 
           <div className="flex gap-3">

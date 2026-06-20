@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Plus, ChevronRight, AlertTriangle, CheckCircle, Pencil, Trash2 } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Plus, ChevronRight, AlertTriangle, CheckCircle, Pencil, Trash2, EyeOff, Eye, GripVertical } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Debt } from '../types'
 import { formatMoney, formatDate, nextPaymentDate } from '../utils'
@@ -14,9 +14,11 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
   const api = useApi()
   const [debts, setDebts] = useState<Debt[]>([])
   const [showClosed, setShowClosed] = useState(false)
+  const [showHidden, setShowHidden] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [editDebt, setEditDebt] = useState<Debt | null>(null)
   const [loading, setLoading] = useState(true)
+  const dragId = useRef<number | null>(null)
 
   async function load() {
     setLoading(true)
@@ -34,9 +36,53 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
     load()
   }
 
+  async function handleToggleHidden(debt: Debt, e: React.MouseEvent) {
+    e.stopPropagation()
+    await api.updateDebt(debt.id, { is_hidden: debt.is_hidden ? 0 : 1 })
+    load()
+  }
+
+  function handleDragStart(id: number) {
+    dragId.current = id
+  }
+
+  async function handleDrop(targetId: number, groupDebts: Debt[]) {
+    if (dragId.current === null || dragId.current === targetId) return
+    const fromIdx = groupDebts.findIndex(d => d.id === dragId.current)
+    const toIdx = groupDebts.findIndex(d => d.id === targetId)
+    if (fromIdx < 0 || toIdx < 0) return
+    const reordered = [...groupDebts]
+    const [moved] = reordered.splice(fromIdx, 1)
+    reordered.splice(toIdx, 0, moved)
+    dragId.current = null
+    // Compute new order for all active debts
+    const activeVisible = active.filter(d => !d.is_hidden)
+    const updatedOrder = activeVisible.map(d => {
+      const found = reordered.find(r => r.id === d.id)
+      return found ?? d
+    })
+    // Just send the reordered ids of the affected group, backend sets sort_order = index
+    await api.updateDebtsOrder(reordered.map(d => d.id))
+    load()
+  }
+
   const active = debts.filter(d => d.status === 'active')
   const closed = debts.filter(d => d.status === 'closed')
-  const totalOwed = active.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+  const visibleActive = active.filter(d => !d.is_hidden)
+  const hiddenActive = active.filter(d => d.is_hidden)
+  const totalOwed = visibleActive.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+
+  // Group visible active debts by category
+  const groups: { category: string | null; debts: Debt[] }[] = []
+  const seen = new Set<string | null>()
+  for (const d of visibleActive) {
+    const key = d.category ?? null
+    if (!seen.has(key)) {
+      seen.add(key)
+      groups.push({ category: key, debts: [] })
+    }
+    groups.find(g => g.category === key)!.debts.push(d)
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -50,29 +96,76 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
       <div className="card">
         <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Общая долговая нагрузка</p>
         <p className="text-3xl font-bold text-red-400">{formatMoney(totalOwed)}</p>
-        <p className="text-sm text-gray-500 mt-1">{active.filter(d => d.direction === 'i_owe').length} активных долга</p>
+        <p className="text-sm text-gray-500 mt-1">{visibleActive.filter(d => d.direction === 'i_owe').length} активных долга</p>
       </div>
 
       {loading ? (
         <div className="text-center py-10 text-gray-500">Загрузка...</div>
       ) : (
-        <div className="space-y-3">
-          {active.map(debt => (
-            <DebtCard
-              key={debt.id}
-              debt={debt}
-              onClick={() => onOpenDebt(debt.id)}
-              onForecast={() => onOpenForecast(debt.id)}
-              onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
-              onDelete={e => handleDelete(debt, e)}
-            />
+        <div className="space-y-6">
+          {groups.map(group => (
+            <div key={group.category ?? '__no_cat__'}>
+              {group.category && (
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">{group.category}</h3>
+                  <span className="text-xs text-gray-500">
+                    {formatMoney(group.debts.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0))}
+                  </span>
+                </div>
+              )}
+              <div className="space-y-3">
+                {group.debts.map(debt => (
+                  <DebtCard
+                    key={debt.id}
+                    debt={debt}
+                    onClick={() => onOpenDebt(debt.id)}
+                    onForecast={() => onOpenForecast(debt.id)}
+                    onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
+                    onDelete={e => handleDelete(debt, e)}
+                    onToggleHidden={e => handleToggleHidden(debt, e)}
+                    onDragStart={() => handleDragStart(debt.id)}
+                    onDrop={() => handleDrop(debt.id, group.debts)}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
-          {active.length === 0 && (
+          {visibleActive.length === 0 && (
             <div className="text-center py-10 text-gray-500">Нет активных долгов</div>
           )}
         </div>
       )}
 
+      {/* Hidden debts */}
+      {hiddenActive.length > 0 && (
+        <div>
+          <button
+            onClick={() => setShowHidden(v => !v)}
+            className="text-sm text-gray-500 hover:text-gray-300 flex items-center gap-2 mb-3"
+          >
+            <EyeOff size={14} />
+            {showHidden ? 'Скрыть' : 'Показать'} скрытые долги ({hiddenActive.length})
+          </button>
+          {showHidden && (
+            <div className="space-y-3 opacity-60">
+              {hiddenActive.map(debt => (
+                <DebtCard
+                  key={debt.id}
+                  debt={debt}
+                  onClick={() => onOpenDebt(debt.id)}
+                  onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
+                  onDelete={e => handleDelete(debt, e)}
+                  onToggleHidden={e => handleToggleHidden(debt, e)}
+                  onDragStart={() => {}}
+                  onDrop={() => {}}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Closed debts */}
       {closed.length > 0 && (
         <div>
           <button
@@ -91,6 +184,9 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
                   onClick={() => onOpenDebt(debt.id)}
                   onEdit={e => { e.stopPropagation(); setEditDebt(debt) }}
                   onDelete={e => handleDelete(debt, e)}
+                  onToggleHidden={e => handleToggleHidden(debt, e)}
+                  onDragStart={() => {}}
+                  onDrop={() => {}}
                 />
               ))}
             </div>
@@ -110,13 +206,16 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
 }
 
 function DebtCard({
-  debt, onClick, onForecast, onEdit, onDelete
+  debt, onClick, onForecast, onEdit, onDelete, onToggleHidden, onDragStart, onDrop
 }: {
   debt: Debt
   onClick: () => void
   onForecast?: () => void
   onEdit: (e: React.MouseEvent) => void
   onDelete: (e: React.MouseEvent) => void
+  onToggleHidden: (e: React.MouseEvent) => void
+  onDragStart: () => void
+  onDrop: () => void
 }) {
   const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null
   const isOverduePayment = debt.payment_day
@@ -126,9 +225,16 @@ function DebtCard({
   return (
     <div
       className="card cursor-pointer hover:border-yellow-400/30 transition-all"
+      draggable
+      onDragStart={e => { e.stopPropagation(); onDragStart() }}
+      onDragOver={e => e.preventDefault()}
+      onDrop={e => { e.preventDefault(); onDrop() }}
       onClick={onClick}
     >
       <div className="flex items-start justify-between">
+        <div className="flex items-center gap-2 mr-2 mt-1 text-gray-600 cursor-grab active:cursor-grabbing" onClick={e => e.stopPropagation()}>
+          <GripVertical size={16} />
+        </div>
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
             <h3 className="text-base font-semibold text-white">{debt.name}</h3>
@@ -185,6 +291,13 @@ function DebtCard({
               Прогноз
             </button>
           )}
+          <button
+            onClick={onToggleHidden}
+            className="p-1.5 text-gray-500 hover:text-blue-400 transition-colors"
+            title={debt.is_hidden ? 'Показать' : 'Скрыть'}
+          >
+            {debt.is_hidden ? <Eye size={14} /> : <EyeOff size={14} />}
+          </button>
           <button
             onClick={onEdit}
             className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors"

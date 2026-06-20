@@ -24,7 +24,11 @@ export function useApi() {
     deleteDebt: (id: number) => Promise<void>
     getTranches: (debtId: number) => Promise<unknown[]>
     addTranche: (tranche: Record<string, unknown>) => Promise<number>
-    processDadPayment: (debtId: number, amount: number, date: string, days: number) => Promise<unknown>
+    updateTranche: (id: number, data: Record<string, unknown>) => Promise<{ ok: boolean; reason?: string }>
+    deleteTranche: (id: number) => Promise<{ ok: boolean; reason?: string }>
+    updateDebtsOrder: (ids: number[]) => Promise<void>
+    getDaysSinceLastPayment: (debtId: number, date: string) => Promise<{ days: number; since: string }>
+    processDadPayment: (debtId: number, amount: number, date: string) => Promise<unknown>
     getDadPaymentHistory: (debtId: number) => Promise<unknown[]>
     getSimpleDebtPayments: (debtId: number) => Promise<unknown[]>
     processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) => Promise<void>
@@ -59,6 +63,10 @@ export function useApi() {
     getBudgetSettings: () => Promise<Record<string, string>>
     setBudgetSetting: (key: string, value: string) => Promise<void>
     getCashFlow: (year: number, month: number) => Promise<unknown>
+    getMandatoryExpensePlan: (year: number, month: number) => Promise<unknown[]>
+    addMandatoryExpenseItem: (year: number, month: number, category: string, amount: number) => Promise<number>
+    updateMandatoryExpenseItem: (id: number, data: Record<string, unknown>) => Promise<void>
+    deleteMandatoryExpenseItem: (id: number) => Promise<void>
 
     openImportFile: () => Promise<{ headers: string[]; rows: string[][] } | { error: string } | null>
     exportDb: () => Promise<string | null>

@@ -26,8 +26,12 @@ const api = {
   deleteDebt: (id: number) => ipcRenderer.invoke('delete-debt', id),
   getTranches: (debtId: number) => ipcRenderer.invoke('get-tranches', debtId),
   addTranche: (tranche: Record<string, unknown>) => ipcRenderer.invoke('add-tranche', tranche),
-  processDadPayment: (debtId: number, amount: number, date: string, days: number) =>
-    ipcRenderer.invoke('process-dad-payment', debtId, amount, date, days),
+  updateTranche: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-tranche', id, data),
+  deleteTranche: (id: number) => ipcRenderer.invoke('delete-tranche', id),
+  updateDebtsOrder: (ids: number[]) => ipcRenderer.invoke('update-debts-order', ids),
+  getDaysSinceLastPayment: (debtId: number, date: string) => ipcRenderer.invoke('get-days-since-last-payment', debtId, date),
+  processDadPayment: (debtId: number, amount: number, date: string) =>
+    ipcRenderer.invoke('process-dad-payment', debtId, amount, date),
   getDadPaymentHistory: (debtId: number) => ipcRenderer.invoke('get-dad-payment-history', debtId),
   getSimpleDebtPayments: (debtId: number) => ipcRenderer.invoke('get-simple-debt-payments', debtId),
   processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) =>
@@ -67,6 +71,10 @@ const api = {
   getBudgetSettings: () => ipcRenderer.invoke('get-budget-settings'),
   setBudgetSetting: (key: string, value: string) => ipcRenderer.invoke('set-budget-setting', key, value),
   getCashFlow: (year: number, month: number) => ipcRenderer.invoke('get-cash-flow', year, month),
+  getMandatoryExpensePlan: (year: number, month: number) => ipcRenderer.invoke('get-mandatory-expense-plan', year, month),
+  addMandatoryExpenseItem: (year: number, month: number, category: string, amount: number) => ipcRenderer.invoke('add-mandatory-expense-item', year, month, category, amount),
+  updateMandatoryExpenseItem: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-mandatory-expense-item', id, data),
+  deleteMandatoryExpenseItem: (id: number) => ipcRenderer.invoke('delete-mandatory-expense-item', id),
 
   // Backup
   openImportFile: () => ipcRenderer.invoke('open-import-file'),

@@ -3,6 +3,7 @@ export interface Tranche {
   currentBalance: number
   interestRate: number // decimal, e.g. 0.383
   status: 'active' | 'paid'
+  daysSinceInterestStart?: number // per-tranche override; falls back to daysSinceLastPayment
 }
 
 export interface TrancheUpdate {
@@ -31,7 +32,7 @@ export function calculateDadDebtPayment(
   // Step 1: Calculate current period interest for each active tranche
   const trancheInterests = activeTranches.map(t => ({
     tranche: t,
-    interest: t.currentBalance * t.interestRate * (daysSinceLastPayment / 365)
+    interest: t.currentBalance * t.interestRate * ((t.daysSinceInterestStart ?? daysSinceLastPayment) / 365)
   }))
   const totalCurrentInterest = trancheInterests.reduce((sum, ti) => sum + ti.interest, 0)
 
