@@ -166,6 +166,8 @@ function initSchema(): void {
   if (!debtCols.includes('category')) d.exec('ALTER TABLE debts ADD COLUMN category TEXT')
   if (!debtCols.includes('sort_order')) d.exec('ALTER TABLE debts ADD COLUMN sort_order INTEGER DEFAULT 0')
   if (!debtCols.includes('is_hidden')) d.exec('ALTER TABLE debts ADD COLUMN is_hidden INTEGER DEFAULT 0')
+  const opCols = (d.prepare('PRAGMA table_info(operations)').all() as Array<{ name: string }>).map(c => c.name)
+  if (!opCols.includes('goal_id')) d.exec('ALTER TABLE operations ADD COLUMN goal_id INTEGER REFERENCES savings_goals(id)')
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -275,21 +277,28 @@ export function addOperation(op: {
   account_id?: number | null
   comment?: string | null
   debt_id?: number | null
+  goal_id?: number | null
 }): number {
   const d = getDb()
-  const r = d.prepare(`
-    INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
-    VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id)
-  `).run({
-    ...op,
-    category_id: op.category_id ?? null,
-    subcategory_id: op.subcategory_id ?? null,
-    expense_type: op.expense_type ?? null,
-    account_id: op.account_id ?? null,
-    comment: op.comment ?? null,
-    debt_id: op.debt_id ?? null,
-  })
-  return r.lastInsertRowid as number
+  return d.transaction(() => {
+    const r = d.prepare(`
+      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id, goal_id)
+      VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id, @goal_id)
+    `).run({
+      ...op,
+      category_id: op.category_id ?? null,
+      subcategory_id: op.subcategory_id ?? null,
+      expense_type: op.expense_type ?? null,
+      account_id: op.account_id ?? null,
+      comment: op.comment ?? null,
+      debt_id: op.debt_id ?? null,
+      goal_id: op.goal_id ?? null,
+    })
+    if (op.goal_id) {
+      d.prepare('UPDATE savings_goals SET current_amount = current_amount + ? WHERE id = ?').run(op.amount, op.goal_id)
+    }
+    return r.lastInsertRowid as number
+  })()
 }
 
 export function importOperations(ops: Array<{
@@ -339,7 +348,14 @@ export function updateOperation(id: number, op: {
 }
 
 export function deleteOperation(id: number): void {
-  getDb().prepare('DELETE FROM operations WHERE id = ?').run(id)
+  const d = getDb()
+  d.transaction(() => {
+    const op = d.prepare('SELECT goal_id, amount FROM operations WHERE id = ?').get(id) as { goal_id: number | null; amount: number } | undefined
+    if (op?.goal_id) {
+      d.prepare('UPDATE savings_goals SET current_amount = MAX(0, current_amount - ?) WHERE id = ?').run(op.amount, op.goal_id)
+    }
+    d.prepare('DELETE FROM operations WHERE id = ?').run(id)
+  })()
 }
 
 // ──────────────────────────────────────────────────────────────

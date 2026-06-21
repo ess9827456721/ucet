@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Debt } from '../types'
-import { today } from '../utils'
+import { Category, Subcategory, Debt, SavingsGoal } from '../types'
+import { today, formatMoney } from '../utils'
 
 interface Props {
   onClose: () => void
@@ -25,9 +25,11 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   const [comment, setComment] = useState<string>((editOperation?.comment as string) || '')
   const [debtId, setDebtId] = useState<number | ''>(editOperation?.debt_id as number || '')
 
+  const [goalId, setGoalId] = useState<number | ''>(editOperation?.goal_id as number || '')
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
   const [debts, setDebts] = useState<Debt[]>([])
+  const [goals, setGoals] = useState<SavingsGoal[]>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
   const [isRecurring, setIsRecurring] = useState(false)
@@ -37,6 +39,7 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     const catType = type === 'income' ? 'income' : 'expense'
     api.getCategories(catType).then(d => setCategories(d as Category[]))
     api.getDebts('active').then(d => setDebts(d as Debt[]))
+    if (type === 'transfer') api.getSavingsGoals().then(d => setGoals((d as SavingsGoal[]).filter(g => g.status === 'active')))
   }, [type])
 
   useEffect(() => {
@@ -71,6 +74,7 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
         expense_type: type === 'expense' ? expenseType : null,
         comment: comment || null,
         debt_id: type === 'debt_op' ? (debtId || null) : null,
+        goal_id: type === 'transfer' ? (goalId || null) : null,
       }
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id as number, op)
@@ -233,6 +237,23 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
                 <option value="">— Выберите долг —</option>
                 {debts.map(d => (
                   <option key={d.id} value={d.id}>{d.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Goal selector (for transfer) */}
+          {type === 'transfer' && (
+            <div>
+              <label className="label">Цель накопления (необязательно)</label>
+              <select
+                value={goalId}
+                onChange={e => setGoalId(e.target.value ? Number(e.target.value) : '')}
+                className="select"
+              >
+                <option value="">— Без привязки к цели —</option>
+                {goals.map(g => (
+                  <option key={g.id} value={g.id}>{g.name} ({formatMoney(g.current_amount)} / {formatMoney(g.target_amount)})</option>
                 ))}
               </select>
             </div>
