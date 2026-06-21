@@ -238,6 +238,7 @@ export function getOperations(filters: {
   amountTo?: number
   debtId?: number
   noCategory?: boolean
+  noSubcategory?: boolean
   limit?: number
   offset?: number
 }): unknown[] {
@@ -248,6 +249,7 @@ export function getOperations(filters: {
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
   if (filters.noCategory) { parts.push("o.category_id IS NULL AND o.type = 'expense'") }
+  else if (filters.noSubcategory) { parts.push('o.subcategory_id IS NULL') }
   else if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
   if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
   if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
@@ -1058,6 +1060,17 @@ export function getExpensesByCategory(dateFrom: string, dateTo: string, expenseT
     WHERE o.type = 'expense'${etClause} AND o.date >= ? AND o.date <= ?
     GROUP BY COALESCE(c.id, -1) ORDER BY total DESC
   `).all(dateFrom, dateTo)
+}
+
+export function getExpensesBySubcategory(categoryId: number, dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
+  const etClause = expenseType ? ` AND o.expense_type = '${expenseType}'` : ''
+  return getDb().prepare(`
+    SELECT COALESCE(s.id, -1) as id, COALESCE(s.name, 'Без подкатегории') as name, SUM(o.amount) as total
+    FROM operations o
+    LEFT JOIN subcategories s ON o.subcategory_id = s.id
+    WHERE o.type = 'expense' AND o.category_id = ?${etClause} AND o.date >= ? AND o.date <= ?
+    GROUP BY COALESCE(s.id, -1) ORDER BY total DESC
+  `).all(categoryId, dateFrom, dateTo)
 }
 
 export function getBigExpensesBreakdown(dateFrom: string, dateTo: string): unknown[] {

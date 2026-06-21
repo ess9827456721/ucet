@@ -43,6 +43,7 @@ export function useApi() {
 
     getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown>
     getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
+    getExpensesBySubcategory: (categoryId: number, dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
     getBigExpensesBreakdown: (dateFrom: string, dateTo: string) => Promise<unknown[]>
     getDailyExpenses: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
     getExpensesByType: (dateFrom: string, dateTo: string) => Promise<unknown[]>

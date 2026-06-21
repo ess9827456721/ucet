@@ -8,7 +8,7 @@ import ImportModal from '../components/ImportModal'
 
 interface Props {
   onAdd: () => void
-  initialFilter?: { categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null
+  initialFilter?: { categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null
   onInitialFilterApplied?: () => void
 }
 
@@ -29,6 +29,7 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
   const [dateFromCustom, setDateFromCustom] = useState<string | null>(null)
   const [dateToCustom, setDateToCustom] = useState<string | null>(null)
   const [subcatFilter, setSubcatFilter] = useState<number | ''>('')
+  const [noSubcatFilter, setNoSubcatFilter] = useState(false)
   const [commentSearch, setCommentSearch] = useState('')
   const [debouncedComment, setDebouncedComment] = useState('')
   const [cats, setCats] = useState<Category[]>([])
@@ -50,6 +51,8 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
     if (!initialFilter) return
     if (initialFilter.noCategory) setCatFilter('none')
     else if (initialFilter.categoryId != null) setCatFilter(initialFilter.categoryId)
+    if (initialFilter.noSubcategory) setNoSubcatFilter(true)
+    else if (initialFilter.subcategoryId != null) setSubcatFilter(initialFilter.subcategoryId)
     if (initialFilter.type) setTypeFilter(initialFilter.type)
     if (initialFilter.dateFrom && initialFilter.dateTo) {
       setDateFromCustom(initialFilter.dateFrom)
@@ -100,12 +103,16 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
     } else if (catFilter) {
       filters.categoryId = catFilter
     }
-    if (subcatFilter) filters.subcategoryId = subcatFilter
+    if (noSubcatFilter) {
+      filters.noSubcategory = true
+    } else if (subcatFilter) {
+      filters.subcategoryId = subcatFilter
+    }
     if (debouncedComment) filters.commentSearch = debouncedComment
     const ops = await api.getOperations(filters)
     setOperations(ops as Operation[])
     setLoading(false)
-  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, debouncedComment])
+  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, noSubcatFilter, debouncedComment])
 
   useEffect(() => { load() }, [load])
 

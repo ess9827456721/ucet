@@ -70,7 +70,7 @@ function ExpandModal({ title, onClose, children }: { title: string; onClose: () 
 }
 
 interface DashboardProps {
-  onNavigateToOperations?: (filter: { categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null) => void
+  onNavigateToOperations?: (filter: { categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null) => void
 }
 
 export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
@@ -95,6 +95,8 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
   const [pendingRecurring, setPendingRecurring] = useState<{ id: number; name: string; amount: number; category?: string }[]>([])
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
+  const [drillSubcats, setDrillSubcats] = useState<Array<{ id: number; name: string; total: number; color: string }>>([])
+  const [selectedSubcat, setSelectedSubcat] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const [goalModal, setGoalModal] = useState<{ edit?: SavingsGoal } | null>(null)
@@ -152,6 +154,8 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
 
   async function openDrill(cat: CategoryData) {
     setDrillCategory(cat)
+    setDrillSubcats([])
+    setSelectedSubcat(null)
     let ops: unknown[]
     if (cat.id === -2) {
       ops = await api.getOperations({ dateFrom, dateTo, type: 'debt_op' })
@@ -159,8 +163,55 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
       ops = await api.getOperations({ dateFrom, dateTo, noCategory: true })
     } else {
       ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id })
+      // Only load subcategory chart if this category actually has subcategories defined
+      const subs = await api.getSubcategories(cat.id)
+      if ((subs as unknown[]).length > 0) {
+        const subcatData = await api.getExpensesBySubcategory(cat.id, dateFrom, dateTo, expenseTypeFilter || undefined)
+        const palette = generateSubcatColors(cat.color, (subcatData as unknown[]).length)
+        setDrillSubcats((subcatData as Array<{ id: number; name: string; total: number }>).map((s, i) => ({ ...s, color: palette[i] })))
+      }
     }
     setDrillOps(ops as Operation[])
+  }
+
+  async function handleSubcatClick(subcatId: number) {
+    if (!drillCategory) return
+    if (selectedSubcat === subcatId) {
+      setSelectedSubcat(null)
+      const ops = await api.getOperations({ dateFrom, dateTo, categoryId: drillCategory.id })
+      setDrillOps(ops as Operation[])
+    } else {
+      setSelectedSubcat(subcatId)
+      const filters: Record<string, unknown> = { dateFrom, dateTo, categoryId: drillCategory.id }
+      if (subcatId === -1) filters.noSubcategory = true
+      else filters.subcategoryId = subcatId
+      const ops = await api.getOperations(filters)
+      setDrillOps(ops as Operation[])
+    }
+  }
+
+  function generateSubcatColors(baseColor: string, count: number): string[] {
+    // Parse hex to HSL, then vary lightness/saturation
+    const r = parseInt(baseColor.slice(1, 3), 16) / 255
+    const g = parseInt(baseColor.slice(3, 5), 16) / 255
+    const b = parseInt(baseColor.slice(5, 7), 16) / 255
+    const max = Math.max(r, g, b), min = Math.min(r, g, b)
+    let h = 0, s = 0
+    const l = (max + min) / 2
+    if (max !== min) {
+      const d = max - min
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+      if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6
+      else if (max === g) h = ((b - r) / d + 2) / 6
+      else h = ((r - g) / d + 4) / 6
+    }
+    return Array.from({ length: count }, (_, i) => {
+      const offset = (i / count) - 0.5
+      const newL = Math.max(0.25, Math.min(0.75, l + offset * 0.4))
+      const newS = Math.max(0.4, Math.min(1, s + (i % 2 === 0 ? 0.1 : -0.1)))
+      const hDeg = Math.round(h * 360)
+      return `hsl(${hDeg},${Math.round(newS * 100)}%,${Math.round(newL * 100)}%)`
+    })
   }
 
   const topCategories = categories.slice(0, 5)
@@ -758,11 +809,14 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
                 {onNavigateToOperations && (
                   <button
                     onClick={() => {
-                      const filter = drillCategory.id === -2
+                      const base = drillCategory.id === -2
                         ? { type: 'debt_op', dateFrom, dateTo }
                         : { categoryId: drillCategory.id === -1 ? undefined : drillCategory.id, noCategory: drillCategory.id === -1, dateFrom, dateTo }
+                      const withSubcat = selectedSubcat !== null
+                        ? { ...base, ...(selectedSubcat === -1 ? { noSubcategory: true } : { subcategoryId: selectedSubcat }) }
+                        : base
                       setDrillCategory(null)
-                      onNavigateToOperations(filter)
+                      onNavigateToOperations(withSubcat)
                     }}
                     className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-yellow-400 transition-colors border border-dark-500 hover:border-yellow-400/40 rounded-lg px-2.5 py-1.5"
                     title="Открыть в общем списке"
@@ -773,6 +827,46 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
                 <button onClick={() => setDrillCategory(null)} className="text-gray-500 hover:text-white text-xl">×</button>
               </div>
             </div>
+            {/* Subcategory donut chart */}
+            {drillSubcats.length > 0 && (
+              <div className="px-6 pt-4 pb-2 border-b border-dark-700">
+                {selectedSubcat !== null && (
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-gray-400">
+                      Фильтр: <span className="text-white">{drillSubcats.find(s => s.id === selectedSubcat)?.name}</span>
+                    </span>
+                    <button onClick={() => handleSubcatClick(selectedSubcat)} className="text-xs text-gray-500 hover:text-white">Сбросить ×</button>
+                  </div>
+                )}
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={drillSubcats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={55}
+                      outerRadius={85}
+                      dataKey="total"
+                      nameKey="name"
+                      onClick={(d) => handleSubcatClick((d as { id: number }).id)}
+                      className="cursor-pointer"
+                      label={makeRadialLabel(85, 0.04)}
+                      labelLine={false}
+                    >
+                      {drillSubcats.map((s, i) => (
+                        <Cell
+                          key={i}
+                          fill={s.color}
+                          stroke={selectedSubcat === s.id ? '#fff' : 'transparent'}
+                          strokeWidth={selectedSubcat === s.id ? 2 : 0}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value: number) => formatMoney(value)} {...TOOLTIP_STYLE} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            )}
             <div className="overflow-y-auto scrollbar-thin">
               {drillOps.length === 0 ? (
                 <p className="text-center text-gray-500 py-8">Нет операций</p>

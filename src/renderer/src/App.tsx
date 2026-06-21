@@ -26,7 +26,7 @@ export default function App() {
   const [selectedDebtId, setSelectedDebtId] = useState<number | null>(null)
   const [showAddModal, setShowAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
-  const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
+  const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
 
   function navigateToFilteredOperations(filter: typeof operationsFilter) {
     setOperationsFilter(filter)
