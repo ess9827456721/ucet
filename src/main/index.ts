@@ -9,7 +9,7 @@ import {
   getTranches, addTranche, updateTranche, deleteTranche, updateDebtsOrder,
   getDaysSinceLastPayment, processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
   deleteDadPayment, updateDadPaymentDate, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
-  getSummary, getExpensesByCategory, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
+  getSummary, getExpensesByCategory, getBigExpensesBreakdown, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
   getMandatoryExpensePlan, addMandatoryExpenseItem, updateMandatoryExpenseItem, deleteMandatoryExpenseItem,
   getRecurringOperations, addRecurringOperation, updateRecurringOperation, deleteRecurringOperation, getPendingRecurringOperations, confirmRecurringOperation,
@@ -109,6 +109,7 @@ app.whenReady().then(() => {
   // ── Analytics ────────────────────────────────────────
   ipcMain.handle('get-summary', (_, dateFrom, dateTo, expenseType) => getSummary(dateFrom, dateTo, expenseType))
   ipcMain.handle('get-expenses-by-category', (_, dateFrom, dateTo, expenseType) => getExpensesByCategory(dateFrom, dateTo, expenseType))
+  ipcMain.handle('get-big-expenses-breakdown', (_, dateFrom, dateTo) => getBigExpensesBreakdown(dateFrom, dateTo))
   ipcMain.handle('get-daily-expenses', (_, dateFrom, dateTo, expenseType) => getDailyExpenses(dateFrom, dateTo, expenseType))
   ipcMain.handle('get-expenses-by-type', (_, dateFrom, dateTo) => getExpensesByType(dateFrom, dateTo))
   ipcMain.handle('get-monthly-expenses', (_, dateFrom, dateTo) => getMonthlyExpenses(dateFrom, dateTo))

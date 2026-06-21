@@ -234,6 +234,7 @@ export function getOperations(filters: {
   amountFrom?: number
   amountTo?: number
   debtId?: number
+  noCategory?: boolean
   limit?: number
   offset?: number
 }): unknown[] {
@@ -243,7 +244,8 @@ export function getOperations(filters: {
   if (filters.dateFrom) { parts.push('o.date >= ?'); params.push(filters.dateFrom) }
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
-  if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
+  if (filters.noCategory) { parts.push('o.category_id IS NULL') }
+  else if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
   if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
   if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
   if (filters.amountFrom != null) { parts.push('o.amount >= ?'); params.push(filters.amountFrom) }
@@ -968,18 +970,31 @@ export function getSummary(dateFrom: string, dateTo: string, expenseType?: strin
   const income = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='income' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
   const etClause = expenseType ? ` AND expense_type = '${expenseType}'` : ''
   const expense = (d.prepare(`SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense'${etClause} AND date >= ? AND date <= ?`).get(dateFrom, dateTo) as { total: number }).total
+  // debt_op — платежи по долгам; учитываются в балансе, но не имеют expense_type, поэтому отдельно
+  const debtOps = expenseType
+    ? 0
+    : (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='debt_op' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
   const days = Math.max(1, Math.round((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / 86400000) + 1)
-  return { income, expense, balance: income - expense, avgPerDay: expense / days }
+  return { income, expense, debtOps, balance: income - expense - debtOps, avgPerDay: (expense + debtOps) / days }
 }
 
 export function getExpensesByCategory(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
   const etClause = expenseType ? ` AND o.expense_type = '${expenseType}'` : ''
   return getDb().prepare(`
-    SELECT c.id, c.name, c.color, SUM(o.amount) as total
+    SELECT COALESCE(c.id, -1) as id, COALESCE(c.name, 'Без категории') as name, COALESCE(c.color, '#6B7280') as color, SUM(o.amount) as total
     FROM operations o
-    JOIN categories c ON o.category_id = c.id
+    LEFT JOIN categories c ON o.category_id = c.id
     WHERE o.type = 'expense'${etClause} AND o.date >= ? AND o.date <= ?
-    GROUP BY c.id ORDER BY total DESC
+    GROUP BY COALESCE(c.id, -1) ORDER BY total DESC
+  `).all(dateFrom, dateTo)
+}
+
+export function getBigExpensesBreakdown(dateFrom: string, dateTo: string): unknown[] {
+  return getDb().prepare(`
+    SELECT id, COALESCE(comment, date) as label, amount
+    FROM operations
+    WHERE type = 'expense' AND expense_type = 'big' AND date >= ? AND date <= ?
+    ORDER BY amount DESC
   `).all(dateFrom, dateTo)
 }
 

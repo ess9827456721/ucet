@@ -100,6 +100,7 @@ export interface SimpleDebtPayment {
 export interface Summary {
   income: number
   expense: number
+  debtOps: number
   balance: number
   avgPerDay: number
 }

@@ -81,6 +81,7 @@ export default function Dashboard() {
   const [summary, setSummary] = useState<Summary | null>(null)
   const [prevSummary, setPrevSummary] = useState<Summary | null>(null)
   const [categories, setCategories] = useState<CategoryData[]>([])
+  const [bigBreakdown, setBigBreakdown] = useState<{ id: number; label: string; amount: number }[]>([])
   const [daily, setDaily] = useState<DailyData[]>([])
   const [monthly, setMonthly] = useState<MonthlyData[]>([])
   const [dowData, setDowData] = useState<DowData[]>([])
@@ -113,6 +114,12 @@ export default function Dashboard() {
     setSummary(s as Summary)
     setPrevSummary(prevS as Summary)
     setCategories(cats as CategoryData[])
+    if (et === 'big') {
+      const big = await api.getBigExpensesBreakdown(dateFrom, dateTo)
+      setBigBreakdown(big as { id: number; label: string; amount: number }[])
+    } else {
+      setBigBreakdown([])
+    }
     setDaily(d as DailyData[])
     setMonthly(mo as MonthlyData[])
     setDowData(dow as DowData[])
@@ -134,7 +141,8 @@ export default function Dashboard() {
 
   async function openDrill(cat: CategoryData) {
     setDrillCategory(cat)
-    const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id })
+    // id === -1 means "no category" — pass undefined so getOperations can filter by categoryId IS NULL
+    const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id === -1 ? undefined : cat.id, noCategory: cat.id === -1 })
     setDrillOps(ops as Operation[])
   }
 
@@ -203,10 +211,39 @@ export default function Dashboard() {
     }
   }
 
+  // Deterministic color palette for big expenses (no category color available)
+  const BIG_COLORS = ['#F59E0B','#EF4444','#8B5CF6','#06B6D4','#10B981','#F97316','#EC4899','#6366F1','#84CC16','#14B8A6']
+
   const DonutChart = ({ outerRadius = 105, innerRadius = 65, height = 280, threshold = 0.03 }: {
     outerRadius?: number; innerRadius?: number; height?: number; threshold?: number
-  }) => (
-    categories.length > 0 ? (
+  }) => {
+    if (expenseTypeFilter === 'big') {
+      if (bigBreakdown.length === 0) return <div className="flex items-center justify-center text-gray-500" style={{ height }}>Нет данных</div>
+      const bigTotal = bigBreakdown.reduce((s, r) => s + r.amount, 0)
+      return (
+        <ResponsiveContainer width="100%" height={height}>
+          <PieChart>
+            <Pie
+              data={bigBreakdown}
+              cx="50%"
+              cy="50%"
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              dataKey="amount"
+              nameKey="label"
+              label={makeRadialLabel(outerRadius, threshold)}
+              labelLine={false}
+            >
+              {bigBreakdown.map((r, i) => (
+                <Cell key={r.id} fill={BIG_COLORS[i % BIG_COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip formatter={(value: number) => [formatMoney(value), `${((value / bigTotal) * 100).toFixed(1)}%`]} {...TOOLTIP_STYLE} />
+          </PieChart>
+        </ResponsiveContainer>
+      )
+    }
+    return categories.length > 0 ? (
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
           <Pie
@@ -232,7 +269,7 @@ export default function Dashboard() {
     ) : (
       <div className="flex items-center justify-center text-gray-500" style={{ height }}>Нет данных</div>
     )
-  )
+  }
 
   const DailyChart = ({ height = 220 }: { height?: number }) => (
     daily.length > 0 ? (
@@ -285,11 +322,17 @@ export default function Dashboard() {
               value={summary ? formatMoney(summary.expense) : '—'}
               icon={<TrendingDown className="text-red-400" size={20} />}
               valueClass="text-red-400"
-              tooltip="Сумма всех расходных операций за выбранный период"
-              sub={prevSummary && prevSummary.expense > 0 ? (() => {
-                const pct = Math.round(((summary!.expense - prevSummary.expense) / prevSummary.expense) * 100)
-                return <span className={pct > 0 ? 'text-red-400' : 'text-green-400'}>{pct > 0 ? '+' : ''}{pct}% к пред. пер.</span>
-              })() : null}
+              tooltip="Сумма расходных операций за период (без платежей по долгам)"
+              sub={(() => {
+                if (!summary) return null
+                const parts: React.ReactNode[] = []
+                if (summary.debtOps > 0) parts.push(<span key="d" className="text-orange-400">+ {formatMoney(summary.debtOps)} долги</span>)
+                if (prevSummary && prevSummary.expense > 0) {
+                  const pct = Math.round(((summary.expense - prevSummary.expense) / prevSummary.expense) * 100)
+                  parts.push(<span key="p" className={pct > 0 ? 'text-red-400' : 'text-green-400'}>{pct > 0 ? '+' : ''}{pct}% к пред. пер.</span>)
+                }
+                return parts.length ? <>{parts.map((p, i) => <React.Fragment key={i}>{i > 0 ? ' · ' : ''}{p}</React.Fragment>)}</> : null
+              })()}
             />
             <StatCard
               label="Доходы"
@@ -303,14 +346,14 @@ export default function Dashboard() {
               value={summary ? formatMoney(summary.balance) : '—'}
               icon={<Wallet className="text-yellow-400" size={20} />}
               valueClass={summary && summary.balance >= 0 ? 'text-white' : 'text-red-400'}
-              tooltip="Доходы минус расходы за период. Не учитывает переводы и операции по долгам."
+              tooltip="Доходы − расходы − платежи по долгам за период"
             />
             <StatCard
               label="Средний расход/день"
               value={summary ? formatMoney(summary.avgPerDay) : '—'}
               icon={<Calendar className="text-blue-400" size={20} />}
               valueClass="text-white"
-              tooltip="Общие расходы делённые на количество дней в периоде"
+              tooltip="Все расходы (включая платежи по долгам) делённые на количество дней в периоде"
             />
           </div>
 

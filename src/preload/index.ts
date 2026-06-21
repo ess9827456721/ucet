@@ -48,6 +48,7 @@ const api = {
   // Analytics
   getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo, expenseType),
   getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-expenses-by-category', dateFrom, dateTo, expenseType),
+  getBigExpensesBreakdown: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-big-expenses-breakdown', dateFrom, dateTo),
   getDailyExpenses: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-daily-expenses', dateFrom, dateTo, expenseType),
   getExpensesByType: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-expenses-by-type', dateFrom, dateTo),
   getMonthlyExpenses: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-monthly-expenses', dateFrom, dateTo),
