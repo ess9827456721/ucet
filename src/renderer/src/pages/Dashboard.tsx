@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
 // Legend is used in monthly/daily charts
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell } from 'lucide-react'
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell, ExternalLink } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Summary, Debt, Operation, SavingsGoal } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
@@ -69,7 +69,11 @@ function ExpandModal({ title, onClose, children }: { title: string; onClose: () 
   )
 }
 
-export default function Dashboard() {
+interface DashboardProps {
+  onNavigateToOperations?: (filter: { categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null) => void
+}
+
+export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
   const api = useApi()
 
   const initFrom = monthStart(new Date().getFullYear(), new Date().getMonth() + 1)
@@ -750,7 +754,24 @@ export default function Dashboard() {
                 <h2 className="text-base font-semibold text-white">{drillCategory.name}</h2>
                 <span className="text-gray-400 text-sm">{formatMoney(drillCategory.total)}</span>
               </div>
-              <button onClick={() => setDrillCategory(null)} className="text-gray-500 hover:text-white text-xl">×</button>
+              <div className="flex items-center gap-2">
+                {onNavigateToOperations && (
+                  <button
+                    onClick={() => {
+                      const filter = drillCategory.id === -2
+                        ? { type: 'debt_op', dateFrom, dateTo }
+                        : { categoryId: drillCategory.id === -1 ? undefined : drillCategory.id, noCategory: drillCategory.id === -1, dateFrom, dateTo }
+                      setDrillCategory(null)
+                      onNavigateToOperations(filter)
+                    }}
+                    className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-yellow-400 transition-colors border border-dark-500 hover:border-yellow-400/40 rounded-lg px-2.5 py-1.5"
+                    title="Открыть в общем списке"
+                  >
+                    <ExternalLink size={12} /> В общий список
+                  </button>
+                )}
+                <button onClick={() => setDrillCategory(null)} className="text-gray-500 hover:text-white text-xl">×</button>
+              </div>
             </div>
             <div className="overflow-y-auto scrollbar-thin">
               {drillOps.length === 0 ? (

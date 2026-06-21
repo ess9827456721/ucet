@@ -26,6 +26,12 @@ export default function App() {
   const [selectedDebtId, setSelectedDebtId] = useState<number | null>(null)
   const [showAddModal, setShowAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
+  const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
+
+  function navigateToFilteredOperations(filter: typeof operationsFilter) {
+    setOperationsFilter(filter)
+    setPage('operations')
+  }
 
   function handleRefresh() {
     setRefreshKey(k => k + 1)
@@ -82,8 +88,8 @@ export default function App() {
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto scrollbar-thin">
-        {page === 'dashboard' && <Dashboard key={refreshKey} />}
-        {page === 'operations' && <Operations key={refreshKey} onAdd={() => setShowAddModal(true)} />}
+        {page === 'dashboard' && <Dashboard key={refreshKey} onNavigateToOperations={navigateToFilteredOperations} />}
+        {page === 'operations' && <Operations key={refreshKey} onAdd={() => setShowAddModal(true)} initialFilter={operationsFilter} onInitialFilterApplied={() => setOperationsFilter(null)} />}
         {page === 'cashflow' && <CashFlow key={refreshKey} onGoToDebt={navigateToDebt} />}
         {page === 'debts' && (
           <Debts

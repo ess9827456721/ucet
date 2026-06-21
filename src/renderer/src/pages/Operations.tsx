@@ -8,6 +8,8 @@ import ImportModal from '../components/ImportModal'
 
 interface Props {
   onAdd: () => void
+  initialFilter?: { categoryId?: number; noCategory?: boolean; type?: string; dateFrom?: string; dateTo?: string } | null
+  onInitialFilterApplied?: () => void
 }
 
 const PERIODS = [
@@ -17,13 +19,15 @@ const PERIODS = [
   { id: 'year', label: 'Год' },
 ]
 
-export default function Operations({ onAdd }: Props) {
+export default function Operations({ onAdd, initialFilter, onInitialFilterApplied }: Props) {
   const api = useApi()
   const [operations, setOperations] = useState<Operation[]>([])
   const [period, setPeriod] = useState('month')
   const [noPeriod, setNoPeriod] = useState(false)
   const [typeFilter, setTypeFilter] = useState<string>('')
-  const [catFilter, setCatFilter] = useState<number | ''>('')
+  const [catFilter, setCatFilter] = useState<number | '' | 'none'>('')
+  const [dateFromCustom, setDateFromCustom] = useState<string | null>(null)
+  const [dateToCustom, setDateToCustom] = useState<string | null>(null)
   const [subcatFilter, setSubcatFilter] = useState<number | ''>('')
   const [commentSearch, setCommentSearch] = useState('')
   const [debouncedComment, setDebouncedComment] = useState('')
@@ -42,6 +46,19 @@ export default function Operations({ onAdd }: Props) {
     loadPending()
   }, [])
 
+  useEffect(() => {
+    if (!initialFilter) return
+    if (initialFilter.noCategory) setCatFilter('none')
+    else if (initialFilter.categoryId != null) setCatFilter(initialFilter.categoryId)
+    if (initialFilter.type) setTypeFilter(initialFilter.type)
+    if (initialFilter.dateFrom && initialFilter.dateTo) {
+      setDateFromCustom(initialFilter.dateFrom)
+      setDateToCustom(initialFilter.dateTo)
+      setNoPeriod(true)
+    }
+    onInitialFilterApplied?.()
+  }, [initialFilter])
+
   async function loadPending() {
     const pending = await api.getPendingRecurringOperations()
     setPendingRecurring(pending as RecurringOperation[])
@@ -53,7 +70,7 @@ export default function Operations({ onAdd }: Props) {
   }
 
   useEffect(() => {
-    if (catFilter) {
+    if (catFilter && catFilter !== 'none') {
       api.getSubcategories(catFilter as number).then(d => setSubcats(d as Subcategory[]))
     } else {
       setSubcats([])
@@ -69,19 +86,26 @@ export default function Operations({ onAdd }: Props) {
   const load = useCallback(async () => {
     setLoading(true)
     const filters: Record<string, unknown> = {}
-    if (!noPeriod) {
+    if (noPeriod && dateFromCustom && dateToCustom) {
+      filters.dateFrom = dateFromCustom
+      filters.dateTo = dateToCustom
+    } else if (!noPeriod) {
       const { from, to } = getPeriodDates(period)
       filters.dateFrom = from
       filters.dateTo = to
     }
     if (typeFilter) filters.type = typeFilter
-    if (catFilter) filters.categoryId = catFilter
+    if (catFilter === 'none') {
+      filters.noCategory = true
+    } else if (catFilter) {
+      filters.categoryId = catFilter
+    }
     if (subcatFilter) filters.subcategoryId = subcatFilter
     if (debouncedComment) filters.commentSearch = debouncedComment
     const ops = await api.getOperations(filters)
     setOperations(ops as Operation[])
     setLoading(false)
-  }, [period, noPeriod, typeFilter, catFilter, subcatFilter, debouncedComment])
+  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, debouncedComment])
 
   useEffect(() => { load() }, [load])
 
@@ -213,7 +237,7 @@ export default function Operations({ onAdd }: Props) {
             {PERIODS.map(p => (
               <button
                 key={p.id}
-                onClick={() => { setPeriod(p.id); setNoPeriod(false) }}
+                onClick={() => { setPeriod(p.id); setNoPeriod(false); setDateFromCustom(null); setDateToCustom(null) }}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                   period === p.id && !noPeriod ? 'bg-yellow-400 text-dark-900' : 'text-gray-400 hover:text-white'
                 }`}
@@ -243,10 +267,16 @@ export default function Operations({ onAdd }: Props) {
           </select>
           <select
             value={catFilter}
-            onChange={e => setCatFilter(e.target.value ? Number(e.target.value) : '')}
+            onChange={e => {
+              const v = e.target.value
+              setCatFilter(v === '' ? '' : v === 'none' ? 'none' : Number(v))
+              setDateFromCustom(null)
+              setDateToCustom(null)
+            }}
             className="select w-44"
           >
             <option value="">Все категории</option>
+            <option value="none">Без категории</option>
             {cats.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
           {subcats.length > 0 && (
