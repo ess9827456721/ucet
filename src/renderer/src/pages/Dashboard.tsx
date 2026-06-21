@@ -88,6 +88,7 @@ export default function Dashboard() {
   const [cashFlow, setCashFlow] = useState<CashFlowData | null>(null)
   const [activeDebts, setActiveDebts] = useState<Debt[]>([])
   const [goals, setGoals] = useState<SavingsGoal[]>([])
+  const [pendingRecurring, setPendingRecurring] = useState<{ id: number; name: string; amount: number; category?: string }[]>([])
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
   const [loading, setLoading] = useState(true)
@@ -126,8 +127,12 @@ export default function Dashboard() {
     setActiveDebts(debts as Debt[])
     setGoals(g as SavingsGoal[])
 
-    const cf = await api.getCashFlow(now.getFullYear(), now.getMonth() + 1)
+    const [cf, pending] = await Promise.all([
+      api.getCashFlow(now.getFullYear(), now.getMonth() + 1),
+      api.getPendingRecurringOperations(),
+    ])
     setCashFlow(cf as CashFlowData)
+    setPendingRecurring(pending as { id: number; name: string; amount: number; category?: string }[])
     setLoading(false)
   }, [dateFrom, dateTo, expenseTypeFilter])
 
@@ -457,6 +462,36 @@ export default function Dashboard() {
                     </div>
                   )
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* Pending recurring operations */}
+          {pendingRecurring.length > 0 && (
+            <div className="card border-yellow-400/30 bg-yellow-400/5">
+              <div className="flex items-center gap-2 mb-3">
+                <Bell size={15} className="text-yellow-400" />
+                <h3 className="text-sm font-semibold text-white">Ожидают подтверждения</h3>
+                <span className="badge bg-yellow-400/20 text-yellow-400">{pendingRecurring.length}</span>
+              </div>
+              <div className="space-y-2">
+                {pendingRecurring.map(r => (
+                  <div key={r.id} className="flex items-center justify-between text-sm py-1 border-t border-dark-600 first:border-t-0">
+                    <span className="text-white">{r.name}</span>
+                    <div className="flex items-center gap-3">
+                      {r.amount > 0 && <span className="text-gray-400">{formatMoney(r.amount)}</span>}
+                      <button
+                        onClick={async () => {
+                          await api.confirmRecurringOperation(r.id)
+                          load()
+                        }}
+                        className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/40 transition-colors"
+                      >
+                        Подтвердить
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
