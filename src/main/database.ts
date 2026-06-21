@@ -702,24 +702,61 @@ export function processSimplePayment(debtId: number, amount: number, paymentDate
   })()
 }
 
+// Full replay of all dad payments from scratch to ensure consistency after any edit/delete.
+// Resets tranches to initial_amount, clears tranche payment records, re-applies each payment
+// in chronological order using calculateDadDebtPayment. Does NOT touch the operations table.
+function replayDadPayments(d: ReturnType<typeof getDb>, debtId: number): void {
+  d.prepare('UPDATE debt_tranches SET current_balance = initial_amount, status = \'active\' WHERE debt_id = ?').run(debtId)
+  d.prepare('UPDATE debts SET overdue_interest_pool = 0 WHERE id = ?').run(debtId)
+  d.prepare('DELETE FROM dad_debt_tranche_payments WHERE payment_id IN (SELECT id FROM dad_debt_payments WHERE debt_id = ?)').run(debtId)
+
+  const payments = d.prepare('SELECT * FROM dad_debt_payments WHERE debt_id = ? ORDER BY payment_date ASC, id ASC').all(debtId) as Array<{
+    id: number; payment_date: string; total_amount: number
+  }>
+  const earliestTranche = d.prepare('SELECT MIN(date) as dt FROM debt_tranches WHERE debt_id = ?').get(debtId) as { dt: string | null }
+
+  let currentPool = 0
+  for (let i = 0; i < payments.length; i++) {
+    const pay = payments[i]
+    const payDateObj = new Date(pay.payment_date + 'T00:00:00')
+    const lastPayDate = i === 0
+      ? new Date((earliestTranche.dt ?? pay.payment_date) + 'T00:00:00')
+      : new Date(payments[i - 1].payment_date + 'T00:00:00')
+
+    const tranchesRaw = d.prepare('SELECT * FROM debt_tranches WHERE debt_id = ?').all(debtId) as Array<{
+      id: number; date: string; current_balance: number; interest_rate: number; status: string
+    }>
+    const tranches = tranchesRaw.map(t => {
+      const trancheDate = new Date(t.date + 'T00:00:00')
+      const interestStart = trancheDate > lastPayDate ? trancheDate : lastPayDate
+      const daysSince = Math.max(0, Math.round((payDateObj.getTime() - interestStart.getTime()) / 86400000))
+      return { id: t.id, currentBalance: t.current_balance, interestRate: t.interest_rate, status: t.status as 'active' | 'paid', daysSinceInterestStart: daysSince }
+    })
+
+    const result = calculateDadDebtPayment(tranches, currentPool, pay.total_amount, 0)
+
+    d.prepare('UPDATE dad_debt_payments SET interest_covered = ?, pool_covered = ?, body_covered = ?, overdue_added_to_pool = ? WHERE id = ?')
+      .run(result.interestCovered, result.poolCovered, result.bodyCovered, result.overdueAddedToPool, pay.id)
+
+    for (const upd of result.trancheUpdates) {
+      const prev = tranches.find(t => t.id === upd.id)
+      const applied = prev ? prev.currentBalance - upd.newBalance : 0
+      if (applied > 0) {
+        d.prepare('INSERT INTO dad_debt_tranche_payments (payment_id, tranche_id, amount_applied) VALUES (?, ?, ?)').run(pay.id, upd.id, applied)
+      }
+      d.prepare('UPDATE debt_tranches SET current_balance = ?, status = ? WHERE id = ?').run(upd.newBalance, upd.status, upd.id)
+    }
+    currentPool = result.newOverduePool
+  }
+  d.prepare('UPDATE debts SET overdue_interest_pool = ? WHERE id = ?').run(currentPool, debtId)
+}
+
 export function deleteDadPayment(paymentId: number): void {
   const d = getDb()
   d.transaction(() => {
     const payment = d.prepare('SELECT * FROM dad_debt_payments WHERE id = ?').get(paymentId) as {
-      id: number; debt_id: number; pool_covered: number; overdue_added_to_pool: number; operation_id: number | null
-      total_amount: number; payment_date: string
+      debt_id: number; operation_id: number | null; total_amount: number; payment_date: string
     }
-    // Restore tranche balances
-    const tranchePayments = d.prepare('SELECT * FROM dad_debt_tranche_payments WHERE payment_id = ?').all(paymentId) as Array<{
-      tranche_id: number; amount_applied: number
-    }>
-    for (const tp of tranchePayments) {
-      d.prepare("UPDATE debt_tranches SET current_balance = current_balance + ?, status = 'active' WHERE id = ?").run(tp.amount_applied, tp.tranche_id)
-    }
-    // Restore pool: reverse pool_covered applied and overdue_added_to_pool added
-    d.prepare('UPDATE debts SET overdue_interest_pool = overdue_interest_pool + ? - ? WHERE id = ?')
-      .run(payment.pool_covered, payment.overdue_added_to_pool, payment.debt_id)
-    // Delete linked operation
     if (payment.operation_id) {
       d.prepare('DELETE FROM operations WHERE id = ?').run(payment.operation_id)
     } else {
@@ -728,22 +765,24 @@ export function deleteDadPayment(paymentId: number): void {
     }
     d.prepare('DELETE FROM dad_debt_tranche_payments WHERE payment_id = ?').run(paymentId)
     d.prepare('DELETE FROM dad_debt_payments WHERE id = ?').run(paymentId)
+    replayDadPayments(d, payment.debt_id)
   })()
 }
 
-export function updateDadPaymentDate(paymentId: number, newDate: string): void {
+export function updateDadPayment(paymentId: number, newDate: string, newAmount: number): void {
   const d = getDb()
   d.transaction(() => {
     const payment = d.prepare('SELECT * FROM dad_debt_payments WHERE id = ?').get(paymentId) as {
-      operation_id: number | null; debt_id: number; total_amount: number; payment_date: string
+      debt_id: number; operation_id: number | null; payment_date: string; total_amount: number
     }
-    d.prepare('UPDATE dad_debt_payments SET payment_date = ? WHERE id = ?').run(newDate, paymentId)
+    d.prepare('UPDATE dad_debt_payments SET payment_date = ?, total_amount = ? WHERE id = ?').run(newDate, newAmount, paymentId)
     if (payment.operation_id) {
-      d.prepare('UPDATE operations SET date = ? WHERE id = ?').run(newDate, payment.operation_id)
+      d.prepare('UPDATE operations SET date = ?, amount = ? WHERE id = ?').run(newDate, newAmount, payment.operation_id)
     } else {
-      d.prepare("UPDATE operations SET date = ? WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
-        .run(newDate, payment.debt_id, payment.payment_date, payment.total_amount)
+      d.prepare("UPDATE operations SET date = ?, amount = ? WHERE debt_id = ? AND type = 'debt_op' AND date = ? AND amount = ? LIMIT 1")
+        .run(newDate, newAmount, payment.debt_id, payment.payment_date, payment.total_amount)
     }
+    replayDadPayments(d, payment.debt_id)
   })()
 }
 

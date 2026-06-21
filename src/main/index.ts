@@ -8,7 +8,7 @@ import {
   getDebts, getDebt, addDebt, updateDebt, deleteDebt, getDebtsWithBalance, getDebtsWithDetails,
   getTranches, addTranche, updateTranche, deleteTranche, updateDebtsOrder,
   getDaysSinceLastPayment, processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
-  deleteDadPayment, updateDadPaymentDate, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
+  deleteDadPayment, updateDadPayment, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
   getSummary, getExpensesByCategory, getBigExpensesBreakdown, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
   getMandatoryExpensePlan, addMandatoryExpenseItem, updateMandatoryExpenseItem, deleteMandatoryExpenseItem,
@@ -86,7 +86,7 @@ app.whenReady().then(() => {
   ipcMain.handle('get-dad-forecast', (_, debtId, payment) => getDadForecast(debtId, payment))
   ipcMain.handle('get-simple-forecast', (_, debtId, payment) => getSimpleForecast(debtId, payment))
   ipcMain.handle('delete-dad-payment', (_, paymentId) => deleteDadPayment(paymentId))
-  ipcMain.handle('update-dad-payment-date', (_, paymentId, date) => updateDadPaymentDate(paymentId, date))
+  ipcMain.handle('update-dad-payment', (_, paymentId, date, amount) => updateDadPayment(paymentId, date, amount))
   ipcMain.handle('delete-simple-debt-payment', (_, paymentId) => deleteSimpleDebtPayment(paymentId))
   ipcMain.handle('update-simple-debt-payment', (_, paymentId, amount, date, interestPart) => updateSimpleDebtPayment(paymentId, amount, date, interestPart))
   ipcMain.handle('has-dad-payments-after', (_, paymentId) => hasDadPaymentsAfter(paymentId))

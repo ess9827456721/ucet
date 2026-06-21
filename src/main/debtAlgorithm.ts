@@ -13,11 +13,12 @@ export interface TrancheUpdate {
 }
 
 export interface PaymentResult {
-  interestCovered: number       // текущие проценты периода, покрытые платежом
-  poolCovered: number           // пул просроченных процентов, погашенный этим платежом
-  bodyCovered: number           // тело долга, погашенное этим платежом
-  overdueAddedToPool: number    // добавлено в пул (только если платёж не покрыл проценты)
-  newOverduePool: number        // итоговый пул после операции
+  interestCovered: number
+  poolCovered: number
+  bodyCovered: number
+  overdueAddedToPool: number
+  newOverduePool: number
+  overpayment: number           // остаток после полного погашения всех траншей
   trancheUpdates: TrancheUpdate[]
 }
 
@@ -99,6 +100,7 @@ export function calculateDadDebtPayment(
     bodyCovered,
     overdueAddedToPool,
     newOverduePool,
+    overpayment: Math.max(0, remainingBody),
     trancheUpdates
   }
 }

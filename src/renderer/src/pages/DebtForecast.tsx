@@ -127,6 +127,18 @@ export default function DebtForecast({ debtId, onBack }: Props) {
 
       {generated && (
         <>
+          {/* Insufficient payment warning */}
+          {forecast1.length > 0 && forecast1[0].bodyCovered === 0 && (
+            <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 px-5 py-4 text-sm text-orange-300">
+              <p className="font-semibold mb-1">⚠️ Платёж не покрывает проценты — долг не уменьшается</p>
+              <p>
+                При {formatMoney(parseFloat(payment1))}/мес начисляемые проценты ({formatMoney(forecast1[0].interestCovered)}/мес) не покрываются полностью,
+                тело долга не гасится. Для начала погашения необходим платёж
+                более <span className="font-semibold text-orange-200">{formatMoney(Math.ceil(forecast1[0].interestCovered + 1))}/мес</span>.
+              </p>
+            </div>
+          )}
+
           {/* Summary comparison */}
           <div className="grid grid-cols-2 gap-4">
             <div className="card" style={{ borderColor: 'rgba(255,214,0,0.3)' }}>

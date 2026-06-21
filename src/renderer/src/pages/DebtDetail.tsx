@@ -11,7 +11,7 @@ interface Props {
   onAnalytics: () => void
 }
 
-interface EditDadPayment { id: number; date: string }
+interface EditDadPayment { id: number; date: string; amount: string }
 interface EditSimplePayment { id: number; date: string; amount: string; interestPart: string }
 interface EditTrancheState { id: number; date: string; rate: string }
 
@@ -75,7 +75,10 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     setPaying(true)
     try {
       if (debt?.debt_type === 'dad') {
-        await api.processDadPayment(debtId, parseFloat(payAmount), payDate)
+        const result = await api.processDadPayment(debtId, parseFloat(payAmount), payDate) as { overpayment?: number }
+        if (result?.overpayment && result.overpayment > 0.01) {
+          alert(`Долг полностью погашен.\nИзлишек платежа: ${result.overpayment.toFixed(2)} ₽ — эта сумма не была отнесена к телу долга.`)
+        }
       } else {
         await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0)
       }
@@ -138,9 +141,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
   }
 
   async function handleDeleteDadPayment(paymentId: number) {
-    const hasLater = await api.hasDadPaymentsAfter(paymentId)
-    const warning = hasLater ? '\n⚠️ Этот платёж не последний. Удаление не пересчитает последующие платежи — баланс долга будет исправлен только для данного платежа.' : ''
-    if (!confirm(`Удалить платёж?${warning}`)) return
+    if (!confirm('Удалить платёж? Все последующие платежи будут пересчитаны автоматически.')) return
     await api.deleteDadPayment(paymentId)
     load()
   }
@@ -155,7 +156,9 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
 
   async function handleSaveDadPayment() {
     if (!editDadPay) return
-    await api.updateDadPaymentDate(editDadPay.id, editDadPay.date)
+    const amount = parseFloat(editDadPay.amount)
+    if (!amount || amount <= 0) return
+    await api.updateDadPayment(editDadPay.id, editDadPay.date, amount)
     setEditDadPay(null)
     load()
   }
@@ -454,7 +457,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex gap-1 justify-end">
-                        <button onClick={() => setEditDadPay({ id: p.id, date: p.payment_date })} className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors">
+                        <button onClick={() => setEditDadPay({ id: p.id, date: p.payment_date, amount: String(p.total_amount) })} className="p-1.5 text-gray-500 hover:text-yellow-400 transition-colors">
                           <Pencil size={13} />
                         </button>
                         <button onClick={() => handleDeleteDadPayment(p.id)} className="p-1.5 text-gray-500 hover:text-red-400 transition-colors">
@@ -466,10 +469,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
                   {editDadPay?.id === p.id && (
                     <tr className="bg-dark-700 border-b border-dark-600">
                       <td colSpan={7} className="px-5 py-3">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 flex-wrap">
                           <span className="text-sm text-gray-400">Дата:</span>
                           <input type="date" value={editDadPay.date} onChange={e => setEditDadPay({ ...editDadPay, date: e.target.value })} className="input py-1 text-sm w-36" />
-                          <span className="text-xs text-gray-500">Сумма платежа изменяется только через удаление и повторный ввод</span>
+                          <span className="text-sm text-gray-400">Сумма, ₽:</span>
+                          <input type="number" value={editDadPay.amount} onChange={e => setEditDadPay({ ...editDadPay, amount: e.target.value })} className="input py-1 text-sm w-36" />
+                          <span className="text-xs text-gray-500">Все последующие платежи пересчитаются автоматически</span>
                           <button onClick={handleSaveDadPayment} className="btn-primary text-sm py-1 px-3">Сохранить</button>
                           <button onClick={() => setEditDadPay(null)} className="btn-secondary text-sm py-1 px-3">Отмена</button>
                         </div>

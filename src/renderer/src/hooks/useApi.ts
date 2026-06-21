@@ -35,7 +35,7 @@ export function useApi() {
     getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
     getSimpleForecast: (debtId: number, payment: number) => Promise<unknown[]>
     deleteDadPayment: (paymentId: number) => Promise<void>
-    updateDadPaymentDate: (paymentId: number, date: string) => Promise<void>
+    updateDadPayment: (paymentId: number, date: string, amount: number) => Promise<void>
     deleteSimpleDebtPayment: (paymentId: number) => Promise<void>
     updateSimpleDebtPayment: (paymentId: number, amount: number, date: string, interestPart: number) => Promise<void>
     hasDadPaymentsAfter: (paymentId: number) => Promise<boolean>

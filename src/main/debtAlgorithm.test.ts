@@ -108,6 +108,19 @@ describe('Алгоритм долга папе', () => {
     expect(result.newOverduePool).toBeGreaterThan(150_000) // намного больше нуля
   })
 
+  it('Переплата: overpayment > 0 когда платёж превышает весь долг', () => {
+    const small = { id: 1, currentBalance: 10_000, interestRate: 0.3, status: 'active' as const }
+    const result = calculateDadDebtPayment([small], 0, 15_000, 30)
+    expect(result.overpayment).toBeGreaterThan(0)
+    expect(result.overpayment).toBeCloseTo(15_000 - result.interestCovered - small.currentBalance, 0)
+    expect(result.trancheUpdates.find(u => u.id === 1)?.status).toBe('paid')
+  })
+
+  it('Нет переплаты при обычном платеже', () => {
+    const result = calculateDadDebtPayment([trancheA, trancheB], 0, 80_000, 30)
+    expect(result.overpayment).toBe(0)
+  })
+
   it('Распределение тела: самая высокая ставка гасится первой', () => {
     const t1 = { id: 1, currentBalance: 200_000, interestRate: 0.20, status: 'active' as const }
     const t2 = { id: 2, currentBalance: 200_000, interestRate: 0.40, status: 'active' as const }
