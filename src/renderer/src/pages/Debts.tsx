@@ -22,7 +22,7 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
 
   async function load() {
     setLoading(true)
-    const d = await api.getDebtsWithBalance()
+    const d = await api.getDebtsWithDetails()
     setDebts(d as Debt[])
     setLoading(false)
   }
@@ -70,7 +70,9 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
   const closed = debts.filter(d => d.status === 'closed')
   const visibleActive = active.filter(d => !d.is_hidden)
   const hiddenActive = active.filter(d => d.is_hidden)
-  const totalOwed = visibleActive.filter(d => d.direction === 'i_owe').reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+  const iOweDebts = visibleActive.filter(d => d.direction === 'i_owe')
+  const totalOwed = iOweDebts.reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
+  const totalAccrued = iOweDebts.reduce((s, d) => s + (d.accrued_interest ?? 0), 0)
 
   // Group visible active debts by category
   const groups: { category: string | null; debts: Debt[] }[] = []
@@ -96,7 +98,10 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
       <div className="card">
         <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">Общая долговая нагрузка</p>
         <p className="text-3xl font-bold text-red-400">{formatMoney(totalOwed)}</p>
-        <p className="text-sm text-gray-500 mt-1">{visibleActive.filter(d => d.direction === 'i_owe').length} активных долга</p>
+        {totalAccrued > 0 && (
+          <p className="text-sm text-orange-400 mt-1">+ {formatMoney(totalAccrued)} накопленных %</p>
+        )}
+        <p className="text-sm text-gray-500 mt-1">{iOweDebts.length} активных долга</p>
       </div>
 
       {loading ? (

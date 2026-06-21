@@ -189,6 +189,32 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     ? simplePayments.reduce((s, p) => s + p.body_part, 0)
     : dadPayments.reduce((s, p) => s + p.body_covered, 0)
 
+  const todayMs = new Date().getTime()
+  let accruedInterest = 0
+  if (debt.debt_type === 'dad') {
+    const lastPay = dadPayments.length > 0
+      ? dadPayments.reduce((a, b) => a.payment_date > b.payment_date ? a : b)
+      : null
+    if (lastPay) {
+      const days = Math.max(0, Math.round((todayMs - new Date(lastPay.payment_date + 'T00:00:00').getTime()) / 86400000))
+      accruedInterest = activeTranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
+    } else {
+      accruedInterest = activeTranches.reduce((s, t) => {
+        const days = Math.max(0, Math.round((todayMs - new Date(t.date + 'T00:00:00').getTime()) / 86400000))
+        return s + t.current_balance * t.interest_rate * (days / 365)
+      }, 0)
+    }
+    accruedInterest += debt.overdue_interest_pool
+  } else if (debt.interest_rate) {
+    const currentBalance = Math.max(0, (debt.initial_amount || 0) - totalPaid)
+    const lastPay = simplePayments.length > 0
+      ? simplePayments.reduce((a, b) => a.payment_date > b.payment_date ? a : b)
+      : null
+    const startStr = lastPay?.payment_date ?? (debt as Debt & { loan_date?: string | null }).loan_date ?? debt.created_at
+    const days = Math.max(0, Math.round((todayMs - new Date(startStr + (startStr.includes('T') ? '' : 'T00:00:00')).getTime()) / 86400000))
+    accruedInterest = currentBalance * debt.interest_rate * (days / 365)
+  }
+
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -213,7 +239,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
         <div className="card">
           <p className="text-xs text-gray-400 mb-2">Остаток тела</p>
           <p className="text-2xl font-bold text-white">{formatMoney(debt.debt_type === 'dad' ? totalBalance : (debt.initial_amount || 0) - totalPaid)}</p>
@@ -243,6 +269,13 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
           <p className="text-xs text-gray-400 mb-2">Погашено тела</p>
           <p className="text-2xl font-bold text-green-400">{formatMoney(totalPaid)}</p>
         </div>
+        {(accruedInterest > 0 || debt.interest_rate) && (
+          <div className="card">
+            <p className="text-xs text-gray-400 mb-2">Накопленный процент</p>
+            <p className="text-2xl font-bold text-orange-400">{formatMoney(accruedInterest)}</p>
+            <p className="text-xs text-gray-500 mt-1">На сегодня</p>
+          </div>
+        )}
       </div>
 
       {/* Action buttons */}

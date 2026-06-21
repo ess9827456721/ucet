@@ -46,6 +46,7 @@ export interface Debt {
   category: string | null
   sort_order: number | null
   is_hidden: number
+  loan_date?: string | null
   current_balance?: number
   accrued_interest?: number
   last_payment_date?: string | null

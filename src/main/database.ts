@@ -168,6 +168,7 @@ function initSchema(): void {
   if (!debtCols.includes('is_hidden')) d.exec('ALTER TABLE debts ADD COLUMN is_hidden INTEGER DEFAULT 0')
   const opCols = (d.prepare('PRAGMA table_info(operations)').all() as Array<{ name: string }>).map(c => c.name)
   if (!opCols.includes('goal_id')) d.exec('ALTER TABLE operations ADD COLUMN goal_id INTEGER REFERENCES savings_goals(id)')
+  if (!debtCols.includes('loan_date')) d.exec('ALTER TABLE debts ADD COLUMN loan_date TEXT')
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -417,10 +418,11 @@ export function addDebt(debt: {
   payment_day?: number | null
   monthly_payment?: number | null
   category?: string | null
+  loan_date?: string | null
 }): number {
   const r = getDb().prepare(`
-    INSERT INTO debts (name, direction, debt_type, initial_amount, interest_rate, payment_day, monthly_payment, category)
-    VALUES (@name, @direction, @debt_type, @initial_amount, @interest_rate, @payment_day, @monthly_payment, @category)
+    INSERT INTO debts (name, direction, debt_type, initial_amount, interest_rate, payment_day, monthly_payment, category, loan_date)
+    VALUES (@name, @direction, @debt_type, @initial_amount, @interest_rate, @payment_day, @monthly_payment, @category, @loan_date)
   `).run({
     ...debt,
     initial_amount: debt.initial_amount ?? null,
@@ -428,6 +430,7 @@ export function addDebt(debt: {
     payment_day: debt.payment_day ?? null,
     monthly_payment: debt.monthly_payment ?? null,
     category: debt.category ?? null,
+    loan_date: debt.loan_date ?? null,
   })
   return r.lastInsertRowid as number
 }
@@ -464,7 +467,7 @@ export function getDebtsWithDetails(): unknown[] {
   const d = getDb()
   const debts = d.prepare('SELECT * FROM debts ORDER BY COALESCE(sort_order, 9999), id ASC').all() as Array<{
     id: number; debt_type: string; initial_amount: number | null; interest_rate: number | null
-    overdue_interest_pool: number; created_at: string; [key: string]: unknown
+    overdue_interest_pool: number; created_at: string; loan_date: string | null; [key: string]: unknown
   }>
   const today = new Date()
   return debts.map(debt => {
@@ -482,14 +485,25 @@ export function getDebtsWithDetails(): unknown[] {
         'SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?'
       ).get(debt.id) as { dt: string | null }
       lastPaymentDateStr = lastPay.dt
-      const lastPaymentDate = lastPay.dt ? new Date(lastPay.dt + 'T00:00:00') : new Date(debt.created_at as string)
 
-      const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
       const tranches = d.prepare(
-        "SELECT current_balance, interest_rate FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
-      ).all(debt.id) as Array<{ current_balance: number; interest_rate: number }>
-      const trancheInterest = tranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
-      accruedInterest = trancheInterest + debt.overdue_interest_pool
+        "SELECT current_balance, interest_rate, date FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
+      ).all(debt.id) as Array<{ current_balance: number; interest_rate: number; date: string }>
+
+      if (lastPay.dt) {
+        const lastPaymentDate = new Date(lastPay.dt + 'T00:00:00')
+        const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
+        const trancheInterest = tranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
+        accruedInterest = trancheInterest + debt.overdue_interest_pool
+      } else {
+        // No payments yet — compute per-tranche interest from each tranche's own date
+        const trancheInterest = tranches.reduce((s, t) => {
+          const tDate = new Date(t.date + 'T00:00:00')
+          const days = Math.max(0, Math.round((today.getTime() - tDate.getTime()) / 86400000))
+          return s + t.current_balance * t.interest_rate * (days / 365)
+        }, 0)
+        accruedInterest = trancheInterest + debt.overdue_interest_pool
+      }
     } else {
       const row = d.prepare(
         'SELECT COALESCE(SUM(body_part),0) as paid FROM simple_debt_payments WHERE debt_id = ?'
@@ -500,7 +514,8 @@ export function getDebtsWithDetails(): unknown[] {
         'SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?'
       ).get(debt.id) as { dt: string | null }
       lastPaymentDateStr = lastPay.dt
-      const lastPaymentDate = lastPay.dt ? new Date(lastPay.dt + 'T00:00:00') : new Date(debt.created_at as string)
+      const interestStartStr = lastPay.dt ?? debt.loan_date ?? debt.created_at
+      const lastPaymentDate = new Date(interestStartStr + (interestStartStr.includes('T') ? '' : 'T00:00:00'))
 
       const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
       accruedInterest = debt.interest_rate ? currentBalance * debt.interest_rate * (days / 365) : 0
@@ -521,6 +536,7 @@ export function updateDebt(id: number, data: {
   overdue_interest_pool?: number
   category?: string | null
   is_hidden?: number
+  loan_date?: string | null
 }): void {
   const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
   if (!fields) return

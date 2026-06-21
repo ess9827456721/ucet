@@ -22,6 +22,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
   const [interestRate, setInterestRate] = useState(editDebt?.interest_rate != null ? String((editDebt.interest_rate * 100).toFixed(2)) : '')
   const [paymentDay, setPaymentDay] = useState(editDebt?.payment_day != null ? String(editDebt.payment_day) : '')
   const [monthlyPayment, setMonthlyPayment] = useState(editDebt?.monthly_payment != null ? String(editDebt.monthly_payment) : '')
+  const [loanDate, setLoanDate] = useState(editDebt?.loan_date ?? today())
   // For new dad debt only — first tranche
   const [trancheDate, setTrancheDate] = useState(today())
   const [trancheAmount, setTrancheAmount] = useState('')
@@ -51,6 +52,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
           payment_day: paymentDay ? parseInt(paymentDay) : null,
           monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null,
+          loan_date: editDebt?.debt_type === 'simple' ? (loanDate || null) : undefined,
         })
       } else if (debtType === 'dad') {
         if (!trancheAmount || !trancheRate) { setError('Укажите сумму и ставку транша'); setSaving(false); return }
@@ -74,6 +76,7 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
           payment_day: paymentDay ? parseInt(paymentDay) : null,
           monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null,
+          loan_date: loanDate || null,
         })
       }
       onSaved()
@@ -150,23 +153,27 @@ export default function AddDebtModal({ onClose, onSaved, editDebt }: Props) {
             <>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="label">Сумма долга, ₽</label>
-                  <input type="number" value={initialAmount} onChange={e => setInitialAmount(e.target.value)} className="input" />
+                  <label className="label">Дата получения</label>
+                  <input type="date" value={loanDate} onChange={e => setLoanDate(e.target.value)} className="input" />
                 </div>
                 <div>
-                  <label className="label">Ставка, % год.</label>
-                  <input type="number" value={interestRate} onChange={e => setInterestRate(e.target.value)} placeholder="0" className="input" />
+                  <label className="label">Сумма долга, ₽</label>
+                  <input type="number" value={initialAmount} onChange={e => setInitialAmount(e.target.value)} className="input" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
+                  <label className="label">Ставка, % год.</label>
+                  <input type="number" value={interestRate} onChange={e => setInterestRate(e.target.value)} placeholder="0" className="input" />
+                </div>
+                <div>
                   <label className="label">День платежа (число месяца)</label>
                   <input type="number" value={paymentDay} onChange={e => setPaymentDay(e.target.value)} placeholder="30" min="1" max="31" className="input" />
                 </div>
-                <div>
-                  <label className="label">Ежемесячный платёж, ₽</label>
-                  <input type="number" value={monthlyPayment} onChange={e => setMonthlyPayment(e.target.value)} className="input" />
-                </div>
+              </div>
+              <div>
+                <label className="label">Ежемесячный платёж, ₽</label>
+                <input type="number" value={monthlyPayment} onChange={e => setMonthlyPayment(e.target.value)} className="input" />
               </div>
             </>
           ) : !isEdit ? (
