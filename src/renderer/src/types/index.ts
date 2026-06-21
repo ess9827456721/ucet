@@ -104,6 +104,7 @@ export interface Summary {
   debtOps: number
   balance: number
   avgPerDay: number
+  avgPerDayWithDebt: number
 }
 
 export interface CashFlowData {

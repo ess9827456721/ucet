@@ -3,6 +3,7 @@ import { ArrowLeft, Plus, TrendingDown, BarChart2, Pencil, Trash2 } from 'lucide
 import { useApi } from '../hooks/useApi'
 import { Debt, Tranche, DadPayment, SimpleDebtPayment } from '../types'
 import { formatMoney, formatDate, today } from '../utils'
+import InfoTooltip from '../components/InfoTooltip'
 
 interface Props {
   debtId: number
@@ -204,7 +205,6 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
         return s + t.current_balance * t.interest_rate * (days / 365)
       }, 0)
     }
-    accruedInterest += debt.overdue_interest_pool
   } else if (debt.interest_rate) {
     const currentBalance = Math.max(0, (debt.initial_amount || 0) - totalPaid)
     const lastPay = simplePayments.length > 0
@@ -271,7 +271,10 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
         </div>
         {(accruedInterest > 0 || debt.interest_rate) && (
           <div className="card">
-            <p className="text-xs text-gray-400 mb-2">Накопленный процент</p>
+            <div className="flex items-center gap-1 mb-2">
+              <p className="text-xs text-gray-400">Накопленный процент</p>
+              <InfoTooltip text="Проценты, начисленные с момента последнего платежа по текущей ставке. Не включает пул просроченных процентов (если есть) — он показан отдельной картой и гасится постепенно с каждым платежом." />
+            </div>
             <p className="text-2xl font-bold text-orange-400">{formatMoney(accruedInterest)}</p>
             <p className="text-xs text-gray-500 mt-1">На сегодня</p>
           </div>

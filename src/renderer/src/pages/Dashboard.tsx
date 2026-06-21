@@ -94,6 +94,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const [goalModal, setGoalModal] = useState<{ edit?: SavingsGoal } | null>(null)
+  const [showDebtOpsInChart, setShowDebtOpsInChart] = useState(false)
+  const [showDebtInAvg, setShowDebtInAvg] = useState(false)
 
   const periodDays = Math.round((new Date(dateTo + 'T00:00:00').getTime() - new Date(dateFrom + 'T00:00:00').getTime()) / 86400000) + 1
 
@@ -146,8 +148,14 @@ export default function Dashboard() {
 
   async function openDrill(cat: CategoryData) {
     setDrillCategory(cat)
-    // id === -1 means "no category" — pass undefined so getOperations can filter by categoryId IS NULL
-    const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id === -1 ? undefined : cat.id, noCategory: cat.id === -1 })
+    let ops: unknown[]
+    if (cat.id === -2) {
+      ops = await api.getOperations({ dateFrom, dateTo, type: 'debt_op' })
+    } else if (cat.id === -1) {
+      ops = await api.getOperations({ dateFrom, dateTo, noCategory: true })
+    } else {
+      ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id })
+    }
     setDrillOps(ops as Operation[])
   }
 
@@ -248,23 +256,33 @@ export default function Dashboard() {
         </ResponsiveContainer>
       )
     }
-    return categories.length > 0 ? (
+    const debtOpsAmount = showDebtOpsInChart && summary?.debtOps ? summary.debtOps : 0
+    const debtSegment = debtOpsAmount > 0 ? [{ id: -2, name: 'Платежи по долгам', color: '#6366F1', total: debtOpsAmount }] : []
+    const chartData = [...categories, ...debtSegment]
+    return chartData.length > 0 ? (
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
           <Pie
-            data={categories}
+            data={chartData}
             cx="50%"
             cy="50%"
             innerRadius={innerRadius}
             outerRadius={outerRadius}
             dataKey="total"
             nameKey="name"
-            onClick={(data) => openDrill(data as CategoryData)}
+            onClick={(data) => {
+              const d = data as CategoryData
+              if (d.id === -2) {
+                openDrill({ ...d, id: -2 })
+              } else {
+                openDrill(d)
+              }
+            }}
             className="cursor-pointer"
             label={makeRadialLabel(outerRadius, threshold)}
             labelLine={false}
           >
-            {categories.map((cat, i) => (
+            {chartData.map((cat, i) => (
               <Cell key={i} fill={cat.color || '#FFD600'} />
             ))}
           </Pie>
@@ -355,10 +373,21 @@ export default function Dashboard() {
             />
             <StatCard
               label="Средний расход/день"
-              value={summary ? formatMoney(summary.avgPerDay) : '—'}
+              value={summary ? formatMoney(showDebtInAvg ? summary.avgPerDayWithDebt : summary.avgPerDay) : '—'}
               icon={<Calendar className="text-blue-400" size={20} />}
               valueClass="text-white"
-              tooltip="Все расходы (включая платежи по долгам) делённые на количество дней в периоде"
+              tooltip={showDebtInAvg ? 'С учётом платежей по долгам' : 'Без учёта платежей по долгам'}
+              sub={summary && summary.debtOps > 0 ? (
+                <label className="flex items-center gap-1.5 cursor-pointer mt-1">
+                  <input
+                    type="checkbox"
+                    checked={showDebtInAvg}
+                    onChange={e => setShowDebtInAvg(e.target.checked)}
+                    className="w-3 h-3 accent-blue-400"
+                  />
+                  <span className="text-xs text-gray-500">Учитывать долги</span>
+                </label>
+              ) : null}
             />
           </div>
 
@@ -553,7 +582,7 @@ export default function Dashboard() {
           )}
 
           {/* Expense type filter */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             <span className="text-xs text-gray-500">Тип расхода:</span>
             <div className="flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600">
               {EXPENSE_TYPES.map(et => (
@@ -568,6 +597,17 @@ export default function Dashboard() {
                 </button>
               ))}
             </div>
+            {expenseTypeFilter === '' && summary && summary.debtOps > 0 && (
+              <label className="flex items-center gap-1.5 cursor-pointer text-xs text-gray-400 hover:text-white">
+                <input
+                  type="checkbox"
+                  checked={showDebtOpsInChart}
+                  onChange={e => setShowDebtOpsInChart(e.target.checked)}
+                  className="w-3.5 h-3.5 accent-indigo-400"
+                />
+                Включая платежи по долгам
+              </label>
+            )}
           </div>
 
           {/* Charts row */}

@@ -209,7 +209,13 @@ export default function CashFlow({ onGoToDebt }: Props) {
                           {item.category}
                         </td>
                         <td className="px-5 py-3 text-sm text-right text-white">{formatMoney(item.plannedAmount)}</td>
-                        <td className={`px-5 py-3 text-sm text-right ${item.actualAmount != null ? (item.actualAmount > item.plannedAmount ? 'text-red-400' : 'text-green-400') : 'text-gray-500'}`}>
+                        <td className={`px-5 py-3 text-sm text-right ${
+                          item.actualAmount == null
+                            ? 'text-gray-500'
+                            : item.isDebtLinked
+                              ? (item.actualAmount >= item.plannedAmount ? 'text-green-400' : 'text-yellow-400')
+                              : (item.actualAmount > item.plannedAmount ? 'text-red-400' : 'text-green-400')
+                        }`}>
                           {item.actualAmount != null ? formatMoney(item.actualAmount) : '—'}
                         </td>
                         <td className="px-5 py-3">

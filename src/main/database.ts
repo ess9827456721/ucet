@@ -247,7 +247,7 @@ export function getOperations(filters: {
   if (filters.dateFrom) { parts.push('o.date >= ?'); params.push(filters.dateFrom) }
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
-  if (filters.noCategory) { parts.push('o.category_id IS NULL') }
+  if (filters.noCategory) { parts.push("o.category_id IS NULL AND o.type = 'expense'") }
   else if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
   if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
   if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
@@ -494,7 +494,7 @@ export function getDebtsWithDetails(): unknown[] {
         const lastPaymentDate = new Date(lastPay.dt + 'T00:00:00')
         const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
         const trancheInterest = tranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
-        accruedInterest = trancheInterest + debt.overdue_interest_pool
+        accruedInterest = trancheInterest
       } else {
         // No payments yet — compute per-tranche interest from each tranche's own date
         const trancheInterest = tranches.reduce((s, t) => {
@@ -502,7 +502,7 @@ export function getDebtsWithDetails(): unknown[] {
           const days = Math.max(0, Math.round((today.getTime() - tDate.getTime()) / 86400000))
           return s + t.current_balance * t.interest_rate * (days / 365)
         }, 0)
-        accruedInterest = trancheInterest + debt.overdue_interest_pool
+        accruedInterest = trancheInterest
       }
     } else {
       const row = d.prepare(
@@ -1046,7 +1046,7 @@ export function getSummary(dateFrom: string, dateTo: string, expenseType?: strin
     ? 0
     : (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='debt_op' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
   const days = Math.max(1, Math.round((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / 86400000) + 1)
-  return { income, expense, debtOps, balance: income - expense - debtOps, avgPerDay: (expense + debtOps) / days }
+  return { income, expense, debtOps, balance: income - expense - debtOps, avgPerDay: expense / days, avgPerDayWithDebt: (expense + debtOps) / days }
 }
 
 export function getExpensesByCategory(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
