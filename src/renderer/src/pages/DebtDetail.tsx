@@ -76,9 +76,16 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     setPaying(true)
     try {
       if (debt?.debt_type === 'dad') {
-        const result = await api.processDadPayment(debtId, parseFloat(payAmount), payDate) as { overpayment?: number }
+        const result = await api.processDadPayment(debtId, parseFloat(payAmount), payDate) as { overpayment?: number; overdueAddedToPool?: number; paymentId?: number }
         if (result?.overpayment && result.overpayment > 0.01) {
           alert(`Долг полностью погашен.\nИзлишек платежа: ${result.overpayment.toFixed(2)} ₽ — эта сумма не была отнесена к телу долга.`)
+        } else if (result?.overdueAddedToPool && result.overdueAddedToPool > 0.01 && result?.paymentId) {
+          const confirm = window.confirm(
+            'Платёж не покрывает текущие проценты периода — обычно это означает, что начисленный процент уйдёт в просрочку.\n\nОтметить этот платёж как окончательный для месяца, чтобы не показывать предупреждение о просрочке на карточке долга?'
+          )
+          if (confirm) {
+            await api.markDadPaymentSufficient(result.paymentId)
+          }
         }
       } else {
         await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0)

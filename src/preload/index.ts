@@ -38,6 +38,7 @@ const api = {
     ipcRenderer.invoke('process-simple-payment', debtId, amount, date, interestPart),
   getDadForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-dad-forecast', debtId, payment),
   getSimpleForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-simple-forecast', debtId, payment),
+  markDadPaymentSufficient: (paymentId: number) => ipcRenderer.invoke('mark-dad-payment-sufficient', paymentId),
   deleteDadPayment: (paymentId: number) => ipcRenderer.invoke('delete-dad-payment', paymentId),
   updateDadPayment: (paymentId: number, date: string, amount: number) => ipcRenderer.invoke('update-dad-payment', paymentId, date, amount),
   deleteSimpleDebtPayment: (paymentId: number) => ipcRenderer.invoke('delete-simple-debt-payment', paymentId),

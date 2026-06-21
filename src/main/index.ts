@@ -7,7 +7,7 @@ import {
   getCategories, getSubcategories, addCategory, updateCategory, addSubcategory, updateSubcategory,
   getDebts, getDebt, addDebt, updateDebt, deleteDebt, getDebtsWithBalance, getDebtsWithDetails,
   getTranches, addTranche, updateTranche, deleteTranche, updateDebtsOrder,
-  getDaysSinceLastPayment, processDadPayment, getDadPaymentHistory, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
+  getDaysSinceLastPayment, processDadPayment, getDadPaymentHistory, markDadPaymentSufficient, getSimpleDebtPayments, processSimplePayment, getDadForecast, getSimpleForecast,
   deleteDadPayment, updateDadPayment, deleteSimpleDebtPayment, updateSimpleDebtPayment, hasDadPaymentsAfter, hasSimplePaymentsAfter,
   getSummary, getExpensesByCategory, getExpensesBySubcategory, getBigExpensesBreakdown, getDailyExpenses, getExpensesByType, getMonthlyExpenses, getExpensesByDayOfWeek,
   getBudgetSettings, setBudgetSetting, getCashFlow,
@@ -85,6 +85,7 @@ app.whenReady().then(() => {
   ipcMain.handle('process-simple-payment', (_, debtId, amount, date, interestPart) => processSimplePayment(debtId, amount, date, interestPart))
   ipcMain.handle('get-dad-forecast', (_, debtId, payment) => getDadForecast(debtId, payment))
   ipcMain.handle('get-simple-forecast', (_, debtId, payment) => getSimpleForecast(debtId, payment))
+  ipcMain.handle('mark-dad-payment-sufficient', (_, paymentId) => markDadPaymentSufficient(paymentId))
   ipcMain.handle('delete-dad-payment', (_, paymentId) => deleteDadPayment(paymentId))
   ipcMain.handle('update-dad-payment', (_, paymentId, date, amount) => updateDadPayment(paymentId, date, amount))
   ipcMain.handle('delete-simple-debt-payment', (_, paymentId) => deleteSimpleDebtPayment(paymentId))

@@ -50,6 +50,7 @@ export interface Debt {
   current_balance?: number
   accrued_interest?: number
   last_payment_date?: string | null
+  is_overdue?: boolean
 }
 
 export interface Tranche {

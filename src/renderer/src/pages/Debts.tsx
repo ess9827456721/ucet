@@ -223,9 +223,7 @@ function DebtCard({
   onDrop: () => void
 }) {
   const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null
-  const isOverduePayment = debt.payment_day
-    ? new Date() > new Date(new Date().getFullYear(), new Date().getMonth(), debt.payment_day)
-    : false
+  const isOverduePayment = debt.is_overdue ?? false
 
   return (
     <div
@@ -286,7 +284,13 @@ function DebtCard({
 
         <div className="flex items-center gap-1 ml-4" onClick={e => e.stopPropagation()}>
           {isOverduePayment && debt.status === 'active' && (
-            <AlertTriangle size={16} className="text-yellow-400 mr-1" />
+            <AlertTriangle
+              size={16}
+              className="text-yellow-400 mr-1"
+              title={debt.debt_type === 'simple'
+                ? 'Обязательный платёж за этот период ещё не внесён в полном объёме'
+                : 'Текущие проценты периода ещё не покрыты внесёнными платежами'}
+            />
           )}
           {onForecast && (
             <button

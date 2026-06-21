@@ -158,6 +158,9 @@ function initSchema(): void {
   if (!dadCols.includes('operation_id')) {
     d.exec('ALTER TABLE dad_debt_payments ADD COLUMN operation_id INTEGER')
   }
+  if (!dadCols.includes('marked_sufficient')) {
+    d.exec('ALTER TABLE dad_debt_payments ADD COLUMN marked_sufficient INTEGER DEFAULT 0')
+  }
   const simpleCols = (d.prepare('PRAGMA table_info(simple_debt_payments)').all() as Array<{ name: string }>).map(c => c.name)
   if (!simpleCols.includes('operation_id')) {
     d.exec('ALTER TABLE simple_debt_payments ADD COLUMN operation_id INTEGER')
@@ -523,7 +526,35 @@ export function getDebtsWithDetails(): unknown[] {
       accruedInterest = debt.interest_rate ? currentBalance * debt.interest_rate * (days / 365) : 0
     }
 
-    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest, last_payment_date: lastPaymentDateStr }
+    // Compute is_overdue
+    let isOverdue = false
+    const payDay = debt.payment_day as number | null
+    const debtStatus = debt.status as string
+    if (payDay && debtStatus === 'active') {
+      const currentMonthPayDate = new Date(today.getFullYear(), today.getMonth(), payDay)
+      if (today > currentMonthPayDate) {
+        const prevYear = currentMonthPayDate.getMonth() === 0 ? currentMonthPayDate.getFullYear() - 1 : currentMonthPayDate.getFullYear()
+        const prevMonth = currentMonthPayDate.getMonth() === 0 ? 11 : currentMonthPayDate.getMonth() - 1
+        const periodStart = new Date(prevYear, prevMonth, payDay)
+        const fmtDate = (dt: Date) => dt.toISOString().slice(0, 10)
+        const startStr = fmtDate(periodStart)
+        const endStr = fmtDate(currentMonthPayDate)
+
+        if (debt.debt_type === 'simple') {
+          const paid = (d.prepare(
+            'SELECT COALESCE(SUM(total_amount), 0) as total FROM simple_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ?'
+          ).get(debt.id, startStr, endStr) as { total: number }).total
+          isOverdue = paid < ((debt.monthly_payment as number | null) ?? 0)
+        } else {
+          const sufficient = (d.prepare(
+            'SELECT COUNT(*) as c FROM dad_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND total_amount > 0 AND (overdue_added_to_pool = 0 OR marked_sufficient = 1)'
+          ).get(debt.id, startStr, endStr) as { c: number }).c
+          isOverdue = sufficient === 0
+        }
+      }
+    }
+
+    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest, last_payment_date: lastPaymentDateStr, is_overdue: isOverdue }
   })
 }
 
@@ -696,8 +727,8 @@ export function processDadPayment(debtId: number, paymentAmount: number, payment
     return paymentId
   })
 
-  processPayment()
-  return result
+  const newPaymentId = processPayment() as number
+  return { ...result, paymentId: newPaymentId }
 }
 
 export function getDadPaymentHistory(debtId: number): unknown[] {
@@ -712,6 +743,10 @@ export function getDadPaymentHistory(debtId: number): unknown[] {
     `).all(p.id)
     return { ...p, trancheBreakdown }
   })
+}
+
+export function markDadPaymentSufficient(paymentId: number): void {
+  getDb().prepare('UPDATE dad_debt_payments SET marked_sufficient = 1 WHERE id = ?').run(paymentId)
 }
 
 export function getSimpleDebtPayments(debtId: number): unknown[] {
