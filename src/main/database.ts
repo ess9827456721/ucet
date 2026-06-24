@@ -1411,7 +1411,7 @@ export function addSavingsDeposit(accountId: number, amount: number, date: strin
     if (!catId) {
       catId = d.prepare("INSERT INTO categories (name, type, color, icon) VALUES ('Накопления', 'expense', '#22C55E', 'piggy-bank')").run().lastInsertRowid as number
     }
-    const opId = d.prepare("INSERT INTO operations (date, type, amount, category_id, expense_type, comment) VALUES (?, 'expense', ?, ?, 'daily', ?)").run(date, amount, catId, comment ?? 'Пополнение накопительного счёта').lastInsertRowid
+    const opId = d.prepare("INSERT INTO operations (date, type, amount, category_id, expense_type, comment) VALUES (?, 'expense', ?, ?, NULL, ?)").run(date, amount, catId, comment ?? 'Пополнение накопительного счёта').lastInsertRowid
     d.prepare('UPDATE savings_transactions SET linked_operation_id = ? WHERE account_id = ? AND type = ? AND date = ? AND linked_operation_id IS NULL ORDER BY id DESC LIMIT 1').run(opId, accountId, 'deposit', date)
   })()
 }
