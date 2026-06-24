@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Debt, SavingsGoal } from '../types'
+import { Category, Subcategory, Debt, SavingsAccount } from '../types'
 import { today, formatMoney } from '../utils'
 
 interface Props {
@@ -25,11 +25,10 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   const [comment, setComment] = useState<string>((editOperation?.comment as string) || '')
   const [debtId, setDebtId] = useState<number | ''>(editOperation?.debt_id as number || '')
 
-  const [goalId, setGoalId] = useState<number | ''>(editOperation?.goal_id as number || '')
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
   const [debts, setDebts] = useState<Debt[]>([])
-  const [goals, setGoals] = useState<SavingsGoal[]>([])
+  const [pendingAutoContrib, setPendingAutoContrib] = useState<Array<{ id: number; name: string; amount: number }>>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
   const [isRecurring, setIsRecurring] = useState(false)
@@ -39,7 +38,6 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     const catType = type === 'income' ? 'income' : 'expense'
     api.getCategories(catType).then(d => setCategories(d as Category[]))
     api.getDebts('active').then(d => setDebts(d as Debt[]))
-    if (type === 'transfer') api.getSavingsGoals().then(d => setGoals((d as SavingsGoal[]).filter(g => g.status === 'active')))
   }, [type])
 
   useEffect(() => {
@@ -74,10 +72,10 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
         expense_type: type === 'expense' ? expenseType : null,
         comment: comment || null,
         debt_id: type === 'debt_op' ? (debtId || null) : null,
-        goal_id: type === 'transfer' ? (goalId || null) : null,
       }
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id as number, op)
+        onSaved()
       } else {
         await api.addOperation(op)
         if (isRecurring && (type === 'expense' || type === 'income')) {
@@ -91,18 +89,35 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             comment: comment || null,
           })
         }
+        if (type === 'income') {
+          const accounts = await api.getAccountsForAutoContribute() as Array<{ id: number; name: string; auto_contribute_pct: number }>
+          if (accounts.length > 0) {
+            const incomeAmount = parseFloat(amount)
+            const suggestions = accounts.map(a => ({ id: a.id, name: a.name, amount: Math.round(incomeAmount * a.auto_contribute_pct) }))
+            setPendingAutoContrib(suggestions)
+            return
+          }
+        }
+        onSaved()
       }
-      onSaved()
     } finally {
       setSaving(false)
     }
+  }
+
+  async function handleAutoContrib(accepted: Array<{ id: number; amount: number }>) {
+    for (const a of accepted) {
+      await api.addSavingsDeposit(a.id, a.amount, date, `Автопополнение от дохода`)
+    }
+    setPendingAutoContrib([])
+    onSaved()
   }
 
   const opTypes: Array<{ id: OpType; label: string }> = [
     { id: 'expense', label: 'Расход' },
     { id: 'income', label: 'Доход' },
     { id: 'transfer', label: 'Перевод' },
-    ...(editOperation ? [{ id: 'debt_op' as OpType, label: 'По долгу' }] : []),
+    { id: 'debt_op', label: 'По долгу' },
   ]
 
   const expenseTypes: Array<{ id: ExpenseType; label: string }> = [
@@ -242,23 +257,6 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             </div>
           )}
 
-          {/* Goal selector (for transfer) */}
-          {type === 'transfer' && (
-            <div>
-              <label className="label">Цель накопления (необязательно)</label>
-              <select
-                value={goalId}
-                onChange={e => setGoalId(e.target.value ? Number(e.target.value) : '')}
-                className="select"
-              >
-                <option value="">— Без привязки к цели —</option>
-                {goals.map(g => (
-                  <option key={g.id} value={g.id}>{g.name} ({formatMoney(g.current_amount)} / {formatMoney(g.target_amount)})</option>
-                ))}
-              </select>
-            </div>
-          )}
-
           {/* Recurring */}
           {!editOperation && (type === 'expense' || type === 'income') && (
             <div className="space-y-2">
@@ -294,15 +292,34 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             />
           </div>
 
+          {/* Auto-contribute prompt */}
+          {pendingAutoContrib.length > 0 && (
+            <div className="bg-dark-700 border border-yellow-400/30 rounded-xl p-4 space-y-3">
+              <p className="text-sm font-semibold text-yellow-400">Автопополнение накоплений</p>
+              {pendingAutoContrib.map(a => (
+                <div key={a.id} className="flex items-center justify-between text-sm text-gray-300">
+                  <span>{a.name}</span>
+                  <span className="font-semibold text-white">{formatMoney(a.amount)}</span>
+                </div>
+              ))}
+              <div className="flex gap-2 pt-1">
+                <button onClick={() => handleAutoContrib(pendingAutoContrib)} className="btn-primary flex-1 text-sm">Применить</button>
+                <button onClick={() => { setPendingAutoContrib([]); onSaved() }} className="btn-secondary flex-1 text-sm">Пропустить</button>
+              </div>
+            </div>
+          )}
+
           {/* Actions */}
-          <div className="flex gap-3 pt-2">
-            <button onClick={onClose} className="btn-secondary flex-1">
-              Отмена
-            </button>
-            <button onClick={handleSave} disabled={saving} className="btn-primary flex-1">
-              {saving ? 'Сохранение...' : editOperation ? 'Сохранить' : 'Добавить'}
-            </button>
-          </div>
+          {pendingAutoContrib.length === 0 && (
+            <div className="flex gap-3 pt-2">
+              <button onClick={onClose} className="btn-secondary flex-1">
+                Отмена
+              </button>
+              <button onClick={handleSave} disabled={saving} className="btn-primary flex-1">
+                {saving ? 'Сохранение...' : editOperation ? 'Сохранить' : 'Добавить'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

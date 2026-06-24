@@ -64,11 +64,20 @@ const api = {
   getPendingRecurringOperations: () => ipcRenderer.invoke('get-pending-recurring-operations'),
   confirmRecurringOperation: (id: number, date: string) => ipcRenderer.invoke('confirm-recurring-operation', id, date),
 
-  // Savings goals
-  getSavingsGoals: () => ipcRenderer.invoke('get-savings-goals'),
-  addSavingsGoal: (goal: Record<string, unknown>) => ipcRenderer.invoke('add-savings-goal', goal),
-  updateSavingsGoal: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-savings-goal', id, data),
-  deleteSavingsGoal: (id: number) => ipcRenderer.invoke('delete-savings-goal', id),
+  // Savings accounts
+  getSavingsAccounts: () => ipcRenderer.invoke('get-savings-accounts'),
+  getSavingsAccount: (id: number) => ipcRenderer.invoke('get-savings-account', id),
+  addSavingsAccount: (data: Record<string, unknown>) => ipcRenderer.invoke('add-savings-account', data),
+  updateSavingsAccount: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-savings-account', id, data),
+  deleteSavingsAccount: (id: number) => ipcRenderer.invoke('delete-savings-account', id),
+  getSavingsTransactions: (accountId: number) => ipcRenderer.invoke('get-savings-transactions', accountId),
+  addSavingsDeposit: (accountId: number, amount: number, date: string, comment?: string) => ipcRenderer.invoke('add-savings-deposit', accountId, amount, date, comment),
+  addSavingsWithdrawal: (accountId: number, amount: number, date: string, comment?: string) => ipcRenderer.invoke('add-savings-withdrawal', accountId, amount, date, comment),
+  applyAccruedInterest: (accountId: number) => ipcRenderer.invoke('apply-accrued-interest', accountId),
+  getPendingSavingsInterest: () => ipcRenderer.invoke('get-pending-savings-interest'),
+  getSavingsForecast: (accountId: number, monthlyContribution: number, months: number) => ipcRenderer.invoke('get-savings-forecast', accountId, monthlyContribution, months),
+  updateSavingsAccountsOrder: (ids: number[]) => ipcRenderer.invoke('update-savings-accounts-order', ids),
+  getAccountsForAutoContribute: () => ipcRenderer.invoke('get-accounts-for-auto-contribute'),
 
   // Budget / Cash flow
   getBudgetSettings: () => ipcRenderer.invoke('get-budget-settings'),

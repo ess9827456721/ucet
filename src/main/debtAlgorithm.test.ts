@@ -137,3 +137,95 @@ describe('Алгоритм долга папе', () => {
     expect(u1!.newBalance).toBeCloseTo(100_000, 0)
   })
 })
+
+describe('Настройки алгоритма: tranchePayoffOrder', () => {
+  const t1 = { id: 1, currentBalance: 100_000, interestRate: 0.20, status: 'active' as const, date: '2025-01-01' }
+  const t2 = { id: 2, currentBalance: 200_000, interestRate: 0.40, status: 'active' as const, date: '2025-03-01' }
+  const t3 = { id: 3, currentBalance: 50_000,  interestRate: 0.30, status: 'active' as const, date: '2025-02-01' }
+  // bigPayment = all interest + 300_000 body
+  const totalInterest = (100_000 * 0.20 + 200_000 * 0.40 + 50_000 * 0.30) * (30 / 365)
+  const bigPayment = totalInterest + 300_000
+
+  it('highest_rate: t2(40%) погашается первым', () => {
+    const r = calculateDadDebtPayment([t1, t2, t3], 0, bigPayment, 30, { tranchePayoffOrder: 'highest_rate', poolRatio: 0.5 })
+    const u2 = r.trancheUpdates.find(u => u.id === 2)!
+    expect(u2.status).toBe('paid')
+    expect(u2.newBalance).toBe(0)
+    // remaining: 300_000 - 200_000 = 100_000 → t3(30%) погашается
+    const u3 = r.trancheUpdates.find(u => u.id === 3)!
+    expect(u3.status).toBe('paid')
+    // t1: 100_000 - 50_000 остаток = частично погашен
+    const u1 = r.trancheUpdates.find(u => u.id === 1)!
+    expect(u1.newBalance).toBeCloseTo(50_000, 0)
+  })
+
+  it('smallest_balance: t3(50k) погашается первым', () => {
+    const r = calculateDadDebtPayment([t1, t2, t3], 0, bigPayment, 30, { tranchePayoffOrder: 'smallest_balance', poolRatio: 0.5 })
+    const u3 = r.trancheUpdates.find(u => u.id === 3)!
+    expect(u3.status).toBe('paid')
+    expect(u3.newBalance).toBe(0)
+    // remaining: 300_000 - 50_000 = 250_000 → t1(100k) погашается
+    const u1 = r.trancheUpdates.find(u => u.id === 1)!
+    expect(u1.status).toBe('paid')
+    // t2: 200_000 - 150_000 = 50_000
+    const u2 = r.trancheUpdates.find(u => u.id === 2)!
+    expect(u2.newBalance).toBeCloseTo(50_000, 0)
+  })
+
+  it('earliest_first: t1(Jan) погашается первым', () => {
+    const r = calculateDadDebtPayment([t1, t2, t3], 0, bigPayment, 30, { tranchePayoffOrder: 'earliest_first', poolRatio: 0.5 })
+    const u1 = r.trancheUpdates.find(u => u.id === 1)!
+    expect(u1.status).toBe('paid')
+    expect(u1.newBalance).toBe(0)
+    // remaining: 300_000 - 100_000 = 200_000 → t3(Feb) погашается
+    const u3 = r.trancheUpdates.find(u => u.id === 3)!
+    expect(u3.status).toBe('paid')
+    // t2: 200_000 - 150_000 = 50_000
+    const u2 = r.trancheUpdates.find(u => u.id === 2)!
+    expect(u2.newBalance).toBeCloseTo(50_000, 0)
+  })
+
+  it('proportional: все транши уменьшаются пропорционально', () => {
+    const r = calculateDadDebtPayment([t1, t2, t3], 0, bigPayment, 30, { tranchePayoffOrder: 'proportional', poolRatio: 0.5 })
+    // totalBalance = 350_000; body = 300_000
+    // t1: 300k * (100k/350k) ≈ 85_714
+    // t2: 300k * (200k/350k) ≈ 171_429
+    // t3: 300k * (50k/350k)  ≈ 42_857
+    const u1 = r.trancheUpdates.find(u => u.id === 1)!
+    const u2 = r.trancheUpdates.find(u => u.id === 2)!
+    const u3 = r.trancheUpdates.find(u => u.id === 3)!
+    expect(u1.newBalance).toBeCloseTo(100_000 - 300_000 * (100_000 / 350_000), 0)
+    expect(u2.newBalance).toBeCloseTo(200_000 - 300_000 * (200_000 / 350_000), 0)
+    expect(u3.newBalance).toBeCloseTo(50_000 - 300_000 * (50_000 / 350_000), 0)
+    expect(u1.status).toBe('active')
+    expect(u2.status).toBe('active')
+  })
+})
+
+describe('Настройки алгоритма: poolRatio', () => {
+  const t1 = { id: 1, currentBalance: 500_000, interestRate: 0.383, status: 'active' as const }
+  const pool = 20_000
+
+  it('poolRatio=0.0: остаток после процентов идёт полностью на тело', () => {
+    const payment = 500_000 * 0.383 * (30 / 365) + 50_000
+    const r = calculateDadDebtPayment([t1], pool, payment, 30, { tranchePayoffOrder: 'highest_rate', poolRatio: 0.0 })
+    expect(r.poolCovered).toBe(0)
+    expect(r.bodyCovered).toBeCloseTo(50_000, 0)
+  })
+
+  it('poolRatio=1.0: остаток после процентов идёт полностью на пул', () => {
+    const payment = 500_000 * 0.383 * (30 / 365) + 50_000
+    const r = calculateDadDebtPayment([t1], pool, payment, 30, { tranchePayoffOrder: 'highest_rate', poolRatio: 1.0 })
+    expect(r.poolCovered).toBeCloseTo(pool, 0)
+    expect(r.bodyCovered).toBeCloseTo(50_000 - pool, 0)
+  })
+
+  it('poolRatio=0.5 (по умолчанию): 50/50', () => {
+    const remainder = 50_000
+    const payment = 500_000 * 0.383 * (30 / 365) + remainder
+    const r = calculateDadDebtPayment([t1], pool, payment, 30, { tranchePayoffOrder: 'highest_rate', poolRatio: 0.5 })
+    // min(remainder*0.5, pool) = min(25_000, 20_000) = 20_000
+    expect(r.poolCovered).toBeCloseTo(20_000, 0)
+    expect(r.bodyCovered).toBeCloseTo(30_000, 0)
+  })
+})

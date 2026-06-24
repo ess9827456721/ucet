@@ -2,7 +2,7 @@ import Database from 'better-sqlite3'
 import { app } from 'electron'
 import path from 'path'
 import fs from 'fs'
-import { calculateDadDebtPayment, getForecastPayments } from './debtAlgorithm'
+import { calculateDadDebtPayment, getForecastPayments, DadDebtSettings } from './debtAlgorithm'
 
 const DB_PATH = path.join(app.getPath('userData'), 'ucet.db')
 let db: Database.Database
@@ -150,6 +150,37 @@ function initSchema(): void {
       actual_amount REAL,
       created_at TEXT DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS savings_accounts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      balance REAL NOT NULL DEFAULT 0,
+      interest_rate REAL NOT NULL DEFAULT 0,
+      interest_mode TEXT NOT NULL DEFAULT 'capitalize',
+      payout_period TEXT NOT NULL DEFAULT 'monthly',
+      goal_name TEXT,
+      goal_amount REAL,
+      goal_date TEXT,
+      auto_contribute_pct REAL,
+      notify_contribution INTEGER DEFAULT 0,
+      notify_day INTEGER,
+      color TEXT DEFAULT '#22C55E',
+      sort_order INTEGER DEFAULT 0,
+      status TEXT DEFAULT 'active',
+      opened_at TEXT DEFAULT (date('now')),
+      created_at TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS savings_transactions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      account_id INTEGER NOT NULL REFERENCES savings_accounts(id),
+      type TEXT NOT NULL,
+      amount REAL NOT NULL,
+      date TEXT NOT NULL,
+      comment TEXT,
+      linked_operation_id INTEGER,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `)
   seedDefaultData(d)
 
@@ -172,6 +203,8 @@ function initSchema(): void {
   const opCols = (d.prepare('PRAGMA table_info(operations)').all() as Array<{ name: string }>).map(c => c.name)
   if (!opCols.includes('goal_id')) d.exec('ALTER TABLE operations ADD COLUMN goal_id INTEGER REFERENCES savings_goals(id)')
   if (!debtCols.includes('loan_date')) d.exec('ALTER TABLE debts ADD COLUMN loan_date TEXT')
+  if (!debtCols.includes('tranche_payoff_order')) d.exec("ALTER TABLE debts ADD COLUMN tranche_payoff_order TEXT DEFAULT 'highest_rate'")
+  if (!debtCols.includes('pool_ratio')) d.exec('ALTER TABLE debts ADD COLUMN pool_ratio REAL DEFAULT 0.5')
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -663,10 +696,17 @@ export function getDaysSinceLastPayment(debtId: number, asOfDate: string): { day
   return { days, since }
 }
 
+function getDebtSettings(debt: { tranche_payoff_order?: string | null; pool_ratio?: number | null }): DadDebtSettings {
+  return {
+    tranchePayoffOrder: (debt.tranche_payoff_order as DadDebtSettings['tranchePayoffOrder']) ?? 'highest_rate',
+    poolRatio: debt.pool_ratio ?? 0.5,
+  }
+}
+
 export function processDadPayment(debtId: number, paymentAmount: number, paymentDate: string): unknown {
   const d = getDb()
   const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as {
-    overdue_interest_pool: number; name: string; created_at: string
+    overdue_interest_pool: number; name: string; created_at: string; tranche_payoff_order?: string | null; pool_ratio?: number | null
   }
 
   // Compute last payment date: if no payments yet, use the earliest tranche date
@@ -696,10 +736,11 @@ export function processDadPayment(debtId: number, paymentAmount: number, payment
       interestRate: t.interest_rate,
       status: t.status as 'active' | 'paid',
       daysSinceInterestStart: daysSince,
+      date: t.date,
     }
   })
 
-  const result = calculateDadDebtPayment(tranches, debt.overdue_interest_pool, paymentAmount, 0)
+  const result = calculateDadDebtPayment(tranches, debt.overdue_interest_pool, paymentAmount, 0, getDebtSettings(debt))
 
   const processPayment = d.transaction(() => {
     const paymentId = d.prepare(`
@@ -779,6 +820,9 @@ function replayDadPayments(d: ReturnType<typeof getDb>, debtId: number): void {
   d.prepare('UPDATE debts SET overdue_interest_pool = 0 WHERE id = ?').run(debtId)
   d.prepare('DELETE FROM dad_debt_tranche_payments WHERE payment_id IN (SELECT id FROM dad_debt_payments WHERE debt_id = ?)').run(debtId)
 
+  const debtRow = d.prepare('SELECT tranche_payoff_order, pool_ratio FROM debts WHERE id = ?').get(debtId) as { tranche_payoff_order?: string | null; pool_ratio?: number | null }
+  const settings = getDebtSettings(debtRow)
+
   const payments = d.prepare('SELECT * FROM dad_debt_payments WHERE debt_id = ? ORDER BY payment_date ASC, id ASC').all(debtId) as Array<{
     id: number; payment_date: string; total_amount: number
   }>
@@ -799,10 +843,10 @@ function replayDadPayments(d: ReturnType<typeof getDb>, debtId: number): void {
       const trancheDate = new Date(t.date + 'T00:00:00')
       const interestStart = trancheDate > lastPayDate ? trancheDate : lastPayDate
       const daysSince = Math.max(0, Math.round((payDateObj.getTime() - interestStart.getTime()) / 86400000))
-      return { id: t.id, currentBalance: t.current_balance, interestRate: t.interest_rate, status: t.status as 'active' | 'paid', daysSinceInterestStart: daysSince }
+      return { id: t.id, currentBalance: t.current_balance, interestRate: t.interest_rate, status: t.status as 'active' | 'paid', daysSinceInterestStart: daysSince, date: t.date }
     })
 
-    const result = calculateDadDebtPayment(tranches, currentPool, pay.total_amount, 0)
+    const result = calculateDadDebtPayment(tranches, currentPool, pay.total_amount, 0, settings)
 
     d.prepare('UPDATE dad_debt_payments SET interest_covered = ?, pool_covered = ?, body_covered = ?, overdue_added_to_pool = ? WHERE id = ?')
       .run(result.interestCovered, result.poolCovered, result.bodyCovered, result.overdueAddedToPool, pay.id)
@@ -918,17 +962,18 @@ export function hasSimplePaymentsAfter(paymentId: number): boolean {
 
 export function getDadForecast(debtId: number, monthlyPayment: number): unknown[] {
   const d = getDb()
-  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { overdue_interest_pool: number }
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { overdue_interest_pool: number; tranche_payoff_order?: string | null; pool_ratio?: number | null }
   const tranchesRaw = d.prepare('SELECT * FROM debt_tranches WHERE debt_id = ?').all(debtId) as Array<{
-    id: number; current_balance: number; interest_rate: number; status: string
+    id: number; date: string; current_balance: number; interest_rate: number; status: string
   }>
   const tranches = tranchesRaw.map(t => ({
     id: t.id,
     currentBalance: t.current_balance,
     interestRate: t.interest_rate,
-    status: t.status as 'active' | 'paid'
+    status: t.status as 'active' | 'paid',
+    date: t.date,
   }))
-  return getForecastPayments(tranches, debt.overdue_interest_pool, monthlyPayment)
+  return getForecastPayments(tranches, debt.overdue_interest_pool, monthlyPayment, 120, getDebtSettings(debt))
 }
 
 export function getSimpleForecast(debtId: number, monthlyPayment: number): unknown[] {
@@ -1257,6 +1302,221 @@ export function updateMandatoryExpenseItem(id: number, data: { planned_amount?: 
 
 export function deleteMandatoryExpenseItem(id: number): void {
   getDb().prepare('DELETE FROM mandatory_expense_plan WHERE id = ?').run(id)
+}
+
+// ──────────────────────────────────────────────────────────────
+// Savings Accounts
+// ──────────────────────────────────────────────────────────────
+
+export interface SavingsAccountRow {
+  id: number; name: string; balance: number; interest_rate: number
+  interest_mode: string; payout_period: string
+  goal_name: string | null; goal_amount: number | null; goal_date: string | null
+  auto_contribute_pct: number | null; notify_contribution: number; notify_day: number | null
+  color: string; sort_order: number; status: string; opened_at: string; created_at: string
+}
+
+function calcAccruedInterest(account: SavingsAccountRow, asOf: Date): number {
+  const d = getDb()
+  // Find date of last interest transaction or opened_at
+  const lastInt = d.prepare(
+    "SELECT MAX(date) as dt FROM savings_transactions WHERE account_id = ? AND type = 'interest'"
+  ).get(account.id) as { dt: string | null }
+  const sinceStr = lastInt.dt ?? account.opened_at
+  const sinceDate = new Date(sinceStr + 'T00:00:00')
+  const days = Math.max(0, Math.round((asOf.getTime() - sinceDate.getTime()) / 86400000))
+  return account.balance * account.interest_rate * (days / 365)
+}
+
+export function getSavingsAccounts(): unknown[] {
+  const d = getDb()
+  const accounts = d.prepare("SELECT * FROM savings_accounts WHERE status = 'active' ORDER BY sort_order ASC, id ASC").all() as SavingsAccountRow[]
+  const today = new Date()
+  return accounts.map(a => ({
+    ...a,
+    accrued_interest: calcAccruedInterest(a, today),
+  }))
+}
+
+export function getSavingsAccount(id: number): unknown {
+  const d = getDb()
+  const a = d.prepare('SELECT * FROM savings_accounts WHERE id = ?').get(id) as SavingsAccountRow | undefined
+  if (!a) return null
+  return { ...a, accrued_interest: calcAccruedInterest(a, new Date()) }
+}
+
+export function addSavingsAccount(data: {
+  name: string; interest_rate: number; interest_mode?: string; payout_period?: string
+  goal_name?: string | null; goal_amount?: number | null; goal_date?: string | null
+  auto_contribute_pct?: number | null; notify_contribution?: number; notify_day?: number | null
+  color?: string; opened_at?: string; initial_balance?: number
+}): number {
+  const d = getDb()
+  return d.transaction(() => {
+    const id = d.prepare(`
+      INSERT INTO savings_accounts (name, balance, interest_rate, interest_mode, payout_period, goal_name, goal_amount, goal_date, auto_contribute_pct, notify_contribution, notify_day, color, opened_at)
+      VALUES (@name, @balance, @interest_rate, @interest_mode, @payout_period, @goal_name, @goal_amount, @goal_date, @auto_contribute_pct, @notify_contribution, @notify_day, @color, @opened_at)
+    `).run({
+      name: data.name,
+      balance: data.initial_balance ?? 0,
+      interest_rate: data.interest_rate,
+      interest_mode: data.interest_mode ?? 'capitalize',
+      payout_period: data.payout_period ?? 'monthly',
+      goal_name: data.goal_name ?? null,
+      goal_amount: data.goal_amount ?? null,
+      goal_date: data.goal_date ?? null,
+      auto_contribute_pct: data.auto_contribute_pct ?? null,
+      notify_contribution: data.notify_contribution ?? 0,
+      notify_day: data.notify_day ?? null,
+      color: data.color ?? '#22C55E',
+      opened_at: data.opened_at ?? new Date().toISOString().slice(0, 10),
+    }).lastInsertRowid as number
+
+    if (data.initial_balance && data.initial_balance > 0) {
+      d.prepare(
+        "INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'deposit', ?, ?, 'Начальный баланс')"
+      ).run(id, data.initial_balance, data.opened_at ?? new Date().toISOString().slice(0, 10))
+    }
+    return id
+  })() as number
+}
+
+export function updateSavingsAccount(id: number, data: Record<string, unknown>): void {
+  const allowed = ['name', 'interest_rate', 'interest_mode', 'payout_period', 'goal_name', 'goal_amount', 'goal_date', 'auto_contribute_pct', 'notify_contribution', 'notify_day', 'color', 'status', 'sort_order']
+  const updates = Object.entries(data).filter(([k]) => allowed.includes(k))
+  if (!updates.length) return
+  const fields = updates.map(([k]) => `${k} = @${k}`).join(', ')
+  getDb().prepare(`UPDATE savings_accounts SET ${fields} WHERE id = @id`).run({ ...Object.fromEntries(updates), id })
+}
+
+export function deleteSavingsAccount(id: number): void {
+  const d = getDb()
+  d.transaction(() => {
+    d.prepare('DELETE FROM savings_transactions WHERE account_id = ?').run(id)
+    d.prepare('DELETE FROM savings_accounts WHERE id = ?').run(id)
+  })()
+}
+
+export function getSavingsTransactions(accountId: number): unknown[] {
+  return getDb().prepare('SELECT * FROM savings_transactions WHERE account_id = ? ORDER BY date DESC, id DESC').all(accountId)
+}
+
+export function addSavingsDeposit(accountId: number, amount: number, date: string, comment?: string): void {
+  const d = getDb()
+  d.transaction(() => {
+    d.prepare("INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'deposit', ?, ?, ?)").run(accountId, amount, date, comment ?? null)
+    d.prepare('UPDATE savings_accounts SET balance = balance + ? WHERE id = ?').run(amount, accountId)
+    // Also record as expense operation with category "Накопления"
+    let catId = (d.prepare("SELECT id FROM categories WHERE name = 'Накопления' AND type = 'expense'").get() as { id: number } | undefined)?.id
+    if (!catId) {
+      catId = d.prepare("INSERT INTO categories (name, type, color, icon) VALUES ('Накопления', 'expense', '#22C55E', 'piggy-bank')").run().lastInsertRowid as number
+    }
+    const opId = d.prepare("INSERT INTO operations (date, type, amount, category_id, expense_type, comment) VALUES (?, 'expense', ?, ?, 'daily', ?)").run(date, amount, catId, comment ?? 'Пополнение накопительного счёта').lastInsertRowid
+    d.prepare('UPDATE savings_transactions SET linked_operation_id = ? WHERE account_id = ? AND type = ? AND date = ? AND linked_operation_id IS NULL ORDER BY id DESC LIMIT 1').run(opId, accountId, 'deposit', date)
+  })()
+}
+
+export function addSavingsWithdrawal(accountId: number, amount: number, date: string, comment?: string): void {
+  const d = getDb()
+  d.transaction(() => {
+    const acc = d.prepare('SELECT balance FROM savings_accounts WHERE id = ?').get(accountId) as { balance: number }
+    if (acc.balance < amount) throw new Error('Insufficient balance')
+    d.prepare("INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'withdrawal', ?, ?, ?)").run(accountId, amount, date, comment ?? null)
+    d.prepare('UPDATE savings_accounts SET balance = balance - ? WHERE id = ?').run(amount, accountId)
+    // Record as income
+    let catId = (d.prepare("SELECT id FROM categories WHERE name = 'Снятие с накоплений' AND type = 'income'").get() as { id: number } | undefined)?.id
+    if (!catId) {
+      catId = d.prepare("INSERT INTO categories (name, type, color, icon) VALUES ('Снятие с накоплений', 'income', '#6366F1', 'wallet')").run().lastInsertRowid as number
+    }
+    const opId = d.prepare("INSERT INTO operations (date, type, amount, category_id, comment) VALUES (?, 'income', ?, ?, ?)").run(date, amount, catId, comment ?? 'Снятие с накопительного счёта').lastInsertRowid
+    d.prepare('UPDATE savings_transactions SET linked_operation_id = ? WHERE account_id = ? AND type = ? AND date = ? AND linked_operation_id IS NULL ORDER BY id DESC LIMIT 1').run(opId, accountId, 'withdrawal', date)
+  })()
+}
+
+export function applyAccruedInterest(accountId: number): void {
+  const d = getDb()
+  const acc = d.prepare('SELECT * FROM savings_accounts WHERE id = ?').get(accountId) as SavingsAccountRow | undefined
+  if (!acc) return
+  const today = new Date()
+  const amount = calcAccruedInterest(acc, today)
+  if (amount < 0.01) return
+  const dateStr = today.toISOString().slice(0, 10)
+
+  d.transaction(() => {
+    d.prepare("INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'interest', ?, ?, 'Начисление процентов')").run(accountId, amount, dateStr)
+    if (acc.interest_mode === 'capitalize') {
+      d.prepare('UPDATE savings_accounts SET balance = balance + ? WHERE id = ?').run(amount, accountId)
+    } else {
+      // Payout: add as income operation
+      let catId = (d.prepare("SELECT id FROM categories WHERE name = 'Проценты по счёту' AND type = 'income'").get() as { id: number } | undefined)?.id
+      if (!catId) {
+        catId = d.prepare("INSERT INTO categories (name, type, color, icon) VALUES ('Проценты по счёту', 'income', '#F59E0B', 'percent')").run().lastInsertRowid as number
+      }
+      d.prepare("INSERT INTO operations (date, type, amount, category_id, comment) VALUES (?, 'income', ?, ?, 'Проценты по накопительному счёту')").run(dateStr, amount, catId)
+    }
+  })()
+}
+
+export function getPendingSavingsInterest(): unknown[] {
+  const d = getDb()
+  const accounts = d.prepare("SELECT * FROM savings_accounts WHERE status = 'active' AND interest_rate > 0").all() as SavingsAccountRow[]
+  const today = new Date()
+  const result = []
+  for (const acc of accounts) {
+    const lastInt = d.prepare(
+      "SELECT MAX(date) as dt FROM savings_transactions WHERE account_id = ? AND type = 'interest'"
+    ).get(acc.id) as { dt: string | null }
+    const sinceStr = lastInt.dt ?? acc.opened_at
+    const sinceDate = new Date(sinceStr + 'T00:00:00')
+    const days = Math.round((today.getTime() - sinceDate.getTime()) / 86400000)
+    if (days < 1) continue
+    const amount = acc.balance * acc.interest_rate * (days / 365)
+    if (amount < 0.01) continue
+
+    // Check payout_period timing
+    if (acc.payout_period === 'monthly') {
+      // Only show if last application was in a previous month
+      const lastMonth = sinceDate.getFullYear() * 12 + sinceDate.getMonth()
+      const thisMonth = today.getFullYear() * 12 + today.getMonth()
+      if (thisMonth <= lastMonth) continue
+    }
+    result.push({ id: acc.id, name: acc.name, days, amount, accrued_interest: amount })
+  }
+  return result
+}
+
+export function getSavingsForecast(accountId: number, monthlyContribution: number, months: number): unknown[] {
+  const d = getDb()
+  const acc = d.prepare('SELECT * FROM savings_accounts WHERE id = ?').get(accountId) as SavingsAccountRow | undefined
+  if (!acc) return []
+  let balance = acc.balance + calcAccruedInterest(acc, new Date())
+  const result = []
+  for (let m = 1; m <= months; m++) {
+    balance += monthlyContribution
+    const monthlyInterest = balance * acc.interest_rate / 12
+    if (acc.interest_mode === 'capitalize') {
+      balance += monthlyInterest
+    }
+    result.push({
+      month: m,
+      contribution: monthlyContribution,
+      interest: monthlyInterest,
+      balance,
+      progress: acc.goal_amount ? balance / acc.goal_amount : null,
+    })
+    if (acc.goal_amount && balance >= acc.goal_amount) break
+  }
+  return result
+}
+
+export function updateSavingsAccountsOrder(ids: number[]): void {
+  const d = getDb()
+  const stmt = d.prepare('UPDATE savings_accounts SET sort_order = ? WHERE id = ?')
+  ids.forEach((id, i) => stmt.run(i, id))
+}
+
+export function getAccountsForAutoContribute(): unknown[] {
+  return getDb().prepare("SELECT id, name, auto_contribute_pct FROM savings_accounts WHERE status = 'active' AND auto_contribute_pct > 0").all()
 }
 
 // ──────────────────────────────────────────────────────────────

@@ -4,6 +4,7 @@ export interface Tranche {
   interestRate: number // decimal, e.g. 0.383
   status: 'active' | 'paid'
   daysSinceInterestStart?: number // per-tranche override; falls back to daysSinceLastPayment
+  date?: string // YYYY-MM-DD, used for earliest_first ordering
 }
 
 export interface TrancheUpdate {
@@ -11,6 +12,13 @@ export interface TrancheUpdate {
   newBalance: number
   status: 'active' | 'paid'
 }
+
+export interface DadDebtSettings {
+  tranchePayoffOrder: 'highest_rate' | 'smallest_balance' | 'earliest_first' | 'proportional'
+  poolRatio: number // 0.0 – 1.0
+}
+
+export const DEFAULT_SETTINGS: DadDebtSettings = { tranchePayoffOrder: 'highest_rate', poolRatio: 0.5 }
 
 export interface PaymentResult {
   interestCovered: number
@@ -26,7 +34,8 @@ export function calculateDadDebtPayment(
   tranches: Tranche[],
   overduePool: number,
   paymentAmount: number,
-  daysSinceLastPayment: number
+  daysSinceLastPayment: number,
+  settings: DadDebtSettings = DEFAULT_SETTINGS
 ): PaymentResult {
   const activeTranches = tranches.filter(t => t.status === 'active')
 
@@ -51,10 +60,9 @@ export function calculateDadDebtPayment(
     interestCovered = totalCurrentInterest
 
     if (overduePool > 0) {
-      const poolAllocation = Math.min(remainder * 0.5, overduePool)
+      const poolAllocation = Math.min(remainder * settings.poolRatio, overduePool)
       poolCovered = poolAllocation
       newOverduePool = overduePool - poolAllocation
-      // Freed-up portion (if 50% exceeded pool) goes to body
       bodyCovered = remainder - poolAllocation
     } else {
       bodyCovered = remainder
@@ -68,22 +76,47 @@ export function calculateDadDebtPayment(
     bodyCovered = 0
   }
 
-  // Distribute body reduction across tranches (highest rate first)
-  const sortedTranches = [...activeTranches].sort((a, b) => b.interestRate - a.interestRate)
+  // Distribute body reduction across tranches according to tranchePayoffOrder
   const trancheUpdates: TrancheUpdate[] = []
   let remainingBody = bodyCovered
 
-  for (const t of sortedTranches) {
-    if (remainingBody <= 0) {
-      trancheUpdates.push({ id: t.id, newBalance: t.currentBalance, status: t.status })
-      continue
-    }
-    if (remainingBody >= t.currentBalance) {
-      remainingBody -= t.currentBalance
-      trancheUpdates.push({ id: t.id, newBalance: 0, status: 'paid' })
+  if (settings.tranchePayoffOrder === 'proportional') {
+    // Distribute proportionally by current balance
+    const totalActiveBalance = activeTranches.reduce((s, t) => s + t.currentBalance, 0)
+    let distributed = 0
+    activeTranches.forEach((t, i) => {
+      const isLast = i === activeTranches.length - 1
+      const share = isLast
+        ? bodyCovered - distributed
+        : totalActiveBalance > 0 ? bodyCovered * (t.currentBalance / totalActiveBalance) : 0
+      distributed += share
+      const newBal = Math.max(0, t.currentBalance - share)
+      trancheUpdates.push({ id: t.id, newBalance: newBal, status: newBal <= 0 ? 'paid' : 'active' })
+    })
+    remainingBody = 0
+  } else {
+    let sortedTranches: Tranche[]
+    if (settings.tranchePayoffOrder === 'smallest_balance') {
+      sortedTranches = [...activeTranches].sort((a, b) => a.currentBalance - b.currentBalance)
+    } else if (settings.tranchePayoffOrder === 'earliest_first') {
+      sortedTranches = [...activeTranches].sort((a, b) => (a.date ?? '').localeCompare(b.date ?? ''))
     } else {
-      trancheUpdates.push({ id: t.id, newBalance: t.currentBalance - remainingBody, status: 'active' })
-      remainingBody = 0
+      // highest_rate (default)
+      sortedTranches = [...activeTranches].sort((a, b) => b.interestRate - a.interestRate)
+    }
+
+    for (const t of sortedTranches) {
+      if (remainingBody <= 0) {
+        trancheUpdates.push({ id: t.id, newBalance: t.currentBalance, status: t.status })
+        continue
+      }
+      if (remainingBody >= t.currentBalance) {
+        remainingBody -= t.currentBalance
+        trancheUpdates.push({ id: t.id, newBalance: 0, status: 'paid' })
+      } else {
+        trancheUpdates.push({ id: t.id, newBalance: t.currentBalance - remainingBody, status: 'active' })
+        remainingBody = 0
+      }
     }
   }
 
@@ -117,7 +150,8 @@ export function getForecastPayments(
   tranches: Tranche[],
   overduePool: number,
   monthlyPayment: number,
-  maxMonths = 120
+  maxMonths = 120,
+  settings: DadDebtSettings = DEFAULT_SETTINGS
 ): Array<{
   month: number
   payment: number
@@ -135,7 +169,7 @@ export function getForecastPayments(
     const active = currentTranches.filter(t => t.status === 'active')
     if (active.length === 0 && currentPool === 0) break
 
-    const res = calculateDadDebtPayment(currentTranches, currentPool, monthlyPayment, 30)
+    const res = calculateDadDebtPayment(currentTranches, currentPool, monthlyPayment, 30, settings)
 
     for (const upd of res.trancheUpdates) {
       const t = currentTranches.find(t => t.id === upd.id)

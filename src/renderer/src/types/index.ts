@@ -47,6 +47,8 @@ export interface Debt {
   sort_order: number | null
   is_hidden: number
   loan_date?: string | null
+  tranche_payoff_order?: string | null
+  pool_ratio?: number | null
   current_balance?: number
   accrued_interest?: number
   last_payment_date?: string | null
@@ -149,4 +151,36 @@ export interface SavingsGoal {
   created_at: string
 }
 
-export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'settings'
+export interface SavingsAccount {
+  id: number
+  name: string
+  balance: number
+  interest_rate: number
+  interest_mode: 'capitalize' | 'payout'
+  payout_period: 'daily' | 'monthly'
+  goal_name: string | null
+  goal_amount: number | null
+  goal_date: string | null
+  auto_contribute_pct: number | null
+  notify_contribution: number
+  notify_day: number | null
+  color: string
+  sort_order: number
+  status: string
+  opened_at: string
+  created_at: string
+  accrued_interest: number
+}
+
+export interface SavingsTransaction {
+  id: number
+  account_id: number
+  type: 'deposit' | 'withdrawal' | 'interest'
+  amount: number
+  date: string
+  comment: string | null
+  linked_operation_id: number | null
+  created_at: string
+}
+
+export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'savings' | 'savings-detail' | 'savings-forecast' | 'settings'

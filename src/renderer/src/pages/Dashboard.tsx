@@ -4,12 +4,12 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts'
 // Legend is used in monthly/daily charts
-import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell, ExternalLink } from 'lucide-react'
+import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell, ExternalLink, PiggyBank } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Summary, Debt, Operation, SavingsGoal } from '../types'
+import { Summary, Debt, Operation, SavingsAccount } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
 import InfoTooltip from '../components/InfoTooltip'
-import AddGoalModal from '../components/AddGoalModal'
+import AddSavingsAccountModal from '../components/AddSavingsAccountModal'
 
 interface CategoryData { id: number; name: string; color: string; total: number }
 interface DailyData { date: string; expenses: number; income: number }
@@ -71,9 +71,10 @@ function ExpandModal({ title, onClose, children }: { title: string; onClose: () 
 
 interface DashboardProps {
   onNavigateToOperations?: (filter: { categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null) => void
+  onNavigateToSavings?: (id?: number) => void
 }
 
-export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
+export default function Dashboard({ onNavigateToOperations, onNavigateToSavings }: DashboardProps) {
   const api = useApi()
 
   const initFrom = monthStart(new Date().getFullYear(), new Date().getMonth() + 1)
@@ -91,7 +92,7 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
   const [dowData, setDowData] = useState<DowData[]>([])
   const [cashFlow, setCashFlow] = useState<CashFlowData | null>(null)
   const [activeDebts, setActiveDebts] = useState<Debt[]>([])
-  const [goals, setGoals] = useState<SavingsGoal[]>([])
+  const [savingsAccounts, setSavingsAccounts] = useState<SavingsAccount[]>([])
   const [pendingRecurring, setPendingRecurring] = useState<{ id: number; name: string; amount: number; category?: string }[]>([])
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
@@ -99,7 +100,7 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
   const [selectedSubcat, setSelectedSubcat] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
-  const [goalModal, setGoalModal] = useState<{ edit?: SavingsGoal } | null>(null)
+  const [showSavingsModal, setShowSavingsModal] = useState(false)
   const [showDebtOpsInChart, setShowDebtOpsInChart] = useState(false)
   const [showDebtInAvg, setShowDebtInAvg] = useState(false)
 
@@ -118,7 +119,7 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
       api.getDebtsWithDetails(),
-      api.getSavingsGoals(),
+      api.getSavingsAccounts(),
     ])
     setSummary(s as Summary)
     setPrevSummary(prevS as Summary)
@@ -133,7 +134,7 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
     setMonthly(mo as MonthlyData[])
     setDowData(dow as DowData[])
     setActiveDebts(debts as Debt[])
-    setGoals(g as SavingsGoal[])
+    setSavingsAccounts(g as SavingsAccount[])
 
     const [cf, pending] = await Promise.all([
       api.getCashFlow(now.getFullYear(), now.getMonth() + 1),
@@ -580,61 +581,55 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
             </div>
           )}
 
-          {/* Savings goals (B) */}
-          {(goals.length > 0 || true) && (
-            <div className="card">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Target size={16} className="text-yellow-400" />
-                  <h2 className="text-sm font-semibold text-white">Цели накопления</h2>
-                </div>
-                <button onClick={() => setGoalModal({})} className="text-gray-500 hover:text-yellow-400 p-1 transition-colors" title="Добавить цель">
-                  <Plus size={16} />
-                </button>
+          {/* Savings widget */}
+          <div className="card cursor-pointer hover:border-yellow-400/20 transition-colors" onClick={() => onNavigateToSavings?.()}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <PiggyBank size={16} className="text-green-400" />
+                <h2 className="text-sm font-semibold text-white">Накопления</h2>
               </div>
-              {goals.filter(g => g.status === 'active').length === 0 ? (
-                <p className="text-gray-500 text-sm">Нет активных целей. <button onClick={() => setGoalModal({})} className="text-yellow-400 hover:underline">Добавить</button></p>
-              ) : (
-                <div className="space-y-4">
-                  {goals.filter(g => g.status === 'active').map(goal => {
-                    const pct = Math.min(100, Math.round((goal.current_amount / goal.target_amount) * 100))
-                    return (
-                      <div key={goal.id}>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div className="flex items-center gap-2">
-                            <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: goal.color }} />
-                            <span className="text-sm text-white">{goal.name}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-400">{formatMoney(goal.current_amount)} / {formatMoney(goal.target_amount)}</span>
-                            <button onClick={() => setGoalModal({ edit: goal })} className="p-1 text-gray-600 hover:text-yellow-400 transition-colors">
-                              <Pencil size={11} />
-                            </button>
-                            <button onClick={async () => {
-                              if (!confirm('Удалить цель?')) return
-                              await api.deleteSavingsGoal(goal.id)
-                              load()
-                            }} className="p-1 text-gray-600 hover:text-red-400 transition-colors">
-                              <Trash2 size={11} />
-                            </button>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-dark-600 rounded-full h-2">
-                            <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: goal.color }} />
-                          </div>
-                          <span className="text-xs text-gray-400 w-8 text-right">{pct}%</span>
-                        </div>
-                        {goal.target_date && (
-                          <p className="text-xs text-gray-600 mt-0.5">До {goal.target_date}</p>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
+              <button onClick={e => { e.stopPropagation(); setShowSavingsModal(true) }} className="text-gray-500 hover:text-yellow-400 p-1 transition-colors" title="Добавить цель">
+                <Plus size={16} />
+              </button>
             </div>
-          )}
+            {savingsAccounts.length === 0 ? (
+              <p className="text-gray-500 text-sm">Нет активных счётов. <button onClick={e => { e.stopPropagation(); setShowSavingsModal(true) }} className="text-yellow-400 hover:underline">Открыть →</button></p>
+            ) : (
+              <div className="space-y-1 mb-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-400">Суммарный баланс</span>
+                  <span className="text-sm font-bold text-white">{formatMoney(savingsAccounts.reduce((s, a) => s + a.balance, 0))}</span>
+                </div>
+                {savingsAccounts.reduce((s, a) => s + a.accrued_interest, 0) > 0 && (
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-500">+ начислено % на сегодня</span>
+                    <span className="text-xs text-orange-400">+{formatMoney(savingsAccounts.reduce((s, a) => s + a.accrued_interest, 0))}</span>
+                  </div>
+                )}
+              </div>
+            )}
+            {savingsAccounts.filter(a => a.goal_amount).map(acc => {
+              const pct = Math.min(100, Math.round((acc.balance / acc.goal_amount!) * 100))
+              return (
+                <div key={acc.id} className="mt-3" onClick={e => { e.stopPropagation(); onNavigateToSavings?.(acc.id) }}>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: acc.color }} />
+                      <span className="text-xs text-gray-300">{acc.goal_name ?? acc.name}</span>
+                    </div>
+                    <span className="text-xs text-gray-400">{formatMoney(acc.balance)} / {formatMoney(acc.goal_amount!)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 bg-dark-600 rounded-full h-1.5">
+                      <div className="h-1.5 rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: acc.color }} />
+                    </div>
+                    <span className="text-xs text-gray-500 w-7 text-right">{pct}%</span>
+                  </div>
+                  {acc.goal_date && <p className="text-xs text-gray-600 mt-0.5">До {acc.goal_date}</p>}
+                </div>
+              )
+            })}
+          </div>
 
           {/* Expense type filter */}
           <div className="flex flex-wrap items-center gap-3">
@@ -919,11 +914,11 @@ export default function Dashboard({ onNavigateToOperations }: DashboardProps) {
         </ExpandModal>
       )}
 
-      {goalModal !== null && (
-        <AddGoalModal
-          editGoal={goalModal.edit}
-          onClose={() => setGoalModal(null)}
-          onSaved={() => { setGoalModal(null); load() }}
+      {showSavingsModal && (
+        <AddSavingsAccountModal
+          focusGoal
+          onClose={() => setShowSavingsModal(false)}
+          onSaved={() => { setShowSavingsModal(false); load() }}
         />
       )}
 

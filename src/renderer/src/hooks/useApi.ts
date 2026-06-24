@@ -58,10 +58,19 @@ export function useApi() {
     getPendingRecurringOperations: () => Promise<unknown[]>
     confirmRecurringOperation: (id: number, date: string) => Promise<void>
 
-    getSavingsGoals: () => Promise<unknown[]>
-    addSavingsGoal: (goal: Record<string, unknown>) => Promise<number>
-    updateSavingsGoal: (id: number, data: Record<string, unknown>) => Promise<void>
-    deleteSavingsGoal: (id: number) => Promise<void>
+    getSavingsAccounts: () => Promise<unknown[]>
+    getSavingsAccount: (id: number) => Promise<unknown>
+    addSavingsAccount: (data: Record<string, unknown>) => Promise<number>
+    updateSavingsAccount: (id: number, data: Record<string, unknown>) => Promise<void>
+    deleteSavingsAccount: (id: number) => Promise<void>
+    getSavingsTransactions: (accountId: number) => Promise<unknown[]>
+    addSavingsDeposit: (accountId: number, amount: number, date: string, comment?: string) => Promise<void>
+    addSavingsWithdrawal: (accountId: number, amount: number, date: string, comment?: string) => Promise<void>
+    applyAccruedInterest: (accountId: number) => Promise<void>
+    getPendingSavingsInterest: () => Promise<unknown[]>
+    getSavingsForecast: (accountId: number, monthlyContribution: number, months: number) => Promise<unknown[]>
+    updateSavingsAccountsOrder: (ids: number[]) => Promise<void>
+    getAccountsForAutoContribute: () => Promise<unknown[]>
 
     getBudgetSettings: () => Promise<Record<string, string>>
     setBudgetSetting: (key: string, value: string) => Promise<void>

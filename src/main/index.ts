@@ -13,7 +13,9 @@ import {
   getBudgetSettings, setBudgetSetting, getCashFlow,
   getMandatoryExpensePlan, addMandatoryExpenseItem, updateMandatoryExpenseItem, deleteMandatoryExpenseItem,
   getRecurringOperations, addRecurringOperation, updateRecurringOperation, deleteRecurringOperation, getPendingRecurringOperations, confirmRecurringOperation,
-  getSavingsGoals, addSavingsGoal, updateSavingsGoal, deleteSavingsGoal,
+  getSavingsAccounts, getSavingsAccount, addSavingsAccount, updateSavingsAccount, deleteSavingsAccount,
+  getSavingsTransactions, addSavingsDeposit, addSavingsWithdrawal, applyAccruedInterest,
+  getPendingSavingsInterest, getSavingsForecast, updateSavingsAccountsOrder, getAccountsForAutoContribute,
   exportDb, importDb, getDbPath
 } from './database'
 import ExcelJS from 'exceljs'
@@ -102,10 +104,20 @@ app.whenReady().then(() => {
   ipcMain.handle('confirm-recurring-operation', (_, id, date) => confirmRecurringOperation(id, date))
 
   // ── Savings goals ────────────────────────────────────
-  ipcMain.handle('get-savings-goals', () => getSavingsGoals())
-  ipcMain.handle('add-savings-goal', (_, goal) => addSavingsGoal(goal))
-  ipcMain.handle('update-savings-goal', (_, id, data) => updateSavingsGoal(id, data))
-  ipcMain.handle('delete-savings-goal', (_, id) => deleteSavingsGoal(id))
+  // Savings accounts
+  ipcMain.handle('get-savings-accounts', () => getSavingsAccounts())
+  ipcMain.handle('get-savings-account', (_, id) => getSavingsAccount(id))
+  ipcMain.handle('add-savings-account', (_, data) => addSavingsAccount(data))
+  ipcMain.handle('update-savings-account', (_, id, data) => updateSavingsAccount(id, data))
+  ipcMain.handle('delete-savings-account', (_, id) => deleteSavingsAccount(id))
+  ipcMain.handle('get-savings-transactions', (_, accountId) => getSavingsTransactions(accountId))
+  ipcMain.handle('add-savings-deposit', (_, accountId, amount, date, comment) => addSavingsDeposit(accountId, amount, date, comment))
+  ipcMain.handle('add-savings-withdrawal', (_, accountId, amount, date, comment) => addSavingsWithdrawal(accountId, amount, date, comment))
+  ipcMain.handle('apply-accrued-interest', (_, accountId) => applyAccruedInterest(accountId))
+  ipcMain.handle('get-pending-savings-interest', () => getPendingSavingsInterest())
+  ipcMain.handle('get-savings-forecast', (_, accountId, monthlyContribution, months) => getSavingsForecast(accountId, monthlyContribution, months))
+  ipcMain.handle('update-savings-accounts-order', (_, ids) => updateSavingsAccountsOrder(ids))
+  ipcMain.handle('get-accounts-for-auto-contribute', () => getAccountsForAutoContribute())
 
   // ── Analytics ────────────────────────────────────────
   ipcMain.handle('get-summary', (_, dateFrom, dateTo, expenseType) => getSummary(dateFrom, dateTo, expenseType))

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, Plus, TrendingDown, BarChart2, Pencil, Trash2 } from 'lucide-react'
+import { ArrowLeft, Plus, TrendingDown, BarChart2, Pencil, Trash2, ChevronDown, ChevronRight as ChevronRightIcon } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Debt, Tranche, DadPayment, SimpleDebtPayment } from '../types'
 import { formatMoney, formatDate, today } from '../utils'
@@ -39,6 +39,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
   const [payError, setPayError] = useState('')
   const [paying, setPaying] = useState(false)
 
+  // Algorithm settings state (dad debts)
+  const [showAlgoSettings, setShowAlgoSettings] = useState(false)
+  const [algoOrder, setAlgoOrder] = useState<string>('highest_rate')
+  const [algoPoolRatio, setAlgoPoolRatio] = useState(50)
+  const [savingAlgo, setSavingAlgo] = useState(false)
+
   // Add tranche form state
   const [trancheDate, setTrancheDate] = useState(today())
   const [trancheAmount, setTrancheAmount] = useState('')
@@ -51,7 +57,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
       api.getDebt(debtId),
       api.getTranches(debtId),
     ])
-    setDebt(d as Debt)
+    const debtData = d as Debt
+    setDebt(debtData)
+    if (debtData.debt_type === 'dad') {
+      setAlgoOrder(debtData.tranche_payoff_order ?? 'highest_rate')
+      setAlgoPoolRatio(Math.round((debtData.pool_ratio ?? 0.5) * 100))
+    }
     setTranches(t as Tranche[])
     if ((d as Debt).debt_type === 'dad') {
       const ph = await api.getDadPaymentHistory(debtId)
@@ -103,6 +114,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     } finally {
       setPaying(false)
     }
+  }
+
+  async function handleSaveAlgoSettings() {
+    setSavingAlgo(true)
+    await api.updateDebt(debtId, { tranche_payoff_order: algoOrder, pool_ratio: algoPoolRatio / 100 })
+    setSavingAlgo(false)
   }
 
   async function handleAddTranche() {
@@ -382,6 +399,99 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               {savingTranche ? 'Сохранение...' : 'Добавить транш'}
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Algorithm settings (dad) */}
+      {debt.debt_type === 'dad' && (
+        <div className="card">
+          <button
+            className="flex items-center gap-2 w-full text-left"
+            onClick={() => setShowAlgoSettings(v => !v)}
+          >
+            {showAlgoSettings ? <ChevronDown size={16} className="text-gray-400" /> : <ChevronRightIcon size={16} className="text-gray-400" />}
+            <span className="text-sm font-semibold text-gray-200">Настройки алгоритма погашения</span>
+            <InfoTooltip text="Параметры применяются автоматически ко всем будущим платежам. Уже проведённые платежи не пересчитываются." />
+          </button>
+          {showAlgoSettings && (
+            <div className="mt-4 space-y-6">
+              {/* Tranche order */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="text-sm font-medium text-gray-300">Порядок погашения тела между траншами</p>
+                  <InfoTooltip text="Когда ваш платёж покрывает текущие проценты и ещё остаётся сумма на погашение основного долга — в какой очерёдности уменьшать остатки разных траншей?" />
+                </div>
+                <div className="space-y-2">
+                  {([
+                    { value: 'highest_rate', label: 'Сначала с высокой ставкой', desc: 'Выгоднее математически: экономит на будущих процентах, так как дорогие транши закрываются быстрее' },
+                    { value: 'smallest_balance', label: 'Снежный ком (сначала меньший остаток)', desc: 'Сначала полностью закрываем транши с наименьшим остатком тела. Количество активных траншей уменьшается быстрее — психологически легче видеть прогресс' },
+                    { value: 'earliest_first', label: 'Сначала ранние (по дате)', desc: 'Закрываем транши в порядке получения. Удобно, если хочется видеть, как исчезают самые первые обязательства' },
+                    { value: 'proportional', label: 'Пропорционально остаткам', desc: 'Каждый платёж уменьшает все транши одновременно, в соответствии с их текущими долями' },
+                  ] as const).map(opt => (
+                    <label key={opt.value} className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${algoOrder === opt.value ? 'border-yellow-400/50 bg-yellow-400/5' : 'border-dark-500 hover:border-dark-400'}`}>
+                      <input
+                        type="radio"
+                        name="tranche_order"
+                        value={opt.value}
+                        checked={algoOrder === opt.value}
+                        onChange={() => setAlgoOrder(opt.value)}
+                        className="mt-0.5 accent-yellow-400"
+                      />
+                      <div>
+                        <p className="text-sm font-medium text-gray-200">{opt.label}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{opt.desc}</p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pool ratio slider */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="text-sm font-medium text-gray-300">Распределение остатка после покрытия текущих процентов</p>
+                  <InfoTooltip text="Шаг 1: платёж покрывает текущие проценты за период. Шаг 2: остаток распределяется между погашением накопленных просроченных процентов (пул) и погашением основного тела долга. При 0% на пул — тело уменьшается быстрее. При 100% на пул — сначала полностью закрываем долг по просроченным процентам." />
+                </div>
+                <div className="flex items-center gap-3 text-xs text-gray-500 mb-2">
+                  <span>← 100% на пул просроченных %</span>
+                  <span className="flex-1 text-center text-gray-300 font-medium">
+                    На пул: {algoPoolRatio}% / На тело: {100 - algoPoolRatio}%
+                  </span>
+                  <span>100% на тело долга →</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={5}
+                  value={algoPoolRatio}
+                  onChange={e => setAlgoPoolRatio(Number(e.target.value))}
+                  className="w-full accent-yellow-400"
+                />
+                {/* Preview */}
+                {(() => {
+                  const lastPay = dadPayments.length > 0
+                    ? dadPayments.reduce((a, b) => a.payment_date > b.payment_date ? a : b)
+                    : null
+                  const examplePayment = lastPay?.total_amount ?? 27_000
+                  const exampleInterest = lastPay?.interest_covered ?? 19_000
+                  const remainder = Math.max(0, examplePayment - exampleInterest)
+                  const toPool = Math.round(remainder * algoPoolRatio / 100)
+                  const toBody = remainder - toPool
+                  return remainder > 0 ? (
+                    <p className="text-xs text-gray-500 mt-2">
+                      Пример: платёж {examplePayment.toLocaleString('ru')} ₽, проценты {exampleInterest.toLocaleString('ru')} ₽ → остаток {remainder.toLocaleString('ru')} ₽ →{' '}
+                      на пул: <span className="text-orange-400">{toPool.toLocaleString('ru')} ₽</span>, на тело: <span className="text-green-400">{toBody.toLocaleString('ru')} ₽</span>
+                    </p>
+                  ) : null
+                })()}
+              </div>
+
+              <button onClick={handleSaveAlgoSettings} disabled={savingAlgo} className="btn-primary">
+                {savingAlgo ? 'Сохранение...' : 'Сохранить настройки'}
+              </button>
+            </div>
+          )}
         </div>
       )}
 

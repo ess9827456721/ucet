@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus
+  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus, PiggyBank
 } from 'lucide-react'
 import { Page } from './types'
 import Dashboard from './pages/Dashboard'
@@ -10,6 +10,9 @@ import Debts from './pages/Debts'
 import DebtDetail from './pages/DebtDetail'
 import DebtForecast from './pages/DebtForecast'
 import DebtAnalytics from './pages/DebtAnalytics'
+import Savings from './pages/Savings'
+import SavingsDetail from './pages/SavingsDetail'
+import SavingsForecast from './pages/SavingsForecast'
 import SettingsPage from './pages/SettingsPage'
 import TransactionModal from './components/TransactionModal'
 
@@ -18,12 +21,14 @@ const navItems = [
   { id: 'operations' as Page, label: 'Операции', icon: ListOrdered },
   { id: 'cashflow' as Page, label: 'Кассовый поток', icon: TrendingUp },
   { id: 'debts' as Page, label: 'Долги', icon: CreditCard },
+  { id: 'savings' as Page, label: 'Накопления', icon: PiggyBank },
   { id: 'settings' as Page, label: 'Настройки', icon: Settings },
 ]
 
 export default function App() {
   const [page, setPage] = useState<Page>('dashboard')
   const [selectedDebtId, setSelectedDebtId] = useState<number | null>(null)
+  const [selectedSavingsId, setSelectedSavingsId] = useState<number | null>(null)
   const [showAddModal, setShowAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
   const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
@@ -47,6 +52,16 @@ export default function App() {
     setPage('debt-forecast')
   }
 
+  function navigateToSavings(id: number) {
+    setSelectedSavingsId(id)
+    setPage('savings-detail')
+  }
+
+  function navigateToSavingsForecast(id: number) {
+    setSelectedSavingsId(id)
+    setPage('savings-forecast')
+  }
+
   function navigateToAnalytics(id: number) {
     setSelectedDebtId(id)
     setPage('debt-analytics')
@@ -68,7 +83,7 @@ export default function App() {
             <button
               key={item.id}
               onClick={() => setPage(item.id)}
-              className={`nav-item text-left ${page === item.id || (page === 'debt-detail' && item.id === 'debts') || (page === 'debt-forecast' && item.id === 'debts') || (page === 'debt-analytics' && item.id === 'debts') ? 'active' : ''}`}
+              className={`nav-item text-left ${page === item.id || (page === 'debt-detail' && item.id === 'debts') || (page === 'debt-forecast' && item.id === 'debts') || (page === 'debt-analytics' && item.id === 'debts') || (page === 'savings-detail' && item.id === 'savings') || (page === 'savings-forecast' && item.id === 'savings') ? 'active' : ''}`}
             >
               <item.icon size={18} />
               <span className="text-sm font-medium">{item.label}</span>
@@ -88,7 +103,7 @@ export default function App() {
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto scrollbar-thin">
-        {page === 'dashboard' && <Dashboard key={refreshKey} onNavigateToOperations={navigateToFilteredOperations} />}
+        {page === 'dashboard' && <Dashboard key={refreshKey} onNavigateToOperations={navigateToFilteredOperations} onNavigateToSavings={(id) => id ? navigateToSavings(id) : setPage('savings')} />}
         {page === 'operations' && <Operations key={refreshKey} onAdd={() => setShowAddModal(true)} initialFilter={operationsFilter} onInitialFilterApplied={() => setOperationsFilter(null)} />}
         {page === 'cashflow' && <CashFlow key={refreshKey} onGoToDebt={navigateToDebt} />}
         {page === 'debts' && (
@@ -119,6 +134,28 @@ export default function App() {
             key={selectedDebtId}
             debtId={selectedDebtId}
             onBack={() => { selectedDebtId && navigateToDebt(selectedDebtId) }}
+          />
+        )}
+        {page === 'savings' && (
+          <Savings
+            key={refreshKey}
+            onOpenAccount={navigateToSavings}
+            onOpenForecast={navigateToSavingsForecast}
+          />
+        )}
+        {page === 'savings-detail' && selectedSavingsId && (
+          <SavingsDetail
+            key={selectedSavingsId}
+            accountId={selectedSavingsId}
+            onBack={() => setPage('savings')}
+            onForecast={() => navigateToSavingsForecast(selectedSavingsId)}
+          />
+        )}
+        {page === 'savings-forecast' && selectedSavingsId && (
+          <SavingsForecast
+            key={selectedSavingsId}
+            accountId={selectedSavingsId}
+            onBack={() => navigateToSavings(selectedSavingsId)}
           />
         )}
         {page === 'settings' && <SettingsPage key={refreshKey} />}
