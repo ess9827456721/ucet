@@ -1373,9 +1373,17 @@ export function addSavingsAccount(data: {
     }).lastInsertRowid as number
 
     if (data.initial_balance && data.initial_balance > 0) {
-      d.prepare(
+      const dateStr = data.opened_at ?? new Date().toISOString().slice(0, 10)
+      const txId = d.prepare(
         "INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'deposit', ?, ?, 'Начальный баланс')"
-      ).run(id, data.initial_balance, data.opened_at ?? new Date().toISOString().slice(0, 10))
+      ).run(id, data.initial_balance, dateStr).lastInsertRowid
+      // Record as expense so the money leaves the wallet
+      let catId = (d.prepare("SELECT id FROM categories WHERE name = 'Накопления' AND type = 'expense'").get() as { id: number } | undefined)?.id
+      if (!catId) {
+        catId = d.prepare("INSERT INTO categories (name, type, color, icon) VALUES ('Накопления', 'expense', '#22C55E', 'piggy-bank')").run().lastInsertRowid as number
+      }
+      const opId = d.prepare("INSERT INTO operations (date, type, amount, category_id, expense_type, comment) VALUES (?, 'expense', ?, ?, NULL, ?)").run(dateStr, data.initial_balance, catId, 'Начальный баланс счёта').lastInsertRowid
+      d.prepare('UPDATE savings_transactions SET linked_operation_id = ? WHERE id = ?').run(opId, txId)
     }
     return id
   })() as number
