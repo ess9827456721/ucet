@@ -102,6 +102,7 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const [showSavingsModal, setShowSavingsModal] = useState(false)
   const [showDebtOpsInChart, setShowDebtOpsInChart] = useState(false)
+  const [showSavingsInChart, setShowSavingsInChart] = useState(false)
   const [showDebtInAvg, setShowDebtInAvg] = useState(false)
 
   const periodDays = Math.round((new Date(dateTo + 'T00:00:00').getTime() - new Date(dateFrom + 'T00:00:00').getTime()) / 86400000) + 1
@@ -215,8 +216,9 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
     })
   }
 
-  const topCategories = categories.slice(0, 5)
-  const totalExpense = summary?.expense || 1
+  const visibleCategories = showSavingsInChart ? categories : categories.filter(c => c.name !== 'Накопления')
+  const topCategories = visibleCategories.slice(0, 5)
+  const totalExpense = visibleCategories.reduce((s, c) => s + c.total, 0) || 1
   const showMonthly = periodDays > 45
 
   const todayStr = today()
@@ -314,7 +316,8 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
     }
     const debtOpsAmount = showDebtOpsInChart && summary?.debtOps ? summary.debtOps : 0
     const debtSegment = debtOpsAmount > 0 ? [{ id: -2, name: 'Платежи по долгам', color: '#6366F1', total: debtOpsAmount }] : []
-    const chartData = [...categories, ...debtSegment]
+    const visibleCategories = showSavingsInChart ? categories : categories.filter(c => c.name !== 'Накопления')
+    const chartData = [...visibleCategories, ...debtSegment]
     return chartData.length > 0 ? (
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
@@ -658,6 +661,17 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
                 Включая платежи по долгам
               </label>
             )}
+            {expenseTypeFilter === '' && categories.some(c => c.name === 'Накопления') && (
+              <label className="flex items-center gap-1.5 cursor-pointer text-xs text-gray-400 hover:text-white">
+                <input
+                  type="checkbox"
+                  checked={showSavingsInChart}
+                  onChange={e => setShowSavingsInChart(e.target.checked)}
+                  className="w-3.5 h-3.5 accent-green-400"
+                />
+                Включая накопления
+              </label>
+            )}
           </div>
 
           {/* Charts row */}
@@ -895,7 +909,7 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
         <ExpandModal title="Все категории за период" onClose={() => setExpandedCard(null)}>
           <div className="grid grid-cols-2 gap-8">
             <div className="space-y-3">
-              {categories.map((cat, i) => {
+              {visibleCategories.map((cat, i) => {
                 const pct = Math.round((cat.total / totalExpense) * 100)
                 return (
                   <div key={cat.id} className="flex items-center gap-3 cursor-pointer hover:opacity-80" onClick={() => { openDrill(cat); setExpandedCard(null) }}>
@@ -907,7 +921,7 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
                   </div>
                 )
               })}
-              {categories.length === 0 && <p className="text-gray-500 text-sm">Нет данных</p>}
+              {visibleCategories.length === 0 && <p className="text-gray-500 text-sm">Нет данных</p>}
             </div>
             <DonutChart outerRadius={140} innerRadius={85} height={420} threshold={0.02} />
           </div>
