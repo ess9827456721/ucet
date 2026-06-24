@@ -7079,6 +7079,37 @@ const ArrowLeft = createLucideIcon("ArrowLeft", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const ArrowRight = createLucideIcon("ArrowRight", [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const BarChart2 = createLucideIcon("BarChart2", [
+  ["line", { x1: "18", x2: "18", y1: "20", y2: "10", key: "1xfpm4" }],
+  ["line", { x1: "12", x2: "12", y1: "20", y2: "4", key: "be30l9" }],
+  ["line", { x1: "6", x2: "6", y1: "20", y2: "14", key: "1r4le6" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Bell = createLucideIcon("Bell", [
+  ["path", { d: "M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9", key: "1qo2s2" }],
+  ["path", { d: "M10.3 21a1.94 1.94 0 0 0 3.4 0", key: "qgo35s" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Calendar = createLucideIcon("Calendar", [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
@@ -7108,6 +7139,15 @@ const Check = createLucideIcon("Check", [["path", { d: "M20 6 9 17l-5-5", key: "
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const ChevronDown = createLucideIcon("ChevronDown", [
+  ["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const ChevronLeft = createLucideIcon("ChevronLeft", [
   ["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]
 ]);
@@ -7120,6 +7160,13 @@ const ChevronLeft = createLucideIcon("ChevronLeft", [
 const ChevronRight = createLucideIcon("ChevronRight", [
   ["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]
 ]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const ChevronUp = createLucideIcon("ChevronUp", [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]]);
 /**
  * @license lucide-react v0.344.0 - ISC
  *
@@ -7147,6 +7194,48 @@ const Download = createLucideIcon("Download", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const ExternalLink = createLucideIcon("ExternalLink", [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const EyeOff = createLucideIcon("EyeOff", [
+  ["path", { d: "M9.88 9.88a3 3 0 1 0 4.24 4.24", key: "1jxqfv" }],
+  [
+    "path",
+    {
+      d: "M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68",
+      key: "9wicm4"
+    }
+  ],
+  [
+    "path",
+    { d: "M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61", key: "1jreej" }
+  ],
+  ["line", { x1: "2", x2: "22", y1: "2", y2: "22", key: "a6p6uj" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Eye = createLucideIcon("Eye", [
+  ["path", { d: "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z", key: "rwhkz3" }],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const FolderOpen = createLucideIcon("FolderOpen", [
   [
     "path",
@@ -7155,6 +7244,42 @@ const FolderOpen = createLucideIcon("FolderOpen", [
       key: "usdka0"
     }
   ]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const GripVertical = createLucideIcon("GripVertical", [
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }],
+  ["circle", { cx: "9", cy: "5", r: "1", key: "hp0tcf" }],
+  ["circle", { cx: "9", cy: "19", r: "1", key: "fkjjf6" }],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "15", cy: "5", r: "1", key: "19l28e" }],
+  ["circle", { cx: "15", cy: "19", r: "1", key: "f4zoj3" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const HelpCircle = createLucideIcon("HelpCircle", [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
+  ["path", { d: "M12 17h.01", key: "p32p05" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Info = createLucideIcon("Info", [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 16v-4", key: "1dtifu" }],
+  ["path", { d: "M12 8h.01", key: "e9boi3" }]
 ]);
 /**
  * @license lucide-react v0.344.0 - ISC
@@ -7188,6 +7313,42 @@ const ListOrdered = createLucideIcon("ListOrdered", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const List = createLucideIcon("List", [
+  ["line", { x1: "8", x2: "21", y1: "6", y2: "6", key: "7ey8pc" }],
+  ["line", { x1: "8", x2: "21", y1: "12", y2: "12", key: "rjfblc" }],
+  ["line", { x1: "8", x2: "21", y1: "18", y2: "18", key: "c3b1m8" }],
+  ["line", { x1: "3", x2: "3.01", y1: "6", y2: "6", key: "1g7gq3" }],
+  ["line", { x1: "3", x2: "3.01", y1: "12", y2: "12", key: "1pjlvk" }],
+  ["line", { x1: "3", x2: "3.01", y1: "18", y2: "18", key: "28t2mc" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Lock = createLucideIcon("Lock", [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Maximize2 = createLucideIcon("Maximize2", [
+  ["polyline", { points: "15 3 21 3 21 9", key: "mznyad" }],
+  ["polyline", { points: "9 21 3 21 3 15", key: "1avn1i" }],
+  ["line", { x1: "21", x2: "14", y1: "3", y2: "10", key: "ota7mn" }],
+  ["line", { x1: "3", x2: "10", y1: "21", y2: "14", key: "1atl0r" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Pencil = createLucideIcon("Pencil", [
   ["path", { d: "M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z", key: "5qss01" }],
   ["path", { d: "m15 5 4 4", key: "1mk7zo" }]
@@ -7198,9 +7359,38 @@ const Pencil = createLucideIcon("Pencil", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const PiggyBank = createLucideIcon("PiggyBank", [
+  [
+    "path",
+    {
+      d: "M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2h0V5z",
+      key: "uf6l00"
+    }
+  ],
+  ["path", { d: "M2 9v1c0 1.1.9 2 2 2h1", key: "nm575m" }],
+  ["path", { d: "M16 11h0", key: "k2aug8" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Plus = createLucideIcon("Plus", [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
+]);
+/**
+ * @license lucide-react v0.344.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const RefreshCw = createLucideIcon("RefreshCw", [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ]);
 /**
  * @license lucide-react v0.344.0 - ISC
@@ -7997,13 +8187,13 @@ function shallowEqual(a2, b2) {
   }
   return true;
 }
-function _typeof$L(o) {
+function _typeof$M(o) {
   "@babel/helpers - typeof";
-  return _typeof$L = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$M = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$L(o);
+  }, _typeof$M(o);
 }
 var SVGContainerPropKeys = ["viewBox", "children"];
 var SVGElementPropKeys = [
@@ -8351,7 +8541,7 @@ var getEventHandlerOfChild = function getEventHandlerOfChild2(originalHandler, d
   };
 };
 var adaptEventsOfChild = function adaptEventsOfChild2(props, data, index) {
-  if (!isObject$8(props) || _typeof$L(props) !== "object") {
+  if (!isObject$8(props) || _typeof$M(props) !== "object") {
     return null;
   }
   var out = null;
@@ -8364,10 +8554,10 @@ var adaptEventsOfChild = function adaptEventsOfChild2(props, data, index) {
   });
   return out;
 };
-var _excluded$j = ["children"], _excluded2$7 = ["children"];
-function _objectWithoutProperties$j(source, excluded) {
+var _excluded$k = ["children"], _excluded2$8 = ["children"];
+function _objectWithoutProperties$k(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$j(source, excluded);
+  var target = _objectWithoutPropertiesLoose$k(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -8380,7 +8570,7 @@ function _objectWithoutProperties$j(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$j(source, excluded) {
+function _objectWithoutPropertiesLoose$k(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -8391,13 +8581,13 @@ function _objectWithoutPropertiesLoose$j(source, excluded) {
   }
   return target;
 }
-function _typeof$K(o) {
+function _typeof$L(o) {
   "@babel/helpers - typeof";
-  return _typeof$K = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$L = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$K(o);
+  }, _typeof$L(o);
 }
 var REACT_BROWSER_EVENT_MAP = {
   click: "onClick",
@@ -8480,7 +8670,7 @@ var isSvgElement = function isSvgElement2(child) {
   return child && child.type && isString$1(child.type) && SVG_TAGS.indexOf(child.type) >= 0;
 };
 var hasClipDot = function hasClipDot2(dot) {
-  return dot && _typeof$K(dot) === "object" && "clipDot" in dot;
+  return dot && _typeof$L(dot) === "object" && "clipDot" in dot;
 };
 var isValidSpreadableProp = function isValidSpreadableProp2(property2, key, includeEvents, svgElementType) {
   var _FilteredElementKeyMa;
@@ -8539,8 +8729,8 @@ var isSingleChildEqual = function isSingleChildEqual2(nextChild, prevChild) {
     return true;
   }
   if (!isNil$1(nextChild) && !isNil$1(prevChild)) {
-    var _ref = nextChild.props || {}, nextChildren = _ref.children, nextProps = _objectWithoutProperties$j(_ref, _excluded$j);
-    var _ref2 = prevChild.props || {}, prevChildren = _ref2.children, prevProps = _objectWithoutProperties$j(_ref2, _excluded2$7);
+    var _ref = nextChild.props || {}, nextChildren = _ref.children, nextProps = _objectWithoutProperties$k(_ref, _excluded$k);
+    var _ref2 = prevChild.props || {}, prevChildren = _ref2.children, prevProps = _objectWithoutProperties$k(_ref2, _excluded2$8);
     if (nextChildren && prevChildren) {
       return shallowEqual(nextProps, prevProps) && isChildrenEqual(nextChildren, prevChildren);
     }
@@ -8579,7 +8769,65 @@ var getReactEventByType = function getReactEventByType2(e3) {
 var parseChildIndex = function parseChildIndex2(child, children) {
   return toArray(children).indexOf(child);
 };
-var _excluded$i = ["children", "width", "height", "viewBox", "className", "style", "title", "desc"];
+var _excluded$j = ["children", "width", "height", "viewBox", "className", "style", "title", "desc"];
+function _extends$v() {
+  _extends$v = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$v.apply(this, arguments);
+}
+function _objectWithoutProperties$j(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$j(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$j(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function Surface(props) {
+  var children = props.children, width = props.width, height = props.height, viewBox = props.viewBox, className = props.className, style = props.style, title = props.title, desc = props.desc, others = _objectWithoutProperties$j(props, _excluded$j);
+  var svgView = viewBox || {
+    width,
+    height,
+    x: 0,
+    y: 0
+  };
+  var layerClass = clsx("recharts-surface", className);
+  return /* @__PURE__ */ React.createElement("svg", _extends$v({}, filterProps(others, true, "svg"), {
+    className: layerClass,
+    width,
+    height,
+    style,
+    viewBox: "".concat(svgView.x, " ").concat(svgView.y, " ").concat(svgView.width, " ").concat(svgView.height)
+  }), /* @__PURE__ */ React.createElement("title", null, title), /* @__PURE__ */ React.createElement("desc", null, desc), children);
+}
+var _excluded$i = ["children", "className"];
 function _extends$u() {
   _extends$u = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -8620,68 +8868,10 @@ function _objectWithoutPropertiesLoose$i(source, excluded) {
   }
   return target;
 }
-function Surface(props) {
-  var children = props.children, width = props.width, height = props.height, viewBox = props.viewBox, className = props.className, style = props.style, title = props.title, desc = props.desc, others = _objectWithoutProperties$i(props, _excluded$i);
-  var svgView = viewBox || {
-    width,
-    height,
-    x: 0,
-    y: 0
-  };
-  var layerClass = clsx("recharts-surface", className);
-  return /* @__PURE__ */ React.createElement("svg", _extends$u({}, filterProps(others, true, "svg"), {
-    className: layerClass,
-    width,
-    height,
-    style,
-    viewBox: "".concat(svgView.x, " ").concat(svgView.y, " ").concat(svgView.width, " ").concat(svgView.height)
-  }), /* @__PURE__ */ React.createElement("title", null, title), /* @__PURE__ */ React.createElement("desc", null, desc), children);
-}
-var _excluded$h = ["children", "className"];
-function _extends$t() {
-  _extends$t = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends$t.apply(this, arguments);
-}
-function _objectWithoutProperties$h(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$h(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$h(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  for (var key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
 var Layer = /* @__PURE__ */ React.forwardRef(function(props, ref) {
-  var children = props.children, className = props.className, others = _objectWithoutProperties$h(props, _excluded$h);
+  var children = props.children, className = props.className, others = _objectWithoutProperties$i(props, _excluded$i);
   var layerClass = clsx("recharts-layer", className);
-  return /* @__PURE__ */ React.createElement("g", _extends$t({
+  return /* @__PURE__ */ React.createElement("g", _extends$u({
     className: layerClass
   }, filterProps(others, true), {
     ref
@@ -9646,17 +9836,17 @@ function stackOffsetWiggle(series, order) {
   s0[j - 1][1] += s0[j - 1][0] = y2;
   stackOffsetNone(series, order);
 }
-function _typeof$J(o) {
+function _typeof$K(o) {
   "@babel/helpers - typeof";
-  return _typeof$J = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$K = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$J(o);
+  }, _typeof$K(o);
 }
-var _excluded$g = ["type", "size", "sizeType"];
-function _extends$s() {
-  _extends$s = Object.assign ? Object.assign.bind() : function(target) {
+var _excluded$h = ["type", "size", "sizeType"];
+function _extends$t() {
+  _extends$t = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -9667,9 +9857,9 @@ function _extends$s() {
     }
     return target;
   };
-  return _extends$s.apply(this, arguments);
+  return _extends$t.apply(this, arguments);
 }
-function ownKeys$C(e3, r2) {
+function ownKeys$D(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -9679,19 +9869,19 @@ function ownKeys$C(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$C(e3) {
+function _objectSpread$D(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$C(Object(t2), true).forEach(function(r3) {
-      _defineProperty$I(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$C(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$D(Object(t2), true).forEach(function(r3) {
+      _defineProperty$J(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$D(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$I(obj, key, value) {
-  key = _toPropertyKey$I(key);
+function _defineProperty$J(obj, key, value) {
+  key = _toPropertyKey$J(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -9699,23 +9889,23 @@ function _defineProperty$I(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$I(t2) {
-  var i = _toPrimitive$I(t2, "string");
-  return "symbol" == _typeof$J(i) ? i : i + "";
+function _toPropertyKey$J(t2) {
+  var i = _toPrimitive$J(t2, "string");
+  return "symbol" == _typeof$K(i) ? i : i + "";
 }
-function _toPrimitive$I(t2, r2) {
-  if ("object" != _typeof$J(t2) || !t2) return t2;
+function _toPrimitive$J(t2, r2) {
+  if ("object" != _typeof$K(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$J(i)) return i;
+    if ("object" != _typeof$K(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
 }
-function _objectWithoutProperties$g(source, excluded) {
+function _objectWithoutProperties$h(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$g(source, excluded);
+  var target = _objectWithoutPropertiesLoose$h(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -9728,7 +9918,7 @@ function _objectWithoutProperties$g(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$g(source, excluded) {
+function _objectWithoutPropertiesLoose$h(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -9780,8 +9970,8 @@ var registerSymbol = function registerSymbol2(key, factory) {
   symbolFactories["symbol".concat(upperFirst$1(key))] = factory;
 };
 var Symbols = function Symbols2(_ref) {
-  var _ref$type = _ref.type, type = _ref$type === void 0 ? "circle" : _ref$type, _ref$size = _ref.size, size = _ref$size === void 0 ? 64 : _ref$size, _ref$sizeType = _ref.sizeType, sizeType = _ref$sizeType === void 0 ? "area" : _ref$sizeType, rest = _objectWithoutProperties$g(_ref, _excluded$g);
-  var props = _objectSpread$C(_objectSpread$C({}, rest), {}, {
+  var _ref$type = _ref.type, type = _ref$type === void 0 ? "circle" : _ref$type, _ref$size = _ref.size, size = _ref$size === void 0 ? 64 : _ref$size, _ref$sizeType = _ref.sizeType, sizeType = _ref$sizeType === void 0 ? "area" : _ref$sizeType, rest = _objectWithoutProperties$h(_ref, _excluded$h);
+  var props = _objectSpread$D(_objectSpread$D({}, rest), {}, {
     type,
     size,
     sizeType
@@ -9794,7 +9984,7 @@ var Symbols = function Symbols2(_ref) {
   var className = props.className, cx = props.cx, cy = props.cy;
   var filteredProps = filterProps(props, true);
   if (cx === +cx && cy === +cy && size === +size) {
-    return /* @__PURE__ */ React.createElement("path", _extends$s({}, filteredProps, {
+    return /* @__PURE__ */ React.createElement("path", _extends$t({}, filteredProps, {
       className: clsx("recharts-symbols", className),
       transform: "translate(".concat(cx, ", ").concat(cy, ")"),
       d: getPath4()
@@ -9803,16 +9993,16 @@ var Symbols = function Symbols2(_ref) {
   return null;
 };
 Symbols.registerSymbol = registerSymbol;
-function _typeof$I(o) {
+function _typeof$J(o) {
   "@babel/helpers - typeof";
-  return _typeof$I = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$J = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$I(o);
+  }, _typeof$J(o);
 }
-function _extends$r() {
-  _extends$r = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$s() {
+  _extends$s = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -9823,9 +10013,9 @@ function _extends$r() {
     }
     return target;
   };
-  return _extends$r.apply(this, arguments);
+  return _extends$s.apply(this, arguments);
 }
-function ownKeys$B(e3, r2) {
+function ownKeys$C(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -9835,86 +10025,86 @@ function ownKeys$B(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$B(e3) {
+function _objectSpread$C(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$B(Object(t2), true).forEach(function(r3) {
-      _defineProperty$H(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$B(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$C(Object(t2), true).forEach(function(r3) {
+      _defineProperty$I(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$C(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _classCallCheck$l(instance, Constructor) {
+function _classCallCheck$m(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$l(target, props) {
+function _defineProperties$m(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$H(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$I(descriptor.key), descriptor);
   }
 }
-function _createClass$l(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$l(Constructor.prototype, protoProps);
+function _createClass$m(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$m(Constructor.prototype, protoProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$h(t2, o, e3) {
-  return o = _getPrototypeOf$i(o), _possibleConstructorReturn$i(t2, _isNativeReflectConstruct$i() ? Reflect.construct(o, e3 || [], _getPrototypeOf$i(t2).constructor) : o.apply(t2, e3));
+function _callSuper$i(t2, o, e3) {
+  return o = _getPrototypeOf$j(o), _possibleConstructorReturn$j(t2, _isNativeReflectConstruct$j() ? Reflect.construct(o, e3 || [], _getPrototypeOf$j(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$i(self2, call) {
-  if (call && (_typeof$I(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$j(self2, call) {
+  if (call && (_typeof$J(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$i(self2);
+  return _assertThisInitialized$j(self2);
 }
-function _assertThisInitialized$i(self2) {
+function _assertThisInitialized$j(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$i() {
+function _isNativeReflectConstruct$j() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$i = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$j = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$i(o) {
-  _getPrototypeOf$i = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$j(o) {
+  _getPrototypeOf$j = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$i(o);
+  return _getPrototypeOf$j(o);
 }
-function _inherits$i(subClass, superClass) {
+function _inherits$j(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$i(subClass, superClass);
+  if (superClass) _setPrototypeOf$j(subClass, superClass);
 }
-function _setPrototypeOf$i(o, p2) {
-  _setPrototypeOf$i = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$j(o, p2) {
+  _setPrototypeOf$j = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$i(o, p2);
+  return _setPrototypeOf$j(o, p2);
 }
-function _defineProperty$H(obj, key, value) {
-  key = _toPropertyKey$H(key);
+function _defineProperty$I(obj, key, value) {
+  key = _toPropertyKey$I(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -9922,16 +10112,16 @@ function _defineProperty$H(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$H(t2) {
-  var i = _toPrimitive$H(t2, "string");
-  return "symbol" == _typeof$I(i) ? i : i + "";
+function _toPropertyKey$I(t2) {
+  var i = _toPrimitive$I(t2, "string");
+  return "symbol" == _typeof$J(i) ? i : i + "";
 }
-function _toPrimitive$H(t2, r2) {
-  if ("object" != _typeof$I(t2) || !t2) return t2;
+function _toPrimitive$I(t2, r2) {
+  if ("object" != _typeof$J(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$I(i)) return i;
+    if ("object" != _typeof$J(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -9939,11 +10129,11 @@ function _toPrimitive$H(t2, r2) {
 var SIZE = 32;
 var DefaultLegendContent = /* @__PURE__ */ function(_PureComponent) {
   function DefaultLegendContent2() {
-    _classCallCheck$l(this, DefaultLegendContent2);
-    return _callSuper$h(this, DefaultLegendContent2, arguments);
+    _classCallCheck$m(this, DefaultLegendContent2);
+    return _callSuper$i(this, DefaultLegendContent2, arguments);
   }
-  _inherits$i(DefaultLegendContent2, _PureComponent);
-  return _createClass$l(DefaultLegendContent2, [{
+  _inherits$j(DefaultLegendContent2, _PureComponent);
+  return _createClass$m(DefaultLegendContent2, [{
     key: "renderIcon",
     value: (
       /**
@@ -9988,7 +10178,7 @@ var DefaultLegendContent = /* @__PURE__ */ function(_PureComponent) {
           });
         }
         if (/* @__PURE__ */ React.isValidElement(data.legendIcon)) {
-          var iconProps = _objectSpread$B({}, data);
+          var iconProps = _objectSpread$C({}, data);
           delete iconProps.legendIcon;
           return /* @__PURE__ */ React.cloneElement(data.legendIcon, iconProps);
         }
@@ -10028,7 +10218,7 @@ var DefaultLegendContent = /* @__PURE__ */ function(_PureComponent) {
       };
       return payload.map(function(entry, i) {
         var finalFormatter = entry.formatter || formatter;
-        var className = clsx(_defineProperty$H(_defineProperty$H({
+        var className = clsx(_defineProperty$I(_defineProperty$I({
           "recharts-legend-item": true
         }, "legend-item-".concat(i), true), "inactive", entry.inactive));
         if (entry.type === "none") {
@@ -10041,7 +10231,7 @@ var DefaultLegendContent = /* @__PURE__ */ function(_PureComponent) {
           // eslint-disable-line max-len
         );
         var color2 = entry.inactive ? inactiveColor : entry.color;
-        return /* @__PURE__ */ React.createElement("li", _extends$r({
+        return /* @__PURE__ */ React.createElement("li", _extends$s({
           className,
           style: itemStyle,
           key: "legend-item-".concat(i)
@@ -10077,8 +10267,8 @@ var DefaultLegendContent = /* @__PURE__ */ function(_PureComponent) {
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$H(DefaultLegendContent, "displayName", "Legend");
-_defineProperty$H(DefaultLegendContent, "defaultProps", {
+_defineProperty$I(DefaultLegendContent, "displayName", "Legend");
+_defineProperty$I(DefaultLegendContent, "defaultProps", {
   iconSize: 14,
   layout: "horizontal",
   align: "center",
@@ -10876,16 +11066,16 @@ function getUniqPayload(payload, option, defaultUniqBy2) {
   }
   return payload;
 }
-function _typeof$H(o) {
+function _typeof$I(o) {
   "@babel/helpers - typeof";
-  return _typeof$H = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$I = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$H(o);
+  }, _typeof$I(o);
 }
-var _excluded$f = ["ref"];
-function ownKeys$A(e3, r2) {
+var _excluded$g = ["ref"];
+function ownKeys$B(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -10895,87 +11085,87 @@ function ownKeys$A(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$A(e3) {
+function _objectSpread$B(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$A(Object(t2), true).forEach(function(r3) {
-      _defineProperty$G(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$A(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$B(Object(t2), true).forEach(function(r3) {
+      _defineProperty$H(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$B(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _classCallCheck$k(instance, Constructor) {
+function _classCallCheck$l(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$k(target, props) {
+function _defineProperties$l(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$G(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$H(descriptor.key), descriptor);
   }
 }
-function _createClass$k(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$k(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$k(Constructor, staticProps);
+function _createClass$l(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$l(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$l(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$g(t2, o, e3) {
-  return o = _getPrototypeOf$h(o), _possibleConstructorReturn$h(t2, _isNativeReflectConstruct$h() ? Reflect.construct(o, e3 || [], _getPrototypeOf$h(t2).constructor) : o.apply(t2, e3));
+function _callSuper$h(t2, o, e3) {
+  return o = _getPrototypeOf$i(o), _possibleConstructorReturn$i(t2, _isNativeReflectConstruct$i() ? Reflect.construct(o, e3 || [], _getPrototypeOf$i(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$h(self2, call) {
-  if (call && (_typeof$H(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$i(self2, call) {
+  if (call && (_typeof$I(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$h(self2);
+  return _assertThisInitialized$i(self2);
 }
-function _assertThisInitialized$h(self2) {
+function _assertThisInitialized$i(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$h() {
+function _isNativeReflectConstruct$i() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$h = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$i = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$h(o) {
-  _getPrototypeOf$h = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$i(o) {
+  _getPrototypeOf$i = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$h(o);
+  return _getPrototypeOf$i(o);
 }
-function _inherits$h(subClass, superClass) {
+function _inherits$i(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$h(subClass, superClass);
+  if (superClass) _setPrototypeOf$i(subClass, superClass);
 }
-function _setPrototypeOf$h(o, p2) {
-  _setPrototypeOf$h = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$i(o, p2) {
+  _setPrototypeOf$i = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$h(o, p2);
+  return _setPrototypeOf$i(o, p2);
 }
-function _defineProperty$G(obj, key, value) {
-  key = _toPropertyKey$G(key);
+function _defineProperty$H(obj, key, value) {
+  key = _toPropertyKey$H(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -10983,23 +11173,23 @@ function _defineProperty$G(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$G(t2) {
-  var i = _toPrimitive$G(t2, "string");
-  return "symbol" == _typeof$H(i) ? i : i + "";
+function _toPropertyKey$H(t2) {
+  var i = _toPrimitive$H(t2, "string");
+  return "symbol" == _typeof$I(i) ? i : i + "";
 }
-function _toPrimitive$G(t2, r2) {
-  if ("object" != _typeof$H(t2) || !t2) return t2;
+function _toPrimitive$H(t2, r2) {
+  if ("object" != _typeof$I(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$H(i)) return i;
+    if ("object" != _typeof$I(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
 }
-function _objectWithoutProperties$f(source, excluded) {
+function _objectWithoutProperties$g(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$f(source, excluded);
+  var target = _objectWithoutPropertiesLoose$g(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -11012,7 +11202,7 @@ function _objectWithoutProperties$f(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$f(source, excluded) {
+function _objectWithoutPropertiesLoose$g(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -11034,26 +11224,26 @@ function renderContent$1(content, props) {
     return /* @__PURE__ */ React.createElement(content, props);
   }
   props.ref;
-  var otherProps = _objectWithoutProperties$f(props, _excluded$f);
+  var otherProps = _objectWithoutProperties$g(props, _excluded$g);
   return /* @__PURE__ */ React.createElement(DefaultLegendContent, otherProps);
 }
 var EPS$1 = 1;
 var Legend = /* @__PURE__ */ function(_PureComponent) {
   function Legend2() {
     var _this;
-    _classCallCheck$k(this, Legend2);
+    _classCallCheck$l(this, Legend2);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this = _callSuper$g(this, Legend2, [].concat(args));
-    _defineProperty$G(_this, "lastBoundingBox", {
+    _this = _callSuper$h(this, Legend2, [].concat(args));
+    _defineProperty$H(_this, "lastBoundingBox", {
       width: -1,
       height: -1
     });
     return _this;
   }
-  _inherits$h(Legend2, _PureComponent);
-  return _createClass$k(Legend2, [{
+  _inherits$i(Legend2, _PureComponent);
+  return _createClass$l(Legend2, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.updateBBox();
@@ -11099,7 +11289,7 @@ var Legend = /* @__PURE__ */ function(_PureComponent) {
     key: "getBBoxSnapshot",
     value: function getBBoxSnapshot() {
       if (this.lastBoundingBox.width >= 0 && this.lastBoundingBox.height >= 0) {
-        return _objectSpread$A({}, this.lastBoundingBox);
+        return _objectSpread$B({}, this.lastBoundingBox);
       }
       return {
         width: 0,
@@ -11139,14 +11329,14 @@ var Legend = /* @__PURE__ */ function(_PureComponent) {
           };
         }
       }
-      return _objectSpread$A(_objectSpread$A({}, hPos), vPos);
+      return _objectSpread$B(_objectSpread$B({}, hPos), vPos);
     }
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
       var _this$props2 = this.props, content = _this$props2.content, width = _this$props2.width, height = _this$props2.height, wrapperStyle = _this$props2.wrapperStyle, payloadUniqBy = _this$props2.payloadUniqBy, payload = _this$props2.payload;
-      var outerStyle = _objectSpread$A(_objectSpread$A({
+      var outerStyle = _objectSpread$B(_objectSpread$B({
         position: "absolute",
         width: width || "auto",
         height: height || "auto"
@@ -11157,14 +11347,14 @@ var Legend = /* @__PURE__ */ function(_PureComponent) {
         ref: function ref(node) {
           _this2.wrapperNode = node;
         }
-      }, renderContent$1(content, _objectSpread$A(_objectSpread$A({}, this.props), {}, {
+      }, renderContent$1(content, _objectSpread$B(_objectSpread$B({}, this.props), {}, {
         payload: getUniqPayload(payload, payloadUniqBy, defaultUniqBy$1)
       })));
     }
   }], [{
     key: "getWithHeight",
     value: function getWithHeight(item, chartWidth) {
-      var _this$defaultProps$it = _objectSpread$A(_objectSpread$A({}, this.defaultProps), item.props), layout = _this$defaultProps$it.layout;
+      var _this$defaultProps$it = _objectSpread$B(_objectSpread$B({}, this.defaultProps), item.props), layout = _this$defaultProps$it.layout;
       if (layout === "vertical" && isNumber(item.props.height)) {
         return {
           height: item.props.height
@@ -11179,8 +11369,8 @@ var Legend = /* @__PURE__ */ function(_PureComponent) {
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$G(Legend, "displayName", "Legend");
-_defineProperty$G(Legend, "defaultProps", {
+_defineProperty$H(Legend, "displayName", "Legend");
+_defineProperty$H(Legend, "defaultProps", {
   iconSize: 14,
   layout: "horizontal",
   align: "center",
@@ -11379,8 +11569,8 @@ var defineProperty$2 = function() {
   } catch (e3) {
   }
 }();
-var _defineProperty$F = defineProperty$2;
-var constant$1 = constant_1, defineProperty$1 = _defineProperty$F, identity$8 = identity_1;
+var _defineProperty$G = defineProperty$2;
+var constant$1 = constant_1, defineProperty$1 = _defineProperty$G, identity$8 = identity_1;
 var baseSetToString$1 = !defineProperty$1 ? identity$8 : function(func, string2) {
   return defineProperty$1(func, "toString", {
     "configurable": true,
@@ -11443,16 +11633,16 @@ var sortBy = baseRest(function(collection, iteratees) {
 });
 var sortBy_1 = sortBy;
 const sortBy$1 = /* @__PURE__ */ getDefaultExportFromCjs(sortBy_1);
-function _typeof$G(o) {
+function _typeof$H(o) {
   "@babel/helpers - typeof";
-  return _typeof$G = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$H = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$G(o);
+  }, _typeof$H(o);
 }
-function _extends$q() {
-  _extends$q = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$r() {
+  _extends$r = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -11463,7 +11653,7 @@ function _extends$q() {
     }
     return target;
   };
-  return _extends$q.apply(this, arguments);
+  return _extends$r.apply(this, arguments);
 }
 function _slicedToArray$c(arr, i) {
   return _arrayWithHoles$d(arr) || _iterableToArrayLimit$c(arr, i) || _unsupportedIterableToArray$l(arr, i) || _nonIterableRest$d();
@@ -11506,7 +11696,7 @@ function _iterableToArrayLimit$c(r2, l2) {
 function _arrayWithHoles$d(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function ownKeys$z(e3, r2) {
+function ownKeys$A(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -11516,19 +11706,19 @@ function ownKeys$z(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$z(e3) {
+function _objectSpread$A(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$z(Object(t2), true).forEach(function(r3) {
-      _defineProperty$E(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$z(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$A(Object(t2), true).forEach(function(r3) {
+      _defineProperty$F(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$A(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$E(obj, key, value) {
-  key = _toPropertyKey$F(key);
+function _defineProperty$F(obj, key, value) {
+  key = _toPropertyKey$G(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -11536,16 +11726,16 @@ function _defineProperty$E(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$F(t2) {
-  var i = _toPrimitive$F(t2, "string");
-  return "symbol" == _typeof$G(i) ? i : i + "";
+function _toPropertyKey$G(t2) {
+  var i = _toPrimitive$G(t2, "string");
+  return "symbol" == _typeof$H(i) ? i : i + "";
 }
-function _toPrimitive$F(t2, r2) {
-  if ("object" != _typeof$G(t2) || !t2) return t2;
+function _toPrimitive$G(t2, r2) {
+  if ("object" != _typeof$H(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$G(i)) return i;
+    if ("object" != _typeof$H(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -11565,7 +11755,7 @@ var DefaultTooltipContent = function DefaultTooltipContent2(props) {
         if (entry.type === "none") {
           return null;
         }
-        var finalItemStyle = _objectSpread$z({
+        var finalItemStyle = _objectSpread$A({
           display: "block",
           paddingTop: 4,
           paddingBottom: 4,
@@ -11609,14 +11799,14 @@ var DefaultTooltipContent = function DefaultTooltipContent2(props) {
     }
     return null;
   };
-  var finalStyle = _objectSpread$z({
+  var finalStyle = _objectSpread$A({
     margin: 0,
     padding: 10,
     backgroundColor: "#fff",
     border: "1px solid #ccc",
     whiteSpace: "nowrap"
   }, contentStyle);
-  var finalLabelStyle = _objectSpread$z({
+  var finalLabelStyle = _objectSpread$A({
     margin: 0
   }, labelStyle);
   var hasLabel = !isNil$1(label);
@@ -11630,7 +11820,7 @@ var DefaultTooltipContent = function DefaultTooltipContent2(props) {
     role: "status",
     "aria-live": "assertive"
   } : {};
-  return /* @__PURE__ */ React.createElement("div", _extends$q({
+  return /* @__PURE__ */ React.createElement("div", _extends$r({
     className: wrapperCN,
     style: finalStyle
   }, accessibilityAttributes), /* @__PURE__ */ React.createElement("p", {
@@ -11638,16 +11828,16 @@ var DefaultTooltipContent = function DefaultTooltipContent2(props) {
     style: finalLabelStyle
   }, /* @__PURE__ */ React.isValidElement(finalLabel) ? finalLabel : "".concat(finalLabel)), renderContent2());
 };
-function _typeof$F(o) {
+function _typeof$G(o) {
   "@babel/helpers - typeof";
-  return _typeof$F = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$G = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$F(o);
+  }, _typeof$G(o);
 }
-function _defineProperty$D(obj, key, value) {
-  key = _toPropertyKey$E(key);
+function _defineProperty$E(obj, key, value) {
+  key = _toPropertyKey$F(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -11655,16 +11845,16 @@ function _defineProperty$D(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$E(t2) {
-  var i = _toPrimitive$E(t2, "string");
-  return "symbol" == _typeof$F(i) ? i : i + "";
+function _toPropertyKey$F(t2) {
+  var i = _toPrimitive$F(t2, "string");
+  return "symbol" == _typeof$G(i) ? i : i + "";
 }
-function _toPrimitive$E(t2, r2) {
-  if ("object" != _typeof$F(t2) || !t2) return t2;
+function _toPrimitive$F(t2, r2) {
+  if ("object" != _typeof$G(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$F(i)) return i;
+    if ("object" != _typeof$G(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -11675,7 +11865,7 @@ var TOOLTIP_HIDDEN = {
 };
 function getTooltipCSSClassName(_ref) {
   var coordinate = _ref.coordinate, translateX = _ref.translateX, translateY = _ref.translateY;
-  return clsx(CSS_CLASS_PREFIX, _defineProperty$D(_defineProperty$D(_defineProperty$D(_defineProperty$D({}, "".concat(CSS_CLASS_PREFIX, "-right"), isNumber(translateX) && coordinate && isNumber(coordinate.x) && translateX >= coordinate.x), "".concat(CSS_CLASS_PREFIX, "-left"), isNumber(translateX) && coordinate && isNumber(coordinate.x) && translateX < coordinate.x), "".concat(CSS_CLASS_PREFIX, "-bottom"), isNumber(translateY) && coordinate && isNumber(coordinate.y) && translateY >= coordinate.y), "".concat(CSS_CLASS_PREFIX, "-top"), isNumber(translateY) && coordinate && isNumber(coordinate.y) && translateY < coordinate.y));
+  return clsx(CSS_CLASS_PREFIX, _defineProperty$E(_defineProperty$E(_defineProperty$E(_defineProperty$E({}, "".concat(CSS_CLASS_PREFIX, "-right"), isNumber(translateX) && coordinate && isNumber(coordinate.x) && translateX >= coordinate.x), "".concat(CSS_CLASS_PREFIX, "-left"), isNumber(translateX) && coordinate && isNumber(coordinate.x) && translateX < coordinate.x), "".concat(CSS_CLASS_PREFIX, "-bottom"), isNumber(translateY) && coordinate && isNumber(coordinate.y) && translateY >= coordinate.y), "".concat(CSS_CLASS_PREFIX, "-top"), isNumber(translateY) && coordinate && isNumber(coordinate.y) && translateY < coordinate.y));
 }
 function getTooltipTranslateXY(_ref2) {
   var allowEscapeViewBox = _ref2.allowEscapeViewBox, coordinate = _ref2.coordinate, key = _ref2.key, offsetTopLeft = _ref2.offsetTopLeft, position = _ref2.position, reverseDirection = _ref2.reverseDirection, tooltipDimension = _ref2.tooltipDimension, viewBox = _ref2.viewBox, viewBoxDimension = _ref2.viewBoxDimension;
@@ -11751,6 +11941,252 @@ function getTooltipTranslate(_ref4) {
     })
   };
 }
+function _typeof$F(o) {
+  "@babel/helpers - typeof";
+  return _typeof$F = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$F(o);
+}
+function ownKeys$z(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$z(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$z(Object(t2), true).forEach(function(r3) {
+      _defineProperty$D(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$z(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _classCallCheck$k(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties$k(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey$E(descriptor.key), descriptor);
+  }
+}
+function _createClass$k(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$k(Constructor.prototype, protoProps);
+  Object.defineProperty(Constructor, "prototype", { writable: false });
+  return Constructor;
+}
+function _callSuper$g(t2, o, e3) {
+  return o = _getPrototypeOf$h(o), _possibleConstructorReturn$h(t2, _isNativeReflectConstruct$h() ? Reflect.construct(o, e3 || [], _getPrototypeOf$h(t2).constructor) : o.apply(t2, e3));
+}
+function _possibleConstructorReturn$h(self2, call) {
+  if (call && (_typeof$F(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized$h(self2);
+}
+function _assertThisInitialized$h(self2) {
+  if (self2 === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self2;
+}
+function _isNativeReflectConstruct$h() {
+  try {
+    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+  } catch (t3) {
+  }
+  return (_isNativeReflectConstruct$h = function _isNativeReflectConstruct2() {
+    return !!t2;
+  })();
+}
+function _getPrototypeOf$h(o) {
+  _getPrototypeOf$h = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$h(o);
+}
+function _inherits$h(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+  Object.defineProperty(subClass, "prototype", { writable: false });
+  if (superClass) _setPrototypeOf$h(subClass, superClass);
+}
+function _setPrototypeOf$h(o, p2) {
+  _setPrototypeOf$h = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$h(o, p2);
+}
+function _defineProperty$D(obj, key, value) {
+  key = _toPropertyKey$E(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$E(t2) {
+  var i = _toPrimitive$E(t2, "string");
+  return "symbol" == _typeof$F(i) ? i : i + "";
+}
+function _toPrimitive$E(t2, r2) {
+  if ("object" != _typeof$F(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$F(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return String(t2);
+}
+var EPSILON = 1;
+var TooltipBoundingBox = /* @__PURE__ */ function(_PureComponent) {
+  function TooltipBoundingBox2() {
+    var _this;
+    _classCallCheck$k(this, TooltipBoundingBox2);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _callSuper$g(this, TooltipBoundingBox2, [].concat(args));
+    _defineProperty$D(_this, "state", {
+      dismissed: false,
+      dismissedAtCoordinate: {
+        x: 0,
+        y: 0
+      },
+      lastBoundingBox: {
+        width: -1,
+        height: -1
+      }
+    });
+    _defineProperty$D(_this, "handleKeyDown", function(event) {
+      if (event.key === "Escape") {
+        var _this$props$coordinat, _this$props$coordinat2, _this$props$coordinat3, _this$props$coordinat4;
+        _this.setState({
+          dismissed: true,
+          dismissedAtCoordinate: {
+            x: (_this$props$coordinat = (_this$props$coordinat2 = _this.props.coordinate) === null || _this$props$coordinat2 === void 0 ? void 0 : _this$props$coordinat2.x) !== null && _this$props$coordinat !== void 0 ? _this$props$coordinat : 0,
+            y: (_this$props$coordinat3 = (_this$props$coordinat4 = _this.props.coordinate) === null || _this$props$coordinat4 === void 0 ? void 0 : _this$props$coordinat4.y) !== null && _this$props$coordinat3 !== void 0 ? _this$props$coordinat3 : 0
+          }
+        });
+      }
+    });
+    return _this;
+  }
+  _inherits$h(TooltipBoundingBox2, _PureComponent);
+  return _createClass$k(TooltipBoundingBox2, [{
+    key: "updateBBox",
+    value: function updateBBox() {
+      if (this.wrapperNode && this.wrapperNode.getBoundingClientRect) {
+        var box = this.wrapperNode.getBoundingClientRect();
+        if (Math.abs(box.width - this.state.lastBoundingBox.width) > EPSILON || Math.abs(box.height - this.state.lastBoundingBox.height) > EPSILON) {
+          this.setState({
+            lastBoundingBox: {
+              width: box.width,
+              height: box.height
+            }
+          });
+        }
+      } else if (this.state.lastBoundingBox.width !== -1 || this.state.lastBoundingBox.height !== -1) {
+        this.setState({
+          lastBoundingBox: {
+            width: -1,
+            height: -1
+          }
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener("keydown", this.handleKeyDown);
+      this.updateBBox();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener("keydown", this.handleKeyDown);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this$props$coordinat5, _this$props$coordinat6;
+      if (this.props.active) {
+        this.updateBBox();
+      }
+      if (!this.state.dismissed) {
+        return;
+      }
+      if (((_this$props$coordinat5 = this.props.coordinate) === null || _this$props$coordinat5 === void 0 ? void 0 : _this$props$coordinat5.x) !== this.state.dismissedAtCoordinate.x || ((_this$props$coordinat6 = this.props.coordinate) === null || _this$props$coordinat6 === void 0 ? void 0 : _this$props$coordinat6.y) !== this.state.dismissedAtCoordinate.y) {
+        this.state.dismissed = false;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var _this$props = this.props, active = _this$props.active, allowEscapeViewBox = _this$props.allowEscapeViewBox, animationDuration = _this$props.animationDuration, animationEasing = _this$props.animationEasing, children = _this$props.children, coordinate = _this$props.coordinate, hasPayload = _this$props.hasPayload, isAnimationActive = _this$props.isAnimationActive, offset = _this$props.offset, position = _this$props.position, reverseDirection = _this$props.reverseDirection, useTranslate3d = _this$props.useTranslate3d, viewBox = _this$props.viewBox, wrapperStyle = _this$props.wrapperStyle;
+      var _getTooltipTranslate = getTooltipTranslate({
+        allowEscapeViewBox,
+        coordinate,
+        offsetTopLeft: offset,
+        position,
+        reverseDirection,
+        tooltipBox: this.state.lastBoundingBox,
+        useTranslate3d,
+        viewBox
+      }), cssClasses = _getTooltipTranslate.cssClasses, cssProperties = _getTooltipTranslate.cssProperties;
+      var outerStyle = _objectSpread$z(_objectSpread$z({
+        transition: isAnimationActive && active ? "transform ".concat(animationDuration, "ms ").concat(animationEasing) : void 0
+      }, cssProperties), {}, {
+        pointerEvents: "none",
+        visibility: !this.state.dismissed && active && hasPayload ? "visible" : "hidden",
+        position: "absolute",
+        top: 0,
+        left: 0
+      }, wrapperStyle);
+      return (
+        // This element allow listening to the `Escape` key.
+        // See https://github.com/recharts/recharts/pull/2925
+        /* @__PURE__ */ React.createElement("div", {
+          tabIndex: -1,
+          className: cssClasses,
+          style: outerStyle,
+          ref: function ref(node) {
+            _this2.wrapperNode = node;
+          }
+        }, children)
+      );
+    }
+  }]);
+}(reactExports.PureComponent);
+var parseIsSsrByDefault = function parseIsSsrByDefault2() {
+  return !(typeof window !== "undefined" && window.document && window.document.createElement && window.setTimeout);
+};
+var Global = {
+  isSsr: parseIsSsrByDefault()
+};
 function _typeof$E(o) {
   "@babel/helpers - typeof";
   return _typeof$E = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -11870,252 +12306,6 @@ function _toPrimitive$D(t2, r2) {
   }
   return String(t2);
 }
-var EPSILON = 1;
-var TooltipBoundingBox = /* @__PURE__ */ function(_PureComponent) {
-  function TooltipBoundingBox2() {
-    var _this;
-    _classCallCheck$j(this, TooltipBoundingBox2);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _callSuper$f(this, TooltipBoundingBox2, [].concat(args));
-    _defineProperty$C(_this, "state", {
-      dismissed: false,
-      dismissedAtCoordinate: {
-        x: 0,
-        y: 0
-      },
-      lastBoundingBox: {
-        width: -1,
-        height: -1
-      }
-    });
-    _defineProperty$C(_this, "handleKeyDown", function(event) {
-      if (event.key === "Escape") {
-        var _this$props$coordinat, _this$props$coordinat2, _this$props$coordinat3, _this$props$coordinat4;
-        _this.setState({
-          dismissed: true,
-          dismissedAtCoordinate: {
-            x: (_this$props$coordinat = (_this$props$coordinat2 = _this.props.coordinate) === null || _this$props$coordinat2 === void 0 ? void 0 : _this$props$coordinat2.x) !== null && _this$props$coordinat !== void 0 ? _this$props$coordinat : 0,
-            y: (_this$props$coordinat3 = (_this$props$coordinat4 = _this.props.coordinate) === null || _this$props$coordinat4 === void 0 ? void 0 : _this$props$coordinat4.y) !== null && _this$props$coordinat3 !== void 0 ? _this$props$coordinat3 : 0
-          }
-        });
-      }
-    });
-    return _this;
-  }
-  _inherits$g(TooltipBoundingBox2, _PureComponent);
-  return _createClass$j(TooltipBoundingBox2, [{
-    key: "updateBBox",
-    value: function updateBBox() {
-      if (this.wrapperNode && this.wrapperNode.getBoundingClientRect) {
-        var box = this.wrapperNode.getBoundingClientRect();
-        if (Math.abs(box.width - this.state.lastBoundingBox.width) > EPSILON || Math.abs(box.height - this.state.lastBoundingBox.height) > EPSILON) {
-          this.setState({
-            lastBoundingBox: {
-              width: box.width,
-              height: box.height
-            }
-          });
-        }
-      } else if (this.state.lastBoundingBox.width !== -1 || this.state.lastBoundingBox.height !== -1) {
-        this.setState({
-          lastBoundingBox: {
-            width: -1,
-            height: -1
-          }
-        });
-      }
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      document.addEventListener("keydown", this.handleKeyDown);
-      this.updateBBox();
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      document.removeEventListener("keydown", this.handleKeyDown);
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      var _this$props$coordinat5, _this$props$coordinat6;
-      if (this.props.active) {
-        this.updateBBox();
-      }
-      if (!this.state.dismissed) {
-        return;
-      }
-      if (((_this$props$coordinat5 = this.props.coordinate) === null || _this$props$coordinat5 === void 0 ? void 0 : _this$props$coordinat5.x) !== this.state.dismissedAtCoordinate.x || ((_this$props$coordinat6 = this.props.coordinate) === null || _this$props$coordinat6 === void 0 ? void 0 : _this$props$coordinat6.y) !== this.state.dismissedAtCoordinate.y) {
-        this.state.dismissed = false;
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      var _this$props = this.props, active = _this$props.active, allowEscapeViewBox = _this$props.allowEscapeViewBox, animationDuration = _this$props.animationDuration, animationEasing = _this$props.animationEasing, children = _this$props.children, coordinate = _this$props.coordinate, hasPayload = _this$props.hasPayload, isAnimationActive = _this$props.isAnimationActive, offset = _this$props.offset, position = _this$props.position, reverseDirection = _this$props.reverseDirection, useTranslate3d = _this$props.useTranslate3d, viewBox = _this$props.viewBox, wrapperStyle = _this$props.wrapperStyle;
-      var _getTooltipTranslate = getTooltipTranslate({
-        allowEscapeViewBox,
-        coordinate,
-        offsetTopLeft: offset,
-        position,
-        reverseDirection,
-        tooltipBox: this.state.lastBoundingBox,
-        useTranslate3d,
-        viewBox
-      }), cssClasses = _getTooltipTranslate.cssClasses, cssProperties = _getTooltipTranslate.cssProperties;
-      var outerStyle = _objectSpread$y(_objectSpread$y({
-        transition: isAnimationActive && active ? "transform ".concat(animationDuration, "ms ").concat(animationEasing) : void 0
-      }, cssProperties), {}, {
-        pointerEvents: "none",
-        visibility: !this.state.dismissed && active && hasPayload ? "visible" : "hidden",
-        position: "absolute",
-        top: 0,
-        left: 0
-      }, wrapperStyle);
-      return (
-        // This element allow listening to the `Escape` key.
-        // See https://github.com/recharts/recharts/pull/2925
-        /* @__PURE__ */ React.createElement("div", {
-          tabIndex: -1,
-          className: cssClasses,
-          style: outerStyle,
-          ref: function ref(node) {
-            _this2.wrapperNode = node;
-          }
-        }, children)
-      );
-    }
-  }]);
-}(reactExports.PureComponent);
-var parseIsSsrByDefault = function parseIsSsrByDefault2() {
-  return !(typeof window !== "undefined" && window.document && window.document.createElement && window.setTimeout);
-};
-var Global = {
-  isSsr: parseIsSsrByDefault()
-};
-function _typeof$D(o) {
-  "@babel/helpers - typeof";
-  return _typeof$D = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$D(o);
-}
-function ownKeys$x(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$x(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$x(Object(t2), true).forEach(function(r3) {
-      _defineProperty$B(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$x(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _classCallCheck$i(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-function _defineProperties$i(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$C(descriptor.key), descriptor);
-  }
-}
-function _createClass$i(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$i(Constructor.prototype, protoProps);
-  Object.defineProperty(Constructor, "prototype", { writable: false });
-  return Constructor;
-}
-function _callSuper$e(t2, o, e3) {
-  return o = _getPrototypeOf$f(o), _possibleConstructorReturn$f(t2, _isNativeReflectConstruct$f() ? Reflect.construct(o, e3 || [], _getPrototypeOf$f(t2).constructor) : o.apply(t2, e3));
-}
-function _possibleConstructorReturn$f(self2, call) {
-  if (call && (_typeof$D(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized$f(self2);
-}
-function _assertThisInitialized$f(self2) {
-  if (self2 === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self2;
-}
-function _isNativeReflectConstruct$f() {
-  try {
-    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
-    }));
-  } catch (t3) {
-  }
-  return (_isNativeReflectConstruct$f = function _isNativeReflectConstruct2() {
-    return !!t2;
-  })();
-}
-function _getPrototypeOf$f(o) {
-  _getPrototypeOf$f = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
-    return o2.__proto__ || Object.getPrototypeOf(o2);
-  };
-  return _getPrototypeOf$f(o);
-}
-function _inherits$f(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
-  Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$f(subClass, superClass);
-}
-function _setPrototypeOf$f(o, p2) {
-  _setPrototypeOf$f = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
-    o2.__proto__ = p3;
-    return o2;
-  };
-  return _setPrototypeOf$f(o, p2);
-}
-function _defineProperty$B(obj, key, value) {
-  key = _toPropertyKey$C(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$C(t2) {
-  var i = _toPrimitive$C(t2, "string");
-  return "symbol" == _typeof$D(i) ? i : i + "";
-}
-function _toPrimitive$C(t2, r2) {
-  if ("object" != _typeof$D(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$D(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return String(t2);
-}
 function defaultUniqBy(entry) {
   return entry.dataKey;
 }
@@ -12130,11 +12320,11 @@ function renderContent(content, props) {
 }
 var Tooltip = /* @__PURE__ */ function(_PureComponent) {
   function Tooltip2() {
-    _classCallCheck$i(this, Tooltip2);
-    return _callSuper$e(this, Tooltip2, arguments);
+    _classCallCheck$j(this, Tooltip2);
+    return _callSuper$f(this, Tooltip2, arguments);
   }
-  _inherits$f(Tooltip2, _PureComponent);
-  return _createClass$i(Tooltip2, [{
+  _inherits$g(Tooltip2, _PureComponent);
+  return _createClass$j(Tooltip2, [{
     key: "render",
     value: function render() {
       var _this = this;
@@ -12160,14 +12350,14 @@ var Tooltip = /* @__PURE__ */ function(_PureComponent) {
         useTranslate3d,
         viewBox,
         wrapperStyle
-      }, renderContent(content, _objectSpread$x(_objectSpread$x({}, this.props), {}, {
+      }, renderContent(content, _objectSpread$y(_objectSpread$y({}, this.props), {}, {
         payload: finalPayload
       })));
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$B(Tooltip, "displayName", "Tooltip");
-_defineProperty$B(Tooltip, "defaultProps", {
+_defineProperty$C(Tooltip, "displayName", "Tooltip");
+_defineProperty$C(Tooltip, "defaultProps", {
   accessibilityLayer: false,
   allowEscapeViewBox: {
     x: false,
@@ -12350,15 +12540,15 @@ function throttle(func, wait, options) {
 }
 var throttle_1 = throttle;
 const throttle$1 = /* @__PURE__ */ getDefaultExportFromCjs(throttle_1);
-function _typeof$C(o) {
+function _typeof$D(o) {
   "@babel/helpers - typeof";
-  return _typeof$C = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$D = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$C(o);
+  }, _typeof$D(o);
 }
-function ownKeys$w(e3, r2) {
+function ownKeys$x(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -12368,19 +12558,19 @@ function ownKeys$w(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$w(e3) {
+function _objectSpread$x(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$w(Object(t2), true).forEach(function(r3) {
-      _defineProperty$A(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$w(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$x(Object(t2), true).forEach(function(r3) {
+      _defineProperty$B(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$x(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$A(obj, key, value) {
-  key = _toPropertyKey$B(key);
+function _defineProperty$B(obj, key, value) {
+  key = _toPropertyKey$C(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -12388,16 +12578,16 @@ function _defineProperty$A(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$B(t2) {
-  var i = _toPrimitive$B(t2, "string");
-  return "symbol" == _typeof$C(i) ? i : i + "";
+function _toPropertyKey$C(t2) {
+  var i = _toPrimitive$C(t2, "string");
+  return "symbol" == _typeof$D(i) ? i : i + "";
 }
-function _toPrimitive$B(t2, r2) {
-  if ("object" != _typeof$C(t2) || !t2) return t2;
+function _toPrimitive$C(t2, r2) {
+  if ("object" != _typeof$D(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$C(i)) return i;
+    if ("object" != _typeof$D(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -12521,11 +12711,11 @@ var ResponsiveContainer = /* @__PURE__ */ reactExports.forwardRef(function(_ref,
     var isCharts = !Array.isArray(children) && getDisplayName(children.type).endsWith("Chart");
     return React.Children.map(children, function(child) {
       if (/* @__PURE__ */ React.isValidElement(child)) {
-        return /* @__PURE__ */ reactExports.cloneElement(child, _objectSpread$w({
+        return /* @__PURE__ */ reactExports.cloneElement(child, _objectSpread$x({
           width: calculatedWidth,
           height: calculatedHeight
         }, isCharts ? {
-          style: _objectSpread$w({
+          style: _objectSpread$x({
             height: "100%",
             width: "100%",
             maxHeight: calculatedHeight,
@@ -12539,7 +12729,7 @@ var ResponsiveContainer = /* @__PURE__ */ reactExports.forwardRef(function(_ref,
   return /* @__PURE__ */ React.createElement("div", {
     id: id2 ? "".concat(id2) : void 0,
     className: clsx("recharts-responsive-container", className),
-    style: _objectSpread$w(_objectSpread$w({}, style), {}, {
+    style: _objectSpread$x(_objectSpread$x({}, style), {}, {
       width,
       height,
       minWidth,
@@ -12553,15 +12743,15 @@ var Cell = function Cell2(_props) {
   return null;
 };
 Cell.displayName = "Cell";
-function _typeof$B(o) {
+function _typeof$C(o) {
   "@babel/helpers - typeof";
-  return _typeof$B = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$C = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$B(o);
+  }, _typeof$C(o);
 }
-function ownKeys$v(e3, r2) {
+function ownKeys$w(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -12571,19 +12761,19 @@ function ownKeys$v(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$v(e3) {
+function _objectSpread$w(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$v(Object(t2), true).forEach(function(r3) {
-      _defineProperty$z(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$v(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$w(Object(t2), true).forEach(function(r3) {
+      _defineProperty$A(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$w(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$z(obj, key, value) {
-  key = _toPropertyKey$A(key);
+function _defineProperty$A(obj, key, value) {
+  key = _toPropertyKey$B(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -12591,16 +12781,16 @@ function _defineProperty$z(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$A(t2) {
-  var i = _toPrimitive$A(t2, "string");
-  return "symbol" == _typeof$B(i) ? i : i + "";
+function _toPropertyKey$B(t2) {
+  var i = _toPrimitive$B(t2, "string");
+  return "symbol" == _typeof$C(i) ? i : i + "";
 }
-function _toPrimitive$A(t2, r2) {
-  if ("object" != _typeof$B(t2) || !t2) return t2;
+function _toPrimitive$B(t2, r2) {
+  if ("object" != _typeof$C(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$B(i)) return i;
+    if ("object" != _typeof$C(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -12621,7 +12811,7 @@ var SPAN_STYLE = {
 };
 var MEASUREMENT_SPAN_ID = "recharts_measurement_span";
 function removeInvalidKeys(obj) {
-  var copyObj = _objectSpread$v({}, obj);
+  var copyObj = _objectSpread$w({}, obj);
   Object.keys(copyObj).forEach(function(key) {
     if (!copyObj[key]) {
       delete copyObj[key];
@@ -12653,7 +12843,7 @@ var getStringSize = function getStringSize2(text) {
       measurementSpan.setAttribute("aria-hidden", "true");
       document.body.appendChild(measurementSpan);
     }
-    var measurementSpanStyle = _objectSpread$v(_objectSpread$v({}, SPAN_STYLE), copyStyle);
+    var measurementSpanStyle = _objectSpread$w(_objectSpread$w({}, SPAN_STYLE), copyStyle);
     Object.assign(measurementSpan.style, measurementSpanStyle);
     measurementSpan.textContent = "".concat(text);
     var rect = measurementSpan.getBoundingClientRect();
@@ -12680,13 +12870,13 @@ var getOffset = function getOffset2(rect) {
     left: rect.left + window.scrollX - document.documentElement.clientLeft
   };
 };
-function _typeof$A(o) {
+function _typeof$B(o) {
   "@babel/helpers - typeof";
-  return _typeof$A = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$B = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$A(o);
+  }, _typeof$B(o);
 }
 function _slicedToArray$a(arr, i) {
   return _arrayWithHoles$b(arr) || _iterableToArrayLimit$a(arr, i) || _unsupportedIterableToArray$j(arr, i) || _nonIterableRest$b();
@@ -12731,36 +12921,36 @@ function _iterableToArrayLimit$a(r2, l2) {
 function _arrayWithHoles$b(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function _classCallCheck$h(instance, Constructor) {
+function _classCallCheck$i(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$h(target, props) {
+function _defineProperties$i(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$z(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$A(descriptor.key), descriptor);
   }
 }
-function _createClass$h(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$h(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$h(Constructor, staticProps);
+function _createClass$i(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$i(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$i(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _toPropertyKey$z(t2) {
-  var i = _toPrimitive$z(t2, "string");
-  return "symbol" == _typeof$A(i) ? i : i + "";
+function _toPropertyKey$A(t2) {
+  var i = _toPrimitive$A(t2, "string");
+  return "symbol" == _typeof$B(i) ? i : i + "";
 }
-function _toPrimitive$z(t2, r2) {
-  if ("object" != _typeof$A(t2) || !t2) return t2;
+function _toPrimitive$A(t2, r2) {
+  if ("object" != _typeof$B(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$A(i)) return i;
+    if ("object" != _typeof$B(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -12785,7 +12975,7 @@ function convertToPx(value, unit2) {
 }
 var DecimalCSS = /* @__PURE__ */ function() {
   function DecimalCSS2(num, unit2) {
-    _classCallCheck$h(this, DecimalCSS2);
+    _classCallCheck$i(this, DecimalCSS2);
     this.num = num;
     this.unit = unit2;
     this.num = num;
@@ -12802,7 +12992,7 @@ var DecimalCSS = /* @__PURE__ */ function() {
       this.unit = "px";
     }
   }
-  return _createClass$h(DecimalCSS2, [{
+  return _createClass$i(DecimalCSS2, [{
     key: "add",
     value: function add2(other) {
       if (this.unit !== other.unit) {
@@ -12911,9 +13101,9 @@ function reduceCSSCalc(expression) {
   }
   return result;
 }
-var _excluded$e = ["x", "y", "lineHeight", "capHeight", "scaleToFit", "textAnchor", "verticalAnchor", "fill"], _excluded2$6 = ["dx", "dy", "angle", "className", "breakAll"];
-function _extends$p() {
-  _extends$p = Object.assign ? Object.assign.bind() : function(target) {
+var _excluded$f = ["x", "y", "lineHeight", "capHeight", "scaleToFit", "textAnchor", "verticalAnchor", "fill"], _excluded2$7 = ["dx", "dy", "angle", "className", "breakAll"];
+function _extends$q() {
+  _extends$q = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -12924,11 +13114,11 @@ function _extends$p() {
     }
     return target;
   };
-  return _extends$p.apply(this, arguments);
+  return _extends$q.apply(this, arguments);
 }
-function _objectWithoutProperties$e(source, excluded) {
+function _objectWithoutProperties$f(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$e(source, excluded);
+  var target = _objectWithoutPropertiesLoose$f(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -12941,7 +13131,7 @@ function _objectWithoutProperties$e(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$e(source, excluded) {
+function _objectWithoutPropertiesLoose$f(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -13121,7 +13311,7 @@ var getWordsByLines = function getWordsByLines2(_ref4) {
 };
 var DEFAULT_FILL = "#808080";
 var Text = function Text2(_ref5) {
-  var _ref5$x = _ref5.x, propsX = _ref5$x === void 0 ? 0 : _ref5$x, _ref5$y = _ref5.y, propsY = _ref5$y === void 0 ? 0 : _ref5$y, _ref5$lineHeight = _ref5.lineHeight, lineHeight = _ref5$lineHeight === void 0 ? "1em" : _ref5$lineHeight, _ref5$capHeight = _ref5.capHeight, capHeight = _ref5$capHeight === void 0 ? "0.71em" : _ref5$capHeight, _ref5$scaleToFit = _ref5.scaleToFit, scaleToFit = _ref5$scaleToFit === void 0 ? false : _ref5$scaleToFit, _ref5$textAnchor = _ref5.textAnchor, textAnchor = _ref5$textAnchor === void 0 ? "start" : _ref5$textAnchor, _ref5$verticalAnchor = _ref5.verticalAnchor, verticalAnchor = _ref5$verticalAnchor === void 0 ? "end" : _ref5$verticalAnchor, _ref5$fill = _ref5.fill, fill = _ref5$fill === void 0 ? DEFAULT_FILL : _ref5$fill, props = _objectWithoutProperties$e(_ref5, _excluded$e);
+  var _ref5$x = _ref5.x, propsX = _ref5$x === void 0 ? 0 : _ref5$x, _ref5$y = _ref5.y, propsY = _ref5$y === void 0 ? 0 : _ref5$y, _ref5$lineHeight = _ref5.lineHeight, lineHeight = _ref5$lineHeight === void 0 ? "1em" : _ref5$lineHeight, _ref5$capHeight = _ref5.capHeight, capHeight = _ref5$capHeight === void 0 ? "0.71em" : _ref5$capHeight, _ref5$scaleToFit = _ref5.scaleToFit, scaleToFit = _ref5$scaleToFit === void 0 ? false : _ref5$scaleToFit, _ref5$textAnchor = _ref5.textAnchor, textAnchor = _ref5$textAnchor === void 0 ? "start" : _ref5$textAnchor, _ref5$verticalAnchor = _ref5.verticalAnchor, verticalAnchor = _ref5$verticalAnchor === void 0 ? "end" : _ref5$verticalAnchor, _ref5$fill = _ref5.fill, fill = _ref5$fill === void 0 ? DEFAULT_FILL : _ref5$fill, props = _objectWithoutProperties$f(_ref5, _excluded$f);
   var wordsByLines = reactExports.useMemo(function() {
     return getWordsByLines({
       breakAll: props.breakAll,
@@ -13132,7 +13322,7 @@ var Text = function Text2(_ref5) {
       width: props.width
     });
   }, [props.breakAll, props.children, props.maxLines, scaleToFit, props.style, props.width]);
-  var dx = props.dx, dy = props.dy, angle = props.angle, className = props.className, breakAll = props.breakAll, textProps = _objectWithoutProperties$e(props, _excluded2$6);
+  var dx = props.dx, dy = props.dy, angle = props.angle, className = props.className, breakAll = props.breakAll, textProps = _objectWithoutProperties$f(props, _excluded2$7);
   if (!isNumOrStr(propsX) || !isNumOrStr(propsY)) {
     return null;
   }
@@ -13162,7 +13352,7 @@ var Text = function Text2(_ref5) {
   if (transforms.length) {
     textProps.transform = transforms.join(" ");
   }
-  return /* @__PURE__ */ React.createElement("text", _extends$p({}, filterProps(textProps, true), {
+  return /* @__PURE__ */ React.createElement("text", _extends$q({}, filterProps(textProps, true), {
     x: x2,
     y: y2,
     className: clsx("recharts-text", className),
@@ -17183,17 +17373,17 @@ function invariant(condition, message) {
     throw new Error(prefix);
   }
 }
-var _excluded$d = ["offset", "layout", "width", "dataKey", "data", "dataPointFormatter", "xAxis", "yAxis"];
-function _typeof$z(o) {
+var _excluded$e = ["offset", "layout", "width", "dataKey", "data", "dataPointFormatter", "xAxis", "yAxis"];
+function _typeof$A(o) {
   "@babel/helpers - typeof";
-  return _typeof$z = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$A = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$z(o);
+  }, _typeof$A(o);
 }
-function _extends$o() {
-  _extends$o = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$p() {
+  _extends$p = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -17204,7 +17394,7 @@ function _extends$o() {
     }
     return target;
   };
-  return _extends$o.apply(this, arguments);
+  return _extends$p.apply(this, arguments);
 }
 function _slicedToArray$7(arr, i) {
   return _arrayWithHoles$8(arr) || _iterableToArrayLimit$7(arr, i) || _unsupportedIterableToArray$f(arr, i) || _nonIterableRest$8();
@@ -17247,9 +17437,9 @@ function _iterableToArrayLimit$7(r2, l2) {
 function _arrayWithHoles$8(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function _objectWithoutProperties$d(source, excluded) {
+function _objectWithoutProperties$e(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$d(source, excluded);
+  var target = _objectWithoutPropertiesLoose$e(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -17262,7 +17452,7 @@ function _objectWithoutProperties$d(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$d(source, excluded) {
+function _objectWithoutPropertiesLoose$e(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -17273,75 +17463,75 @@ function _objectWithoutPropertiesLoose$d(source, excluded) {
   }
   return target;
 }
-function _classCallCheck$g(instance, Constructor) {
+function _classCallCheck$h(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$g(target, props) {
+function _defineProperties$h(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$y(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$z(descriptor.key), descriptor);
   }
 }
-function _createClass$g(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$g(Constructor.prototype, protoProps);
+function _createClass$h(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$h(Constructor.prototype, protoProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$d(t2, o, e3) {
-  return o = _getPrototypeOf$e(o), _possibleConstructorReturn$e(t2, _isNativeReflectConstruct$e() ? Reflect.construct(o, e3 || [], _getPrototypeOf$e(t2).constructor) : o.apply(t2, e3));
+function _callSuper$e(t2, o, e3) {
+  return o = _getPrototypeOf$f(o), _possibleConstructorReturn$f(t2, _isNativeReflectConstruct$f() ? Reflect.construct(o, e3 || [], _getPrototypeOf$f(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$e(self2, call) {
-  if (call && (_typeof$z(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$f(self2, call) {
+  if (call && (_typeof$A(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$e(self2);
+  return _assertThisInitialized$f(self2);
 }
-function _assertThisInitialized$e(self2) {
+function _assertThisInitialized$f(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$e() {
+function _isNativeReflectConstruct$f() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t22) {
   }
-  return (_isNativeReflectConstruct$e = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$f = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$e(o) {
-  _getPrototypeOf$e = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$f(o) {
+  _getPrototypeOf$f = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$e(o);
+  return _getPrototypeOf$f(o);
 }
-function _inherits$e(subClass, superClass) {
+function _inherits$f(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$e(subClass, superClass);
+  if (superClass) _setPrototypeOf$f(subClass, superClass);
 }
-function _setPrototypeOf$e(o, p2) {
-  _setPrototypeOf$e = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p22) {
+function _setPrototypeOf$f(o, p2) {
+  _setPrototypeOf$f = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p22) {
     o2.__proto__ = p22;
     return o2;
   };
-  return _setPrototypeOf$e(o, p2);
+  return _setPrototypeOf$f(o, p2);
 }
-function _defineProperty$y(obj, key, value) {
-  key = _toPropertyKey$y(key);
+function _defineProperty$z(obj, key, value) {
+  key = _toPropertyKey$z(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -17349,30 +17539,30 @@ function _defineProperty$y(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$y(t2) {
-  var i = _toPrimitive$y(t2, "string");
-  return "symbol" == _typeof$z(i) ? i : i + "";
+function _toPropertyKey$z(t2) {
+  var i = _toPrimitive$z(t2, "string");
+  return "symbol" == _typeof$A(i) ? i : i + "";
 }
-function _toPrimitive$y(t2, r2) {
-  if ("object" != _typeof$z(t2) || !t2) return t2;
+function _toPrimitive$z(t2, r2) {
+  if ("object" != _typeof$A(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$z(i)) return i;
+    if ("object" != _typeof$A(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
 }
 var ErrorBar = /* @__PURE__ */ function(_React$Component) {
   function ErrorBar2() {
-    _classCallCheck$g(this, ErrorBar2);
-    return _callSuper$d(this, ErrorBar2, arguments);
+    _classCallCheck$h(this, ErrorBar2);
+    return _callSuper$e(this, ErrorBar2, arguments);
   }
-  _inherits$e(ErrorBar2, _React$Component);
-  return _createClass$g(ErrorBar2, [{
+  _inherits$f(ErrorBar2, _React$Component);
+  return _createClass$h(ErrorBar2, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props, offset = _this$props.offset, layout = _this$props.layout, width = _this$props.width, dataKey = _this$props.dataKey, data = _this$props.data, dataPointFormatter = _this$props.dataPointFormatter, xAxis = _this$props.xAxis, yAxis = _this$props.yAxis, others = _objectWithoutProperties$d(_this$props, _excluded$d);
+      var _this$props = this.props, offset = _this$props.offset, layout = _this$props.layout, width = _this$props.width, dataKey = _this$props.dataKey, data = _this$props.data, dataPointFormatter = _this$props.dataPointFormatter, xAxis = _this$props.xAxis, yAxis = _this$props.yAxis, others = _objectWithoutProperties$e(_this$props, _excluded$e);
       var svgProps = filterProps(others, false);
       !!(this.props.direction === "x" && xAxis.type !== "number") ? invariant() : void 0;
       var errorBars = data.map(function(entry) {
@@ -17440,13 +17630,13 @@ var ErrorBar = /* @__PURE__ */ function(_React$Component) {
             y2: _yMin
           });
         }
-        return /* @__PURE__ */ React.createElement(Layer, _extends$o({
+        return /* @__PURE__ */ React.createElement(Layer, _extends$p({
           className: "recharts-errorBar",
           key: "bar-".concat(lineCoordinates.map(function(c2) {
             return "".concat(c2.x1, "-").concat(c2.x2, "-").concat(c2.y1, "-").concat(c2.y2);
           }))
         }, svgProps), lineCoordinates.map(function(coordinates) {
-          return /* @__PURE__ */ React.createElement("line", _extends$o({}, coordinates, {
+          return /* @__PURE__ */ React.createElement("line", _extends$p({}, coordinates, {
             key: "line-".concat(coordinates.x1, "-").concat(coordinates.x2, "-").concat(coordinates.y1, "-").concat(coordinates.y2)
           }));
         }));
@@ -17457,14 +17647,112 @@ var ErrorBar = /* @__PURE__ */ function(_React$Component) {
     }
   }]);
 }(React.Component);
-_defineProperty$y(ErrorBar, "defaultProps", {
+_defineProperty$z(ErrorBar, "defaultProps", {
   stroke: "black",
   strokeWidth: 1.5,
   width: 5,
   offset: 0,
   layout: "horizontal"
 });
-_defineProperty$y(ErrorBar, "displayName", "ErrorBar");
+_defineProperty$z(ErrorBar, "displayName", "ErrorBar");
+function _typeof$z(o) {
+  "@babel/helpers - typeof";
+  return _typeof$z = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$z(o);
+}
+function ownKeys$v(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$v(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$v(Object(t2), true).forEach(function(r3) {
+      _defineProperty$y(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$v(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _defineProperty$y(obj, key, value) {
+  key = _toPropertyKey$y(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$y(t2) {
+  var i = _toPrimitive$y(t2, "string");
+  return "symbol" == _typeof$z(i) ? i : i + "";
+}
+function _toPrimitive$y(t2, r2) {
+  if ("object" != _typeof$z(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$z(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+var getLegendProps = function getLegendProps2(_ref) {
+  var children = _ref.children, formattedGraphicalItems = _ref.formattedGraphicalItems, legendWidth = _ref.legendWidth, legendContent = _ref.legendContent;
+  var legendItem = findChildByType(children, Legend);
+  if (!legendItem) {
+    return null;
+  }
+  var legendDefaultProps = Legend.defaultProps;
+  var legendProps = legendDefaultProps !== void 0 ? _objectSpread$v(_objectSpread$v({}, legendDefaultProps), legendItem.props) : {};
+  var legendData;
+  if (legendItem.props && legendItem.props.payload) {
+    legendData = legendItem.props && legendItem.props.payload;
+  } else if (legendContent === "children") {
+    legendData = (formattedGraphicalItems || []).reduce(function(result, _ref2) {
+      var item = _ref2.item, props = _ref2.props;
+      var data = props.sectors || props.data || [];
+      return result.concat(data.map(function(entry) {
+        return {
+          type: legendItem.props.iconType || item.props.legendType,
+          value: entry.name,
+          color: entry.fill,
+          payload: entry
+        };
+      }));
+    }, []);
+  } else {
+    legendData = (formattedGraphicalItems || []).map(function(_ref3) {
+      var item = _ref3.item;
+      var itemDefaultProps = item.type.defaultProps;
+      var itemProps = itemDefaultProps !== void 0 ? _objectSpread$v(_objectSpread$v({}, itemDefaultProps), item.props) : {};
+      var dataKey = itemProps.dataKey, name = itemProps.name, legendType = itemProps.legendType, hide = itemProps.hide;
+      return {
+        inactive: hide,
+        dataKey,
+        type: legendProps.iconType || legendType || "square",
+        color: getMainColorOfGraphicItem(item),
+        value: name || dataKey,
+        // @ts-expect-error property strokeDasharray is required in Payload but optional in props
+        payload: itemProps
+      };
+    });
+  }
+  return _objectSpread$v(_objectSpread$v(_objectSpread$v({}, legendProps), Legend.getWithHeight(legendItem, legendWidth)), {}, {
+    payload: legendData,
+    item: legendItem
+  });
+};
 function _typeof$y(o) {
   "@babel/helpers - typeof";
   return _typeof$y = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -17472,6 +17760,31 @@ function _typeof$y(o) {
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
   }, _typeof$y(o);
+}
+function _toConsumableArray$9(arr) {
+  return _arrayWithoutHoles$9(arr) || _iterableToArray$a(arr) || _unsupportedIterableToArray$e(arr) || _nonIterableSpread$9();
+}
+function _nonIterableSpread$9() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray$e(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray$e(o, minLen);
+  var n2 = Object.prototype.toString.call(o).slice(8, -1);
+  if (n2 === "Object" && o.constructor) n2 = o.constructor.name;
+  if (n2 === "Map" || n2 === "Set") return Array.from(o);
+  if (n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2)) return _arrayLikeToArray$e(o, minLen);
+}
+function _iterableToArray$a(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _arrayWithoutHoles$9(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray$e(arr);
+}
+function _arrayLikeToArray$e(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
 }
 function ownKeys$u(e3, r2) {
   var t2 = Object.keys(e3);
@@ -17513,129 +17826,6 @@ function _toPrimitive$x(t2, r2) {
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
     if ("object" != _typeof$y(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
-var getLegendProps = function getLegendProps2(_ref) {
-  var children = _ref.children, formattedGraphicalItems = _ref.formattedGraphicalItems, legendWidth = _ref.legendWidth, legendContent = _ref.legendContent;
-  var legendItem = findChildByType(children, Legend);
-  if (!legendItem) {
-    return null;
-  }
-  var legendDefaultProps = Legend.defaultProps;
-  var legendProps = legendDefaultProps !== void 0 ? _objectSpread$u(_objectSpread$u({}, legendDefaultProps), legendItem.props) : {};
-  var legendData;
-  if (legendItem.props && legendItem.props.payload) {
-    legendData = legendItem.props && legendItem.props.payload;
-  } else if (legendContent === "children") {
-    legendData = (formattedGraphicalItems || []).reduce(function(result, _ref2) {
-      var item = _ref2.item, props = _ref2.props;
-      var data = props.sectors || props.data || [];
-      return result.concat(data.map(function(entry) {
-        return {
-          type: legendItem.props.iconType || item.props.legendType,
-          value: entry.name,
-          color: entry.fill,
-          payload: entry
-        };
-      }));
-    }, []);
-  } else {
-    legendData = (formattedGraphicalItems || []).map(function(_ref3) {
-      var item = _ref3.item;
-      var itemDefaultProps = item.type.defaultProps;
-      var itemProps = itemDefaultProps !== void 0 ? _objectSpread$u(_objectSpread$u({}, itemDefaultProps), item.props) : {};
-      var dataKey = itemProps.dataKey, name = itemProps.name, legendType = itemProps.legendType, hide = itemProps.hide;
-      return {
-        inactive: hide,
-        dataKey,
-        type: legendProps.iconType || legendType || "square",
-        color: getMainColorOfGraphicItem(item),
-        value: name || dataKey,
-        // @ts-expect-error property strokeDasharray is required in Payload but optional in props
-        payload: itemProps
-      };
-    });
-  }
-  return _objectSpread$u(_objectSpread$u(_objectSpread$u({}, legendProps), Legend.getWithHeight(legendItem, legendWidth)), {}, {
-    payload: legendData,
-    item: legendItem
-  });
-};
-function _typeof$x(o) {
-  "@babel/helpers - typeof";
-  return _typeof$x = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$x(o);
-}
-function _toConsumableArray$9(arr) {
-  return _arrayWithoutHoles$9(arr) || _iterableToArray$a(arr) || _unsupportedIterableToArray$e(arr) || _nonIterableSpread$9();
-}
-function _nonIterableSpread$9() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray$e(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray$e(o, minLen);
-  var n2 = Object.prototype.toString.call(o).slice(8, -1);
-  if (n2 === "Object" && o.constructor) n2 = o.constructor.name;
-  if (n2 === "Map" || n2 === "Set") return Array.from(o);
-  if (n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2)) return _arrayLikeToArray$e(o, minLen);
-}
-function _iterableToArray$a(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-function _arrayWithoutHoles$9(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray$e(arr);
-}
-function _arrayLikeToArray$e(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-function ownKeys$t(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$t(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$t(Object(t2), true).forEach(function(r3) {
-      _defineProperty$w(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$t(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _defineProperty$w(obj, key, value) {
-  key = _toPropertyKey$w(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$w(t2) {
-  var i = _toPrimitive$w(t2, "string");
-  return "symbol" == _typeof$x(i) ? i : i + "";
-}
-function _toPrimitive$w(t2, r2) {
-  if ("object" != _typeof$x(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$x(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -17726,7 +17916,7 @@ var calculateActiveTickIndex = function calculateActiveTickIndex2(coordinate) {
 var getMainColorOfGraphicItem = function getMainColorOfGraphicItem2(item) {
   var _item$type;
   var _ref = item, displayName = _ref.type.displayName;
-  var defaultedProps = (_item$type = item.type) !== null && _item$type !== void 0 && _item$type.defaultProps ? _objectSpread$t(_objectSpread$t({}, item.type.defaultProps), item.props) : item.props;
+  var defaultedProps = (_item$type = item.type) !== null && _item$type !== void 0 && _item$type.defaultProps ? _objectSpread$u(_objectSpread$u({}, item.type.defaultProps), item.props) : item.props;
   var stroke = defaultedProps.stroke, fill = defaultedProps.fill;
   var result;
   switch (displayName) {
@@ -17760,7 +17950,7 @@ var getBarSizeList = function getBarSizeList2(_ref2) {
       });
       if (barItems && barItems.length) {
         var barItemDefaultProps = barItems[0].type.defaultProps;
-        var barItemProps = barItemDefaultProps !== void 0 ? _objectSpread$t(_objectSpread$t({}, barItemDefaultProps), barItems[0].props) : barItems[0].props;
+        var barItemProps = barItemDefaultProps !== void 0 ? _objectSpread$u(_objectSpread$u({}, barItemDefaultProps), barItems[0].props) : barItems[0].props;
         var selfSize = barItemProps.barSize;
         var cateId = barItemProps[cateAxisId];
         if (!result[cateId]) {
@@ -17868,10 +18058,10 @@ var appendOffsetOfLegend = function appendOffsetOfLegend2(offset, _unused, props
     var _ref4 = legendBox || {}, boxWidth = _ref4.width, boxHeight = _ref4.height;
     var align = legendProps.align, verticalAlign = legendProps.verticalAlign, layout = legendProps.layout;
     if ((layout === "vertical" || layout === "horizontal" && verticalAlign === "middle") && align !== "center" && isNumber(offset[align])) {
-      return _objectSpread$t(_objectSpread$t({}, offset), {}, _defineProperty$w({}, align, offset[align] + (boxWidth || 0)));
+      return _objectSpread$u(_objectSpread$u({}, offset), {}, _defineProperty$x({}, align, offset[align] + (boxWidth || 0)));
     }
     if ((layout === "horizontal" || layout === "vertical" && align === "center") && verticalAlign !== "middle" && isNumber(offset[verticalAlign])) {
-      return _objectSpread$t(_objectSpread$t({}, offset), {}, _defineProperty$w({}, verticalAlign, offset[verticalAlign] + (boxHeight || 0)));
+      return _objectSpread$u(_objectSpread$u({}, offset), {}, _defineProperty$x({}, verticalAlign, offset[verticalAlign] + (boxHeight || 0)));
     }
   }
   return offset;
@@ -18222,7 +18412,7 @@ var getStackGroupsByAxisId = function getStackGroupsByAxisId2(data, _items, nume
   var parentStackGroupsInitialValue = {};
   var stackGroups = items.reduce(function(result, item) {
     var _item$type2;
-    var defaultedProps = (_item$type2 = item.type) !== null && _item$type2 !== void 0 && _item$type2.defaultProps ? _objectSpread$t(_objectSpread$t({}, item.type.defaultProps), item.props) : item.props;
+    var defaultedProps = (_item$type2 = item.type) !== null && _item$type2 !== void 0 && _item$type2.defaultProps ? _objectSpread$u(_objectSpread$u({}, item.type.defaultProps), item.props) : item.props;
     var stackId = defaultedProps.stackId, hide = defaultedProps.hide;
     if (hide) {
       return result;
@@ -18248,7 +18438,7 @@ var getStackGroupsByAxisId = function getStackGroupsByAxisId2(data, _items, nume
         items: [item]
       };
     }
-    return _objectSpread$t(_objectSpread$t({}, result), {}, _defineProperty$w({}, axisId, parentGroup));
+    return _objectSpread$u(_objectSpread$u({}, result), {}, _defineProperty$x({}, axisId, parentGroup));
   }, parentStackGroupsInitialValue);
   var axisStackGroupsInitialValue = {};
   return Object.keys(stackGroups).reduce(function(result, axisId) {
@@ -18257,7 +18447,7 @@ var getStackGroupsByAxisId = function getStackGroupsByAxisId2(data, _items, nume
       var stackGroupsInitialValue = {};
       group.stackGroups = Object.keys(group.stackGroups).reduce(function(res, stackId) {
         var g2 = group.stackGroups[stackId];
-        return _objectSpread$t(_objectSpread$t({}, res), {}, _defineProperty$w({}, stackId, {
+        return _objectSpread$u(_objectSpread$u({}, res), {}, _defineProperty$x({}, stackId, {
           numericAxisId,
           cateAxisId,
           items: g2.items,
@@ -18265,7 +18455,7 @@ var getStackGroupsByAxisId = function getStackGroupsByAxisId2(data, _items, nume
         }));
       }, stackGroupsInitialValue);
     }
-    return _objectSpread$t(_objectSpread$t({}, result), {}, _defineProperty$w({}, axisId, group));
+    return _objectSpread$u(_objectSpread$u({}, result), {}, _defineProperty$x({}, axisId, group));
   }, axisStackGroupsInitialValue);
 };
 var getTicksOfScale = function getTicksOfScale2(scale, opts) {
@@ -18334,7 +18524,7 @@ var getBaseValueOfBar = function getBaseValueOfBar2(_ref7) {
 };
 var getStackedDataOfItem = function getStackedDataOfItem2(item, stackGroups) {
   var _item$type3;
-  var defaultedProps = (_item$type3 = item.type) !== null && _item$type3 !== void 0 && _item$type3.defaultProps ? _objectSpread$t(_objectSpread$t({}, item.type.defaultProps), item.props) : item.props;
+  var defaultedProps = (_item$type3 = item.type) !== null && _item$type3 !== void 0 && _item$type3.defaultProps ? _objectSpread$u(_objectSpread$u({}, item.type.defaultProps), item.props) : item.props;
   var stackId = defaultedProps.stackId;
   if (isNumOrStr(stackId)) {
     var group = stackGroups[stackId];
@@ -18426,9 +18616,9 @@ var parseDomainOfCategoryAxis = function parseDomainOfCategoryAxis2(specifiedDom
   return specifiedDomain;
 };
 var getTooltipItem = function getTooltipItem2(graphicalItem, payload) {
-  var defaultedProps = graphicalItem.type.defaultProps ? _objectSpread$t(_objectSpread$t({}, graphicalItem.type.defaultProps), graphicalItem.props) : graphicalItem.props;
+  var defaultedProps = graphicalItem.type.defaultProps ? _objectSpread$u(_objectSpread$u({}, graphicalItem.type.defaultProps), graphicalItem.props) : graphicalItem.props;
   var dataKey = defaultedProps.dataKey, name = defaultedProps.name, unit2 = defaultedProps.unit, formatter = defaultedProps.formatter, tooltipType = defaultedProps.tooltipType, chartType = defaultedProps.chartType, hide = defaultedProps.hide;
-  return _objectSpread$t(_objectSpread$t({}, filterProps(graphicalItem, false)), {}, {
+  return _objectSpread$u(_objectSpread$u({}, filterProps(graphicalItem, false)), {}, {
     dataKey,
     unit: unit2,
     formatter,
@@ -18441,15 +18631,15 @@ var getTooltipItem = function getTooltipItem2(graphicalItem, payload) {
     hide
   });
 };
-function _typeof$w(o) {
+function _typeof$x(o) {
   "@babel/helpers - typeof";
-  return _typeof$w = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$x = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$w(o);
+  }, _typeof$x(o);
 }
-function ownKeys$s(e3, r2) {
+function ownKeys$t(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -18459,19 +18649,19 @@ function ownKeys$s(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$s(e3) {
+function _objectSpread$t(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$s(Object(t2), true).forEach(function(r3) {
-      _defineProperty$v(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$s(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$t(Object(t2), true).forEach(function(r3) {
+      _defineProperty$w(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$t(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$v(obj, key, value) {
-  key = _toPropertyKey$v(key);
+function _defineProperty$w(obj, key, value) {
+  key = _toPropertyKey$w(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -18479,16 +18669,16 @@ function _defineProperty$v(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$v(t2) {
-  var i = _toPrimitive$v(t2, "string");
-  return "symbol" == _typeof$w(i) ? i : i + "";
+function _toPropertyKey$w(t2) {
+  var i = _toPrimitive$w(t2, "string");
+  return "symbol" == _typeof$x(i) ? i : i + "";
 }
-function _toPrimitive$v(t2, r2) {
-  if ("object" != _typeof$w(t2) || !t2) return t2;
+function _toPrimitive$w(t2, r2) {
+  if ("object" != _typeof$x(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$w(i)) return i;
+    if ("object" != _typeof$x(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -18585,10 +18775,10 @@ var formatAxisMap$1 = function formatAxisMap(props, axisMap, offset, axisType, c
     var _parseScale = parseScale(axis, chartName), realScaleType = _parseScale.realScaleType, scale = _parseScale.scale;
     scale.domain(domain).range(range3);
     checkDomainOfScale(scale);
-    var ticks2 = getTicksOfScale(scale, _objectSpread$s(_objectSpread$s({}, axis), {}, {
+    var ticks2 = getTicksOfScale(scale, _objectSpread$t(_objectSpread$t({}, axis), {}, {
       realScaleType
     }));
-    var finalAxis = _objectSpread$s(_objectSpread$s(_objectSpread$s({}, axis), ticks2), {}, {
+    var finalAxis = _objectSpread$t(_objectSpread$t(_objectSpread$t({}, axis), ticks2), {}, {
       range: range3,
       radius: outerRadius,
       realScaleType,
@@ -18600,7 +18790,7 @@ var formatAxisMap$1 = function formatAxisMap(props, axisMap, offset, axisType, c
       startAngle,
       endAngle
     });
-    return _objectSpread$s(_objectSpread$s({}, result), {}, _defineProperty$v({}, id2, finalAxis));
+    return _objectSpread$t(_objectSpread$t({}, result), {}, _defineProperty$w({}, id2, finalAxis));
   }, {});
 };
 var distanceBetweenPoints = function distanceBetweenPoints2(point2, anotherPoint) {
@@ -18685,7 +18875,7 @@ var inRangeOfSector = function inRangeOfSector2(_ref5, sector) {
     inRange = formatAngle >= endAngle && formatAngle <= startAngle;
   }
   if (inRange) {
-    return _objectSpread$s(_objectSpread$s({}, sector), {}, {
+    return _objectSpread$t(_objectSpread$t({}, sector), {}, {
       radius,
       angle: reverseFormatAngleOfSetor(formatAngle, sector)
     });
@@ -18695,15 +18885,15 @@ var inRangeOfSector = function inRangeOfSector2(_ref5, sector) {
 var getTickClassName = function getTickClassName2(tick) {
   return !/* @__PURE__ */ reactExports.isValidElement(tick) && !isFunction$3(tick) && typeof tick !== "boolean" ? tick.className : "";
 };
-function _typeof$v(o) {
+function _typeof$w(o) {
   "@babel/helpers - typeof";
-  return _typeof$v = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$w = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$v(o);
+  }, _typeof$w(o);
 }
-var _excluded$c = ["offset"];
+var _excluded$d = ["offset"];
 function _toConsumableArray$8(arr) {
   return _arrayWithoutHoles$8(arr) || _iterableToArray$9(arr) || _unsupportedIterableToArray$c(arr) || _nonIterableSpread$8();
 }
@@ -18729,9 +18919,9 @@ function _arrayLikeToArray$c(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function _objectWithoutProperties$c(source, excluded) {
+function _objectWithoutProperties$d(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$c(source, excluded);
+  var target = _objectWithoutPropertiesLoose$d(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -18744,7 +18934,7 @@ function _objectWithoutProperties$c(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$c(source, excluded) {
+function _objectWithoutPropertiesLoose$d(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -18755,7 +18945,7 @@ function _objectWithoutPropertiesLoose$c(source, excluded) {
   }
   return target;
 }
-function ownKeys$r(e3, r2) {
+function ownKeys$s(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -18765,19 +18955,19 @@ function ownKeys$r(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$r(e3) {
+function _objectSpread$s(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$r(Object(t2), true).forEach(function(r3) {
-      _defineProperty$u(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$r(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$s(Object(t2), true).forEach(function(r3) {
+      _defineProperty$v(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$s(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$u(obj, key, value) {
-  key = _toPropertyKey$u(key);
+function _defineProperty$v(obj, key, value) {
+  key = _toPropertyKey$v(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -18785,22 +18975,22 @@ function _defineProperty$u(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$u(t2) {
-  var i = _toPrimitive$u(t2, "string");
-  return "symbol" == _typeof$v(i) ? i : i + "";
+function _toPropertyKey$v(t2) {
+  var i = _toPrimitive$v(t2, "string");
+  return "symbol" == _typeof$w(i) ? i : i + "";
 }
-function _toPrimitive$u(t2, r2) {
-  if ("object" != _typeof$v(t2) || !t2) return t2;
+function _toPrimitive$v(t2, r2) {
+  if ("object" != _typeof$w(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$v(i)) return i;
+    if ("object" != _typeof$w(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
 }
-function _extends$n() {
-  _extends$n = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$o() {
+  _extends$o = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -18811,7 +19001,7 @@ function _extends$n() {
     }
     return target;
   };
-  return _extends$n.apply(this, arguments);
+  return _extends$o.apply(this, arguments);
 }
 var getLabel = function getLabel2(props) {
   var value = props.value, formatter = props.formatter;
@@ -18848,7 +19038,7 @@ var renderRadialLabel = function renderRadialLabel2(labelProps, label, attrs) {
   var endPoint = polarToCartesian(cx, cy, radius, labelAngle + (direction ? 1 : -1) * 359);
   var path = "M".concat(startPoint.x, ",").concat(startPoint.y, "\n    A").concat(radius, ",").concat(radius, ",0,1,").concat(direction ? 0 : 1, ",\n    ").concat(endPoint.x, ",").concat(endPoint.y);
   var id2 = isNil$1(labelProps.id) ? uniqueId("recharts-radial-line-") : labelProps.id;
-  return /* @__PURE__ */ React.createElement("text", _extends$n({}, attrs, {
+  return /* @__PURE__ */ React.createElement("text", _extends$o({}, attrs, {
     dominantBaseline: "central",
     className: clsx("recharts-radial-bar-label", className)
   }), /* @__PURE__ */ React.createElement("defs", null, /* @__PURE__ */ React.createElement("path", {
@@ -18922,7 +19112,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
       textAnchor: "middle",
       verticalAnchor: verticalEnd
     };
-    return _objectSpread$r(_objectSpread$r({}, attrs), parentViewBox ? {
+    return _objectSpread$s(_objectSpread$s({}, attrs), parentViewBox ? {
       height: Math.max(y2 - parentViewBox.y, 0),
       width
     } : {});
@@ -18934,7 +19124,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
       textAnchor: "middle",
       verticalAnchor: verticalStart
     };
-    return _objectSpread$r(_objectSpread$r({}, _attrs), parentViewBox ? {
+    return _objectSpread$s(_objectSpread$s({}, _attrs), parentViewBox ? {
       height: Math.max(parentViewBox.y + parentViewBox.height - (y2 + height), 0),
       width
     } : {});
@@ -18946,7 +19136,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
       textAnchor: horizontalEnd,
       verticalAnchor: "middle"
     };
-    return _objectSpread$r(_objectSpread$r({}, _attrs2), parentViewBox ? {
+    return _objectSpread$s(_objectSpread$s({}, _attrs2), parentViewBox ? {
       width: Math.max(_attrs2.x - parentViewBox.x, 0),
       height
     } : {});
@@ -18958,7 +19148,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
       textAnchor: horizontalStart,
       verticalAnchor: "middle"
     };
-    return _objectSpread$r(_objectSpread$r({}, _attrs3), parentViewBox ? {
+    return _objectSpread$s(_objectSpread$s({}, _attrs3), parentViewBox ? {
       width: Math.max(parentViewBox.x + parentViewBox.width - _attrs3.x, 0),
       height
     } : {});
@@ -18968,7 +19158,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     height
   } : {};
   if (position === "insideLeft") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + horizontalOffset,
       y: y2 + height / 2,
       textAnchor: horizontalStart,
@@ -18976,7 +19166,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideRight") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + width - horizontalOffset,
       y: y2 + height / 2,
       textAnchor: horizontalEnd,
@@ -18984,7 +19174,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideTop") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + width / 2,
       y: y2 + verticalOffset,
       textAnchor: "middle",
@@ -18992,7 +19182,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideBottom") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + width / 2,
       y: y2 + height - verticalOffset,
       textAnchor: "middle",
@@ -19000,7 +19190,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideTopLeft") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + horizontalOffset,
       y: y2 + verticalOffset,
       textAnchor: horizontalStart,
@@ -19008,7 +19198,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideTopRight") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + width - horizontalOffset,
       y: y2 + verticalOffset,
       textAnchor: horizontalEnd,
@@ -19016,7 +19206,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideBottomLeft") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + horizontalOffset,
       y: y2 + height - verticalOffset,
       textAnchor: horizontalStart,
@@ -19024,7 +19214,7 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (position === "insideBottomRight") {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + width - horizontalOffset,
       y: y2 + height - verticalOffset,
       textAnchor: horizontalEnd,
@@ -19032,14 +19222,14 @@ var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel2(props) {
     }, sizeAttrs);
   }
   if (isObject$8(position) && (isNumber(position.x) || isPercent(position.x)) && (isNumber(position.y) || isPercent(position.y))) {
-    return _objectSpread$r({
+    return _objectSpread$s({
       x: x2 + getPercentValue(position.x, width),
       y: y2 + getPercentValue(position.y, height),
       textAnchor: "end",
       verticalAnchor: "end"
     }, sizeAttrs);
   }
-  return _objectSpread$r({
+  return _objectSpread$s({
     x: x2 + width / 2,
     y: y2 + height / 2,
     textAnchor: "middle",
@@ -19050,8 +19240,8 @@ var isPolar = function isPolar2(viewBox) {
   return "cx" in viewBox && isNumber(viewBox.cx);
 };
 function Label(_ref4) {
-  var _ref4$offset = _ref4.offset, offset = _ref4$offset === void 0 ? 5 : _ref4$offset, restProps = _objectWithoutProperties$c(_ref4, _excluded$c);
-  var props = _objectSpread$r({
+  var _ref4$offset = _ref4.offset, offset = _ref4$offset === void 0 ? 5 : _ref4$offset, restProps = _objectWithoutProperties$d(_ref4, _excluded$d);
+  var props = _objectSpread$s({
     offset
   }, restProps);
   var viewBox = props.viewBox, position = props.position, value = props.value, children = props.children, content = props.content, _props$className = props.className, className = _props$className === void 0 ? "" : _props$className, textBreakAll = props.textBreakAll;
@@ -19076,7 +19266,7 @@ function Label(_ref4) {
     return renderRadialLabel(props, label, attrs);
   }
   var positionAttrs = isPolarLabel ? getAttrsOfPolarLabel(props) : getAttrsOfCartesianLabel(props);
-  return /* @__PURE__ */ React.createElement(Text, _extends$n({
+  return /* @__PURE__ */ React.createElement(Text, _extends$o({
     className: clsx("recharts-label", className)
   }, attrs, positionAttrs, {
     breakAll: textBreakAll
@@ -19168,7 +19358,7 @@ var parseLabel = function parseLabel2(label, viewBox) {
     });
   }
   if (isObject$8(label)) {
-    return /* @__PURE__ */ React.createElement(Label, _extends$n({
+    return /* @__PURE__ */ React.createElement(Label, _extends$o({
       viewBox
     }, label, {
       key: "label-implicit"
@@ -19204,15 +19394,15 @@ function last(array2) {
 }
 var last_1 = last;
 const last$1 = /* @__PURE__ */ getDefaultExportFromCjs(last_1);
-function _typeof$u(o) {
+function _typeof$v(o) {
   "@babel/helpers - typeof";
-  return _typeof$u = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$v = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$u(o);
+  }, _typeof$v(o);
 }
-var _excluded$b = ["valueAccessor"], _excluded2$5 = ["data", "dataKey", "clockWise", "id", "textBreakAll"];
+var _excluded$c = ["valueAccessor"], _excluded2$6 = ["data", "dataKey", "clockWise", "id", "textBreakAll"];
 function _toConsumableArray$7(arr) {
   return _arrayWithoutHoles$7(arr) || _iterableToArray$8(arr) || _unsupportedIterableToArray$b(arr) || _nonIterableSpread$7();
 }
@@ -19237,6 +19427,173 @@ function _arrayLikeToArray$b(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
+}
+function _extends$n() {
+  _extends$n = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$n.apply(this, arguments);
+}
+function ownKeys$r(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$r(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$r(Object(t2), true).forEach(function(r3) {
+      _defineProperty$u(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$r(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _defineProperty$u(obj, key, value) {
+  key = _toPropertyKey$u(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$u(t2) {
+  var i = _toPrimitive$u(t2, "string");
+  return "symbol" == _typeof$v(i) ? i : i + "";
+}
+function _toPrimitive$u(t2, r2) {
+  if ("object" != _typeof$v(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$v(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+function _objectWithoutProperties$c(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$c(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$c(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+var defaultAccessor = function defaultAccessor2(entry) {
+  return Array.isArray(entry.value) ? last$1(entry.value) : entry.value;
+};
+function LabelList(_ref) {
+  var _ref$valueAccessor = _ref.valueAccessor, valueAccessor = _ref$valueAccessor === void 0 ? defaultAccessor : _ref$valueAccessor, restProps = _objectWithoutProperties$c(_ref, _excluded$c);
+  var data = restProps.data, dataKey = restProps.dataKey, clockWise = restProps.clockWise, id2 = restProps.id, textBreakAll = restProps.textBreakAll, others = _objectWithoutProperties$c(restProps, _excluded2$6);
+  if (!data || !data.length) {
+    return null;
+  }
+  return /* @__PURE__ */ React.createElement(Layer, {
+    className: "recharts-label-list"
+  }, data.map(function(entry, index) {
+    var value = isNil$1(dataKey) ? valueAccessor(entry, index) : getValueByDataKey(entry && entry.payload, dataKey);
+    var idProps = isNil$1(id2) ? {} : {
+      id: "".concat(id2, "-").concat(index)
+    };
+    return /* @__PURE__ */ React.createElement(Label, _extends$n({}, filterProps(entry, true), others, idProps, {
+      parentViewBox: entry.parentViewBox,
+      value,
+      textBreakAll,
+      viewBox: Label.parseViewBox(isNil$1(clockWise) ? entry : _objectSpread$r(_objectSpread$r({}, entry), {}, {
+        clockWise
+      })),
+      key: "label-".concat(index),
+      index
+    }));
+  }));
+}
+LabelList.displayName = "LabelList";
+function parseLabelList(label, data) {
+  if (!label) {
+    return null;
+  }
+  if (label === true) {
+    return /* @__PURE__ */ React.createElement(LabelList, {
+      key: "labelList-implicit",
+      data
+    });
+  }
+  if (/* @__PURE__ */ React.isValidElement(label) || isFunction$3(label)) {
+    return /* @__PURE__ */ React.createElement(LabelList, {
+      key: "labelList-implicit",
+      data,
+      content: label
+    });
+  }
+  if (isObject$8(label)) {
+    return /* @__PURE__ */ React.createElement(LabelList, _extends$n({
+      data
+    }, label, {
+      key: "labelList-implicit"
+    }));
+  }
+  return null;
+}
+function renderCallByParent2(parentProps, data) {
+  var checkPropsLabel = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : true;
+  if (!parentProps || !parentProps.children && checkPropsLabel && !parentProps.label) {
+    return null;
+  }
+  var children = parentProps.children;
+  var explicitChildren = findAllByType(children, LabelList).map(function(child, index) {
+    return /* @__PURE__ */ reactExports.cloneElement(child, {
+      data,
+      // eslint-disable-next-line react/no-array-index-key
+      key: "labelList-".concat(index)
+    });
+  });
+  if (!checkPropsLabel) {
+    return explicitChildren;
+  }
+  var implicitLabelList = parseLabelList(parentProps.label, data);
+  return [implicitLabelList].concat(_toConsumableArray$7(explicitChildren));
+}
+LabelList.renderCallByParent = renderCallByParent2;
+function _typeof$u(o) {
+  "@babel/helpers - typeof";
+  return _typeof$u = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$u(o);
 }
 function _extends$m() {
   _extends$m = Object.assign ? Object.assign.bind() : function(target) {
@@ -19292,173 +19649,6 @@ function _toPrimitive$t(t2, r2) {
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
     if ("object" != _typeof$u(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
-function _objectWithoutProperties$b(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$b(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$b(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  for (var key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-var defaultAccessor = function defaultAccessor2(entry) {
-  return Array.isArray(entry.value) ? last$1(entry.value) : entry.value;
-};
-function LabelList(_ref) {
-  var _ref$valueAccessor = _ref.valueAccessor, valueAccessor = _ref$valueAccessor === void 0 ? defaultAccessor : _ref$valueAccessor, restProps = _objectWithoutProperties$b(_ref, _excluded$b);
-  var data = restProps.data, dataKey = restProps.dataKey, clockWise = restProps.clockWise, id2 = restProps.id, textBreakAll = restProps.textBreakAll, others = _objectWithoutProperties$b(restProps, _excluded2$5);
-  if (!data || !data.length) {
-    return null;
-  }
-  return /* @__PURE__ */ React.createElement(Layer, {
-    className: "recharts-label-list"
-  }, data.map(function(entry, index) {
-    var value = isNil$1(dataKey) ? valueAccessor(entry, index) : getValueByDataKey(entry && entry.payload, dataKey);
-    var idProps = isNil$1(id2) ? {} : {
-      id: "".concat(id2, "-").concat(index)
-    };
-    return /* @__PURE__ */ React.createElement(Label, _extends$m({}, filterProps(entry, true), others, idProps, {
-      parentViewBox: entry.parentViewBox,
-      value,
-      textBreakAll,
-      viewBox: Label.parseViewBox(isNil$1(clockWise) ? entry : _objectSpread$q(_objectSpread$q({}, entry), {}, {
-        clockWise
-      })),
-      key: "label-".concat(index),
-      index
-    }));
-  }));
-}
-LabelList.displayName = "LabelList";
-function parseLabelList(label, data) {
-  if (!label) {
-    return null;
-  }
-  if (label === true) {
-    return /* @__PURE__ */ React.createElement(LabelList, {
-      key: "labelList-implicit",
-      data
-    });
-  }
-  if (/* @__PURE__ */ React.isValidElement(label) || isFunction$3(label)) {
-    return /* @__PURE__ */ React.createElement(LabelList, {
-      key: "labelList-implicit",
-      data,
-      content: label
-    });
-  }
-  if (isObject$8(label)) {
-    return /* @__PURE__ */ React.createElement(LabelList, _extends$m({
-      data
-    }, label, {
-      key: "labelList-implicit"
-    }));
-  }
-  return null;
-}
-function renderCallByParent2(parentProps, data) {
-  var checkPropsLabel = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : true;
-  if (!parentProps || !parentProps.children && checkPropsLabel && !parentProps.label) {
-    return null;
-  }
-  var children = parentProps.children;
-  var explicitChildren = findAllByType(children, LabelList).map(function(child, index) {
-    return /* @__PURE__ */ reactExports.cloneElement(child, {
-      data,
-      // eslint-disable-next-line react/no-array-index-key
-      key: "labelList-".concat(index)
-    });
-  });
-  if (!checkPropsLabel) {
-    return explicitChildren;
-  }
-  var implicitLabelList = parseLabelList(parentProps.label, data);
-  return [implicitLabelList].concat(_toConsumableArray$7(explicitChildren));
-}
-LabelList.renderCallByParent = renderCallByParent2;
-function _typeof$t(o) {
-  "@babel/helpers - typeof";
-  return _typeof$t = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$t(o);
-}
-function _extends$l() {
-  _extends$l = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends$l.apply(this, arguments);
-}
-function ownKeys$p(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$p(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$p(Object(t2), true).forEach(function(r3) {
-      _defineProperty$s(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$p(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _defineProperty$s(obj, key, value) {
-  key = _toPropertyKey$s(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$s(t2) {
-  var i = _toPrimitive$s(t2, "string");
-  return "symbol" == _typeof$t(i) ? i : i + "";
-}
-function _toPrimitive$s(t2, r2) {
-  if ("object" != _typeof$t(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$t(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -19579,7 +19769,7 @@ var defaultProps$3 = {
   cornerIsExternal: false
 };
 var Sector = function Sector2(sectorProps) {
-  var props = _objectSpread$p(_objectSpread$p({}, defaultProps$3), sectorProps);
+  var props = _objectSpread$q(_objectSpread$q({}, defaultProps$3), sectorProps);
   var cx = props.cx, cy = props.cy, innerRadius = props.innerRadius, outerRadius = props.outerRadius, cornerRadius = props.cornerRadius, forceCornerRadius = props.forceCornerRadius, cornerIsExternal = props.cornerIsExternal, startAngle = props.startAngle, endAngle = props.endAngle, className = props.className;
   if (outerRadius < innerRadius || startAngle === endAngle) {
     return null;
@@ -19610,22 +19800,22 @@ var Sector = function Sector2(sectorProps) {
       endAngle
     });
   }
-  return /* @__PURE__ */ React.createElement("path", _extends$l({}, filterProps(props, true), {
+  return /* @__PURE__ */ React.createElement("path", _extends$m({}, filterProps(props, true), {
     className: layerClass,
     d: path,
     role: "img"
   }));
 };
-function _typeof$s(o) {
+function _typeof$t(o) {
   "@babel/helpers - typeof";
-  return _typeof$s = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$t = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$s(o);
+  }, _typeof$t(o);
 }
-function _extends$k() {
-  _extends$k = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$l() {
+  _extends$l = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -19636,9 +19826,9 @@ function _extends$k() {
     }
     return target;
   };
-  return _extends$k.apply(this, arguments);
+  return _extends$l.apply(this, arguments);
 }
-function ownKeys$o(e3, r2) {
+function ownKeys$p(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -19648,19 +19838,19 @@ function ownKeys$o(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$o(e3) {
+function _objectSpread$p(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$o(Object(t2), true).forEach(function(r3) {
-      _defineProperty$r(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$o(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$p(Object(t2), true).forEach(function(r3) {
+      _defineProperty$s(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$p(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$r(obj, key, value) {
-  key = _toPropertyKey$r(key);
+function _defineProperty$s(obj, key, value) {
+  key = _toPropertyKey$s(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -19668,16 +19858,16 @@ function _defineProperty$r(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$r(t2) {
-  var i = _toPrimitive$r(t2, "string");
-  return "symbol" == _typeof$s(i) ? i : i + "";
+function _toPropertyKey$s(t2) {
+  var i = _toPrimitive$s(t2, "string");
+  return "symbol" == _typeof$t(i) ? i : i + "";
 }
-function _toPrimitive$r(t2, r2) {
-  if ("object" != _typeof$s(t2) || !t2) return t2;
+function _toPrimitive$s(t2, r2) {
+  if ("object" != _typeof$t(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$s(i)) return i;
+    if ("object" != _typeof$t(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -19728,7 +19918,7 @@ var getPath$1 = function getPath(_ref) {
       return defined(base);
     }) : baseLine;
     var areaPoints = formatPoints.map(function(entry, index) {
-      return _objectSpread$o(_objectSpread$o({}, entry), {}, {
+      return _objectSpread$p(_objectSpread$p({}, entry), {}, {
         base: formatBaseLine[index]
       });
     });
@@ -19760,7 +19950,7 @@ var Curve = function Curve2(props) {
     return null;
   }
   var realPath = points && points.length ? getPath$1(props) : path;
-  return /* @__PURE__ */ reactExports.createElement("path", _extends$k({}, filterProps(props, false), adaptEventHandlers(props), {
+  return /* @__PURE__ */ reactExports.createElement("path", _extends$l({}, filterProps(props, false), adaptEventHandlers(props), {
     className: clsx("recharts-curve", className),
     d: realPath,
     ref: pathRef
@@ -20276,13 +20466,13 @@ function setRafTimeout(callback) {
   };
   requestAnimationFrame(shouldUpdate);
 }
-function _typeof$r(o) {
+function _typeof$s(o) {
   "@babel/helpers - typeof";
-  return _typeof$r = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$s = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$r(o);
+  }, _typeof$s(o);
 }
 function _toArray(arr) {
   return _arrayWithHoles$6(arr) || _iterableToArray$7(arr) || _unsupportedIterableToArray$a(arr) || _nonIterableRest$6();
@@ -20333,7 +20523,7 @@ function createAnimateManager() {
       setRafTimeout(setStyle2.bind(null, restStyles));
       return;
     }
-    if (_typeof$r(_style) === "object") {
+    if (_typeof$s(_style) === "object") {
       currStyle = _style;
       handleChange(currStyle);
     }
@@ -20359,15 +20549,15 @@ function createAnimateManager() {
     }
   };
 }
-function _typeof$q(o) {
+function _typeof$r(o) {
   "@babel/helpers - typeof";
-  return _typeof$q = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$r = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$q(o);
+  }, _typeof$r(o);
 }
-function ownKeys$n(e3, r2) {
+function ownKeys$o(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -20377,19 +20567,19 @@ function ownKeys$n(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$n(e3) {
+function _objectSpread$o(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$n(Object(t2), true).forEach(function(r22) {
-      _defineProperty$q(e3, r22, t2[r22]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$n(Object(t2)).forEach(function(r22) {
+    r2 % 2 ? ownKeys$o(Object(t2), true).forEach(function(r22) {
+      _defineProperty$r(e3, r22, t2[r22]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$o(Object(t2)).forEach(function(r22) {
       Object.defineProperty(e3, r22, Object.getOwnPropertyDescriptor(t2, r22));
     });
   }
   return e3;
 }
-function _defineProperty$q(obj, key, value) {
-  key = _toPropertyKey$q(key);
+function _defineProperty$r(obj, key, value) {
+  key = _toPropertyKey$r(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -20397,16 +20587,16 @@ function _defineProperty$q(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$q(arg) {
-  var key = _toPrimitive$q(arg, "string");
-  return _typeof$q(key) === "symbol" ? key : String(key);
+function _toPropertyKey$r(arg) {
+  var key = _toPrimitive$r(arg, "string");
+  return _typeof$r(key) === "symbol" ? key : String(key);
 }
-function _toPrimitive$q(input, hint) {
-  if (_typeof$q(input) !== "object" || input === null) return input;
+function _toPrimitive$r(input, hint) {
+  if (_typeof$r(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
   if (prim !== void 0) {
     var res = prim.call(input, hint);
-    if (_typeof$q(res) !== "object") return res;
+    if (_typeof$r(res) !== "object") return res;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (hint === "string" ? String : Number)(input);
@@ -20428,7 +20618,7 @@ var getDashCase = function getDashCase2(name) {
 };
 var mapObject = function mapObject2(fn, obj) {
   return Object.keys(obj).reduce(function(res, key) {
-    return _objectSpread$n(_objectSpread$n({}, res), {}, _defineProperty$q({}, key, fn(key, obj[key])));
+    return _objectSpread$o(_objectSpread$o({}, res), {}, _defineProperty$r({}, key, fn(key, obj[key])));
   }, {});
 };
 var getTransitionVal = function getTransitionVal2(props, duration, easing) {
@@ -20638,13 +20828,13 @@ var configEasing = function configEasing2() {
   }
   return null;
 };
-function _typeof$p(o) {
+function _typeof$q(o) {
   "@babel/helpers - typeof";
-  return _typeof$p = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$q = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$p(o);
+  }, _typeof$q(o);
 }
 function _toConsumableArray$5(arr) {
   return _arrayWithoutHoles$5(arr) || _iterableToArray$5(arr) || _unsupportedIterableToArray$8(arr) || _nonIterableSpread$5();
@@ -20658,7 +20848,7 @@ function _iterableToArray$5(iter) {
 function _arrayWithoutHoles$5(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray$8(arr);
 }
-function ownKeys$m(e3, r2) {
+function ownKeys$n(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -20668,19 +20858,19 @@ function ownKeys$m(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$m(e3) {
+function _objectSpread$n(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$m(Object(t2), true).forEach(function(r3) {
-      _defineProperty$p(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$m(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$n(Object(t2), true).forEach(function(r3) {
+      _defineProperty$q(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$n(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$p(obj, key, value) {
-  key = _toPropertyKey$p(key);
+function _defineProperty$q(obj, key, value) {
+  key = _toPropertyKey$q(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -20688,16 +20878,16 @@ function _defineProperty$p(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$p(arg) {
-  var key = _toPrimitive$p(arg, "string");
-  return _typeof$p(key) === "symbol" ? key : String(key);
+function _toPropertyKey$q(arg) {
+  var key = _toPrimitive$q(arg, "string");
+  return _typeof$q(key) === "symbol" ? key : String(key);
 }
-function _toPrimitive$p(input, hint) {
-  if (_typeof$p(input) !== "object" || input === null) return input;
+function _toPrimitive$q(input, hint) {
+  if (_typeof$q(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
   if (prim !== void 0) {
     var res = prim.call(input, hint);
-    if (_typeof$p(res) !== "object") return res;
+    if (_typeof$q(res) !== "object") return res;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (hint === "string" ? String : Number)(input);
@@ -20754,7 +20944,7 @@ var calStepperVals = function calStepperVals2(easing, preVals, steps) {
   var nextStepVals = mapObject(function(key, val) {
     if (needContinue(val)) {
       var _easing = easing(val.from, val.to, val.velocity), _easing2 = _slicedToArray$4(_easing, 2), newX = _easing2[0], newV = _easing2[1];
-      return _objectSpread$m(_objectSpread$m({}, val), {}, {
+      return _objectSpread$n(_objectSpread$n({}, val), {}, {
         from: newX,
         velocity: newV
       });
@@ -20764,7 +20954,7 @@ var calStepperVals = function calStepperVals2(easing, preVals, steps) {
   if (steps < 1) {
     return mapObject(function(key, val) {
       if (needContinue(val)) {
-        return _objectSpread$m(_objectSpread$m({}, val), {}, {
+        return _objectSpread$n(_objectSpread$n({}, val), {}, {
           velocity: alpha(val.velocity, nextStepVals[key].velocity, steps),
           from: alpha(val.from, nextStepVals[key].from, steps)
         });
@@ -20777,10 +20967,10 @@ var calStepperVals = function calStepperVals2(easing, preVals, steps) {
 const configUpdate = function(from, to, easing, duration, render) {
   var interKeys = getIntersectionKeys(from, to);
   var timingStyle = interKeys.reduce(function(res, key) {
-    return _objectSpread$m(_objectSpread$m({}, res), {}, _defineProperty$p({}, key, [from[key], to[key]]));
+    return _objectSpread$n(_objectSpread$n({}, res), {}, _defineProperty$q({}, key, [from[key], to[key]]));
   }, {});
   var stepperStyle = interKeys.reduce(function(res, key) {
-    return _objectSpread$m(_objectSpread$m({}, res), {}, _defineProperty$p({}, key, {
+    return _objectSpread$n(_objectSpread$n({}, res), {}, _defineProperty$q({}, key, {
       from: from[key],
       velocity: 0,
       to: to[key]
@@ -20807,7 +20997,7 @@ const configUpdate = function(from, to, easing, duration, render) {
     var deltaTime = now2 - preTime;
     var steps = deltaTime / easing.dt;
     stepperStyle = calStepperVals(easing, stepperStyle, steps);
-    render(_objectSpread$m(_objectSpread$m(_objectSpread$m({}, from), to), getCurrStyle()));
+    render(_objectSpread$n(_objectSpread$n(_objectSpread$n({}, from), to), getCurrStyle()));
     preTime = now2;
     if (!shouldStopAnimation()) {
       cafId = requestAnimationFrame(update);
@@ -20821,14 +21011,14 @@ const configUpdate = function(from, to, easing, duration, render) {
     var currStyle = mapObject(function(key, val) {
       return alpha.apply(void 0, _toConsumableArray$5(val).concat([easing(t2)]));
     }, timingStyle);
-    render(_objectSpread$m(_objectSpread$m(_objectSpread$m({}, from), to), currStyle));
+    render(_objectSpread$n(_objectSpread$n(_objectSpread$n({}, from), to), currStyle));
     if (t2 < 1) {
       cafId = requestAnimationFrame(update);
     } else {
       var finalStyle = mapObject(function(key, val) {
         return alpha.apply(void 0, _toConsumableArray$5(val).concat([easing(1)]));
       }, timingStyle);
-      render(_objectSpread$m(_objectSpread$m(_objectSpread$m({}, from), to), finalStyle));
+      render(_objectSpread$n(_objectSpread$n(_objectSpread$n({}, from), to), finalStyle));
     }
   };
   update = easing.isStepper ? stepperUpdate : timingUpdate;
@@ -20839,18 +21029,18 @@ const configUpdate = function(from, to, easing, duration, render) {
     };
   };
 };
-function _typeof$o(o) {
+function _typeof$p(o) {
   "@babel/helpers - typeof";
-  return _typeof$o = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$p = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$o(o);
+  }, _typeof$p(o);
 }
-var _excluded$a = ["children", "begin", "duration", "attributeName", "easing", "isActive", "steps", "from", "to", "canBegin", "onAnimationEnd", "shouldReAnimate", "onAnimationReStart"];
-function _objectWithoutProperties$a(source, excluded) {
+var _excluded$b = ["children", "begin", "duration", "attributeName", "easing", "isActive", "steps", "from", "to", "canBegin", "onAnimationEnd", "shouldReAnimate", "onAnimationReStart"];
+function _objectWithoutProperties$b(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$a(source, excluded);
+  var target = _objectWithoutPropertiesLoose$b(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -20863,7 +21053,7 @@ function _objectWithoutProperties$a(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$a(source, excluded) {
+function _objectWithoutPropertiesLoose$b(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
@@ -20900,7 +21090,7 @@ function _arrayLikeToArray$7(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function ownKeys$l(e3, r2) {
+function ownKeys$m(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -20910,19 +21100,19 @@ function ownKeys$l(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$l(e3) {
+function _objectSpread$m(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$l(Object(t2), true).forEach(function(r3) {
-      _defineProperty$o(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$l(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$m(Object(t2), true).forEach(function(r3) {
+      _defineProperty$p(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$m(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$o(obj, key, value) {
-  key = _toPropertyKey$o(key);
+function _defineProperty$p(obj, key, value) {
+  key = _toPropertyKey$p(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -20930,82 +21120,82 @@ function _defineProperty$o(obj, key, value) {
   }
   return obj;
 }
-function _classCallCheck$f(instance, Constructor) {
+function _classCallCheck$g(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$f(target, props) {
+function _defineProperties$g(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$o(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$p(descriptor.key), descriptor);
   }
 }
-function _createClass$f(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$f(Constructor.prototype, protoProps);
+function _createClass$g(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$g(Constructor.prototype, protoProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _toPropertyKey$o(arg) {
-  var key = _toPrimitive$o(arg, "string");
-  return _typeof$o(key) === "symbol" ? key : String(key);
+function _toPropertyKey$p(arg) {
+  var key = _toPrimitive$p(arg, "string");
+  return _typeof$p(key) === "symbol" ? key : String(key);
 }
-function _toPrimitive$o(input, hint) {
-  if (_typeof$o(input) !== "object" || input === null) return input;
+function _toPrimitive$p(input, hint) {
+  if (_typeof$p(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
   if (prim !== void 0) {
     var res = prim.call(input, hint);
-    if (_typeof$o(res) !== "object") return res;
+    if (_typeof$p(res) !== "object") return res;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (hint === "string" ? String : Number)(input);
 }
-function _inherits$d(subClass, superClass) {
+function _inherits$e(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$d(subClass, superClass);
+  if (superClass) _setPrototypeOf$e(subClass, superClass);
 }
-function _setPrototypeOf$d(o, p2) {
-  _setPrototypeOf$d = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$e(o, p2) {
+  _setPrototypeOf$e = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$d(o, p2);
+  return _setPrototypeOf$e(o, p2);
 }
 function _createSuper(Derived) {
-  var hasNativeReflectConstruct = _isNativeReflectConstruct$d();
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$e();
   return function _createSuperInternal() {
-    var Super = _getPrototypeOf$d(Derived), result;
+    var Super = _getPrototypeOf$e(Derived), result;
     if (hasNativeReflectConstruct) {
-      var NewTarget = _getPrototypeOf$d(this).constructor;
+      var NewTarget = _getPrototypeOf$e(this).constructor;
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
     }
-    return _possibleConstructorReturn$d(this, result);
+    return _possibleConstructorReturn$e(this, result);
   };
 }
-function _possibleConstructorReturn$d(self2, call) {
-  if (call && (_typeof$o(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$e(self2, call) {
+  if (call && (_typeof$p(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$d(self2);
+  return _assertThisInitialized$e(self2);
 }
-function _assertThisInitialized$d(self2) {
+function _assertThisInitialized$e(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$d() {
+function _isNativeReflectConstruct$e() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
@@ -21017,22 +21207,22 @@ function _isNativeReflectConstruct$d() {
     return false;
   }
 }
-function _getPrototypeOf$d(o) {
-  _getPrototypeOf$d = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$e(o) {
+  _getPrototypeOf$e = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$d(o);
+  return _getPrototypeOf$e(o);
 }
 var Animate = /* @__PURE__ */ function(_PureComponent) {
-  _inherits$d(Animate2, _PureComponent);
+  _inherits$e(Animate2, _PureComponent);
   var _super = _createSuper(Animate2);
   function Animate2(props, context) {
     var _this;
-    _classCallCheck$f(this, Animate2);
+    _classCallCheck$g(this, Animate2);
     _this = _super.call(this, props, context);
     var _this$props = _this.props, isActive = _this$props.isActive, attributeName = _this$props.attributeName, from = _this$props.from, to = _this$props.to, steps = _this$props.steps, children = _this$props.children, duration = _this$props.duration;
-    _this.handleStyleChange = _this.handleStyleChange.bind(_assertThisInitialized$d(_this));
-    _this.changeStyle = _this.changeStyle.bind(_assertThisInitialized$d(_this));
+    _this.handleStyleChange = _this.handleStyleChange.bind(_assertThisInitialized$e(_this));
+    _this.changeStyle = _this.changeStyle.bind(_assertThisInitialized$e(_this));
     if (!isActive || duration <= 0) {
       _this.state = {
         style: {}
@@ -21042,7 +21232,7 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
           style: to
         };
       }
-      return _possibleConstructorReturn$d(_this);
+      return _possibleConstructorReturn$e(_this);
     }
     if (steps && steps.length) {
       _this.state = {
@@ -21053,10 +21243,10 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
         _this.state = {
           style: from
         };
-        return _possibleConstructorReturn$d(_this);
+        return _possibleConstructorReturn$e(_this);
       }
       _this.state = {
-        style: attributeName ? _defineProperty$o({}, attributeName, from) : from
+        style: attributeName ? _defineProperty$p({}, attributeName, from) : from
       };
     } else {
       _this.state = {
@@ -21065,7 +21255,7 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
     }
     return _this;
   }
-  _createClass$f(Animate2, [{
+  _createClass$g(Animate2, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this$props2 = this.props, isActive = _this$props2.isActive, canBegin = _this$props2.canBegin;
@@ -21085,7 +21275,7 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
       }
       if (!isActive) {
         var newState = {
-          style: attributeName ? _defineProperty$o({}, attributeName, to) : to
+          style: attributeName ? _defineProperty$p({}, attributeName, to) : to
         };
         if (this.state && style) {
           if (attributeName && style[attributeName] !== to || !attributeName && style !== to) {
@@ -21107,13 +21297,13 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
       var from = isTriggered || shouldReAnimate ? currentFrom : prevProps.to;
       if (this.state && style) {
         var _newState = {
-          style: attributeName ? _defineProperty$o({}, attributeName, from) : from
+          style: attributeName ? _defineProperty$p({}, attributeName, from) : from
         };
         if (attributeName && style[attributeName] !== from || !attributeName && style !== from) {
           this.setState(_newState);
         }
       }
-      this.runAnimation(_objectSpread$l(_objectSpread$l({}, this.props), {}, {
+      this.runAnimation(_objectSpread$m(_objectSpread$m({}, this.props), {}, {
         from,
         begin: 0
       }));
@@ -21184,7 +21374,7 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
           }), duration]);
         }
         var transition = getTransitionVal(properties, duration, easing);
-        var newStyle = _objectSpread$l(_objectSpread$l(_objectSpread$l({}, preItem.style), style), {}, {
+        var newStyle = _objectSpread$m(_objectSpread$m(_objectSpread$m({}, preItem.style), style), {}, {
           transition
         });
         return [].concat(_toConsumableArray$4(sequence), [newStyle, duration, onAnimationEnd2]).filter(identity2);
@@ -21208,9 +21398,9 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
         this.runStepAnimation(props);
         return;
       }
-      var to = attributeName ? _defineProperty$o({}, attributeName, propsTo) : propsTo;
+      var to = attributeName ? _defineProperty$p({}, attributeName, propsTo) : propsTo;
       var transition = getTransitionVal(Object.keys(to), duration, easing);
-      manager.start([onAnimationStart2, begin, _objectSpread$l(_objectSpread$l({}, to), {}, {
+      manager.start([onAnimationStart2, begin, _objectSpread$m(_objectSpread$m({}, to), {}, {
         transition
       }), duration, onAnimationEnd2]);
     }
@@ -21230,7 +21420,7 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
       _this$props4.onAnimationEnd;
       _this$props4.shouldReAnimate;
       _this$props4.onAnimationReStart;
-      var others = _objectWithoutProperties$a(_this$props4, _excluded$a);
+      var others = _objectWithoutProperties$b(_this$props4, _excluded$b);
       var count = reactExports.Children.count(children);
       var stateStyle = this.state.style;
       if (typeof children === "function") {
@@ -21241,8 +21431,8 @@ var Animate = /* @__PURE__ */ function(_PureComponent) {
       }
       var cloneContainer = function cloneContainer2(container) {
         var _container$props = container.props, _container$props$styl = _container$props.style, style = _container$props$styl === void 0 ? {} : _container$props$styl, className = _container$props.className;
-        var res = /* @__PURE__ */ reactExports.cloneElement(container, _objectSpread$l(_objectSpread$l({}, others), {}, {
-          style: _objectSpread$l(_objectSpread$l({}, style), stateStyle),
+        var res = /* @__PURE__ */ reactExports.cloneElement(container, _objectSpread$m(_objectSpread$m({}, others), {}, {
+          style: _objectSpread$m(_objectSpread$m({}, style), stateStyle),
           className
         }));
         return res;
@@ -21298,16 +21488,16 @@ Animate.propTypes = {
   onAnimationStart: PropTypes.func,
   onAnimationReStart: PropTypes.func
 };
-function _typeof$n(o) {
+function _typeof$o(o) {
   "@babel/helpers - typeof";
-  return _typeof$n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$o = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$n(o);
+  }, _typeof$o(o);
 }
-function _extends$j() {
-  _extends$j = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$k() {
+  _extends$k = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -21318,7 +21508,7 @@ function _extends$j() {
     }
     return target;
   };
-  return _extends$j.apply(this, arguments);
+  return _extends$k.apply(this, arguments);
 }
 function _slicedToArray$3(arr, i) {
   return _arrayWithHoles$3(arr) || _iterableToArrayLimit$3(arr, i) || _unsupportedIterableToArray$6(arr, i) || _nonIterableRest$3();
@@ -21361,7 +21551,7 @@ function _iterableToArrayLimit$3(r2, l2) {
 function _arrayWithHoles$3(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function ownKeys$k(e3, r2) {
+function ownKeys$l(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -21371,19 +21561,19 @@ function ownKeys$k(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$k(e3) {
+function _objectSpread$l(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$k(Object(t2), true).forEach(function(r3) {
-      _defineProperty$n(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$k(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$l(Object(t2), true).forEach(function(r3) {
+      _defineProperty$o(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$l(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$n(obj, key, value) {
-  key = _toPropertyKey$n(key);
+function _defineProperty$o(obj, key, value) {
+  key = _toPropertyKey$o(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -21391,16 +21581,16 @@ function _defineProperty$n(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$n(t2) {
-  var i = _toPrimitive$n(t2, "string");
-  return "symbol" == _typeof$n(i) ? i : i + "";
+function _toPropertyKey$o(t2) {
+  var i = _toPrimitive$o(t2, "string");
+  return "symbol" == _typeof$o(i) ? i : i + "";
 }
-function _toPrimitive$n(t2, r2) {
-  if ("object" != _typeof$n(t2) || !t2) return t2;
+function _toPrimitive$o(t2, r2) {
+  if ("object" != _typeof$o(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$n(i)) return i;
+    if ("object" != _typeof$o(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -21472,7 +21662,7 @@ var defaultProps$2 = {
   animationEasing: "ease"
 };
 var Rectangle = function Rectangle2(rectangleProps) {
-  var props = _objectSpread$k(_objectSpread$k({}, defaultProps$2), rectangleProps);
+  var props = _objectSpread$l(_objectSpread$l({}, defaultProps$2), rectangleProps);
   var pathRef = reactExports.useRef();
   var _useState = reactExports.useState(-1), _useState2 = _slicedToArray$3(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
   reactExports.useEffect(function() {
@@ -21493,7 +21683,7 @@ var Rectangle = function Rectangle2(rectangleProps) {
   }
   var layerClass = clsx("recharts-rectangle", className);
   if (!isUpdateAnimationActive) {
-    return /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(props, true), {
+    return /* @__PURE__ */ React.createElement("path", _extends$k({}, filterProps(props, true), {
       className: layerClass,
       d: getRectanglePath(x2, y2, width, height, radius)
     }));
@@ -21526,16 +21716,16 @@ var Rectangle = function Rectangle2(rectangleProps) {
       duration: animationDuration,
       isActive: isAnimationActive,
       easing: animationEasing
-    }, /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(props, true), {
+    }, /* @__PURE__ */ React.createElement("path", _extends$k({}, filterProps(props, true), {
       className: layerClass,
       d: getRectanglePath(currX, currY, currWidth, currHeight, radius),
       ref: pathRef
     })));
   });
 };
-var _excluded$9 = ["points", "className", "baseLinePoints", "connectNulls"];
-function _extends$i() {
-  _extends$i = Object.assign ? Object.assign.bind() : function(target) {
+var _excluded$a = ["points", "className", "baseLinePoints", "connectNulls"];
+function _extends$j() {
+  _extends$j = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -21546,11 +21736,11 @@ function _extends$i() {
     }
     return target;
   };
-  return _extends$i.apply(this, arguments);
+  return _extends$j.apply(this, arguments);
 }
-function _objectWithoutProperties$9(source, excluded) {
+function _objectWithoutProperties$a(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$9(source, excluded);
+  var target = _objectWithoutPropertiesLoose$a(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -21563,7 +21753,7 @@ function _objectWithoutProperties$9(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$9(source, excluded) {
+function _objectWithoutPropertiesLoose$a(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -21639,7 +21829,7 @@ var getRanglePath = function getRanglePath2(points, baseLinePoints, connectNulls
   return "".concat(outerPath.slice(-1) === "Z" ? outerPath.slice(0, -1) : outerPath, "L").concat(getSinglePolygonPath(baseLinePoints.reverse(), connectNulls).slice(1));
 };
 var Polygon = function Polygon2(props) {
-  var points = props.points, className = props.className, baseLinePoints = props.baseLinePoints, connectNulls = props.connectNulls, others = _objectWithoutProperties$9(props, _excluded$9);
+  var points = props.points, className = props.className, baseLinePoints = props.baseLinePoints, connectNulls = props.connectNulls, others = _objectWithoutProperties$a(props, _excluded$a);
   if (!points || !points.length) {
     return null;
   }
@@ -21649,25 +21839,61 @@ var Polygon = function Polygon2(props) {
     var rangePath = getRanglePath(points, baseLinePoints, connectNulls);
     return /* @__PURE__ */ React.createElement("g", {
       className: layerClass
-    }, /* @__PURE__ */ React.createElement("path", _extends$i({}, filterProps(others, true), {
+    }, /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(others, true), {
       fill: rangePath.slice(-1) === "Z" ? others.fill : "none",
       stroke: "none",
       d: rangePath
-    })), hasStroke ? /* @__PURE__ */ React.createElement("path", _extends$i({}, filterProps(others, true), {
+    })), hasStroke ? /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(others, true), {
       fill: "none",
       d: getSinglePolygonPath(points, connectNulls)
-    })) : null, hasStroke ? /* @__PURE__ */ React.createElement("path", _extends$i({}, filterProps(others, true), {
+    })) : null, hasStroke ? /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(others, true), {
       fill: "none",
       d: getSinglePolygonPath(baseLinePoints, connectNulls)
     })) : null);
   }
   var singlePath = getSinglePolygonPath(points, connectNulls);
-  return /* @__PURE__ */ React.createElement("path", _extends$i({}, filterProps(others, true), {
+  return /* @__PURE__ */ React.createElement("path", _extends$j({}, filterProps(others, true), {
     fill: singlePath.slice(-1) === "Z" ? others.fill : "none",
     className: layerClass,
     d: singlePath
   }));
 };
+function _extends$i() {
+  _extends$i = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$i.apply(this, arguments);
+}
+var Dot = function Dot2(props) {
+  var cx = props.cx, cy = props.cy, r2 = props.r, className = props.className;
+  var layerClass = clsx("recharts-dot", className);
+  if (cx === +cx && cy === +cy && r2 === +r2) {
+    return /* @__PURE__ */ reactExports.createElement("circle", _extends$i({}, filterProps(props, false), adaptEventHandlers(props), {
+      className: layerClass,
+      cx,
+      cy,
+      r: r2
+    }));
+  }
+  return null;
+};
+function _typeof$n(o) {
+  "@babel/helpers - typeof";
+  return _typeof$n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$n(o);
+}
+var _excluded$9 = ["x", "y", "top", "left", "width", "height", "className"];
 function _extends$h() {
   _extends$h = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -21682,19 +21908,110 @@ function _extends$h() {
   };
   return _extends$h.apply(this, arguments);
 }
-var Dot = function Dot2(props) {
-  var cx = props.cx, cy = props.cy, r2 = props.r, className = props.className;
-  var layerClass = clsx("recharts-dot", className);
-  if (cx === +cx && cy === +cy && r2 === +r2) {
-    return /* @__PURE__ */ reactExports.createElement("circle", _extends$h({}, filterProps(props, false), adaptEventHandlers(props), {
-      className: layerClass,
-      cx,
-      cy,
-      r: r2
-    }));
+function ownKeys$k(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
   }
-  return null;
+  return t2;
+}
+function _objectSpread$k(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$k(Object(t2), true).forEach(function(r3) {
+      _defineProperty$n(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$k(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _defineProperty$n(obj, key, value) {
+  key = _toPropertyKey$n(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$n(t2) {
+  var i = _toPrimitive$n(t2, "string");
+  return "symbol" == _typeof$n(i) ? i : i + "";
+}
+function _toPrimitive$n(t2, r2) {
+  if ("object" != _typeof$n(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$n(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+function _objectWithoutProperties$9(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$9(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$9(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+var getPath2 = function getPath3(x2, y2, width, height, top, left) {
+  return "M".concat(x2, ",").concat(top, "v").concat(height, "M").concat(left, ",").concat(y2, "h").concat(width);
 };
+var Cross = function Cross2(_ref) {
+  var _ref$x = _ref.x, x2 = _ref$x === void 0 ? 0 : _ref$x, _ref$y = _ref.y, y2 = _ref$y === void 0 ? 0 : _ref$y, _ref$top = _ref.top, top = _ref$top === void 0 ? 0 : _ref$top, _ref$left = _ref.left, left = _ref$left === void 0 ? 0 : _ref$left, _ref$width = _ref.width, width = _ref$width === void 0 ? 0 : _ref$width, _ref$height = _ref.height, height = _ref$height === void 0 ? 0 : _ref$height, className = _ref.className, rest = _objectWithoutProperties$9(_ref, _excluded$9);
+  var props = _objectSpread$k({
+    x: x2,
+    y: y2,
+    top,
+    left,
+    width,
+    height
+  }, rest);
+  if (!isNumber(x2) || !isNumber(y2) || !isNumber(width) || !isNumber(height) || !isNumber(top) || !isNumber(left)) {
+    return null;
+  }
+  return /* @__PURE__ */ React.createElement("path", _extends$h({}, filterProps(props, true), {
+    className: clsx("recharts-cross", className),
+    d: getPath2(x2, y2, width, height, top, left)
+  }));
+};
+var baseExtremum$1 = _baseExtremum, baseGt = _baseGt, baseIteratee$6 = _baseIteratee;
+function maxBy(array2, iteratee) {
+  return array2 && array2.length ? baseExtremum$1(array2, baseIteratee$6(iteratee), baseGt) : void 0;
+}
+var maxBy_1 = maxBy;
+const maxBy$1 = /* @__PURE__ */ getDefaultExportFromCjs(maxBy_1);
+var baseExtremum = _baseExtremum, baseIteratee$5 = _baseIteratee, baseLt = _baseLt;
+function minBy(array2, iteratee) {
+  return array2 && array2.length ? baseExtremum(array2, baseIteratee$5(iteratee), baseLt) : void 0;
+}
+var minBy_1 = minBy;
+const minBy$1 = /* @__PURE__ */ getDefaultExportFromCjs(minBy_1);
+var _excluded$8 = ["cx", "cy", "angle", "ticks", "axisLine"], _excluded2$5 = ["ticks", "tick", "angle", "tickFormatter", "stroke"];
 function _typeof$m(o) {
   "@babel/helpers - typeof";
   return _typeof$m = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -21703,7 +22020,6 @@ function _typeof$m(o) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
   }, _typeof$m(o);
 }
-var _excluded$8 = ["x", "y", "top", "left", "width", "height", "className"];
 function _extends$g() {
   _extends$g = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -21739,29 +22055,6 @@ function _objectSpread$j(e3) {
   }
   return e3;
 }
-function _defineProperty$m(obj, key, value) {
-  key = _toPropertyKey$m(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$m(t2) {
-  var i = _toPrimitive$m(t2, "string");
-  return "symbol" == _typeof$m(i) ? i : i + "";
-}
-function _toPrimitive$m(t2, r2) {
-  if ("object" != _typeof$m(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$m(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
 function _objectWithoutProperties$8(source, excluded) {
   if (source == null) return {};
   var target = _objectWithoutPropertiesLoose$8(source, excluded);
@@ -21788,40 +22081,250 @@ function _objectWithoutPropertiesLoose$8(source, excluded) {
   }
   return target;
 }
-var getPath2 = function getPath3(x2, y2, width, height, top, left) {
-  return "M".concat(x2, ",").concat(top, "v").concat(height, "M").concat(left, ",").concat(y2, "h").concat(width);
-};
-var Cross = function Cross2(_ref) {
-  var _ref$x = _ref.x, x2 = _ref$x === void 0 ? 0 : _ref$x, _ref$y = _ref.y, y2 = _ref$y === void 0 ? 0 : _ref$y, _ref$top = _ref.top, top = _ref$top === void 0 ? 0 : _ref$top, _ref$left = _ref.left, left = _ref$left === void 0 ? 0 : _ref$left, _ref$width = _ref.width, width = _ref$width === void 0 ? 0 : _ref$width, _ref$height = _ref.height, height = _ref$height === void 0 ? 0 : _ref$height, className = _ref.className, rest = _objectWithoutProperties$8(_ref, _excluded$8);
-  var props = _objectSpread$j({
-    x: x2,
-    y: y2,
-    top,
-    left,
-    width,
-    height
-  }, rest);
-  if (!isNumber(x2) || !isNumber(y2) || !isNumber(width) || !isNumber(height) || !isNumber(top) || !isNumber(left)) {
-    return null;
+function _classCallCheck$f(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
-  return /* @__PURE__ */ React.createElement("path", _extends$g({}, filterProps(props, true), {
-    className: clsx("recharts-cross", className),
-    d: getPath2(x2, y2, width, height, top, left)
-  }));
-};
-var baseExtremum$1 = _baseExtremum, baseGt = _baseGt, baseIteratee$6 = _baseIteratee;
-function maxBy(array2, iteratee) {
-  return array2 && array2.length ? baseExtremum$1(array2, baseIteratee$6(iteratee), baseGt) : void 0;
 }
-var maxBy_1 = maxBy;
-const maxBy$1 = /* @__PURE__ */ getDefaultExportFromCjs(maxBy_1);
-var baseExtremum = _baseExtremum, baseIteratee$5 = _baseIteratee, baseLt = _baseLt;
-function minBy(array2, iteratee) {
-  return array2 && array2.length ? baseExtremum(array2, baseIteratee$5(iteratee), baseLt) : void 0;
+function _defineProperties$f(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey$m(descriptor.key), descriptor);
+  }
 }
-var minBy_1 = minBy;
-const minBy$1 = /* @__PURE__ */ getDefaultExportFromCjs(minBy_1);
-var _excluded$7 = ["cx", "cy", "angle", "ticks", "axisLine"], _excluded2$4 = ["ticks", "tick", "angle", "tickFormatter", "stroke"];
+function _createClass$f(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$f(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$f(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", { writable: false });
+  return Constructor;
+}
+function _callSuper$d(t2, o, e3) {
+  return o = _getPrototypeOf$d(o), _possibleConstructorReturn$d(t2, _isNativeReflectConstruct$d() ? Reflect.construct(o, e3 || [], _getPrototypeOf$d(t2).constructor) : o.apply(t2, e3));
+}
+function _possibleConstructorReturn$d(self2, call) {
+  if (call && (_typeof$m(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized$d(self2);
+}
+function _assertThisInitialized$d(self2) {
+  if (self2 === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self2;
+}
+function _isNativeReflectConstruct$d() {
+  try {
+    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+  } catch (t3) {
+  }
+  return (_isNativeReflectConstruct$d = function _isNativeReflectConstruct2() {
+    return !!t2;
+  })();
+}
+function _getPrototypeOf$d(o) {
+  _getPrototypeOf$d = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$d(o);
+}
+function _inherits$d(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+  Object.defineProperty(subClass, "prototype", { writable: false });
+  if (superClass) _setPrototypeOf$d(subClass, superClass);
+}
+function _setPrototypeOf$d(o, p2) {
+  _setPrototypeOf$d = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$d(o, p2);
+}
+function _defineProperty$m(obj, key, value) {
+  key = _toPropertyKey$m(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$m(t2) {
+  var i = _toPrimitive$m(t2, "string");
+  return "symbol" == _typeof$m(i) ? i : i + "";
+}
+function _toPrimitive$m(t2, r2) {
+  if ("object" != _typeof$m(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$m(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+var PolarRadiusAxis = /* @__PURE__ */ function(_PureComponent) {
+  function PolarRadiusAxis2() {
+    _classCallCheck$f(this, PolarRadiusAxis2);
+    return _callSuper$d(this, PolarRadiusAxis2, arguments);
+  }
+  _inherits$d(PolarRadiusAxis2, _PureComponent);
+  return _createClass$f(PolarRadiusAxis2, [{
+    key: "getTickValueCoord",
+    value: (
+      /**
+       * Calculate the coordinate of tick
+       * @param  {Number} coordinate The radius of tick
+       * @return {Object} (x, y)
+       */
+      function getTickValueCoord(_ref) {
+        var coordinate = _ref.coordinate;
+        var _this$props = this.props, angle = _this$props.angle, cx = _this$props.cx, cy = _this$props.cy;
+        return polarToCartesian(cx, cy, coordinate, angle);
+      }
+    )
+  }, {
+    key: "getTickTextAnchor",
+    value: function getTickTextAnchor() {
+      var orientation = this.props.orientation;
+      var textAnchor;
+      switch (orientation) {
+        case "left":
+          textAnchor = "end";
+          break;
+        case "right":
+          textAnchor = "start";
+          break;
+        default:
+          textAnchor = "middle";
+          break;
+      }
+      return textAnchor;
+    }
+  }, {
+    key: "getViewBox",
+    value: function getViewBox() {
+      var _this$props2 = this.props, cx = _this$props2.cx, cy = _this$props2.cy, angle = _this$props2.angle, ticks2 = _this$props2.ticks;
+      var maxRadiusTick = maxBy$1(ticks2, function(entry) {
+        return entry.coordinate || 0;
+      });
+      var minRadiusTick = minBy$1(ticks2, function(entry) {
+        return entry.coordinate || 0;
+      });
+      return {
+        cx,
+        cy,
+        startAngle: angle,
+        endAngle: angle,
+        innerRadius: minRadiusTick.coordinate || 0,
+        outerRadius: maxRadiusTick.coordinate || 0
+      };
+    }
+  }, {
+    key: "renderAxisLine",
+    value: function renderAxisLine() {
+      var _this$props3 = this.props, cx = _this$props3.cx, cy = _this$props3.cy, angle = _this$props3.angle, ticks2 = _this$props3.ticks, axisLine = _this$props3.axisLine, others = _objectWithoutProperties$8(_this$props3, _excluded$8);
+      var extent = ticks2.reduce(function(result, entry) {
+        return [Math.min(result[0], entry.coordinate), Math.max(result[1], entry.coordinate)];
+      }, [Infinity, -Infinity]);
+      var point0 = polarToCartesian(cx, cy, extent[0], angle);
+      var point1 = polarToCartesian(cx, cy, extent[1], angle);
+      var props = _objectSpread$j(_objectSpread$j(_objectSpread$j({}, filterProps(others, false)), {}, {
+        fill: "none"
+      }, filterProps(axisLine, false)), {}, {
+        x1: point0.x,
+        y1: point0.y,
+        x2: point1.x,
+        y2: point1.y
+      });
+      return /* @__PURE__ */ React.createElement("line", _extends$g({
+        className: "recharts-polar-radius-axis-line"
+      }, props));
+    }
+  }, {
+    key: "renderTicks",
+    value: function renderTicks() {
+      var _this = this;
+      var _this$props4 = this.props, ticks2 = _this$props4.ticks, tick = _this$props4.tick, angle = _this$props4.angle, tickFormatter = _this$props4.tickFormatter, stroke = _this$props4.stroke, others = _objectWithoutProperties$8(_this$props4, _excluded2$5);
+      var textAnchor = this.getTickTextAnchor();
+      var axisProps = filterProps(others, false);
+      var customTickProps = filterProps(tick, false);
+      var items = ticks2.map(function(entry, i) {
+        var coord = _this.getTickValueCoord(entry);
+        var tickProps = _objectSpread$j(_objectSpread$j(_objectSpread$j(_objectSpread$j({
+          textAnchor,
+          transform: "rotate(".concat(90 - angle, ", ").concat(coord.x, ", ").concat(coord.y, ")")
+        }, axisProps), {}, {
+          stroke: "none",
+          fill: stroke
+        }, customTickProps), {}, {
+          index: i
+        }, coord), {}, {
+          payload: entry
+        });
+        return /* @__PURE__ */ React.createElement(Layer, _extends$g({
+          className: clsx("recharts-polar-radius-axis-tick", getTickClassName(tick)),
+          key: "tick-".concat(entry.coordinate)
+        }, adaptEventsOfChild(_this.props, entry, i)), PolarRadiusAxis2.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value, i) : entry.value));
+      });
+      return /* @__PURE__ */ React.createElement(Layer, {
+        className: "recharts-polar-radius-axis-ticks"
+      }, items);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props5 = this.props, ticks2 = _this$props5.ticks, axisLine = _this$props5.axisLine, tick = _this$props5.tick;
+      if (!ticks2 || !ticks2.length) {
+        return null;
+      }
+      return /* @__PURE__ */ React.createElement(Layer, {
+        className: clsx("recharts-polar-radius-axis", this.props.className)
+      }, axisLine && this.renderAxisLine(), tick && this.renderTicks(), Label.renderCallByParent(this.props, this.getViewBox()));
+    }
+  }], [{
+    key: "renderTickItem",
+    value: function renderTickItem(option, props, value) {
+      var tickItem;
+      if (/* @__PURE__ */ React.isValidElement(option)) {
+        tickItem = /* @__PURE__ */ React.cloneElement(option, props);
+      } else if (isFunction$3(option)) {
+        tickItem = option(props);
+      } else {
+        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$g({}, props, {
+          className: "recharts-polar-radius-axis-tick-value"
+        }), value);
+      }
+      return tickItem;
+    }
+  }]);
+}(reactExports.PureComponent);
+_defineProperty$m(PolarRadiusAxis, "displayName", "PolarRadiusAxis");
+_defineProperty$m(PolarRadiusAxis, "axisType", "radiusAxis");
+_defineProperty$m(PolarRadiusAxis, "defaultProps", {
+  type: "number",
+  radiusAxisId: 0,
+  cx: 0,
+  cy: 0,
+  angle: 0,
+  orientation: "right",
+  stroke: "#ccc",
+  axisLine: true,
+  tick: true,
+  tickCount: 5,
+  allowDataOverflow: false,
+  scale: "auto",
+  allowDuplicatedCategory: true
+});
 function _typeof$l(o) {
   "@babel/helpers - typeof";
   return _typeof$l = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -21864,32 +22367,6 @@ function _objectSpread$i(e3) {
     });
   }
   return e3;
-}
-function _objectWithoutProperties$7(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$7(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$7(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  for (var key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
 }
 function _classCallCheck$e(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -21982,302 +22459,15 @@ function _toPrimitive$l(t2, r2) {
   }
   return ("string" === r2 ? String : Number)(t2);
 }
-var PolarRadiusAxis = /* @__PURE__ */ function(_PureComponent) {
-  function PolarRadiusAxis2() {
-    _classCallCheck$e(this, PolarRadiusAxis2);
-    return _callSuper$c(this, PolarRadiusAxis2, arguments);
-  }
-  _inherits$c(PolarRadiusAxis2, _PureComponent);
-  return _createClass$e(PolarRadiusAxis2, [{
-    key: "getTickValueCoord",
-    value: (
-      /**
-       * Calculate the coordinate of tick
-       * @param  {Number} coordinate The radius of tick
-       * @return {Object} (x, y)
-       */
-      function getTickValueCoord(_ref) {
-        var coordinate = _ref.coordinate;
-        var _this$props = this.props, angle = _this$props.angle, cx = _this$props.cx, cy = _this$props.cy;
-        return polarToCartesian(cx, cy, coordinate, angle);
-      }
-    )
-  }, {
-    key: "getTickTextAnchor",
-    value: function getTickTextAnchor() {
-      var orientation = this.props.orientation;
-      var textAnchor;
-      switch (orientation) {
-        case "left":
-          textAnchor = "end";
-          break;
-        case "right":
-          textAnchor = "start";
-          break;
-        default:
-          textAnchor = "middle";
-          break;
-      }
-      return textAnchor;
-    }
-  }, {
-    key: "getViewBox",
-    value: function getViewBox() {
-      var _this$props2 = this.props, cx = _this$props2.cx, cy = _this$props2.cy, angle = _this$props2.angle, ticks2 = _this$props2.ticks;
-      var maxRadiusTick = maxBy$1(ticks2, function(entry) {
-        return entry.coordinate || 0;
-      });
-      var minRadiusTick = minBy$1(ticks2, function(entry) {
-        return entry.coordinate || 0;
-      });
-      return {
-        cx,
-        cy,
-        startAngle: angle,
-        endAngle: angle,
-        innerRadius: minRadiusTick.coordinate || 0,
-        outerRadius: maxRadiusTick.coordinate || 0
-      };
-    }
-  }, {
-    key: "renderAxisLine",
-    value: function renderAxisLine() {
-      var _this$props3 = this.props, cx = _this$props3.cx, cy = _this$props3.cy, angle = _this$props3.angle, ticks2 = _this$props3.ticks, axisLine = _this$props3.axisLine, others = _objectWithoutProperties$7(_this$props3, _excluded$7);
-      var extent = ticks2.reduce(function(result, entry) {
-        return [Math.min(result[0], entry.coordinate), Math.max(result[1], entry.coordinate)];
-      }, [Infinity, -Infinity]);
-      var point0 = polarToCartesian(cx, cy, extent[0], angle);
-      var point1 = polarToCartesian(cx, cy, extent[1], angle);
-      var props = _objectSpread$i(_objectSpread$i(_objectSpread$i({}, filterProps(others, false)), {}, {
-        fill: "none"
-      }, filterProps(axisLine, false)), {}, {
-        x1: point0.x,
-        y1: point0.y,
-        x2: point1.x,
-        y2: point1.y
-      });
-      return /* @__PURE__ */ React.createElement("line", _extends$f({
-        className: "recharts-polar-radius-axis-line"
-      }, props));
-    }
-  }, {
-    key: "renderTicks",
-    value: function renderTicks() {
-      var _this = this;
-      var _this$props4 = this.props, ticks2 = _this$props4.ticks, tick = _this$props4.tick, angle = _this$props4.angle, tickFormatter = _this$props4.tickFormatter, stroke = _this$props4.stroke, others = _objectWithoutProperties$7(_this$props4, _excluded2$4);
-      var textAnchor = this.getTickTextAnchor();
-      var axisProps = filterProps(others, false);
-      var customTickProps = filterProps(tick, false);
-      var items = ticks2.map(function(entry, i) {
-        var coord = _this.getTickValueCoord(entry);
-        var tickProps = _objectSpread$i(_objectSpread$i(_objectSpread$i(_objectSpread$i({
-          textAnchor,
-          transform: "rotate(".concat(90 - angle, ", ").concat(coord.x, ", ").concat(coord.y, ")")
-        }, axisProps), {}, {
-          stroke: "none",
-          fill: stroke
-        }, customTickProps), {}, {
-          index: i
-        }, coord), {}, {
-          payload: entry
-        });
-        return /* @__PURE__ */ React.createElement(Layer, _extends$f({
-          className: clsx("recharts-polar-radius-axis-tick", getTickClassName(tick)),
-          key: "tick-".concat(entry.coordinate)
-        }, adaptEventsOfChild(_this.props, entry, i)), PolarRadiusAxis2.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value, i) : entry.value));
-      });
-      return /* @__PURE__ */ React.createElement(Layer, {
-        className: "recharts-polar-radius-axis-ticks"
-      }, items);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props5 = this.props, ticks2 = _this$props5.ticks, axisLine = _this$props5.axisLine, tick = _this$props5.tick;
-      if (!ticks2 || !ticks2.length) {
-        return null;
-      }
-      return /* @__PURE__ */ React.createElement(Layer, {
-        className: clsx("recharts-polar-radius-axis", this.props.className)
-      }, axisLine && this.renderAxisLine(), tick && this.renderTicks(), Label.renderCallByParent(this.props, this.getViewBox()));
-    }
-  }], [{
-    key: "renderTickItem",
-    value: function renderTickItem(option, props, value) {
-      var tickItem;
-      if (/* @__PURE__ */ React.isValidElement(option)) {
-        tickItem = /* @__PURE__ */ React.cloneElement(option, props);
-      } else if (isFunction$3(option)) {
-        tickItem = option(props);
-      } else {
-        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$f({}, props, {
-          className: "recharts-polar-radius-axis-tick-value"
-        }), value);
-      }
-      return tickItem;
-    }
-  }]);
-}(reactExports.PureComponent);
-_defineProperty$l(PolarRadiusAxis, "displayName", "PolarRadiusAxis");
-_defineProperty$l(PolarRadiusAxis, "axisType", "radiusAxis");
-_defineProperty$l(PolarRadiusAxis, "defaultProps", {
-  type: "number",
-  radiusAxisId: 0,
-  cx: 0,
-  cy: 0,
-  angle: 0,
-  orientation: "right",
-  stroke: "#ccc",
-  axisLine: true,
-  tick: true,
-  tickCount: 5,
-  allowDataOverflow: false,
-  scale: "auto",
-  allowDuplicatedCategory: true
-});
-function _typeof$k(o) {
-  "@babel/helpers - typeof";
-  return _typeof$k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$k(o);
-}
-function _extends$e() {
-  _extends$e = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends$e.apply(this, arguments);
-}
-function ownKeys$h(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$h(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$h(Object(t2), true).forEach(function(r3) {
-      _defineProperty$k(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$h(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _classCallCheck$d(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-function _defineProperties$d(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$k(descriptor.key), descriptor);
-  }
-}
-function _createClass$d(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$d(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$d(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", { writable: false });
-  return Constructor;
-}
-function _callSuper$b(t2, o, e3) {
-  return o = _getPrototypeOf$b(o), _possibleConstructorReturn$b(t2, _isNativeReflectConstruct$b() ? Reflect.construct(o, e3 || [], _getPrototypeOf$b(t2).constructor) : o.apply(t2, e3));
-}
-function _possibleConstructorReturn$b(self2, call) {
-  if (call && (_typeof$k(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized$b(self2);
-}
-function _assertThisInitialized$b(self2) {
-  if (self2 === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self2;
-}
-function _isNativeReflectConstruct$b() {
-  try {
-    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
-    }));
-  } catch (t3) {
-  }
-  return (_isNativeReflectConstruct$b = function _isNativeReflectConstruct2() {
-    return !!t2;
-  })();
-}
-function _getPrototypeOf$b(o) {
-  _getPrototypeOf$b = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
-    return o2.__proto__ || Object.getPrototypeOf(o2);
-  };
-  return _getPrototypeOf$b(o);
-}
-function _inherits$b(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
-  Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$b(subClass, superClass);
-}
-function _setPrototypeOf$b(o, p2) {
-  _setPrototypeOf$b = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
-    o2.__proto__ = p3;
-    return o2;
-  };
-  return _setPrototypeOf$b(o, p2);
-}
-function _defineProperty$k(obj, key, value) {
-  key = _toPropertyKey$k(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$k(t2) {
-  var i = _toPrimitive$k(t2, "string");
-  return "symbol" == _typeof$k(i) ? i : i + "";
-}
-function _toPrimitive$k(t2, r2) {
-  if ("object" != _typeof$k(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$k(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
 var RADIAN = Math.PI / 180;
 var eps = 1e-5;
 var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
   function PolarAngleAxis2() {
-    _classCallCheck$d(this, PolarAngleAxis2);
-    return _callSuper$b(this, PolarAngleAxis2, arguments);
+    _classCallCheck$e(this, PolarAngleAxis2);
+    return _callSuper$c(this, PolarAngleAxis2, arguments);
   }
-  _inherits$b(PolarAngleAxis2, _PureComponent);
-  return _createClass$d(PolarAngleAxis2, [{
+  _inherits$c(PolarAngleAxis2, _PureComponent);
+  return _createClass$e(PolarAngleAxis2, [{
     key: "getTickLineCoord",
     value: (
       /**
@@ -22324,11 +22514,11 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
     key: "renderAxisLine",
     value: function renderAxisLine() {
       var _this$props2 = this.props, cx = _this$props2.cx, cy = _this$props2.cy, radius = _this$props2.radius, axisLine = _this$props2.axisLine, axisLineType = _this$props2.axisLineType;
-      var props = _objectSpread$h(_objectSpread$h({}, filterProps(this.props, false)), {}, {
+      var props = _objectSpread$i(_objectSpread$i({}, filterProps(this.props, false)), {}, {
         fill: "none"
       }, filterProps(axisLine, false));
       if (axisLineType === "circle") {
-        return /* @__PURE__ */ React.createElement(Dot, _extends$e({
+        return /* @__PURE__ */ React.createElement(Dot, _extends$f({
           className: "recharts-polar-angle-axis-line"
         }, props, {
           cx,
@@ -22340,7 +22530,7 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
       var points = ticks2.map(function(entry) {
         return polarToCartesian(cx, cy, radius, entry.coordinate);
       });
-      return /* @__PURE__ */ React.createElement(Polygon, _extends$e({
+      return /* @__PURE__ */ React.createElement(Polygon, _extends$f({
         className: "recharts-polar-angle-axis-line"
       }, props, {
         points
@@ -22353,13 +22543,13 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
       var _this$props3 = this.props, ticks2 = _this$props3.ticks, tick = _this$props3.tick, tickLine = _this$props3.tickLine, tickFormatter = _this$props3.tickFormatter, stroke = _this$props3.stroke;
       var axisProps = filterProps(this.props, false);
       var customTickProps = filterProps(tick, false);
-      var tickLineProps = _objectSpread$h(_objectSpread$h({}, axisProps), {}, {
+      var tickLineProps = _objectSpread$i(_objectSpread$i({}, axisProps), {}, {
         fill: "none"
       }, filterProps(tickLine, false));
       var items = ticks2.map(function(entry, i) {
         var lineCoord = _this.getTickLineCoord(entry);
         var textAnchor = _this.getTickTextAnchor(entry);
-        var tickProps = _objectSpread$h(_objectSpread$h(_objectSpread$h({
+        var tickProps = _objectSpread$i(_objectSpread$i(_objectSpread$i({
           textAnchor
         }, axisProps), {}, {
           stroke: "none",
@@ -22370,10 +22560,10 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
           x: lineCoord.x2,
           y: lineCoord.y2
         });
-        return /* @__PURE__ */ React.createElement(Layer, _extends$e({
+        return /* @__PURE__ */ React.createElement(Layer, _extends$f({
           className: clsx("recharts-polar-angle-axis-tick", getTickClassName(tick)),
           key: "tick-".concat(entry.coordinate)
-        }, adaptEventsOfChild(_this.props, entry, i)), tickLine && /* @__PURE__ */ React.createElement("line", _extends$e({
+        }, adaptEventsOfChild(_this.props, entry, i)), tickLine && /* @__PURE__ */ React.createElement("line", _extends$f({
           className: "recharts-polar-angle-axis-tick-line"
         }, tickLineProps, lineCoord)), tick && PolarAngleAxis2.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value, i) : entry.value));
       });
@@ -22401,7 +22591,7 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
       } else if (isFunction$3(option)) {
         tickItem = option(props);
       } else {
-        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$e({}, props, {
+        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$f({}, props, {
           className: "recharts-polar-angle-axis-tick-value"
         }), value);
       }
@@ -22409,9 +22599,9 @@ var PolarAngleAxis = /* @__PURE__ */ function(_PureComponent) {
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$k(PolarAngleAxis, "displayName", "PolarAngleAxis");
-_defineProperty$k(PolarAngleAxis, "axisType", "angleAxis");
-_defineProperty$k(PolarAngleAxis, "defaultProps", {
+_defineProperty$l(PolarAngleAxis, "displayName", "PolarAngleAxis");
+_defineProperty$l(PolarAngleAxis, "axisType", "angleAxis");
+_defineProperty$l(PolarAngleAxis, "defaultProps", {
   type: "category",
   angleAxisId: 0,
   scale: "auto",
@@ -22454,16 +22644,16 @@ function isBoolean(value) {
 }
 var isBoolean_1 = isBoolean;
 const isBoolean$1 = /* @__PURE__ */ getDefaultExportFromCjs(isBoolean_1);
-function _typeof$j(o) {
+function _typeof$k(o) {
   "@babel/helpers - typeof";
-  return _typeof$j = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$j(o);
+  }, _typeof$k(o);
 }
-function _extends$d() {
-  _extends$d = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$e() {
+  _extends$e = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -22474,7 +22664,7 @@ function _extends$d() {
     }
     return target;
   };
-  return _extends$d.apply(this, arguments);
+  return _extends$e.apply(this, arguments);
 }
 function _slicedToArray$2(arr, i) {
   return _arrayWithHoles$2(arr) || _iterableToArrayLimit$2(arr, i) || _unsupportedIterableToArray$4(arr, i) || _nonIterableRest$2();
@@ -22516,6 +22706,169 @@ function _iterableToArrayLimit$2(r2, l2) {
 }
 function _arrayWithHoles$2(arr) {
   if (Array.isArray(arr)) return arr;
+}
+function ownKeys$h(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$h(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$h(Object(t2), true).forEach(function(r3) {
+      _defineProperty$k(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$h(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _defineProperty$k(obj, key, value) {
+  key = _toPropertyKey$k(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$k(t2) {
+  var i = _toPrimitive$k(t2, "string");
+  return "symbol" == _typeof$k(i) ? i : i + "";
+}
+function _toPrimitive$k(t2, r2) {
+  if ("object" != _typeof$k(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$k(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+var getTrapezoidPath = function getTrapezoidPath2(x2, y2, upperWidth, lowerWidth, height) {
+  var widthGap = upperWidth - lowerWidth;
+  var path;
+  path = "M ".concat(x2, ",").concat(y2);
+  path += "L ".concat(x2 + upperWidth, ",").concat(y2);
+  path += "L ".concat(x2 + upperWidth - widthGap / 2, ",").concat(y2 + height);
+  path += "L ".concat(x2 + upperWidth - widthGap / 2 - lowerWidth, ",").concat(y2 + height);
+  path += "L ".concat(x2, ",").concat(y2, " Z");
+  return path;
+};
+var defaultProps$1 = {
+  x: 0,
+  y: 0,
+  upperWidth: 0,
+  lowerWidth: 0,
+  height: 0,
+  isUpdateAnimationActive: false,
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: "ease"
+};
+var Trapezoid = function Trapezoid2(props) {
+  var trapezoidProps = _objectSpread$h(_objectSpread$h({}, defaultProps$1), props);
+  var pathRef = reactExports.useRef();
+  var _useState = reactExports.useState(-1), _useState2 = _slicedToArray$2(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
+  reactExports.useEffect(function() {
+    if (pathRef.current && pathRef.current.getTotalLength) {
+      try {
+        var pathTotalLength = pathRef.current.getTotalLength();
+        if (pathTotalLength) {
+          setTotalLength(pathTotalLength);
+        }
+      } catch (err) {
+      }
+    }
+  }, []);
+  var x2 = trapezoidProps.x, y2 = trapezoidProps.y, upperWidth = trapezoidProps.upperWidth, lowerWidth = trapezoidProps.lowerWidth, height = trapezoidProps.height, className = trapezoidProps.className;
+  var animationEasing = trapezoidProps.animationEasing, animationDuration = trapezoidProps.animationDuration, animationBegin = trapezoidProps.animationBegin, isUpdateAnimationActive = trapezoidProps.isUpdateAnimationActive;
+  if (x2 !== +x2 || y2 !== +y2 || upperWidth !== +upperWidth || lowerWidth !== +lowerWidth || height !== +height || upperWidth === 0 && lowerWidth === 0 || height === 0) {
+    return null;
+  }
+  var layerClass = clsx("recharts-trapezoid", className);
+  if (!isUpdateAnimationActive) {
+    return /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("path", _extends$e({}, filterProps(trapezoidProps, true), {
+      className: layerClass,
+      d: getTrapezoidPath(x2, y2, upperWidth, lowerWidth, height)
+    })));
+  }
+  return /* @__PURE__ */ React.createElement(Animate, {
+    canBegin: totalLength > 0,
+    from: {
+      upperWidth: 0,
+      lowerWidth: 0,
+      height,
+      x: x2,
+      y: y2
+    },
+    to: {
+      upperWidth,
+      lowerWidth,
+      height,
+      x: x2,
+      y: y2
+    },
+    duration: animationDuration,
+    animationEasing,
+    isActive: isUpdateAnimationActive
+  }, function(_ref) {
+    var currUpperWidth = _ref.upperWidth, currLowerWidth = _ref.lowerWidth, currHeight = _ref.height, currX = _ref.x, currY = _ref.y;
+    return /* @__PURE__ */ React.createElement(Animate, {
+      canBegin: totalLength > 0,
+      from: "0px ".concat(totalLength === -1 ? 1 : totalLength, "px"),
+      to: "".concat(totalLength, "px 0px"),
+      attributeName: "strokeDasharray",
+      begin: animationBegin,
+      duration: animationDuration,
+      easing: animationEasing
+    }, /* @__PURE__ */ React.createElement("path", _extends$e({}, filterProps(trapezoidProps, true), {
+      className: layerClass,
+      d: getTrapezoidPath(currX, currY, currUpperWidth, currLowerWidth, currHeight),
+      ref: pathRef
+    })));
+  });
+};
+var _excluded$7 = ["option", "shapeType", "propTransformer", "activeClassName", "isActive"];
+function _typeof$j(o) {
+  "@babel/helpers - typeof";
+  return _typeof$j = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$j(o);
+}
+function _objectWithoutProperties$7(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$7(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$7(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
 }
 function ownKeys$g(e3, r2) {
   var t2 = Object.keys(e3);
@@ -22561,171 +22914,8 @@ function _toPrimitive$j(t2, r2) {
   }
   return ("string" === r2 ? String : Number)(t2);
 }
-var getTrapezoidPath = function getTrapezoidPath2(x2, y2, upperWidth, lowerWidth, height) {
-  var widthGap = upperWidth - lowerWidth;
-  var path;
-  path = "M ".concat(x2, ",").concat(y2);
-  path += "L ".concat(x2 + upperWidth, ",").concat(y2);
-  path += "L ".concat(x2 + upperWidth - widthGap / 2, ",").concat(y2 + height);
-  path += "L ".concat(x2 + upperWidth - widthGap / 2 - lowerWidth, ",").concat(y2 + height);
-  path += "L ".concat(x2, ",").concat(y2, " Z");
-  return path;
-};
-var defaultProps$1 = {
-  x: 0,
-  y: 0,
-  upperWidth: 0,
-  lowerWidth: 0,
-  height: 0,
-  isUpdateAnimationActive: false,
-  animationBegin: 0,
-  animationDuration: 1500,
-  animationEasing: "ease"
-};
-var Trapezoid = function Trapezoid2(props) {
-  var trapezoidProps = _objectSpread$g(_objectSpread$g({}, defaultProps$1), props);
-  var pathRef = reactExports.useRef();
-  var _useState = reactExports.useState(-1), _useState2 = _slicedToArray$2(_useState, 2), totalLength = _useState2[0], setTotalLength = _useState2[1];
-  reactExports.useEffect(function() {
-    if (pathRef.current && pathRef.current.getTotalLength) {
-      try {
-        var pathTotalLength = pathRef.current.getTotalLength();
-        if (pathTotalLength) {
-          setTotalLength(pathTotalLength);
-        }
-      } catch (err) {
-      }
-    }
-  }, []);
-  var x2 = trapezoidProps.x, y2 = trapezoidProps.y, upperWidth = trapezoidProps.upperWidth, lowerWidth = trapezoidProps.lowerWidth, height = trapezoidProps.height, className = trapezoidProps.className;
-  var animationEasing = trapezoidProps.animationEasing, animationDuration = trapezoidProps.animationDuration, animationBegin = trapezoidProps.animationBegin, isUpdateAnimationActive = trapezoidProps.isUpdateAnimationActive;
-  if (x2 !== +x2 || y2 !== +y2 || upperWidth !== +upperWidth || lowerWidth !== +lowerWidth || height !== +height || upperWidth === 0 && lowerWidth === 0 || height === 0) {
-    return null;
-  }
-  var layerClass = clsx("recharts-trapezoid", className);
-  if (!isUpdateAnimationActive) {
-    return /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("path", _extends$d({}, filterProps(trapezoidProps, true), {
-      className: layerClass,
-      d: getTrapezoidPath(x2, y2, upperWidth, lowerWidth, height)
-    })));
-  }
-  return /* @__PURE__ */ React.createElement(Animate, {
-    canBegin: totalLength > 0,
-    from: {
-      upperWidth: 0,
-      lowerWidth: 0,
-      height,
-      x: x2,
-      y: y2
-    },
-    to: {
-      upperWidth,
-      lowerWidth,
-      height,
-      x: x2,
-      y: y2
-    },
-    duration: animationDuration,
-    animationEasing,
-    isActive: isUpdateAnimationActive
-  }, function(_ref) {
-    var currUpperWidth = _ref.upperWidth, currLowerWidth = _ref.lowerWidth, currHeight = _ref.height, currX = _ref.x, currY = _ref.y;
-    return /* @__PURE__ */ React.createElement(Animate, {
-      canBegin: totalLength > 0,
-      from: "0px ".concat(totalLength === -1 ? 1 : totalLength, "px"),
-      to: "".concat(totalLength, "px 0px"),
-      attributeName: "strokeDasharray",
-      begin: animationBegin,
-      duration: animationDuration,
-      easing: animationEasing
-    }, /* @__PURE__ */ React.createElement("path", _extends$d({}, filterProps(trapezoidProps, true), {
-      className: layerClass,
-      d: getTrapezoidPath(currX, currY, currUpperWidth, currLowerWidth, currHeight),
-      ref: pathRef
-    })));
-  });
-};
-var _excluded$6 = ["option", "shapeType", "propTransformer", "activeClassName", "isActive"];
-function _typeof$i(o) {
-  "@babel/helpers - typeof";
-  return _typeof$i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$i(o);
-}
-function _objectWithoutProperties$6(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$6(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$6(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  for (var key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function ownKeys$f(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$f(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$f(Object(t2), true).forEach(function(r3) {
-      _defineProperty$i(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$f(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _defineProperty$i(obj, key, value) {
-  key = _toPropertyKey$i(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$i(t2) {
-  var i = _toPrimitive$i(t2, "string");
-  return "symbol" == _typeof$i(i) ? i : i + "";
-}
-function _toPrimitive$i(t2, r2) {
-  if ("object" != _typeof$i(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$i(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
 function defaultPropTransformer(option, props) {
-  return _objectSpread$f(_objectSpread$f({}, props), option);
+  return _objectSpread$g(_objectSpread$g({}, props), option);
 }
 function isSymbolsProps(shapeType, _elementProps) {
   return shapeType === "symbols";
@@ -22755,10 +22945,10 @@ function getPropsFromShapeOption(option) {
   return option;
 }
 function Shape(_ref2) {
-  var option = _ref2.option, shapeType = _ref2.shapeType, _ref2$propTransformer = _ref2.propTransformer, propTransformer = _ref2$propTransformer === void 0 ? defaultPropTransformer : _ref2$propTransformer, _ref2$activeClassName = _ref2.activeClassName, activeClassName = _ref2$activeClassName === void 0 ? "recharts-active-shape" : _ref2$activeClassName, isActive = _ref2.isActive, props = _objectWithoutProperties$6(_ref2, _excluded$6);
+  var option = _ref2.option, shapeType = _ref2.shapeType, _ref2$propTransformer = _ref2.propTransformer, propTransformer = _ref2$propTransformer === void 0 ? defaultPropTransformer : _ref2$propTransformer, _ref2$activeClassName = _ref2.activeClassName, activeClassName = _ref2$activeClassName === void 0 ? "recharts-active-shape" : _ref2$activeClassName, isActive = _ref2.isActive, props = _objectWithoutProperties$7(_ref2, _excluded$7);
   var shape;
   if (/* @__PURE__ */ reactExports.isValidElement(option)) {
-    shape = /* @__PURE__ */ reactExports.cloneElement(option, _objectSpread$f(_objectSpread$f({}, props), getPropsFromShapeOption(option)));
+    shape = /* @__PURE__ */ reactExports.cloneElement(option, _objectSpread$g(_objectSpread$g({}, props), getPropsFromShapeOption(option)));
   } else if (isFunction$3(option)) {
     shape = option(props);
   } else if (isPlainObject$1(option) && !isBoolean$1(option)) {
@@ -22861,16 +23051,16 @@ function getActiveShapeIndexForTooltip(_ref3) {
   return activeIndex;
 }
 var _Pie;
-function _typeof$h(o) {
+function _typeof$i(o) {
   "@babel/helpers - typeof";
-  return _typeof$h = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$h(o);
+  }, _typeof$i(o);
 }
-function _extends$c() {
-  _extends$c = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$d() {
+  _extends$d = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -22881,9 +23071,9 @@ function _extends$c() {
     }
     return target;
   };
-  return _extends$c.apply(this, arguments);
+  return _extends$d.apply(this, arguments);
 }
-function ownKeys$e(e3, r2) {
+function ownKeys$f(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -22893,87 +23083,87 @@ function ownKeys$e(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$e(e3) {
+function _objectSpread$f(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$e(Object(t2), true).forEach(function(r3) {
-      _defineProperty$h(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$e(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$f(Object(t2), true).forEach(function(r3) {
+      _defineProperty$i(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$f(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _classCallCheck$c(instance, Constructor) {
+function _classCallCheck$d(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$c(target, props) {
+function _defineProperties$d(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$h(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$i(descriptor.key), descriptor);
   }
 }
-function _createClass$c(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$c(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$c(Constructor, staticProps);
+function _createClass$d(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$d(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$d(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$a(t2, o, e3) {
-  return o = _getPrototypeOf$a(o), _possibleConstructorReturn$a(t2, _isNativeReflectConstruct$a() ? Reflect.construct(o, e3 || [], _getPrototypeOf$a(t2).constructor) : o.apply(t2, e3));
+function _callSuper$b(t2, o, e3) {
+  return o = _getPrototypeOf$b(o), _possibleConstructorReturn$b(t2, _isNativeReflectConstruct$b() ? Reflect.construct(o, e3 || [], _getPrototypeOf$b(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$a(self2, call) {
-  if (call && (_typeof$h(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$b(self2, call) {
+  if (call && (_typeof$i(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$a(self2);
+  return _assertThisInitialized$b(self2);
 }
-function _assertThisInitialized$a(self2) {
+function _assertThisInitialized$b(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$a() {
+function _isNativeReflectConstruct$b() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$a = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$b = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$a(o) {
-  _getPrototypeOf$a = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$b(o) {
+  _getPrototypeOf$b = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$a(o);
+  return _getPrototypeOf$b(o);
 }
-function _inherits$a(subClass, superClass) {
+function _inherits$b(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$a(subClass, superClass);
+  if (superClass) _setPrototypeOf$b(subClass, superClass);
 }
-function _setPrototypeOf$a(o, p2) {
-  _setPrototypeOf$a = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$b(o, p2) {
+  _setPrototypeOf$b = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$a(o, p2);
+  return _setPrototypeOf$b(o, p2);
 }
-function _defineProperty$h(obj, key, value) {
-  key = _toPropertyKey$h(key);
+function _defineProperty$i(obj, key, value) {
+  key = _toPropertyKey$i(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -22981,16 +23171,16 @@ function _defineProperty$h(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$h(t2) {
-  var i = _toPrimitive$h(t2, "string");
-  return "symbol" == _typeof$h(i) ? i : i + "";
+function _toPropertyKey$i(t2) {
+  var i = _toPrimitive$i(t2, "string");
+  return "symbol" == _typeof$i(i) ? i : i + "";
 }
-function _toPrimitive$h(t2, r2) {
-  if ("object" != _typeof$h(t2) || !t2) return t2;
+function _toPrimitive$i(t2, r2) {
+  if ("object" != _typeof$i(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$h(i)) return i;
+    if ("object" != _typeof$i(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -22998,12 +23188,12 @@ function _toPrimitive$h(t2, r2) {
 var Pie = /* @__PURE__ */ function(_PureComponent) {
   function Pie2(props) {
     var _this;
-    _classCallCheck$c(this, Pie2);
-    _this = _callSuper$a(this, Pie2, [props]);
-    _defineProperty$h(_this, "pieRef", null);
-    _defineProperty$h(_this, "sectorRefs", []);
-    _defineProperty$h(_this, "id", uniqueId("recharts-pie-"));
-    _defineProperty$h(_this, "handleAnimationEnd", function() {
+    _classCallCheck$d(this, Pie2);
+    _this = _callSuper$b(this, Pie2, [props]);
+    _defineProperty$i(_this, "pieRef", null);
+    _defineProperty$i(_this, "sectorRefs", []);
+    _defineProperty$i(_this, "id", uniqueId("recharts-pie-"));
+    _defineProperty$i(_this, "handleAnimationEnd", function() {
       var onAnimationEnd2 = _this.props.onAnimationEnd;
       _this.setState({
         isAnimationFinished: true
@@ -23012,7 +23202,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
         onAnimationEnd2();
       }
     });
-    _defineProperty$h(_this, "handleAnimationStart", function() {
+    _defineProperty$i(_this, "handleAnimationStart", function() {
       var onAnimationStart2 = _this.props.onAnimationStart;
       _this.setState({
         isAnimationFinished: false
@@ -23029,8 +23219,8 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
     };
     return _this;
   }
-  _inherits$a(Pie2, _PureComponent);
-  return _createClass$c(Pie2, [{
+  _inherits$b(Pie2, _PureComponent);
+  return _createClass$d(Pie2, [{
     key: "isActiveIndex",
     value: function isActiveIndex(i) {
       var activeIndex = this.props.activeIndex;
@@ -23060,13 +23250,13 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
       var labels = sectors.map(function(entry, i) {
         var midAngle = (entry.startAngle + entry.endAngle) / 2;
         var endPoint = polarToCartesian(entry.cx, entry.cy, entry.outerRadius + offsetRadius, midAngle);
-        var labelProps = _objectSpread$e(_objectSpread$e(_objectSpread$e(_objectSpread$e({}, pieProps), entry), {}, {
+        var labelProps = _objectSpread$f(_objectSpread$f(_objectSpread$f(_objectSpread$f({}, pieProps), entry), {}, {
           stroke: "none"
         }, customLabelProps), {}, {
           index: i,
           textAnchor: Pie2.getTextAnchor(endPoint.x, entry.cx)
         }, endPoint);
-        var lineProps = _objectSpread$e(_objectSpread$e(_objectSpread$e(_objectSpread$e({}, pieProps), entry), {}, {
+        var lineProps = _objectSpread$f(_objectSpread$f(_objectSpread$f(_objectSpread$f({}, pieProps), entry), {}, {
           fill: "none",
           stroke: entry.fill
         }, customLabelLineProps), {}, {
@@ -23100,11 +23290,11 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
         var isActive = _this2.isActiveIndex(i);
         var inactiveShape = inactiveShapeProp && _this2.hasActiveIndex() ? inactiveShapeProp : null;
         var sectorOptions = isActive ? activeShape : inactiveShape;
-        var sectorProps = _objectSpread$e(_objectSpread$e({}, entry), {}, {
+        var sectorProps = _objectSpread$f(_objectSpread$f({}, entry), {}, {
           stroke: blendStroke ? entry.fill : entry.stroke,
           tabIndex: -1
         });
-        return /* @__PURE__ */ React.createElement(Layer, _extends$c({
+        return /* @__PURE__ */ React.createElement(Layer, _extends$d({
           ref: function ref(_ref) {
             if (_ref && !_this2.sectorRefs.includes(_ref)) {
               _this2.sectorRefs.push(_ref);
@@ -23115,7 +23305,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
         }, adaptEventsOfChild(_this2.props, entry, i), {
           // eslint-disable-next-line react/no-array-index-key
           key: "sector-".concat(entry === null || entry === void 0 ? void 0 : entry.startAngle, "-").concat(entry === null || entry === void 0 ? void 0 : entry.endAngle, "-").concat(entry.midAngle, "-").concat(i)
-        }), /* @__PURE__ */ React.createElement(Shape, _extends$c({
+        }), /* @__PURE__ */ React.createElement(Shape, _extends$d({
           option: sectorOptions,
           isActive,
           shapeType: "sector"
@@ -23152,7 +23342,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
           var paddingAngle = index > 0 ? get$2(entry, "paddingAngle", 0) : 0;
           if (prev) {
             var angleIp = interpolateNumber$2(prev.endAngle - prev.startAngle, entry.endAngle - entry.startAngle);
-            var latest = _objectSpread$e(_objectSpread$e({}, entry), {}, {
+            var latest = _objectSpread$f(_objectSpread$f({}, entry), {}, {
               startAngle: curAngle + paddingAngle,
               endAngle: curAngle + angleIp(t2) + paddingAngle
             });
@@ -23162,7 +23352,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
             var endAngle = entry.endAngle, startAngle = entry.startAngle;
             var interpolatorAngle = interpolateNumber$2(0, endAngle - startAngle);
             var deltaAngle = interpolatorAngle(t2);
-            var _latest = _objectSpread$e(_objectSpread$e({}, entry), {}, {
+            var _latest = _objectSpread$f(_objectSpread$f({}, entry), {}, {
               startAngle: curAngle + paddingAngle,
               endAngle: curAngle + deltaAngle + paddingAngle
             });
@@ -23291,7 +23481,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
         return option(props);
       }
       var className = clsx("recharts-pie-label-line", typeof option !== "boolean" ? option.className : "");
-      return /* @__PURE__ */ React.createElement(Curve, _extends$c({}, props, {
+      return /* @__PURE__ */ React.createElement(Curve, _extends$d({}, props, {
         key,
         type: "linear",
         className
@@ -23311,7 +23501,7 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
         }
       }
       var className = clsx("recharts-pie-label-text", typeof option !== "boolean" && !isFunction$3(option) ? option.className : "");
-      return /* @__PURE__ */ React.createElement(Text, _extends$c({}, props, {
+      return /* @__PURE__ */ React.createElement(Text, _extends$d({}, props, {
         alignmentBaseline: "middle",
         className
       }), label);
@@ -23319,8 +23509,8 @@ var Pie = /* @__PURE__ */ function(_PureComponent) {
   }]);
 }(reactExports.PureComponent);
 _Pie = Pie;
-_defineProperty$h(Pie, "displayName", "Pie");
-_defineProperty$h(Pie, "defaultProps", {
+_defineProperty$i(Pie, "displayName", "Pie");
+_defineProperty$i(Pie, "defaultProps", {
   stroke: "#fff",
   fill: "#808080",
   legendType: "rect",
@@ -23342,30 +23532,30 @@ _defineProperty$h(Pie, "defaultProps", {
   blendStroke: false,
   rootTabIndex: 0
 });
-_defineProperty$h(Pie, "parseDeltaAngle", function(startAngle, endAngle) {
+_defineProperty$i(Pie, "parseDeltaAngle", function(startAngle, endAngle) {
   var sign2 = mathSign(endAngle - startAngle);
   var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 360);
   return sign2 * deltaAngle;
 });
-_defineProperty$h(Pie, "getRealPieData", function(itemProps) {
+_defineProperty$i(Pie, "getRealPieData", function(itemProps) {
   var data = itemProps.data, children = itemProps.children;
   var presentationProps = filterProps(itemProps, false);
   var cells = findAllByType(children, Cell);
   if (data && data.length) {
     return data.map(function(entry, index) {
-      return _objectSpread$e(_objectSpread$e(_objectSpread$e({
+      return _objectSpread$f(_objectSpread$f(_objectSpread$f({
         payload: entry
       }, presentationProps), entry), cells && cells[index] && cells[index].props);
     });
   }
   if (cells && cells.length) {
     return cells.map(function(cell) {
-      return _objectSpread$e(_objectSpread$e({}, presentationProps), cell.props);
+      return _objectSpread$f(_objectSpread$f({}, presentationProps), cell.props);
     });
   }
   return [];
 });
-_defineProperty$h(Pie, "parseCoordinateOfPie", function(itemProps, offset) {
+_defineProperty$i(Pie, "parseCoordinateOfPie", function(itemProps, offset) {
   var top = offset.top, left = offset.left, width = offset.width, height = offset.height;
   var maxPieRadius = getMaxRadius(width, height);
   var cx = left + getPercentValue(itemProps.cx, width, width / 2);
@@ -23381,9 +23571,9 @@ _defineProperty$h(Pie, "parseCoordinateOfPie", function(itemProps, offset) {
     maxRadius
   };
 });
-_defineProperty$h(Pie, "getComposedData", function(_ref4) {
+_defineProperty$i(Pie, "getComposedData", function(_ref4) {
   var item = _ref4.item, offset = _ref4.offset;
-  var itemProps = item.type.defaultProps !== void 0 ? _objectSpread$e(_objectSpread$e({}, item.type.defaultProps), item.props) : item.props;
+  var itemProps = item.type.defaultProps !== void 0 ? _objectSpread$f(_objectSpread$f({}, item.type.defaultProps), item.props) : item.props;
   var pieData = _Pie.getRealPieData(itemProps);
   if (!pieData || !pieData.length) {
     return null;
@@ -23434,7 +23624,7 @@ _defineProperty$h(Pie, "getComposedData", function(_ref4) {
         type: tooltipType
       }];
       var tooltipPosition = polarToCartesian(coordinate.cx, coordinate.cy, middleRadius, midAngle);
-      prev = _objectSpread$e(_objectSpread$e(_objectSpread$e({
+      prev = _objectSpread$f(_objectSpread$f(_objectSpread$f({
         percent,
         cornerRadius,
         name,
@@ -23452,7 +23642,7 @@ _defineProperty$h(Pie, "getComposedData", function(_ref4) {
       return prev;
     });
   }
-  return _objectSpread$e(_objectSpread$e({}, coordinate), {}, {
+  return _objectSpread$f(_objectSpread$f({}, coordinate), {}, {
     sectors,
     data: pieData
   });
@@ -23503,6 +23693,69 @@ var createRange = _createRange;
 var range2 = createRange();
 var range_1 = range2;
 const range$1 = /* @__PURE__ */ getDefaultExportFromCjs(range_1);
+function _typeof$h(o) {
+  "@babel/helpers - typeof";
+  return _typeof$h = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$h(o);
+}
+function ownKeys$e(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$e(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$e(Object(t2), true).forEach(function(r3) {
+      _defineProperty$h(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$e(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _defineProperty$h(obj, key, value) {
+  key = _toPropertyKey$h(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$h(t2) {
+  var i = _toPrimitive$h(t2, "string");
+  return "symbol" == _typeof$h(i) ? i : i + "";
+}
+function _toPrimitive$h(t2, r2) {
+  if ("object" != _typeof$h(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$h(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t2);
+}
+var PREFIX_LIST = ["Webkit", "Moz", "O", "ms"];
+var generatePrefixStyle = function generatePrefixStyle2(name, value) {
+  var camelName = name.replace(/(\w)/, function(v2) {
+    return v2.toUpperCase();
+  });
+  var result = PREFIX_LIST.reduce(function(res, entry) {
+    return _objectSpread$e(_objectSpread$e({}, res), {}, _defineProperty$h({}, entry + camelName, value));
+  }, {});
+  result[name] = value;
+  return result;
+};
 function _typeof$g(o) {
   "@babel/helpers - typeof";
   return _typeof$g = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -23510,6 +23763,20 @@ function _typeof$g(o) {
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
   }, _typeof$g(o);
+}
+function _extends$c() {
+  _extends$c = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$c.apply(this, arguments);
 }
 function ownKeys$d(e3, r2) {
   var t2 = Object.keys(e3);
@@ -23532,6 +23799,74 @@ function _objectSpread$d(e3) {
   }
   return e3;
 }
+function _classCallCheck$c(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties$c(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey$g(descriptor.key), descriptor);
+  }
+}
+function _createClass$c(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$c(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$c(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", { writable: false });
+  return Constructor;
+}
+function _callSuper$a(t2, o, e3) {
+  return o = _getPrototypeOf$a(o), _possibleConstructorReturn$a(t2, _isNativeReflectConstruct$a() ? Reflect.construct(o, e3 || [], _getPrototypeOf$a(t2).constructor) : o.apply(t2, e3));
+}
+function _possibleConstructorReturn$a(self2, call) {
+  if (call && (_typeof$g(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized$a(self2);
+}
+function _assertThisInitialized$a(self2) {
+  if (self2 === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self2;
+}
+function _isNativeReflectConstruct$a() {
+  try {
+    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+  } catch (t3) {
+  }
+  return (_isNativeReflectConstruct$a = function _isNativeReflectConstruct2() {
+    return !!t2;
+  })();
+}
+function _getPrototypeOf$a(o) {
+  _getPrototypeOf$a = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$a(o);
+}
+function _inherits$a(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+  Object.defineProperty(subClass, "prototype", { writable: false });
+  if (superClass) _setPrototypeOf$a(subClass, superClass);
+}
+function _setPrototypeOf$a(o, p2) {
+  _setPrototypeOf$a = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$a(o, p2);
+}
 function _defineProperty$g(obj, key, value) {
   key = _toPropertyKey$g(key);
   if (key in obj) {
@@ -23551,151 +23886,6 @@ function _toPrimitive$g(t2, r2) {
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
     if ("object" != _typeof$g(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t2);
-}
-var PREFIX_LIST = ["Webkit", "Moz", "O", "ms"];
-var generatePrefixStyle = function generatePrefixStyle2(name, value) {
-  var camelName = name.replace(/(\w)/, function(v2) {
-    return v2.toUpperCase();
-  });
-  var result = PREFIX_LIST.reduce(function(res, entry) {
-    return _objectSpread$d(_objectSpread$d({}, res), {}, _defineProperty$g({}, entry + camelName, value));
-  }, {});
-  result[name] = value;
-  return result;
-};
-function _typeof$f(o) {
-  "@babel/helpers - typeof";
-  return _typeof$f = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$f(o);
-}
-function _extends$b() {
-  _extends$b = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends$b.apply(this, arguments);
-}
-function ownKeys$c(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$c(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$c(Object(t2), true).forEach(function(r3) {
-      _defineProperty$f(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$c(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _classCallCheck$b(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-function _defineProperties$b(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$f(descriptor.key), descriptor);
-  }
-}
-function _createClass$b(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$b(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$b(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", { writable: false });
-  return Constructor;
-}
-function _callSuper$9(t2, o, e3) {
-  return o = _getPrototypeOf$9(o), _possibleConstructorReturn$9(t2, _isNativeReflectConstruct$9() ? Reflect.construct(o, e3 || [], _getPrototypeOf$9(t2).constructor) : o.apply(t2, e3));
-}
-function _possibleConstructorReturn$9(self2, call) {
-  if (call && (_typeof$f(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized$9(self2);
-}
-function _assertThisInitialized$9(self2) {
-  if (self2 === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self2;
-}
-function _isNativeReflectConstruct$9() {
-  try {
-    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
-    }));
-  } catch (t3) {
-  }
-  return (_isNativeReflectConstruct$9 = function _isNativeReflectConstruct2() {
-    return !!t2;
-  })();
-}
-function _getPrototypeOf$9(o) {
-  _getPrototypeOf$9 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
-    return o2.__proto__ || Object.getPrototypeOf(o2);
-  };
-  return _getPrototypeOf$9(o);
-}
-function _inherits$9(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
-  Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$9(subClass, superClass);
-}
-function _setPrototypeOf$9(o, p2) {
-  _setPrototypeOf$9 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
-    o2.__proto__ = p3;
-    return o2;
-  };
-  return _setPrototypeOf$9(o, p2);
-}
-function _defineProperty$f(obj, key, value) {
-  key = _toPropertyKey$f(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$f(t2) {
-  var i = _toPrimitive$f(t2, "string");
-  return "symbol" == _typeof$f(i) ? i : i + "";
-}
-function _toPrimitive$f(t2, r2) {
-  if ("object" != _typeof$f(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$f(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -23727,9 +23917,9 @@ var isTouch = function isTouch2(e3) {
 var Brush = /* @__PURE__ */ function(_PureComponent) {
   function Brush2(props) {
     var _this;
-    _classCallCheck$b(this, Brush2);
-    _this = _callSuper$9(this, Brush2, [props]);
-    _defineProperty$f(_this, "handleDrag", function(e3) {
+    _classCallCheck$c(this, Brush2);
+    _this = _callSuper$a(this, Brush2, [props]);
+    _defineProperty$g(_this, "handleDrag", function(e3) {
       if (_this.leaveTimer) {
         clearTimeout(_this.leaveTimer);
         _this.leaveTimer = null;
@@ -23740,12 +23930,12 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
         _this.handleSlideDrag(e3);
       }
     });
-    _defineProperty$f(_this, "handleTouchMove", function(e3) {
+    _defineProperty$g(_this, "handleTouchMove", function(e3) {
       if (e3.changedTouches != null && e3.changedTouches.length > 0) {
         _this.handleDrag(e3.changedTouches[0]);
       }
     });
-    _defineProperty$f(_this, "handleDragEnd", function() {
+    _defineProperty$g(_this, "handleDragEnd", function() {
       _this.setState({
         isTravellerMoving: false,
         isSlideMoving: false
@@ -23758,22 +23948,22 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
       });
       _this.detachDragEndListener();
     });
-    _defineProperty$f(_this, "handleLeaveWrapper", function() {
+    _defineProperty$g(_this, "handleLeaveWrapper", function() {
       if (_this.state.isTravellerMoving || _this.state.isSlideMoving) {
         _this.leaveTimer = window.setTimeout(_this.handleDragEnd, _this.props.leaveTimeOut);
       }
     });
-    _defineProperty$f(_this, "handleEnterSlideOrTraveller", function() {
+    _defineProperty$g(_this, "handleEnterSlideOrTraveller", function() {
       _this.setState({
         isTextActive: true
       });
     });
-    _defineProperty$f(_this, "handleLeaveSlideOrTraveller", function() {
+    _defineProperty$g(_this, "handleLeaveSlideOrTraveller", function() {
       _this.setState({
         isTextActive: false
       });
     });
-    _defineProperty$f(_this, "handleSlideDragStart", function(e3) {
+    _defineProperty$g(_this, "handleSlideDragStart", function(e3) {
       var event = isTouch(e3) ? e3.changedTouches[0] : e3;
       _this.setState({
         isTravellerMoving: false,
@@ -23789,8 +23979,8 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
     _this.state = {};
     return _this;
   }
-  _inherits$9(Brush2, _PureComponent);
-  return _createClass$b(Brush2, [{
+  _inherits$a(Brush2, _PureComponent);
+  return _createClass$c(Brush2, [{
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       if (this.leaveTimer) {
@@ -23898,7 +24088,7 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
         }
         return false;
       };
-      this.setState(_defineProperty$f(_defineProperty$f({}, movingTravellerId, prevValue + delta), "brushMoveStartX", e3.pageX), function() {
+      this.setState(_defineProperty$g(_defineProperty$g({}, movingTravellerId, prevValue + delta), "brushMoveStartX", e3.pageX), function() {
         if (onChange) {
           if (isFullGap()) {
             onChange(newIndex);
@@ -23924,7 +24114,7 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
       if (id2 === "startX" && newScaleValue >= endX || id2 === "endX" && newScaleValue <= startX) {
         return;
       }
-      this.setState(_defineProperty$f({}, id2, newScaleValue), function() {
+      this.setState(_defineProperty$g({}, id2, newScaleValue), function() {
         _this2.props.onChange(_this2.getIndex({
           startX: _this2.state.startX,
           endX: _this2.state.endX
@@ -23968,7 +24158,7 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
       var _data$startIndex, _data$endIndex, _this3 = this;
       var _this$props8 = this.props, y2 = _this$props8.y, travellerWidth = _this$props8.travellerWidth, height = _this$props8.height, traveller = _this$props8.traveller, ariaLabel = _this$props8.ariaLabel, data = _this$props8.data, startIndex = _this$props8.startIndex, endIndex = _this$props8.endIndex;
       var x2 = Math.max(travellerX, this.props.x);
-      var travellerProps = _objectSpread$c(_objectSpread$c({}, filterProps(this.props, false)), {}, {
+      var travellerProps = _objectSpread$d(_objectSpread$d({}, filterProps(this.props, false)), {}, {
         x: x2,
         y: y2,
         width: travellerWidth,
@@ -24044,12 +24234,12 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
       };
       return /* @__PURE__ */ React.createElement(Layer, {
         className: "recharts-brush-texts"
-      }, /* @__PURE__ */ React.createElement(Text, _extends$b({
+      }, /* @__PURE__ */ React.createElement(Text, _extends$c({
         textAnchor: "end",
         verticalAnchor: "middle",
         x: Math.min(startX, endX) - offset,
         y: y2 + height / 2
-      }, attrs), this.getTextOfTick(startIndex)), /* @__PURE__ */ React.createElement(Text, _extends$b({
+      }, attrs), this.getTextOfTick(startIndex)), /* @__PURE__ */ React.createElement(Text, _extends$c({
         textAnchor: "start",
         verticalAnchor: "middle",
         x: Math.max(startX, endX) + travellerWidth + offset,
@@ -24120,7 +24310,7 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
     value: function getDerivedStateFromProps(nextProps, prevState) {
       var data = nextProps.data, width = nextProps.width, x2 = nextProps.x, travellerWidth = nextProps.travellerWidth, updateId = nextProps.updateId, startIndex = nextProps.startIndex, endIndex = nextProps.endIndex;
       if (data !== prevState.prevData || updateId !== prevState.prevUpdateId) {
-        return _objectSpread$c({
+        return _objectSpread$d({
           prevData: data,
           prevTravellerWidth: travellerWidth,
           prevUpdateId: updateId,
@@ -24174,8 +24364,8 @@ var Brush = /* @__PURE__ */ function(_PureComponent) {
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$f(Brush, "displayName", "Brush");
-_defineProperty$f(Brush, "defaultProps", {
+_defineProperty$g(Brush, "displayName", "Brush");
+_defineProperty$g(Brush, "defaultProps", {
   height: 40,
   travellerWidth: 5,
   gap: 1,
@@ -24218,7 +24408,7 @@ var ifOverflowMatches = function ifOverflowMatches2(props, value) {
   }
   return ifOverflow === value;
 };
-var defineProperty = _defineProperty$F;
+var defineProperty = _defineProperty$G;
 function baseAssignValue$1(object2, key, value) {
   if (key == "__proto__" && defineProperty) {
     defineProperty(object2, key, {
@@ -24273,17 +24463,17 @@ function every(collection, predicate, guard) {
 }
 var every_1 = every;
 const every$1 = /* @__PURE__ */ getDefaultExportFromCjs(every_1);
-var _excluded$5 = ["x", "y"];
-function _typeof$e(o) {
+var _excluded$6 = ["x", "y"];
+function _typeof$f(o) {
   "@babel/helpers - typeof";
-  return _typeof$e = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$f = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$e(o);
+  }, _typeof$f(o);
 }
-function _extends$a() {
-  _extends$a = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$b() {
+  _extends$b = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -24294,9 +24484,9 @@ function _extends$a() {
     }
     return target;
   };
-  return _extends$a.apply(this, arguments);
+  return _extends$b.apply(this, arguments);
 }
-function ownKeys$b(e3, r2) {
+function ownKeys$c(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -24306,19 +24496,19 @@ function ownKeys$b(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$b(e3) {
+function _objectSpread$c(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$b(Object(t2), true).forEach(function(r22) {
-      _defineProperty$e(e3, r22, t2[r22]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$b(Object(t2)).forEach(function(r22) {
+    r2 % 2 ? ownKeys$c(Object(t2), true).forEach(function(r22) {
+      _defineProperty$f(e3, r22, t2[r22]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$c(Object(t2)).forEach(function(r22) {
       Object.defineProperty(e3, r22, Object.getOwnPropertyDescriptor(t2, r22));
     });
   }
   return e3;
 }
-function _defineProperty$e(obj, key, value) {
-  key = _toPropertyKey$e(key);
+function _defineProperty$f(obj, key, value) {
+  key = _toPropertyKey$f(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -24326,19 +24516,95 @@ function _defineProperty$e(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$e(t2) {
-  var i = _toPrimitive$e(t2, "string");
-  return "symbol" == _typeof$e(i) ? i : i + "";
+function _toPropertyKey$f(t2) {
+  var i = _toPrimitive$f(t2, "string");
+  return "symbol" == _typeof$f(i) ? i : i + "";
 }
-function _toPrimitive$e(t2, r2) {
-  if ("object" != _typeof$e(t2) || !t2) return t2;
+function _toPrimitive$f(t2, r2) {
+  if ("object" != _typeof$f(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$e(i)) return i;
+    if ("object" != _typeof$f(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
+}
+function _objectWithoutProperties$6(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$6(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$6(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function typeguardBarRectangleProps(_ref, props) {
+  var xProp = _ref.x, yProp = _ref.y, option = _objectWithoutProperties$6(_ref, _excluded$6);
+  var xValue = "".concat(xProp);
+  var x2 = parseInt(xValue, 10);
+  var yValue = "".concat(yProp);
+  var y2 = parseInt(yValue, 10);
+  var heightValue = "".concat(props.height || option.height);
+  var height = parseInt(heightValue, 10);
+  var widthValue = "".concat(props.width || option.width);
+  var width = parseInt(widthValue, 10);
+  return _objectSpread$c(_objectSpread$c(_objectSpread$c(_objectSpread$c(_objectSpread$c({}, props), option), x2 ? {
+    x: x2
+  } : {}), y2 ? {
+    y: y2
+  } : {}), {}, {
+    height,
+    width,
+    name: props.name,
+    radius: props.radius
+  });
+}
+function BarRectangle(props) {
+  return /* @__PURE__ */ React.createElement(Shape, _extends$b({
+    shapeType: "rectangle",
+    propTransformer: typeguardBarRectangleProps,
+    activeClassName: "recharts-active-bar"
+  }, props));
+}
+var minPointSizeCallback = function minPointSizeCallback2(minPointSize) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+  return function(value, index) {
+    if (typeof minPointSize === "number") return minPointSize;
+    var isValueNumberOrNil = isNumber(value) || isNullish(value);
+    if (isValueNumberOrNil) {
+      return minPointSize(value, index);
+    }
+    !isValueNumberOrNil ? invariant() : void 0;
+    return defaultValue;
+  };
+};
+var _excluded$5 = ["value", "background"];
+var _Bar;
+function _typeof$e(o) {
+  "@babel/helpers - typeof";
+  return _typeof$e = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$e(o);
 }
 function _objectWithoutProperties$5(source, excluded) {
   if (source == null) return {};
@@ -24366,84 +24632,8 @@ function _objectWithoutPropertiesLoose$5(source, excluded) {
   }
   return target;
 }
-function typeguardBarRectangleProps(_ref, props) {
-  var xProp = _ref.x, yProp = _ref.y, option = _objectWithoutProperties$5(_ref, _excluded$5);
-  var xValue = "".concat(xProp);
-  var x2 = parseInt(xValue, 10);
-  var yValue = "".concat(yProp);
-  var y2 = parseInt(yValue, 10);
-  var heightValue = "".concat(props.height || option.height);
-  var height = parseInt(heightValue, 10);
-  var widthValue = "".concat(props.width || option.width);
-  var width = parseInt(widthValue, 10);
-  return _objectSpread$b(_objectSpread$b(_objectSpread$b(_objectSpread$b(_objectSpread$b({}, props), option), x2 ? {
-    x: x2
-  } : {}), y2 ? {
-    y: y2
-  } : {}), {}, {
-    height,
-    width,
-    name: props.name,
-    radius: props.radius
-  });
-}
-function BarRectangle(props) {
-  return /* @__PURE__ */ React.createElement(Shape, _extends$a({
-    shapeType: "rectangle",
-    propTransformer: typeguardBarRectangleProps,
-    activeClassName: "recharts-active-bar"
-  }, props));
-}
-var minPointSizeCallback = function minPointSizeCallback2(minPointSize) {
-  var defaultValue = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
-  return function(value, index) {
-    if (typeof minPointSize === "number") return minPointSize;
-    var isValueNumberOrNil = isNumber(value) || isNullish(value);
-    if (isValueNumberOrNil) {
-      return minPointSize(value, index);
-    }
-    !isValueNumberOrNil ? invariant() : void 0;
-    return defaultValue;
-  };
-};
-var _excluded$4 = ["value", "background"];
-var _Bar;
-function _typeof$d(o) {
-  "@babel/helpers - typeof";
-  return _typeof$d = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$d(o);
-}
-function _objectWithoutProperties$4(source, excluded) {
-  if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$4(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$4(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  for (var key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _extends$9() {
-  _extends$9 = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$a() {
+  _extends$a = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -24454,9 +24644,9 @@ function _extends$9() {
     }
     return target;
   };
-  return _extends$9.apply(this, arguments);
+  return _extends$a.apply(this, arguments);
 }
-function ownKeys$a(e3, r2) {
+function ownKeys$b(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -24466,87 +24656,87 @@ function ownKeys$a(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$a(e3) {
+function _objectSpread$b(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$a(Object(t2), true).forEach(function(r3) {
-      _defineProperty$d(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$a(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$b(Object(t2), true).forEach(function(r3) {
+      _defineProperty$e(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$b(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _classCallCheck$a(instance, Constructor) {
+function _classCallCheck$b(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$a(target, props) {
+function _defineProperties$b(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$d(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$e(descriptor.key), descriptor);
   }
 }
-function _createClass$a(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$a(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$a(Constructor, staticProps);
+function _createClass$b(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$b(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$b(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$8(t2, o, e3) {
-  return o = _getPrototypeOf$8(o), _possibleConstructorReturn$8(t2, _isNativeReflectConstruct$8() ? Reflect.construct(o, e3 || [], _getPrototypeOf$8(t2).constructor) : o.apply(t2, e3));
+function _callSuper$9(t2, o, e3) {
+  return o = _getPrototypeOf$9(o), _possibleConstructorReturn$9(t2, _isNativeReflectConstruct$9() ? Reflect.construct(o, e3 || [], _getPrototypeOf$9(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$8(self2, call) {
-  if (call && (_typeof$d(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$9(self2, call) {
+  if (call && (_typeof$e(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$8(self2);
+  return _assertThisInitialized$9(self2);
 }
-function _assertThisInitialized$8(self2) {
+function _assertThisInitialized$9(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$8() {
+function _isNativeReflectConstruct$9() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$8 = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$9 = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$8(o) {
-  _getPrototypeOf$8 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$9(o) {
+  _getPrototypeOf$9 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$8(o);
+  return _getPrototypeOf$9(o);
 }
-function _inherits$8(subClass, superClass) {
+function _inherits$9(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$8(subClass, superClass);
+  if (superClass) _setPrototypeOf$9(subClass, superClass);
 }
-function _setPrototypeOf$8(o, p2) {
-  _setPrototypeOf$8 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$9(o, p2) {
+  _setPrototypeOf$9 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$8(o, p2);
+  return _setPrototypeOf$9(o, p2);
 }
-function _defineProperty$d(obj, key, value) {
-  key = _toPropertyKey$d(key);
+function _defineProperty$e(obj, key, value) {
+  key = _toPropertyKey$e(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -24554,16 +24744,16 @@ function _defineProperty$d(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$d(t2) {
-  var i = _toPrimitive$d(t2, "string");
-  return "symbol" == _typeof$d(i) ? i : i + "";
+function _toPropertyKey$e(t2) {
+  var i = _toPrimitive$e(t2, "string");
+  return "symbol" == _typeof$e(i) ? i : i + "";
 }
-function _toPrimitive$d(t2, r2) {
-  if ("object" != _typeof$d(t2) || !t2) return t2;
+function _toPrimitive$e(t2, r2) {
+  if ("object" != _typeof$e(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$d(i)) return i;
+    if ("object" != _typeof$e(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -24571,16 +24761,16 @@ function _toPrimitive$d(t2, r2) {
 var Bar = /* @__PURE__ */ function(_PureComponent) {
   function Bar2() {
     var _this;
-    _classCallCheck$a(this, Bar2);
+    _classCallCheck$b(this, Bar2);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this = _callSuper$8(this, Bar2, [].concat(args));
-    _defineProperty$d(_this, "state", {
+    _this = _callSuper$9(this, Bar2, [].concat(args));
+    _defineProperty$e(_this, "state", {
       isAnimationFinished: false
     });
-    _defineProperty$d(_this, "id", uniqueId("recharts-bar-"));
-    _defineProperty$d(_this, "handleAnimationEnd", function() {
+    _defineProperty$e(_this, "id", uniqueId("recharts-bar-"));
+    _defineProperty$e(_this, "handleAnimationEnd", function() {
       var onAnimationEnd2 = _this.props.onAnimationEnd;
       _this.setState({
         isAnimationFinished: true
@@ -24589,7 +24779,7 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
         onAnimationEnd2();
       }
     });
-    _defineProperty$d(_this, "handleAnimationStart", function() {
+    _defineProperty$e(_this, "handleAnimationStart", function() {
       var onAnimationStart2 = _this.props.onAnimationStart;
       _this.setState({
         isAnimationFinished: false
@@ -24600,8 +24790,8 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
     });
     return _this;
   }
-  _inherits$8(Bar2, _PureComponent);
-  return _createClass$a(Bar2, [{
+  _inherits$9(Bar2, _PureComponent);
+  return _createClass$b(Bar2, [{
     key: "renderRectanglesStatically",
     value: function renderRectanglesStatically(data) {
       var _this2 = this;
@@ -24610,7 +24800,7 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
       return data && data.map(function(entry, i) {
         var isActive = i === activeIndex;
         var option = isActive ? activeBar : shape;
-        var props = _objectSpread$a(_objectSpread$a(_objectSpread$a({}, baseProps), entry), {}, {
+        var props = _objectSpread$b(_objectSpread$b(_objectSpread$b({}, baseProps), entry), {}, {
           isActive,
           option,
           index: i,
@@ -24618,7 +24808,7 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
           onAnimationStart: _this2.handleAnimationStart,
           onAnimationEnd: _this2.handleAnimationEnd
         });
-        return /* @__PURE__ */ React.createElement(Layer, _extends$9({
+        return /* @__PURE__ */ React.createElement(Layer, _extends$a({
           className: "recharts-bar-rectangle"
         }, adaptEventsOfChild(_this2.props, entry, i), {
           // https://github.com/recharts/recharts/issues/5415
@@ -24656,7 +24846,7 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
             var interpolatorY = interpolateNumber$2(prev.y, entry.y);
             var interpolatorWidth = interpolateNumber$2(prev.width, entry.width);
             var interpolatorHeight = interpolateNumber$2(prev.height, entry.height);
-            return _objectSpread$a(_objectSpread$a({}, entry), {}, {
+            return _objectSpread$b(_objectSpread$b({}, entry), {}, {
               x: interpolatorX(t2),
               y: interpolatorY(t2),
               width: interpolatorWidth(t2),
@@ -24666,14 +24856,14 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
           if (layout === "horizontal") {
             var _interpolatorHeight = interpolateNumber$2(0, entry.height);
             var h2 = _interpolatorHeight(t2);
-            return _objectSpread$a(_objectSpread$a({}, entry), {}, {
+            return _objectSpread$b(_objectSpread$b({}, entry), {}, {
               y: entry.y + entry.height - h2,
               height: h2
             });
           }
           var interpolator = interpolateNumber$2(0, entry.width);
           var w2 = interpolator(t2);
-          return _objectSpread$a(_objectSpread$a({}, entry), {}, {
+          return _objectSpread$b(_objectSpread$b({}, entry), {}, {
             width: w2
           });
         });
@@ -24698,11 +24888,11 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
       var backgroundProps = filterProps(this.props.background, false);
       return data.map(function(entry, i) {
         entry.value;
-        var background = entry.background, rest = _objectWithoutProperties$4(entry, _excluded$4);
+        var background = entry.background, rest = _objectWithoutProperties$5(entry, _excluded$5);
         if (!background) {
           return null;
         }
-        var props = _objectSpread$a(_objectSpread$a(_objectSpread$a(_objectSpread$a(_objectSpread$a({}, rest), {}, {
+        var props = _objectSpread$b(_objectSpread$b(_objectSpread$b(_objectSpread$b(_objectSpread$b({}, rest), {}, {
           fill: "#eee"
         }, background), backgroundProps), adaptEventsOfChild(_this4.props, entry, i)), {}, {
           onAnimationStart: _this4.handleAnimationStart,
@@ -24711,7 +24901,7 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
           index: i,
           className: "recharts-bar-background-rectangle"
         });
-        return /* @__PURE__ */ React.createElement(BarRectangle, _extends$9({
+        return /* @__PURE__ */ React.createElement(BarRectangle, _extends$a({
           key: "background-bar-".concat(i),
           option: _this4.props.background,
           isActive: i === activeIndex
@@ -24801,8 +24991,8 @@ var Bar = /* @__PURE__ */ function(_PureComponent) {
   }]);
 }(reactExports.PureComponent);
 _Bar = Bar;
-_defineProperty$d(Bar, "displayName", "Bar");
-_defineProperty$d(Bar, "defaultProps", {
+_defineProperty$e(Bar, "displayName", "Bar");
+_defineProperty$e(Bar, "defaultProps", {
   xAxisId: 0,
   yAxisId: 0,
   legendType: "rect",
@@ -24816,7 +25006,7 @@ _defineProperty$d(Bar, "defaultProps", {
   animationDuration: 400,
   animationEasing: "ease"
 });
-_defineProperty$d(Bar, "getComposedData", function(_ref2) {
+_defineProperty$e(Bar, "getComposedData", function(_ref2) {
   var props = _ref2.props, item = _ref2.item, barPosition = _ref2.barPosition, bandSize = _ref2.bandSize, xAxis = _ref2.xAxis, yAxis = _ref2.yAxis, xAxisTicks = _ref2.xAxisTicks, yAxisTicks = _ref2.yAxisTicks, stackedData = _ref2.stackedData, dataStartIndex = _ref2.dataStartIndex, displayedData = _ref2.displayedData, offset = _ref2.offset;
   var pos = findPositionOfBar(barPosition, item);
   if (!pos) {
@@ -24824,7 +25014,7 @@ _defineProperty$d(Bar, "getComposedData", function(_ref2) {
   }
   var layout = props.layout;
   var itemDefaultProps = item.type.defaultProps;
-  var itemProps = itemDefaultProps !== void 0 ? _objectSpread$a(_objectSpread$a({}, itemDefaultProps), item.props) : item.props;
+  var itemProps = itemDefaultProps !== void 0 ? _objectSpread$b(_objectSpread$b({}, itemDefaultProps), item.props) : item.props;
   var dataKey = itemProps.dataKey, children = itemProps.children, minPointSizeProp = itemProps.minPointSize;
   var numericAxis = layout === "horizontal" ? yAxis : xAxis;
   var stackedDomain = stackedData ? numericAxis.scale.domain() : null;
@@ -24893,7 +25083,7 @@ _defineProperty$d(Bar, "getComposedData", function(_ref2) {
         width += _delta;
       }
     }
-    return _objectSpread$a(_objectSpread$a(_objectSpread$a({}, entry), {}, {
+    return _objectSpread$b(_objectSpread$b(_objectSpread$b({}, entry), {}, {
       x: x2,
       y: y2,
       width,
@@ -24909,40 +25099,40 @@ _defineProperty$d(Bar, "getComposedData", function(_ref2) {
       }
     });
   });
-  return _objectSpread$a({
+  return _objectSpread$b({
     data: rects,
     layout
   }, offset);
 });
-function _typeof$c(o) {
+function _typeof$d(o) {
   "@babel/helpers - typeof";
-  return _typeof$c = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$d = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$c(o);
+  }, _typeof$d(o);
 }
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$a(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$9(target, props) {
+function _defineProperties$a(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$c(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$d(descriptor.key), descriptor);
   }
 }
-function _createClass$9(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$9(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$9(Constructor, staticProps);
+function _createClass$a(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$a(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$a(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function ownKeys$9(e3, r2) {
+function ownKeys$a(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -24952,19 +25142,19 @@ function ownKeys$9(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$9(e3) {
+function _objectSpread$a(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$9(Object(t2), true).forEach(function(r3) {
-      _defineProperty$c(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$9(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$a(Object(t2), true).forEach(function(r3) {
+      _defineProperty$d(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$a(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$c(obj, key, value) {
-  key = _toPropertyKey$c(key);
+function _defineProperty$d(obj, key, value) {
+  key = _toPropertyKey$d(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -24972,16 +25162,16 @@ function _defineProperty$c(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$c(t2) {
-  var i = _toPrimitive$c(t2, "string");
-  return "symbol" == _typeof$c(i) ? i : i + "";
+function _toPropertyKey$d(t2) {
+  var i = _toPrimitive$d(t2, "string");
+  return "symbol" == _typeof$d(i) ? i : i + "";
 }
-function _toPrimitive$c(t2, r2) {
-  if ("object" != _typeof$c(t2) || !t2) return t2;
+function _toPrimitive$d(t2, r2) {
+  if ("object" != _typeof$d(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$c(i)) return i;
+    if ("object" != _typeof$d(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -25040,7 +25230,7 @@ var formatAxisMap2 = function formatAxisMap3(props, axisMap, offset, axisType, c
     var _parseScale = parseScale(axis, chartName, hasBar), scale = _parseScale.scale, realScaleType = _parseScale.realScaleType;
     scale.domain(domain).range(range3);
     checkDomainOfScale(scale);
-    var ticks2 = getTicksOfScale(scale, _objectSpread$9(_objectSpread$9({}, axis), {}, {
+    var ticks2 = getTicksOfScale(scale, _objectSpread$a(_objectSpread$a({}, axis), {}, {
       realScaleType
     }));
     if (axisType === "xAxis") {
@@ -25052,7 +25242,7 @@ var formatAxisMap2 = function formatAxisMap3(props, axisMap, offset, axisType, c
       x2 = steps[offsetKey] - needSpace * axis.width;
       y2 = offset.top;
     }
-    var finalAxis = _objectSpread$9(_objectSpread$9(_objectSpread$9({}, axis), ticks2), {}, {
+    var finalAxis = _objectSpread$a(_objectSpread$a(_objectSpread$a({}, axis), ticks2), {}, {
       realScaleType,
       x: x2,
       y: y2,
@@ -25066,7 +25256,7 @@ var formatAxisMap2 = function formatAxisMap3(props, axisMap, offset, axisType, c
     } else if (!axis.hide) {
       steps[offsetKey] += (needSpace ? -1 : 1) * finalAxis.width;
     }
-    return _objectSpread$9(_objectSpread$9({}, result), {}, _defineProperty$c({}, id2, finalAxis));
+    return _objectSpread$a(_objectSpread$a({}, result), {}, _defineProperty$d({}, id2, finalAxis));
   }, {});
 };
 var rectWithPoints = function rectWithPoints2(_ref, _ref2) {
@@ -25091,10 +25281,10 @@ var rectWithCoords = function rectWithCoords2(_ref3) {
 };
 var ScaleHelper = /* @__PURE__ */ function() {
   function ScaleHelper2(scale) {
-    _classCallCheck$9(this, ScaleHelper2);
+    _classCallCheck$a(this, ScaleHelper2);
     this.scale = scale;
   }
-  return _createClass$9(ScaleHelper2, [{
+  return _createClass$a(ScaleHelper2, [{
     key: "domain",
     get: function get2() {
       return this.scale.domain;
@@ -25165,12 +25355,12 @@ var ScaleHelper = /* @__PURE__ */ function() {
     }
   }]);
 }();
-_defineProperty$c(ScaleHelper, "EPS", 1e-4);
+_defineProperty$d(ScaleHelper, "EPS", 1e-4);
 var createLabeledScales = function createLabeledScales2(options) {
   var scales = Object.keys(options).reduce(function(res, key) {
-    return _objectSpread$9(_objectSpread$9({}, res), {}, _defineProperty$c({}, key, ScaleHelper.create(options[key])));
+    return _objectSpread$a(_objectSpread$a({}, res), {}, _defineProperty$d({}, key, ScaleHelper.create(options[key])));
   }, {});
-  return _objectSpread$9(_objectSpread$9({}, scales), {}, {
+  return _objectSpread$a(_objectSpread$a({}, scales), {}, {
     apply: function apply2(coord) {
       var _ref5 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, bandAware = _ref5.bandAware, position = _ref5.position;
       return mapValues$1(coord, function(value, label) {
@@ -25316,82 +25506,82 @@ var useChartWidth = function useChartWidth2() {
 var useChartHeight = function useChartHeight2() {
   return reactExports.useContext(ChartHeightContext);
 };
-function _typeof$b(o) {
+function _typeof$c(o) {
   "@babel/helpers - typeof";
-  return _typeof$b = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$c = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$b(o);
+  }, _typeof$c(o);
 }
-function _classCallCheck$8(instance, Constructor) {
+function _classCallCheck$9(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$8(target, props) {
+function _defineProperties$9(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$b(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$c(descriptor.key), descriptor);
   }
 }
-function _createClass$8(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$8(Constructor.prototype, protoProps);
+function _createClass$9(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$9(Constructor.prototype, protoProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$7(t2, o, e3) {
-  return o = _getPrototypeOf$7(o), _possibleConstructorReturn$7(t2, _isNativeReflectConstruct$7() ? Reflect.construct(o, e3 || [], _getPrototypeOf$7(t2).constructor) : o.apply(t2, e3));
+function _callSuper$8(t2, o, e3) {
+  return o = _getPrototypeOf$8(o), _possibleConstructorReturn$8(t2, _isNativeReflectConstruct$8() ? Reflect.construct(o, e3 || [], _getPrototypeOf$8(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$7(self2, call) {
-  if (call && (_typeof$b(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$8(self2, call) {
+  if (call && (_typeof$c(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$7(self2);
+  return _assertThisInitialized$8(self2);
 }
-function _assertThisInitialized$7(self2) {
+function _assertThisInitialized$8(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$7() {
+function _isNativeReflectConstruct$8() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$7 = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$8 = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$7(o) {
-  _getPrototypeOf$7 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$8(o) {
+  _getPrototypeOf$8 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$7(o);
+  return _getPrototypeOf$8(o);
 }
-function _inherits$7(subClass, superClass) {
+function _inherits$8(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$7(subClass, superClass);
+  if (superClass) _setPrototypeOf$8(subClass, superClass);
 }
-function _setPrototypeOf$7(o, p2) {
-  _setPrototypeOf$7 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$8(o, p2) {
+  _setPrototypeOf$8 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$7(o, p2);
+  return _setPrototypeOf$8(o, p2);
 }
-function ownKeys$8(e3, r2) {
+function ownKeys$9(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -25401,19 +25591,19 @@ function ownKeys$8(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$8(e3) {
+function _objectSpread$9(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$8(Object(t2), true).forEach(function(r3) {
-      _defineProperty$b(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$8(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$9(Object(t2), true).forEach(function(r3) {
+      _defineProperty$c(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$9(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$b(obj, key, value) {
-  key = _toPropertyKey$b(key);
+function _defineProperty$c(obj, key, value) {
+  key = _toPropertyKey$c(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -25421,16 +25611,16 @@ function _defineProperty$b(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$b(t2) {
-  var i = _toPrimitive$b(t2, "string");
-  return "symbol" == _typeof$b(i) ? i : i + "";
+function _toPropertyKey$c(t2) {
+  var i = _toPrimitive$c(t2, "string");
+  return "symbol" == _typeof$c(i) ? i : i + "";
 }
-function _toPrimitive$b(t2, r2) {
-  if ("object" != _typeof$b(t2) || !t2) return t2;
+function _toPrimitive$c(t2, r2) {
+  if ("object" != _typeof$c(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$b(i)) return i;
+    if ("object" != _typeof$c(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -25476,8 +25666,8 @@ function _iterableToArrayLimit$1(r2, l2) {
 function _arrayWithHoles$1(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function _extends$8() {
-  _extends$8 = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$9() {
+  _extends$9 = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -25488,7 +25678,7 @@ function _extends$8() {
     }
     return target;
   };
-  return _extends$8.apply(this, arguments);
+  return _extends$9.apply(this, arguments);
 }
 var renderLine = function renderLine2(option, props) {
   var line;
@@ -25497,7 +25687,7 @@ var renderLine = function renderLine2(option, props) {
   } else if (isFunction$3(option)) {
     line = option(props);
   } else {
-    line = /* @__PURE__ */ React.createElement("line", _extends$8({}, props, {
+    line = /* @__PURE__ */ React.createElement("line", _extends$9({}, props, {
       className: "recharts-reference-line-line"
     }));
   }
@@ -25578,7 +25768,7 @@ function ReferenceLineImpl(props) {
   }
   var _endPoints = _slicedToArray$1(endPoints, 2), _endPoints$ = _endPoints[0], x1 = _endPoints$.x, y1 = _endPoints$.y, _endPoints$2 = _endPoints[1], x2 = _endPoints$2.x, y2 = _endPoints$2.y;
   var clipPath = ifOverflowMatches(props, "hidden") ? "url(#".concat(clipPathId, ")") : void 0;
-  var lineProps = _objectSpread$8(_objectSpread$8({
+  var lineProps = _objectSpread$9(_objectSpread$9({
     clipPath
   }, filterProps(props, true)), {}, {
     x1,
@@ -25597,19 +25787,19 @@ function ReferenceLineImpl(props) {
 }
 var ReferenceLine = /* @__PURE__ */ function(_React$Component) {
   function ReferenceLine2() {
-    _classCallCheck$8(this, ReferenceLine2);
-    return _callSuper$7(this, ReferenceLine2, arguments);
+    _classCallCheck$9(this, ReferenceLine2);
+    return _callSuper$8(this, ReferenceLine2, arguments);
   }
-  _inherits$7(ReferenceLine2, _React$Component);
-  return _createClass$8(ReferenceLine2, [{
+  _inherits$8(ReferenceLine2, _React$Component);
+  return _createClass$9(ReferenceLine2, [{
     key: "render",
     value: function render() {
       return /* @__PURE__ */ React.createElement(ReferenceLineImpl, this.props);
     }
   }]);
 }(React.Component);
-_defineProperty$b(ReferenceLine, "displayName", "ReferenceLine");
-_defineProperty$b(ReferenceLine, "defaultProps", {
+_defineProperty$c(ReferenceLine, "displayName", "ReferenceLine");
+_defineProperty$c(ReferenceLine, "defaultProps", {
   isFront: false,
   ifOverflow: "discard",
   xAxisId: 0,
@@ -25619,6 +25809,223 @@ _defineProperty$b(ReferenceLine, "defaultProps", {
   fillOpacity: 1,
   strokeWidth: 1,
   position: "middle"
+});
+function _extends$8() {
+  _extends$8 = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$8.apply(this, arguments);
+}
+function _typeof$b(o) {
+  "@babel/helpers - typeof";
+  return _typeof$b = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$b(o);
+}
+function ownKeys$8(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$8(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$8(Object(t2), true).forEach(function(r3) {
+      _defineProperty$b(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$8(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _classCallCheck$8(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties$8(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey$b(descriptor.key), descriptor);
+  }
+}
+function _createClass$8(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$8(Constructor.prototype, protoProps);
+  Object.defineProperty(Constructor, "prototype", { writable: false });
+  return Constructor;
+}
+function _callSuper$7(t2, o, e3) {
+  return o = _getPrototypeOf$7(o), _possibleConstructorReturn$7(t2, _isNativeReflectConstruct$7() ? Reflect.construct(o, e3 || [], _getPrototypeOf$7(t2).constructor) : o.apply(t2, e3));
+}
+function _possibleConstructorReturn$7(self2, call) {
+  if (call && (_typeof$b(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized$7(self2);
+}
+function _assertThisInitialized$7(self2) {
+  if (self2 === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self2;
+}
+function _isNativeReflectConstruct$7() {
+  try {
+    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+  } catch (t3) {
+  }
+  return (_isNativeReflectConstruct$7 = function _isNativeReflectConstruct2() {
+    return !!t2;
+  })();
+}
+function _getPrototypeOf$7(o) {
+  _getPrototypeOf$7 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$7(o);
+}
+function _inherits$7(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+  Object.defineProperty(subClass, "prototype", { writable: false });
+  if (superClass) _setPrototypeOf$7(subClass, superClass);
+}
+function _setPrototypeOf$7(o, p2) {
+  _setPrototypeOf$7 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$7(o, p2);
+}
+function _defineProperty$b(obj, key, value) {
+  key = _toPropertyKey$b(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$b(t2) {
+  var i = _toPrimitive$b(t2, "string");
+  return "symbol" == _typeof$b(i) ? i : i + "";
+}
+function _toPrimitive$b(t2, r2) {
+  if ("object" != _typeof$b(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$b(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return String(t2);
+}
+var getCoordinate = function getCoordinate2(props) {
+  var x2 = props.x, y2 = props.y, xAxis = props.xAxis, yAxis = props.yAxis;
+  var scales = createLabeledScales({
+    x: xAxis.scale,
+    y: yAxis.scale
+  });
+  var result = scales.apply({
+    x: x2,
+    y: y2
+  }, {
+    bandAware: true
+  });
+  if (ifOverflowMatches(props, "discard") && !scales.isInRange(result)) {
+    return null;
+  }
+  return result;
+};
+var ReferenceDot = /* @__PURE__ */ function(_React$Component) {
+  function ReferenceDot2() {
+    _classCallCheck$8(this, ReferenceDot2);
+    return _callSuper$7(this, ReferenceDot2, arguments);
+  }
+  _inherits$7(ReferenceDot2, _React$Component);
+  return _createClass$8(ReferenceDot2, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props, x2 = _this$props.x, y2 = _this$props.y, r2 = _this$props.r, alwaysShow = _this$props.alwaysShow, clipPathId = _this$props.clipPathId;
+      var isX = isNumOrStr(x2);
+      var isY = isNumOrStr(y2);
+      warn(alwaysShow === void 0, 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.');
+      if (!isX || !isY) {
+        return null;
+      }
+      var coordinate = getCoordinate(this.props);
+      if (!coordinate) {
+        return null;
+      }
+      var cx = coordinate.x, cy = coordinate.y;
+      var _this$props2 = this.props, shape = _this$props2.shape, className = _this$props2.className;
+      var clipPath = ifOverflowMatches(this.props, "hidden") ? "url(#".concat(clipPathId, ")") : void 0;
+      var dotProps = _objectSpread$8(_objectSpread$8({
+        clipPath
+      }, filterProps(this.props, true)), {}, {
+        cx,
+        cy
+      });
+      return /* @__PURE__ */ React.createElement(Layer, {
+        className: clsx("recharts-reference-dot", className)
+      }, ReferenceDot2.renderDot(shape, dotProps), Label.renderCallByParent(this.props, {
+        x: cx - r2,
+        y: cy - r2,
+        width: 2 * r2,
+        height: 2 * r2
+      }));
+    }
+  }]);
+}(React.Component);
+_defineProperty$b(ReferenceDot, "displayName", "ReferenceDot");
+_defineProperty$b(ReferenceDot, "defaultProps", {
+  isFront: false,
+  ifOverflow: "discard",
+  xAxisId: 0,
+  yAxisId: 0,
+  r: 10,
+  fill: "#fff",
+  stroke: "#ccc",
+  fillOpacity: 1,
+  strokeWidth: 1
+});
+_defineProperty$b(ReferenceDot, "renderDot", function(option, props) {
+  var dot;
+  if (/* @__PURE__ */ React.isValidElement(option)) {
+    dot = /* @__PURE__ */ React.cloneElement(option, props);
+  } else if (isFunction$3(option)) {
+    dot = option(props);
+  } else {
+    dot = /* @__PURE__ */ React.createElement(Dot, _extends$8({}, props, {
+      cx: props.cx,
+      cy: props.cy,
+      className: "recharts-reference-dot-dot"
+    }));
+  }
+  return dot;
 });
 function _extends$7() {
   _extends$7 = Object.assign ? Object.assign.bind() : function(target) {
@@ -25753,223 +26160,6 @@ function _toPrimitive$a(t2, r2) {
   }
   return String(t2);
 }
-var getCoordinate = function getCoordinate2(props) {
-  var x2 = props.x, y2 = props.y, xAxis = props.xAxis, yAxis = props.yAxis;
-  var scales = createLabeledScales({
-    x: xAxis.scale,
-    y: yAxis.scale
-  });
-  var result = scales.apply({
-    x: x2,
-    y: y2
-  }, {
-    bandAware: true
-  });
-  if (ifOverflowMatches(props, "discard") && !scales.isInRange(result)) {
-    return null;
-  }
-  return result;
-};
-var ReferenceDot = /* @__PURE__ */ function(_React$Component) {
-  function ReferenceDot2() {
-    _classCallCheck$7(this, ReferenceDot2);
-    return _callSuper$6(this, ReferenceDot2, arguments);
-  }
-  _inherits$6(ReferenceDot2, _React$Component);
-  return _createClass$7(ReferenceDot2, [{
-    key: "render",
-    value: function render() {
-      var _this$props = this.props, x2 = _this$props.x, y2 = _this$props.y, r2 = _this$props.r, alwaysShow = _this$props.alwaysShow, clipPathId = _this$props.clipPathId;
-      var isX = isNumOrStr(x2);
-      var isY = isNumOrStr(y2);
-      warn(alwaysShow === void 0, 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.');
-      if (!isX || !isY) {
-        return null;
-      }
-      var coordinate = getCoordinate(this.props);
-      if (!coordinate) {
-        return null;
-      }
-      var cx = coordinate.x, cy = coordinate.y;
-      var _this$props2 = this.props, shape = _this$props2.shape, className = _this$props2.className;
-      var clipPath = ifOverflowMatches(this.props, "hidden") ? "url(#".concat(clipPathId, ")") : void 0;
-      var dotProps = _objectSpread$7(_objectSpread$7({
-        clipPath
-      }, filterProps(this.props, true)), {}, {
-        cx,
-        cy
-      });
-      return /* @__PURE__ */ React.createElement(Layer, {
-        className: clsx("recharts-reference-dot", className)
-      }, ReferenceDot2.renderDot(shape, dotProps), Label.renderCallByParent(this.props, {
-        x: cx - r2,
-        y: cy - r2,
-        width: 2 * r2,
-        height: 2 * r2
-      }));
-    }
-  }]);
-}(React.Component);
-_defineProperty$a(ReferenceDot, "displayName", "ReferenceDot");
-_defineProperty$a(ReferenceDot, "defaultProps", {
-  isFront: false,
-  ifOverflow: "discard",
-  xAxisId: 0,
-  yAxisId: 0,
-  r: 10,
-  fill: "#fff",
-  stroke: "#ccc",
-  fillOpacity: 1,
-  strokeWidth: 1
-});
-_defineProperty$a(ReferenceDot, "renderDot", function(option, props) {
-  var dot;
-  if (/* @__PURE__ */ React.isValidElement(option)) {
-    dot = /* @__PURE__ */ React.cloneElement(option, props);
-  } else if (isFunction$3(option)) {
-    dot = option(props);
-  } else {
-    dot = /* @__PURE__ */ React.createElement(Dot, _extends$7({}, props, {
-      cx: props.cx,
-      cy: props.cy,
-      className: "recharts-reference-dot-dot"
-    }));
-  }
-  return dot;
-});
-function _extends$6() {
-  _extends$6 = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends$6.apply(this, arguments);
-}
-function _typeof$9(o) {
-  "@babel/helpers - typeof";
-  return _typeof$9 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$9(o);
-}
-function ownKeys$6(e3, r2) {
-  var t2 = Object.keys(e3);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e3);
-    r2 && (o = o.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
-    })), t2.push.apply(t2, o);
-  }
-  return t2;
-}
-function _objectSpread$6(e3) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$6(Object(t2), true).forEach(function(r3) {
-      _defineProperty$9(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$6(Object(t2)).forEach(function(r3) {
-      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
-    });
-  }
-  return e3;
-}
-function _classCallCheck$6(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-function _defineProperties$6(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$9(descriptor.key), descriptor);
-  }
-}
-function _createClass$6(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$6(Constructor.prototype, protoProps);
-  Object.defineProperty(Constructor, "prototype", { writable: false });
-  return Constructor;
-}
-function _callSuper$5(t2, o, e3) {
-  return o = _getPrototypeOf$5(o), _possibleConstructorReturn$5(t2, _isNativeReflectConstruct$5() ? Reflect.construct(o, e3 || [], _getPrototypeOf$5(t2).constructor) : o.apply(t2, e3));
-}
-function _possibleConstructorReturn$5(self2, call) {
-  if (call && (_typeof$9(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized$5(self2);
-}
-function _assertThisInitialized$5(self2) {
-  if (self2 === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self2;
-}
-function _isNativeReflectConstruct$5() {
-  try {
-    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
-    }));
-  } catch (t3) {
-  }
-  return (_isNativeReflectConstruct$5 = function _isNativeReflectConstruct2() {
-    return !!t2;
-  })();
-}
-function _getPrototypeOf$5(o) {
-  _getPrototypeOf$5 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
-    return o2.__proto__ || Object.getPrototypeOf(o2);
-  };
-  return _getPrototypeOf$5(o);
-}
-function _inherits$5(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
-  Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$5(subClass, superClass);
-}
-function _setPrototypeOf$5(o, p2) {
-  _setPrototypeOf$5 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
-    o2.__proto__ = p3;
-    return o2;
-  };
-  return _setPrototypeOf$5(o, p2);
-}
-function _defineProperty$9(obj, key, value) {
-  key = _toPropertyKey$9(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _toPropertyKey$9(t2) {
-  var i = _toPrimitive$9(t2, "string");
-  return "symbol" == _typeof$9(i) ? i : i + "";
-}
-function _toPrimitive$9(t2, r2) {
-  if ("object" != _typeof$9(t2) || !t2) return t2;
-  var e3 = t2[Symbol.toPrimitive];
-  if (void 0 !== e3) {
-    var i = e3.call(t2, r2);
-    if ("object" != _typeof$9(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return String(t2);
-}
 var getRect = function getRect2(hasX1, hasX2, hasY1, hasY2, props) {
   var xValue1 = props.x1, xValue2 = props.x2, yValue1 = props.y1, yValue2 = props.y2, xAxis = props.xAxis, yAxis = props.yAxis;
   if (!xAxis || !yAxis) return null;
@@ -26000,11 +26190,11 @@ var getRect = function getRect2(hasX1, hasX2, hasY1, hasY2, props) {
 };
 var ReferenceArea = /* @__PURE__ */ function(_React$Component) {
   function ReferenceArea2() {
-    _classCallCheck$6(this, ReferenceArea2);
-    return _callSuper$5(this, ReferenceArea2, arguments);
+    _classCallCheck$7(this, ReferenceArea2);
+    return _callSuper$6(this, ReferenceArea2, arguments);
   }
-  _inherits$5(ReferenceArea2, _React$Component);
-  return _createClass$6(ReferenceArea2, [{
+  _inherits$6(ReferenceArea2, _React$Component);
+  return _createClass$7(ReferenceArea2, [{
     key: "render",
     value: function render() {
       var _this$props = this.props, x1 = _this$props.x1, x2 = _this$props.x2, y1 = _this$props.y1, y2 = _this$props.y2, className = _this$props.className, alwaysShow = _this$props.alwaysShow, clipPathId = _this$props.clipPathId;
@@ -26024,14 +26214,14 @@ var ReferenceArea = /* @__PURE__ */ function(_React$Component) {
       var clipPath = ifOverflowMatches(this.props, "hidden") ? "url(#".concat(clipPathId, ")") : void 0;
       return /* @__PURE__ */ React.createElement(Layer, {
         className: clsx("recharts-reference-area", className)
-      }, ReferenceArea2.renderRect(shape, _objectSpread$6(_objectSpread$6({
+      }, ReferenceArea2.renderRect(shape, _objectSpread$7(_objectSpread$7({
         clipPath
       }, filterProps(this.props, true)), rect)), Label.renderCallByParent(this.props, rect));
     }
   }]);
 }(React.Component);
-_defineProperty$9(ReferenceArea, "displayName", "ReferenceArea");
-_defineProperty$9(ReferenceArea, "defaultProps", {
+_defineProperty$a(ReferenceArea, "displayName", "ReferenceArea");
+_defineProperty$a(ReferenceArea, "defaultProps", {
   isFront: false,
   ifOverflow: "discard",
   xAxisId: 0,
@@ -26042,14 +26232,14 @@ _defineProperty$9(ReferenceArea, "defaultProps", {
   stroke: "none",
   strokeWidth: 1
 });
-_defineProperty$9(ReferenceArea, "renderRect", function(option, props) {
+_defineProperty$a(ReferenceArea, "renderRect", function(option, props) {
   var rect;
   if (/* @__PURE__ */ React.isValidElement(option)) {
     rect = /* @__PURE__ */ React.cloneElement(option, props);
   } else if (isFunction$3(option)) {
     rect = option(props);
   } else {
-    rect = /* @__PURE__ */ React.createElement(Rectangle, _extends$6({}, props, {
+    rect = /* @__PURE__ */ React.createElement(Rectangle, _extends$7({}, props, {
       className: "recharts-reference-area-rect"
     }));
   }
@@ -26140,15 +26330,15 @@ function getEquidistantTicks(sign2, boundaries, getTickSize, ticks2, minTickGap)
   }
   return [];
 }
-function _typeof$8(o) {
+function _typeof$9(o) {
   "@babel/helpers - typeof";
-  return _typeof$8 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$9 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$8(o);
+  }, _typeof$9(o);
 }
-function ownKeys$5(e3, r2) {
+function ownKeys$6(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -26158,19 +26348,19 @@ function ownKeys$5(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$5(e3) {
+function _objectSpread$6(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$5(Object(t2), true).forEach(function(r3) {
-      _defineProperty$8(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$5(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$6(Object(t2), true).forEach(function(r3) {
+      _defineProperty$9(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$6(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$8(obj, key, value) {
-  key = _toPropertyKey$8(key);
+function _defineProperty$9(obj, key, value) {
+  key = _toPropertyKey$9(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -26178,16 +26368,16 @@ function _defineProperty$8(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$8(t2) {
-  var i = _toPrimitive$8(t2, "string");
-  return "symbol" == _typeof$8(i) ? i : i + "";
+function _toPropertyKey$9(t2) {
+  var i = _toPrimitive$9(t2, "string");
+  return "symbol" == _typeof$9(i) ? i : i + "";
 }
-function _toPrimitive$8(t2, r2) {
-  if ("object" != _typeof$8(t2) || !t2) return t2;
+function _toPrimitive$9(t2, r2) {
+  if ("object" != _typeof$9(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$8(i)) return i;
+    if ("object" != _typeof$9(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
@@ -26208,18 +26398,18 @@ function getTicksEnd(sign2, boundaries, getTickSize, ticks2, minTickGap) {
     };
     if (i2 === len - 1) {
       var gap = sign2 * (entry.coordinate + sign2 * getSize() / 2 - end);
-      result[i2] = entry = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = entry = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         tickCoord: gap > 0 ? entry.coordinate - gap * sign2 : entry.coordinate
       });
     } else {
-      result[i2] = entry = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = entry = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         tickCoord: entry.coordinate
       });
     }
     var isShow = isVisible(sign2, entry.tickCoord, getSize, start, end);
     if (isShow) {
       end = entry.tickCoord - sign2 * (getSize() / 2 + minTickGap);
-      result[i2] = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         isShow: true
       });
     }
@@ -26237,7 +26427,7 @@ function getTicksStart(sign2, boundaries, getTickSize, ticks2, minTickGap, prese
     var tail = ticks2[len - 1];
     var tailSize = getTickSize(tail, len - 1);
     var tailGap = sign2 * (tail.coordinate + sign2 * tailSize / 2 - end);
-    result[len - 1] = tail = _objectSpread$5(_objectSpread$5({}, tail), {}, {
+    result[len - 1] = tail = _objectSpread$6(_objectSpread$6({}, tail), {}, {
       tickCoord: tailGap > 0 ? tail.coordinate - tailGap * sign2 : tail.coordinate
     });
     var isTailShow = isVisible(sign2, tail.tickCoord, function() {
@@ -26245,7 +26435,7 @@ function getTicksStart(sign2, boundaries, getTickSize, ticks2, minTickGap, prese
     }, start, end);
     if (isTailShow) {
       end = tail.tickCoord - sign2 * (tailSize / 2 + minTickGap);
-      result[len - 1] = _objectSpread$5(_objectSpread$5({}, tail), {}, {
+      result[len - 1] = _objectSpread$6(_objectSpread$6({}, tail), {}, {
         isShow: true
       });
     }
@@ -26262,18 +26452,18 @@ function getTicksStart(sign2, boundaries, getTickSize, ticks2, minTickGap, prese
     };
     if (i2 === 0) {
       var gap = sign2 * (entry.coordinate - sign2 * getSize() / 2 - start);
-      result[i2] = entry = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = entry = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         tickCoord: gap < 0 ? entry.coordinate - gap * sign2 : entry.coordinate
       });
     } else {
-      result[i2] = entry = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = entry = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         tickCoord: entry.coordinate
       });
     }
     var isShow = isVisible(sign2, entry.tickCoord, getSize, start, end);
     if (isShow) {
       start = entry.tickCoord + sign2 * (getSize() / 2 + minTickGap);
-      result[i2] = _objectSpread$5(_objectSpread$5({}, entry), {}, {
+      result[i2] = _objectSpread$6(_objectSpread$6({}, entry), {}, {
         isShow: true
       });
     }
@@ -26324,17 +26514,17 @@ function getTicks(props, fontSize, letterSpacing) {
     return entry.isShow;
   });
 }
-var _excluded$3 = ["viewBox"], _excluded2$3 = ["viewBox"], _excluded3 = ["ticks"];
-function _typeof$7(o) {
+var _excluded$4 = ["viewBox"], _excluded2$4 = ["viewBox"], _excluded3 = ["ticks"];
+function _typeof$8(o) {
   "@babel/helpers - typeof";
-  return _typeof$7 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$8 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$7(o);
+  }, _typeof$8(o);
 }
-function _extends$5() {
-  _extends$5 = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$6() {
+  _extends$6 = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -26345,9 +26535,9 @@ function _extends$5() {
     }
     return target;
   };
-  return _extends$5.apply(this, arguments);
+  return _extends$6.apply(this, arguments);
 }
-function ownKeys$4(e3, r2) {
+function ownKeys$5(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -26357,20 +26547,20 @@ function ownKeys$4(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$4(e3) {
+function _objectSpread$5(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$4(Object(t2), true).forEach(function(r3) {
-      _defineProperty$7(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$4(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$5(Object(t2), true).forEach(function(r3) {
+      _defineProperty$8(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$5(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _objectWithoutProperties$3(source, excluded) {
+function _objectWithoutProperties$4(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$3(source, excluded);
+  var target = _objectWithoutPropertiesLoose$4(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -26383,7 +26573,7 @@ function _objectWithoutProperties$3(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$3(source, excluded) {
+function _objectWithoutPropertiesLoose$4(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -26394,76 +26584,76 @@ function _objectWithoutPropertiesLoose$3(source, excluded) {
   }
   return target;
 }
-function _classCallCheck$5(instance, Constructor) {
+function _classCallCheck$6(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$5(target, props) {
+function _defineProperties$6(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$7(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$8(descriptor.key), descriptor);
   }
 }
-function _createClass$5(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$5(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$5(Constructor, staticProps);
+function _createClass$6(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$6(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$6(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$4(t2, o, e3) {
-  return o = _getPrototypeOf$4(o), _possibleConstructorReturn$4(t2, _isNativeReflectConstruct$4() ? Reflect.construct(o, e3 || [], _getPrototypeOf$4(t2).constructor) : o.apply(t2, e3));
+function _callSuper$5(t2, o, e3) {
+  return o = _getPrototypeOf$5(o), _possibleConstructorReturn$5(t2, _isNativeReflectConstruct$5() ? Reflect.construct(o, e3 || [], _getPrototypeOf$5(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$4(self2, call) {
-  if (call && (_typeof$7(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$5(self2, call) {
+  if (call && (_typeof$8(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$4(self2);
+  return _assertThisInitialized$5(self2);
 }
-function _assertThisInitialized$4(self2) {
+function _assertThisInitialized$5(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$4() {
+function _isNativeReflectConstruct$5() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$4 = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$5 = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$4(o) {
-  _getPrototypeOf$4 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$5(o) {
+  _getPrototypeOf$5 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$4(o);
+  return _getPrototypeOf$5(o);
 }
-function _inherits$4(subClass, superClass) {
+function _inherits$5(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$4(subClass, superClass);
+  if (superClass) _setPrototypeOf$5(subClass, superClass);
 }
-function _setPrototypeOf$4(o, p2) {
-  _setPrototypeOf$4 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$5(o, p2) {
+  _setPrototypeOf$5 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$4(o, p2);
+  return _setPrototypeOf$5(o, p2);
 }
-function _defineProperty$7(obj, key, value) {
-  key = _toPropertyKey$7(key);
+function _defineProperty$8(obj, key, value) {
+  key = _toPropertyKey$8(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -26471,16 +26661,16 @@ function _defineProperty$7(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$7(t2) {
-  var i = _toPrimitive$7(t2, "string");
-  return "symbol" == _typeof$7(i) ? i : i + "";
+function _toPropertyKey$8(t2) {
+  var i = _toPrimitive$8(t2, "string");
+  return "symbol" == _typeof$8(i) ? i : i + "";
 }
-function _toPrimitive$7(t2, r2) {
-  if ("object" != _typeof$7(t2) || !t2) return t2;
+function _toPrimitive$8(t2, r2) {
+  if ("object" != _typeof$8(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$7(i)) return i;
+    if ("object" != _typeof$8(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -26488,20 +26678,20 @@ function _toPrimitive$7(t2, r2) {
 var CartesianAxis = /* @__PURE__ */ function(_Component) {
   function CartesianAxis2(props) {
     var _this;
-    _classCallCheck$5(this, CartesianAxis2);
-    _this = _callSuper$4(this, CartesianAxis2, [props]);
+    _classCallCheck$6(this, CartesianAxis2);
+    _this = _callSuper$5(this, CartesianAxis2, [props]);
     _this.state = {
       fontSize: "",
       letterSpacing: ""
     };
     return _this;
   }
-  _inherits$4(CartesianAxis2, _Component);
-  return _createClass$5(CartesianAxis2, [{
+  _inherits$5(CartesianAxis2, _Component);
+  return _createClass$6(CartesianAxis2, [{
     key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(_ref, nextState) {
-      var viewBox = _ref.viewBox, restProps = _objectWithoutProperties$3(_ref, _excluded$3);
-      var _this$props = this.props, viewBoxOld = _this$props.viewBox, restPropsOld = _objectWithoutProperties$3(_this$props, _excluded2$3);
+      var viewBox = _ref.viewBox, restProps = _objectWithoutProperties$4(_ref, _excluded$4);
+      var _this$props = this.props, viewBoxOld = _this$props.viewBox, restPropsOld = _objectWithoutProperties$4(_this$props, _excluded2$4);
       return !shallowEqual(viewBox, viewBoxOld) || !shallowEqual(restProps, restPropsOld) || !shallowEqual(nextState, this.state);
     }
   }, {
@@ -26615,12 +26805,12 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
     key: "renderAxisLine",
     value: function renderAxisLine() {
       var _this$props5 = this.props, x2 = _this$props5.x, y2 = _this$props5.y, width = _this$props5.width, height = _this$props5.height, orientation = _this$props5.orientation, mirror = _this$props5.mirror, axisLine = _this$props5.axisLine;
-      var props = _objectSpread$4(_objectSpread$4(_objectSpread$4({}, filterProps(this.props, false)), filterProps(axisLine, false)), {}, {
+      var props = _objectSpread$5(_objectSpread$5(_objectSpread$5({}, filterProps(this.props, false)), filterProps(axisLine, false)), {}, {
         fill: "none"
       });
       if (orientation === "top" || orientation === "bottom") {
         var needHeight = +(orientation === "top" && !mirror || orientation === "bottom" && mirror);
-        props = _objectSpread$4(_objectSpread$4({}, props), {}, {
+        props = _objectSpread$5(_objectSpread$5({}, props), {}, {
           x1: x2,
           y1: y2 + needHeight * height,
           x2: x2 + width,
@@ -26628,14 +26818,14 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
         });
       } else {
         var needWidth = +(orientation === "left" && !mirror || orientation === "right" && mirror);
-        props = _objectSpread$4(_objectSpread$4({}, props), {}, {
+        props = _objectSpread$5(_objectSpread$5({}, props), {}, {
           x1: x2 + needWidth * width,
           y1: y2,
           x2: x2 + needWidth * width,
           y2: y2 + height
         });
       }
-      return /* @__PURE__ */ React.createElement("line", _extends$5({}, props, {
+      return /* @__PURE__ */ React.createElement("line", _extends$6({}, props, {
         className: clsx("recharts-cartesian-axis-line", get$2(axisLine, "className"))
       }));
     }
@@ -26652,19 +26842,19 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
       function renderTicks(ticks2, fontSize, letterSpacing) {
         var _this2 = this;
         var _this$props6 = this.props, tickLine = _this$props6.tickLine, stroke = _this$props6.stroke, tick = _this$props6.tick, tickFormatter = _this$props6.tickFormatter, unit2 = _this$props6.unit;
-        var finalTicks = getTicks(_objectSpread$4(_objectSpread$4({}, this.props), {}, {
+        var finalTicks = getTicks(_objectSpread$5(_objectSpread$5({}, this.props), {}, {
           ticks: ticks2
         }), fontSize, letterSpacing);
         var textAnchor = this.getTickTextAnchor();
         var verticalAnchor = this.getTickVerticalAnchor();
         var axisProps = filterProps(this.props, false);
         var customTickProps = filterProps(tick, false);
-        var tickLineProps = _objectSpread$4(_objectSpread$4({}, axisProps), {}, {
+        var tickLineProps = _objectSpread$5(_objectSpread$5({}, axisProps), {}, {
           fill: "none"
         }, filterProps(tickLine, false));
         var items = finalTicks.map(function(entry, i) {
           var _this2$getTickLineCoo = _this2.getTickLineCoord(entry), lineCoord = _this2$getTickLineCoo.line, tickCoord = _this2$getTickLineCoo.tick;
-          var tickProps = _objectSpread$4(_objectSpread$4(_objectSpread$4(_objectSpread$4({
+          var tickProps = _objectSpread$5(_objectSpread$5(_objectSpread$5(_objectSpread$5({
             textAnchor,
             verticalAnchor
           }, axisProps), {}, {
@@ -26676,10 +26866,10 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
             visibleTicksCount: finalTicks.length,
             tickFormatter
           });
-          return /* @__PURE__ */ React.createElement(Layer, _extends$5({
+          return /* @__PURE__ */ React.createElement(Layer, _extends$6({
             className: "recharts-cartesian-axis-tick",
             key: "tick-".concat(entry.value, "-").concat(entry.coordinate, "-").concat(entry.tickCoord)
-          }, adaptEventsOfChild(_this2.props, entry, i)), tickLine && /* @__PURE__ */ React.createElement("line", _extends$5({}, tickLineProps, lineCoord, {
+          }, adaptEventsOfChild(_this2.props, entry, i)), tickLine && /* @__PURE__ */ React.createElement("line", _extends$6({}, tickLineProps, lineCoord, {
             className: clsx("recharts-cartesian-axis-tick-line", get$2(tickLine, "className"))
           })), tick && CartesianAxis2.renderTickItem(tick, tickProps, "".concat(isFunction$3(tickFormatter) ? tickFormatter(entry.value, i) : entry.value).concat(unit2 || "")));
         });
@@ -26696,7 +26886,7 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
       if (hide) {
         return null;
       }
-      var _this$props8 = this.props, ticks2 = _this$props8.ticks, noTicksProps = _objectWithoutProperties$3(_this$props8, _excluded3);
+      var _this$props8 = this.props, ticks2 = _this$props8.ticks, noTicksProps = _objectWithoutProperties$4(_this$props8, _excluded3);
       var finalTicks = ticks2;
       if (isFunction$3(ticksGenerator)) {
         finalTicks = ticks2 && ticks2.length > 0 ? ticksGenerator(this.props) : ticksGenerator(noTicksProps);
@@ -26717,15 +26907,15 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
       var tickItem;
       var combinedClassName = clsx(props.className, "recharts-cartesian-axis-tick-value");
       if (/* @__PURE__ */ React.isValidElement(option)) {
-        tickItem = /* @__PURE__ */ React.cloneElement(option, _objectSpread$4(_objectSpread$4({}, props), {}, {
+        tickItem = /* @__PURE__ */ React.cloneElement(option, _objectSpread$5(_objectSpread$5({}, props), {}, {
           className: combinedClassName
         }));
       } else if (isFunction$3(option)) {
-        tickItem = option(_objectSpread$4(_objectSpread$4({}, props), {}, {
+        tickItem = option(_objectSpread$5(_objectSpread$5({}, props), {}, {
           className: combinedClassName
         }));
       } else {
-        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$5({}, props, {
+        tickItem = /* @__PURE__ */ React.createElement(Text, _extends$6({}, props, {
           className: "recharts-cartesian-axis-tick-value"
         }), value);
       }
@@ -26733,8 +26923,8 @@ var CartesianAxis = /* @__PURE__ */ function(_Component) {
     }
   }]);
 }(reactExports.Component);
-_defineProperty$7(CartesianAxis, "displayName", "CartesianAxis");
-_defineProperty$7(CartesianAxis, "defaultProps", {
+_defineProperty$8(CartesianAxis, "displayName", "CartesianAxis");
+_defineProperty$8(CartesianAxis, "defaultProps", {
   x: 0,
   y: 0,
   width: 0,
@@ -26760,16 +26950,16 @@ _defineProperty$7(CartesianAxis, "defaultProps", {
   tickMargin: 2,
   interval: "preserveEnd"
 });
-var _excluded$2 = ["x1", "y1", "x2", "y2", "key"], _excluded2$2 = ["offset"];
-function _typeof$6(o) {
+var _excluded$3 = ["x1", "y1", "x2", "y2", "key"], _excluded2$3 = ["offset"];
+function _typeof$7(o) {
   "@babel/helpers - typeof";
-  return _typeof$6 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$7 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$6(o);
+  }, _typeof$7(o);
 }
-function ownKeys$3(e3, r2) {
+function ownKeys$4(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -26779,19 +26969,19 @@ function ownKeys$3(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$3(e3) {
+function _objectSpread$4(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$3(Object(t2), true).forEach(function(r3) {
-      _defineProperty$6(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$3(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$4(Object(t2), true).forEach(function(r3) {
+      _defineProperty$7(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$4(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
   return e3;
 }
-function _defineProperty$6(obj, key, value) {
-  key = _toPropertyKey$6(key);
+function _defineProperty$7(obj, key, value) {
+  key = _toPropertyKey$7(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -26799,22 +26989,22 @@ function _defineProperty$6(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$6(t2) {
-  var i = _toPrimitive$6(t2, "string");
-  return "symbol" == _typeof$6(i) ? i : i + "";
+function _toPropertyKey$7(t2) {
+  var i = _toPrimitive$7(t2, "string");
+  return "symbol" == _typeof$7(i) ? i : i + "";
 }
-function _toPrimitive$6(t2, r2) {
-  if ("object" != _typeof$6(t2) || !t2) return t2;
+function _toPrimitive$7(t2, r2) {
+  if ("object" != _typeof$7(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$6(i)) return i;
+    if ("object" != _typeof$7(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r2 ? String : Number)(t2);
 }
-function _extends$4() {
-  _extends$4 = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$5() {
+  _extends$5 = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -26825,11 +27015,11 @@ function _extends$4() {
     }
     return target;
   };
-  return _extends$4.apply(this, arguments);
+  return _extends$5.apply(this, arguments);
 }
-function _objectWithoutProperties$2(source, excluded) {
+function _objectWithoutProperties$3(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$2(source, excluded);
+  var target = _objectWithoutPropertiesLoose$3(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -26842,7 +27032,7 @@ function _objectWithoutProperties$2(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$2(source, excluded) {
+function _objectWithoutPropertiesLoose$3(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -26878,11 +27068,11 @@ function renderLineItem(option, props) {
   } else if (isFunction$3(option)) {
     lineItem = option(props);
   } else {
-    var x1 = props.x1, y1 = props.y1, x2 = props.x2, y2 = props.y2, key = props.key, others = _objectWithoutProperties$2(props, _excluded$2);
+    var x1 = props.x1, y1 = props.y1, x2 = props.x2, y2 = props.y2, key = props.key, others = _objectWithoutProperties$3(props, _excluded$3);
     var _filterProps = filterProps(others, false);
     _filterProps.offset;
-    var restOfFilteredProps = _objectWithoutProperties$2(_filterProps, _excluded2$2);
-    lineItem = /* @__PURE__ */ React.createElement("line", _extends$4({}, restOfFilteredProps, {
+    var restOfFilteredProps = _objectWithoutProperties$3(_filterProps, _excluded2$3);
+    lineItem = /* @__PURE__ */ React.createElement("line", _extends$5({}, restOfFilteredProps, {
       x1,
       y1,
       x2,
@@ -26899,7 +27089,7 @@ function HorizontalGridLines(props) {
     return null;
   }
   var items = horizontalPoints.map(function(entry, i) {
-    var lineItemProps = _objectSpread$3(_objectSpread$3({}, props), {}, {
+    var lineItemProps = _objectSpread$4(_objectSpread$4({}, props), {}, {
       x1: x2,
       y1: entry,
       x2: x2 + width,
@@ -26919,7 +27109,7 @@ function VerticalGridLines(props) {
     return null;
   }
   var items = verticalPoints.map(function(entry, i) {
-    var lineItemProps = _objectSpread$3(_objectSpread$3({}, props), {}, {
+    var lineItemProps = _objectSpread$4(_objectSpread$4({}, props), {}, {
       x1: entry,
       y1: y2,
       x2: entry,
@@ -27007,7 +27197,7 @@ function VerticalStripes(props) {
 }
 var defaultVerticalCoordinatesGenerator = function defaultVerticalCoordinatesGenerator2(_ref, syncWithTicks) {
   var xAxis = _ref.xAxis, width = _ref.width, height = _ref.height, offset = _ref.offset;
-  return getCoordinatesOfGrid(getTicks(_objectSpread$3(_objectSpread$3(_objectSpread$3({}, CartesianAxis.defaultProps), xAxis), {}, {
+  return getCoordinatesOfGrid(getTicks(_objectSpread$4(_objectSpread$4(_objectSpread$4({}, CartesianAxis.defaultProps), xAxis), {}, {
     ticks: getTicksOfAxis(xAxis, true),
     viewBox: {
       x: 0,
@@ -27019,7 +27209,7 @@ var defaultVerticalCoordinatesGenerator = function defaultVerticalCoordinatesGen
 };
 var defaultHorizontalCoordinatesGenerator = function defaultHorizontalCoordinatesGenerator2(_ref2, syncWithTicks) {
   var yAxis = _ref2.yAxis, width = _ref2.width, height = _ref2.height, offset = _ref2.offset;
-  return getCoordinatesOfGrid(getTicks(_objectSpread$3(_objectSpread$3(_objectSpread$3({}, CartesianAxis.defaultProps), yAxis), {}, {
+  return getCoordinatesOfGrid(getTicks(_objectSpread$4(_objectSpread$4(_objectSpread$4({}, CartesianAxis.defaultProps), yAxis), {}, {
     ticks: getTicksOfAxis(yAxis, true),
     viewBox: {
       x: 0,
@@ -27043,7 +27233,7 @@ function CartesianGrid(props) {
   var chartWidth = useChartWidth();
   var chartHeight = useChartHeight();
   var offset = useOffset();
-  var propsIncludingDefaults = _objectSpread$3(_objectSpread$3({}, props), {}, {
+  var propsIncludingDefaults = _objectSpread$4(_objectSpread$4({}, props), {}, {
     stroke: (_props$stroke = props.stroke) !== null && _props$stroke !== void 0 ? _props$stroke : defaultProps.stroke,
     fill: (_props$fill = props.fill) !== null && _props$fill !== void 0 ? _props$fill : defaultProps.fill,
     horizontal: (_props$horizontal3 = props.horizontal) !== null && _props$horizontal3 !== void 0 ? _props$horizontal3 : defaultProps.horizontal,
@@ -27067,14 +27257,14 @@ function CartesianGrid(props) {
   if ((!horizontalPoints || !horizontalPoints.length) && isFunction$3(horizontalCoordinatesGenerator)) {
     var isHorizontalValues = horizontalValues && horizontalValues.length;
     var generatorResult = horizontalCoordinatesGenerator({
-      yAxis: yAxis ? _objectSpread$3(_objectSpread$3({}, yAxis), {}, {
+      yAxis: yAxis ? _objectSpread$4(_objectSpread$4({}, yAxis), {}, {
         ticks: isHorizontalValues ? horizontalValues : yAxis.ticks
       }) : void 0,
       width: chartWidth,
       height: chartHeight,
       offset
     }, isHorizontalValues ? true : syncWithTicks);
-    warn(Array.isArray(generatorResult), "horizontalCoordinatesGenerator should return Array but instead it returned [".concat(_typeof$6(generatorResult), "]"));
+    warn(Array.isArray(generatorResult), "horizontalCoordinatesGenerator should return Array but instead it returned [".concat(_typeof$7(generatorResult), "]"));
     if (Array.isArray(generatorResult)) {
       horizontalPoints = generatorResult;
     }
@@ -27082,14 +27272,14 @@ function CartesianGrid(props) {
   if ((!verticalPoints || !verticalPoints.length) && isFunction$3(verticalCoordinatesGenerator)) {
     var isVerticalValues = verticalValues && verticalValues.length;
     var _generatorResult = verticalCoordinatesGenerator({
-      xAxis: xAxis ? _objectSpread$3(_objectSpread$3({}, xAxis), {}, {
+      xAxis: xAxis ? _objectSpread$4(_objectSpread$4({}, xAxis), {}, {
         ticks: isVerticalValues ? verticalValues : xAxis.ticks
       }) : void 0,
       width: chartWidth,
       height: chartHeight,
       offset
     }, isVerticalValues ? true : syncWithTicks);
-    warn(Array.isArray(_generatorResult), "verticalCoordinatesGenerator should return Array but instead it returned [".concat(_typeof$6(_generatorResult), "]"));
+    warn(Array.isArray(_generatorResult), "verticalCoordinatesGenerator should return Array but instead it returned [".concat(_typeof$7(_generatorResult), "]"));
     if (Array.isArray(_generatorResult)) {
       verticalPoints = _generatorResult;
     }
@@ -27104,35 +27294,35 @@ function CartesianGrid(props) {
     width: propsIncludingDefaults.width,
     height: propsIncludingDefaults.height,
     ry: propsIncludingDefaults.ry
-  }), /* @__PURE__ */ React.createElement(HorizontalGridLines, _extends$4({}, propsIncludingDefaults, {
+  }), /* @__PURE__ */ React.createElement(HorizontalGridLines, _extends$5({}, propsIncludingDefaults, {
     offset,
     horizontalPoints,
     xAxis,
     yAxis
-  })), /* @__PURE__ */ React.createElement(VerticalGridLines, _extends$4({}, propsIncludingDefaults, {
+  })), /* @__PURE__ */ React.createElement(VerticalGridLines, _extends$5({}, propsIncludingDefaults, {
     offset,
     verticalPoints,
     xAxis,
     yAxis
-  })), /* @__PURE__ */ React.createElement(HorizontalStripes, _extends$4({}, propsIncludingDefaults, {
+  })), /* @__PURE__ */ React.createElement(HorizontalStripes, _extends$5({}, propsIncludingDefaults, {
     horizontalPoints
-  })), /* @__PURE__ */ React.createElement(VerticalStripes, _extends$4({}, propsIncludingDefaults, {
+  })), /* @__PURE__ */ React.createElement(VerticalStripes, _extends$5({}, propsIncludingDefaults, {
     verticalPoints
   })));
 }
 CartesianGrid.displayName = "CartesianGrid";
-var _excluded$1 = ["type", "layout", "connectNulls", "ref"], _excluded2$1 = ["key"];
-function _typeof$5(o) {
+var _excluded$2 = ["type", "layout", "connectNulls", "ref"], _excluded2$2 = ["key"];
+function _typeof$6(o) {
   "@babel/helpers - typeof";
-  return _typeof$5 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+  return _typeof$6 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
     return typeof o2;
   } : function(o2) {
     return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof$5(o);
+  }, _typeof$6(o);
 }
-function _objectWithoutProperties$1(source, excluded) {
+function _objectWithoutProperties$2(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose$1(source, excluded);
+  var target = _objectWithoutPropertiesLoose$2(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -27145,7 +27335,7 @@ function _objectWithoutProperties$1(source, excluded) {
   }
   return target;
 }
-function _objectWithoutPropertiesLoose$1(source, excluded) {
+function _objectWithoutPropertiesLoose$2(source, excluded) {
   if (source == null) return {};
   var target = {};
   for (var key in source) {
@@ -27156,8 +27346,8 @@ function _objectWithoutPropertiesLoose$1(source, excluded) {
   }
   return target;
 }
-function _extends$3() {
-  _extends$3 = Object.assign ? Object.assign.bind() : function(target) {
+function _extends$4() {
+  _extends$4 = Object.assign ? Object.assign.bind() : function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -27168,9 +27358,9 @@ function _extends$3() {
     }
     return target;
   };
-  return _extends$3.apply(this, arguments);
+  return _extends$4.apply(this, arguments);
 }
-function ownKeys$2(e3, r2) {
+function ownKeys$3(e3, r2) {
   var t2 = Object.keys(e3);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(e3);
@@ -27180,12 +27370,12 @@ function ownKeys$2(e3, r2) {
   }
   return t2;
 }
-function _objectSpread$2(e3) {
+function _objectSpread$3(e3) {
   for (var r2 = 1; r2 < arguments.length; r2++) {
     var t2 = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys$2(Object(t2), true).forEach(function(r3) {
-      _defineProperty$5(e3, r3, t2[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$2(Object(t2)).forEach(function(r3) {
+    r2 % 2 ? ownKeys$3(Object(t2), true).forEach(function(r3) {
+      _defineProperty$6(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$3(Object(t2)).forEach(function(r3) {
       Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
     });
   }
@@ -27216,76 +27406,76 @@ function _arrayLikeToArray$2(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function _classCallCheck$4(instance, Constructor) {
+function _classCallCheck$5(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$4(target, props) {
+function _defineProperties$5(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey$5(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey$6(descriptor.key), descriptor);
   }
 }
-function _createClass$4(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$4(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$4(Constructor, staticProps);
+function _createClass$5(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$5(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$5(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", { writable: false });
   return Constructor;
 }
-function _callSuper$3(t2, o, e3) {
-  return o = _getPrototypeOf$3(o), _possibleConstructorReturn$3(t2, _isNativeReflectConstruct$3() ? Reflect.construct(o, e3 || [], _getPrototypeOf$3(t2).constructor) : o.apply(t2, e3));
+function _callSuper$4(t2, o, e3) {
+  return o = _getPrototypeOf$4(o), _possibleConstructorReturn$4(t2, _isNativeReflectConstruct$4() ? Reflect.construct(o, e3 || [], _getPrototypeOf$4(t2).constructor) : o.apply(t2, e3));
 }
-function _possibleConstructorReturn$3(self2, call) {
-  if (call && (_typeof$5(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn$4(self2, call) {
+  if (call && (_typeof$6(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return _assertThisInitialized$3(self2);
+  return _assertThisInitialized$4(self2);
 }
-function _assertThisInitialized$3(self2) {
+function _assertThisInitialized$4(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
 }
-function _isNativeReflectConstruct$3() {
+function _isNativeReflectConstruct$4() {
   try {
     var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
     }));
   } catch (t3) {
   }
-  return (_isNativeReflectConstruct$3 = function _isNativeReflectConstruct2() {
+  return (_isNativeReflectConstruct$4 = function _isNativeReflectConstruct2() {
     return !!t2;
   })();
 }
-function _getPrototypeOf$3(o) {
-  _getPrototypeOf$3 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+function _getPrototypeOf$4(o) {
+  _getPrototypeOf$4 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
     return o2.__proto__ || Object.getPrototypeOf(o2);
   };
-  return _getPrototypeOf$3(o);
+  return _getPrototypeOf$4(o);
 }
-function _inherits$3(subClass, superClass) {
+function _inherits$4(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
   Object.defineProperty(subClass, "prototype", { writable: false });
-  if (superClass) _setPrototypeOf$3(subClass, superClass);
+  if (superClass) _setPrototypeOf$4(subClass, superClass);
 }
-function _setPrototypeOf$3(o, p2) {
-  _setPrototypeOf$3 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+function _setPrototypeOf$4(o, p2) {
+  _setPrototypeOf$4 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
     o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf$3(o, p2);
+  return _setPrototypeOf$4(o, p2);
 }
-function _defineProperty$5(obj, key, value) {
-  key = _toPropertyKey$5(key);
+function _defineProperty$6(obj, key, value) {
+  key = _toPropertyKey$6(key);
   if (key in obj) {
     Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
   } else {
@@ -27293,16 +27483,16 @@ function _defineProperty$5(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey$5(t2) {
-  var i = _toPrimitive$5(t2, "string");
-  return "symbol" == _typeof$5(i) ? i : i + "";
+function _toPropertyKey$6(t2) {
+  var i = _toPrimitive$6(t2, "string");
+  return "symbol" == _typeof$6(i) ? i : i + "";
 }
-function _toPrimitive$5(t2, r2) {
-  if ("object" != _typeof$5(t2) || !t2) return t2;
+function _toPrimitive$6(t2, r2) {
+  if ("object" != _typeof$6(t2) || !t2) return t2;
   var e3 = t2[Symbol.toPrimitive];
   if (void 0 !== e3) {
     var i = e3.call(t2, r2);
-    if ("object" != _typeof$5(i)) return i;
+    if ("object" != _typeof$6(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
@@ -27310,19 +27500,19 @@ function _toPrimitive$5(t2, r2) {
 var Line = /* @__PURE__ */ function(_PureComponent) {
   function Line2() {
     var _this;
-    _classCallCheck$4(this, Line2);
+    _classCallCheck$5(this, Line2);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this = _callSuper$3(this, Line2, [].concat(args));
-    _defineProperty$5(_this, "state", {
+    _this = _callSuper$4(this, Line2, [].concat(args));
+    _defineProperty$6(_this, "state", {
       isAnimationFinished: true,
       totalLength: 0
     });
-    _defineProperty$5(_this, "generateSimpleStrokeDasharray", function(totalLength, length) {
+    _defineProperty$6(_this, "generateSimpleStrokeDasharray", function(totalLength, length) {
       return "".concat(length, "px ").concat(totalLength - length, "px");
     });
-    _defineProperty$5(_this, "getStrokeDasharray", function(length, totalLength, lines) {
+    _defineProperty$6(_this, "getStrokeDasharray", function(length, totalLength, lines) {
       var lineLength = lines.reduce(function(pre, next) {
         return pre + next;
       });
@@ -27344,11 +27534,11 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
         return "".concat(line, "px");
       }).join(", ");
     });
-    _defineProperty$5(_this, "id", uniqueId("recharts-line-"));
-    _defineProperty$5(_this, "pathRef", function(node) {
+    _defineProperty$6(_this, "id", uniqueId("recharts-line-"));
+    _defineProperty$6(_this, "pathRef", function(node) {
       _this.mainCurve = node;
     });
-    _defineProperty$5(_this, "handleAnimationEnd", function() {
+    _defineProperty$6(_this, "handleAnimationEnd", function() {
       _this.setState({
         isAnimationFinished: true
       });
@@ -27356,7 +27546,7 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
         _this.props.onAnimationEnd();
       }
     });
-    _defineProperty$5(_this, "handleAnimationStart", function() {
+    _defineProperty$6(_this, "handleAnimationStart", function() {
       _this.setState({
         isAnimationFinished: false
       });
@@ -27366,8 +27556,8 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
     });
     return _this;
   }
-  _inherits$3(Line2, _PureComponent);
-  return _createClass$4(Line2, [{
+  _inherits$4(Line2, _PureComponent);
+  return _createClass$5(Line2, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       if (!this.props.isAnimationActive) {
@@ -27445,7 +27635,7 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
       var lineProps = filterProps(this.props, false);
       var customDotProps = filterProps(dot, true);
       var dots = points.map(function(entry, i) {
-        var dotProps = _objectSpread$2(_objectSpread$2(_objectSpread$2({
+        var dotProps = _objectSpread$3(_objectSpread$3(_objectSpread$3({
           key: "dot-".concat(i),
           r: 3
         }, lineProps), customDotProps), {}, {
@@ -27462,7 +27652,7 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
       var dotsProps = {
         clipPath: needClip ? "url(#clipPath-".concat(clipDot ? "" : "dots-").concat(clipPathId, ")") : null
       };
-      return /* @__PURE__ */ React.createElement(Layer, _extends$3({
+      return /* @__PURE__ */ React.createElement(Layer, _extends$4({
         className: "recharts-line-dots",
         key: "dots"
       }, dotsProps), dots);
@@ -27472,8 +27662,8 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
     value: function renderCurveStatically(points, needClip, clipPathId, props) {
       var _this$props3 = this.props, type = _this$props3.type, layout = _this$props3.layout, connectNulls = _this$props3.connectNulls;
       _this$props3.ref;
-      var others = _objectWithoutProperties$1(_this$props3, _excluded$1);
-      var curveProps = _objectSpread$2(_objectSpread$2(_objectSpread$2({}, filterProps(others, true)), {}, {
+      var others = _objectWithoutProperties$2(_this$props3, _excluded$2);
+      var curveProps = _objectSpread$3(_objectSpread$3(_objectSpread$3({}, filterProps(others, true)), {}, {
         fill: "none",
         className: "recharts-line-curve",
         clipPath: needClip ? "url(#clipPath-".concat(clipPathId, ")") : null,
@@ -27483,7 +27673,7 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
         layout,
         connectNulls
       });
-      return /* @__PURE__ */ React.createElement(Curve, _extends$3({}, curveProps, {
+      return /* @__PURE__ */ React.createElement(Curve, _extends$4({}, curveProps, {
         pathRef: this.pathRef
       }));
     }
@@ -27517,7 +27707,7 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
               var prev = prevPoints[prevPointIndex];
               var interpolatorX = interpolateNumber$2(prev.x, entry.x);
               var interpolatorY = interpolateNumber$2(prev.y, entry.y);
-              return _objectSpread$2(_objectSpread$2({}, entry), {}, {
+              return _objectSpread$3(_objectSpread$3({}, entry), {}, {
                 x: interpolatorX(t2),
                 y: interpolatorY(t2)
               });
@@ -27525,12 +27715,12 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
             if (animateNewValues) {
               var _interpolatorX = interpolateNumber$2(width * 2, entry.x);
               var _interpolatorY = interpolateNumber$2(height / 2, entry.y);
-              return _objectSpread$2(_objectSpread$2({}, entry), {}, {
+              return _objectSpread$3(_objectSpread$3({}, entry), {}, {
                 x: _interpolatorX(t2),
                 y: _interpolatorY(t2)
               });
             }
-            return _objectSpread$2(_objectSpread$2({}, entry), {}, {
+            return _objectSpread$3(_objectSpread$3({}, entry), {}, {
               x: entry.x,
               y: entry.y
             });
@@ -27638,9 +27828,9 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
       } else if (isFunction$3(option)) {
         dotItem = option(props);
       } else {
-        var key = props.key, dotProps = _objectWithoutProperties$1(props, _excluded2$1);
+        var key = props.key, dotProps = _objectWithoutProperties$2(props, _excluded2$2);
         var className = clsx("recharts-line-dot", typeof option !== "boolean" ? option.className : "");
-        dotItem = /* @__PURE__ */ React.createElement(Dot, _extends$3({
+        dotItem = /* @__PURE__ */ React.createElement(Dot, _extends$4({
           key
         }, dotProps, {
           className
@@ -27650,8 +27840,8 @@ var Line = /* @__PURE__ */ function(_PureComponent) {
     }
   }]);
 }(reactExports.PureComponent);
-_defineProperty$5(Line, "displayName", "Line");
-_defineProperty$5(Line, "defaultProps", {
+_defineProperty$6(Line, "displayName", "Line");
+_defineProperty$6(Line, "defaultProps", {
   xAxisId: 0,
   yAxisId: 0,
   connectNulls: false,
@@ -27670,7 +27860,7 @@ _defineProperty$5(Line, "defaultProps", {
   hide: false,
   label: false
 });
-_defineProperty$5(Line, "getComposedData", function(_ref4) {
+_defineProperty$6(Line, "getComposedData", function(_ref4) {
   var props = _ref4.props, xAxis = _ref4.xAxis, yAxis = _ref4.yAxis, xAxisTicks = _ref4.xAxisTicks, yAxisTicks = _ref4.yAxisTicks, dataKey = _ref4.dataKey, bandSize = _ref4.bandSize, displayedData = _ref4.displayedData, offset = _ref4.offset;
   var layout = props.layout;
   var points = displayedData.map(function(entry, index) {
@@ -27702,10 +27892,608 @@ _defineProperty$5(Line, "getComposedData", function(_ref4) {
       payload: entry
     };
   });
-  return _objectSpread$2({
+  return _objectSpread$3({
     points,
     layout
   }, offset);
+});
+var _excluded$1 = ["layout", "type", "stroke", "connectNulls", "isRange", "ref"], _excluded2$1 = ["key"];
+var _Area;
+function _typeof$5(o) {
+  "@babel/helpers - typeof";
+  return _typeof$5 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof$5(o);
+}
+function _objectWithoutProperties$1(source, excluded) {
+  if (source == null) return {};
+  var target = _objectWithoutPropertiesLoose$1(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$1(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _extends$3() {
+  _extends$3 = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends$3.apply(this, arguments);
+}
+function ownKeys$2(e3, r2) {
+  var t2 = Object.keys(e3);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e3);
+    r2 && (o = o.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e3, r3).enumerable;
+    })), t2.push.apply(t2, o);
+  }
+  return t2;
+}
+function _objectSpread$2(e3) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t2 = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys$2(Object(t2), true).forEach(function(r3) {
+      _defineProperty$5(e3, r3, t2[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e3, Object.getOwnPropertyDescriptors(t2)) : ownKeys$2(Object(t2)).forEach(function(r3) {
+      Object.defineProperty(e3, r3, Object.getOwnPropertyDescriptor(t2, r3));
+    });
+  }
+  return e3;
+}
+function _classCallCheck$4(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties$4(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey$5(descriptor.key), descriptor);
+  }
+}
+function _createClass$4(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$4(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$4(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", { writable: false });
+  return Constructor;
+}
+function _callSuper$3(t2, o, e3) {
+  return o = _getPrototypeOf$3(o), _possibleConstructorReturn$3(t2, _isNativeReflectConstruct$3() ? Reflect.construct(o, e3 || [], _getPrototypeOf$3(t2).constructor) : o.apply(t2, e3));
+}
+function _possibleConstructorReturn$3(self2, call) {
+  if (call && (_typeof$5(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized$3(self2);
+}
+function _assertThisInitialized$3(self2) {
+  if (self2 === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self2;
+}
+function _isNativeReflectConstruct$3() {
+  try {
+    var t2 = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+  } catch (t3) {
+  }
+  return (_isNativeReflectConstruct$3 = function _isNativeReflectConstruct2() {
+    return !!t2;
+  })();
+}
+function _getPrototypeOf$3(o) {
+  _getPrototypeOf$3 = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf$3(o);
+}
+function _inherits$3(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });
+  Object.defineProperty(subClass, "prototype", { writable: false });
+  if (superClass) _setPrototypeOf$3(subClass, superClass);
+}
+function _setPrototypeOf$3(o, p2) {
+  _setPrototypeOf$3 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
+    return o2;
+  };
+  return _setPrototypeOf$3(o, p2);
+}
+function _defineProperty$5(obj, key, value) {
+  key = _toPropertyKey$5(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey$5(t2) {
+  var i = _toPrimitive$5(t2, "string");
+  return "symbol" == _typeof$5(i) ? i : i + "";
+}
+function _toPrimitive$5(t2, r2) {
+  if ("object" != _typeof$5(t2) || !t2) return t2;
+  var e3 = t2[Symbol.toPrimitive];
+  if (void 0 !== e3) {
+    var i = e3.call(t2, r2);
+    if ("object" != _typeof$5(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return String(t2);
+}
+var Area = /* @__PURE__ */ function(_PureComponent) {
+  function Area2() {
+    var _this;
+    _classCallCheck$4(this, Area2);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _callSuper$3(this, Area2, [].concat(args));
+    _defineProperty$5(_this, "state", {
+      isAnimationFinished: true
+    });
+    _defineProperty$5(_this, "id", uniqueId("recharts-area-"));
+    _defineProperty$5(_this, "handleAnimationEnd", function() {
+      var onAnimationEnd2 = _this.props.onAnimationEnd;
+      _this.setState({
+        isAnimationFinished: true
+      });
+      if (isFunction$3(onAnimationEnd2)) {
+        onAnimationEnd2();
+      }
+    });
+    _defineProperty$5(_this, "handleAnimationStart", function() {
+      var onAnimationStart2 = _this.props.onAnimationStart;
+      _this.setState({
+        isAnimationFinished: false
+      });
+      if (isFunction$3(onAnimationStart2)) {
+        onAnimationStart2();
+      }
+    });
+    return _this;
+  }
+  _inherits$3(Area2, _PureComponent);
+  return _createClass$4(Area2, [{
+    key: "renderDots",
+    value: function renderDots(needClip, clipDot, clipPathId) {
+      var isAnimationActive = this.props.isAnimationActive;
+      var isAnimationFinished = this.state.isAnimationFinished;
+      if (isAnimationActive && !isAnimationFinished) {
+        return null;
+      }
+      var _this$props = this.props, dot = _this$props.dot, points = _this$props.points, dataKey = _this$props.dataKey;
+      var areaProps = filterProps(this.props, false);
+      var customDotProps = filterProps(dot, true);
+      var dots = points.map(function(entry, i) {
+        var dotProps = _objectSpread$2(_objectSpread$2(_objectSpread$2({
+          key: "dot-".concat(i),
+          r: 3
+        }, areaProps), customDotProps), {}, {
+          index: i,
+          cx: entry.x,
+          cy: entry.y,
+          dataKey,
+          value: entry.value,
+          payload: entry.payload,
+          points
+        });
+        return Area2.renderDotItem(dot, dotProps);
+      });
+      var dotsProps = {
+        clipPath: needClip ? "url(#clipPath-".concat(clipDot ? "" : "dots-").concat(clipPathId, ")") : null
+      };
+      return /* @__PURE__ */ React.createElement(Layer, _extends$3({
+        className: "recharts-area-dots"
+      }, dotsProps), dots);
+    }
+  }, {
+    key: "renderHorizontalRect",
+    value: function renderHorizontalRect(alpha3) {
+      var _this$props2 = this.props, baseLine = _this$props2.baseLine, points = _this$props2.points, strokeWidth = _this$props2.strokeWidth;
+      var startX = points[0].x;
+      var endX = points[points.length - 1].x;
+      var width = alpha3 * Math.abs(startX - endX);
+      var maxY = max$1(points.map(function(entry) {
+        return entry.y || 0;
+      }));
+      if (isNumber(baseLine) && typeof baseLine === "number") {
+        maxY = Math.max(baseLine, maxY);
+      } else if (baseLine && Array.isArray(baseLine) && baseLine.length) {
+        maxY = Math.max(max$1(baseLine.map(function(entry) {
+          return entry.y || 0;
+        })), maxY);
+      }
+      if (isNumber(maxY)) {
+        return /* @__PURE__ */ React.createElement("rect", {
+          x: startX < endX ? startX : startX - width,
+          y: 0,
+          width,
+          height: Math.floor(maxY + (strokeWidth ? parseInt("".concat(strokeWidth), 10) : 1))
+        });
+      }
+      return null;
+    }
+  }, {
+    key: "renderVerticalRect",
+    value: function renderVerticalRect(alpha3) {
+      var _this$props3 = this.props, baseLine = _this$props3.baseLine, points = _this$props3.points, strokeWidth = _this$props3.strokeWidth;
+      var startY = points[0].y;
+      var endY = points[points.length - 1].y;
+      var height = alpha3 * Math.abs(startY - endY);
+      var maxX = max$1(points.map(function(entry) {
+        return entry.x || 0;
+      }));
+      if (isNumber(baseLine) && typeof baseLine === "number") {
+        maxX = Math.max(baseLine, maxX);
+      } else if (baseLine && Array.isArray(baseLine) && baseLine.length) {
+        maxX = Math.max(max$1(baseLine.map(function(entry) {
+          return entry.x || 0;
+        })), maxX);
+      }
+      if (isNumber(maxX)) {
+        return /* @__PURE__ */ React.createElement("rect", {
+          x: 0,
+          y: startY < endY ? startY : startY - height,
+          width: maxX + (strokeWidth ? parseInt("".concat(strokeWidth), 10) : 1),
+          height: Math.floor(height)
+        });
+      }
+      return null;
+    }
+  }, {
+    key: "renderClipRect",
+    value: function renderClipRect(alpha3) {
+      var layout = this.props.layout;
+      if (layout === "vertical") {
+        return this.renderVerticalRect(alpha3);
+      }
+      return this.renderHorizontalRect(alpha3);
+    }
+  }, {
+    key: "renderAreaStatically",
+    value: function renderAreaStatically(points, baseLine, needClip, clipPathId) {
+      var _this$props4 = this.props, layout = _this$props4.layout, type = _this$props4.type, stroke = _this$props4.stroke, connectNulls = _this$props4.connectNulls, isRange = _this$props4.isRange;
+      _this$props4.ref;
+      var others = _objectWithoutProperties$1(_this$props4, _excluded$1);
+      return /* @__PURE__ */ React.createElement(Layer, {
+        clipPath: needClip ? "url(#clipPath-".concat(clipPathId, ")") : null
+      }, /* @__PURE__ */ React.createElement(Curve, _extends$3({}, filterProps(others, true), {
+        points,
+        connectNulls,
+        type,
+        baseLine,
+        layout,
+        stroke: "none",
+        className: "recharts-area-area"
+      })), stroke !== "none" && /* @__PURE__ */ React.createElement(Curve, _extends$3({}, filterProps(this.props, false), {
+        className: "recharts-area-curve",
+        layout,
+        type,
+        connectNulls,
+        fill: "none",
+        points
+      })), stroke !== "none" && isRange && /* @__PURE__ */ React.createElement(Curve, _extends$3({}, filterProps(this.props, false), {
+        className: "recharts-area-curve",
+        layout,
+        type,
+        connectNulls,
+        fill: "none",
+        points: baseLine
+      })));
+    }
+  }, {
+    key: "renderAreaWithAnimation",
+    value: function renderAreaWithAnimation(needClip, clipPathId) {
+      var _this2 = this;
+      var _this$props5 = this.props, points = _this$props5.points, baseLine = _this$props5.baseLine, isAnimationActive = _this$props5.isAnimationActive, animationBegin = _this$props5.animationBegin, animationDuration = _this$props5.animationDuration, animationEasing = _this$props5.animationEasing, animationId = _this$props5.animationId;
+      var _this$state = this.state, prevPoints = _this$state.prevPoints, prevBaseLine = _this$state.prevBaseLine;
+      return /* @__PURE__ */ React.createElement(Animate, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: {
+          t: 0
+        },
+        to: {
+          t: 1
+        },
+        key: "area-".concat(animationId),
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function(_ref) {
+        var t2 = _ref.t;
+        if (prevPoints) {
+          var prevPointsDiffFactor = prevPoints.length / points.length;
+          var stepPoints = points.map(function(entry, index) {
+            var prevPointIndex = Math.floor(index * prevPointsDiffFactor);
+            if (prevPoints[prevPointIndex]) {
+              var prev = prevPoints[prevPointIndex];
+              var interpolatorX = interpolateNumber$2(prev.x, entry.x);
+              var interpolatorY = interpolateNumber$2(prev.y, entry.y);
+              return _objectSpread$2(_objectSpread$2({}, entry), {}, {
+                x: interpolatorX(t2),
+                y: interpolatorY(t2)
+              });
+            }
+            return entry;
+          });
+          var stepBaseLine;
+          if (isNumber(baseLine) && typeof baseLine === "number") {
+            var interpolator = interpolateNumber$2(prevBaseLine, baseLine);
+            stepBaseLine = interpolator(t2);
+          } else if (isNil$1(baseLine) || isNan(baseLine)) {
+            var _interpolator = interpolateNumber$2(prevBaseLine, 0);
+            stepBaseLine = _interpolator(t2);
+          } else {
+            stepBaseLine = baseLine.map(function(entry, index) {
+              var prevPointIndex = Math.floor(index * prevPointsDiffFactor);
+              if (prevBaseLine[prevPointIndex]) {
+                var prev = prevBaseLine[prevPointIndex];
+                var interpolatorX = interpolateNumber$2(prev.x, entry.x);
+                var interpolatorY = interpolateNumber$2(prev.y, entry.y);
+                return _objectSpread$2(_objectSpread$2({}, entry), {}, {
+                  x: interpolatorX(t2),
+                  y: interpolatorY(t2)
+                });
+              }
+              return entry;
+            });
+          }
+          return _this2.renderAreaStatically(stepPoints, stepBaseLine, needClip, clipPathId);
+        }
+        return /* @__PURE__ */ React.createElement(Layer, null, /* @__PURE__ */ React.createElement("defs", null, /* @__PURE__ */ React.createElement("clipPath", {
+          id: "animationClipPath-".concat(clipPathId)
+        }, _this2.renderClipRect(t2))), /* @__PURE__ */ React.createElement(Layer, {
+          clipPath: "url(#animationClipPath-".concat(clipPathId, ")")
+        }, _this2.renderAreaStatically(points, baseLine, needClip, clipPathId)));
+      });
+    }
+  }, {
+    key: "renderArea",
+    value: function renderArea(needClip, clipPathId) {
+      var _this$props6 = this.props, points = _this$props6.points, baseLine = _this$props6.baseLine, isAnimationActive = _this$props6.isAnimationActive;
+      var _this$state2 = this.state, prevPoints = _this$state2.prevPoints, prevBaseLine = _this$state2.prevBaseLine, totalLength = _this$state2.totalLength;
+      if (isAnimationActive && points && points.length && (!prevPoints && totalLength > 0 || !isEqual$1(prevPoints, points) || !isEqual$1(prevBaseLine, baseLine))) {
+        return this.renderAreaWithAnimation(needClip, clipPathId);
+      }
+      return this.renderAreaStatically(points, baseLine, needClip, clipPathId);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _filterProps;
+      var _this$props7 = this.props, hide = _this$props7.hide, dot = _this$props7.dot, points = _this$props7.points, className = _this$props7.className, top = _this$props7.top, left = _this$props7.left, xAxis = _this$props7.xAxis, yAxis = _this$props7.yAxis, width = _this$props7.width, height = _this$props7.height, isAnimationActive = _this$props7.isAnimationActive, id2 = _this$props7.id;
+      if (hide || !points || !points.length) {
+        return null;
+      }
+      var isAnimationFinished = this.state.isAnimationFinished;
+      var hasSinglePoint = points.length === 1;
+      var layerClass = clsx("recharts-area", className);
+      var needClipX = xAxis && xAxis.allowDataOverflow;
+      var needClipY = yAxis && yAxis.allowDataOverflow;
+      var needClip = needClipX || needClipY;
+      var clipPathId = isNil$1(id2) ? this.id : id2;
+      var _ref2 = (_filterProps = filterProps(dot, false)) !== null && _filterProps !== void 0 ? _filterProps : {
+        r: 3,
+        strokeWidth: 2
+      }, _ref2$r = _ref2.r, r2 = _ref2$r === void 0 ? 3 : _ref2$r, _ref2$strokeWidth = _ref2.strokeWidth, strokeWidth = _ref2$strokeWidth === void 0 ? 2 : _ref2$strokeWidth;
+      var _ref3 = hasClipDot(dot) ? dot : {}, _ref3$clipDot = _ref3.clipDot, clipDot = _ref3$clipDot === void 0 ? true : _ref3$clipDot;
+      var dotSize = r2 * 2 + strokeWidth;
+      return /* @__PURE__ */ React.createElement(Layer, {
+        className: layerClass
+      }, needClipX || needClipY ? /* @__PURE__ */ React.createElement("defs", null, /* @__PURE__ */ React.createElement("clipPath", {
+        id: "clipPath-".concat(clipPathId)
+      }, /* @__PURE__ */ React.createElement("rect", {
+        x: needClipX ? left : left - width / 2,
+        y: needClipY ? top : top - height / 2,
+        width: needClipX ? width : width * 2,
+        height: needClipY ? height : height * 2
+      })), !clipDot && /* @__PURE__ */ React.createElement("clipPath", {
+        id: "clipPath-dots-".concat(clipPathId)
+      }, /* @__PURE__ */ React.createElement("rect", {
+        x: left - dotSize / 2,
+        y: top - dotSize / 2,
+        width: width + dotSize,
+        height: height + dotSize
+      }))) : null, !hasSinglePoint ? this.renderArea(needClip, clipPathId) : null, (dot || hasSinglePoint) && this.renderDots(needClip, clipDot, clipPathId), (!isAnimationActive || isAnimationFinished) && LabelList.renderCallByParent(this.props, points));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (nextProps.animationId !== prevState.prevAnimationId) {
+        return {
+          prevAnimationId: nextProps.animationId,
+          curPoints: nextProps.points,
+          curBaseLine: nextProps.baseLine,
+          prevPoints: prevState.curPoints,
+          prevBaseLine: prevState.curBaseLine
+        };
+      }
+      if (nextProps.points !== prevState.curPoints || nextProps.baseLine !== prevState.curBaseLine) {
+        return {
+          curPoints: nextProps.points,
+          curBaseLine: nextProps.baseLine
+        };
+      }
+      return null;
+    }
+  }]);
+}(reactExports.PureComponent);
+_Area = Area;
+_defineProperty$5(Area, "displayName", "Area");
+_defineProperty$5(Area, "defaultProps", {
+  stroke: "#3182bd",
+  fill: "#3182bd",
+  fillOpacity: 0.6,
+  xAxisId: 0,
+  yAxisId: 0,
+  legendType: "line",
+  connectNulls: false,
+  // points of area
+  points: [],
+  dot: false,
+  activeDot: true,
+  hide: false,
+  isAnimationActive: !Global.isSsr,
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: "ease"
+});
+_defineProperty$5(Area, "getBaseValue", function(props, item, xAxis, yAxis) {
+  var layout = props.layout, chartBaseValue = props.baseValue;
+  var itemBaseValue = item.props.baseValue;
+  var baseValue = itemBaseValue !== null && itemBaseValue !== void 0 ? itemBaseValue : chartBaseValue;
+  if (isNumber(baseValue) && typeof baseValue === "number") {
+    return baseValue;
+  }
+  var numericAxis = layout === "horizontal" ? yAxis : xAxis;
+  var domain = numericAxis.scale.domain();
+  if (numericAxis.type === "number") {
+    var domainMax = Math.max(domain[0], domain[1]);
+    var domainMin = Math.min(domain[0], domain[1]);
+    if (baseValue === "dataMin") {
+      return domainMin;
+    }
+    if (baseValue === "dataMax") {
+      return domainMax;
+    }
+    return domainMax < 0 ? domainMax : Math.max(Math.min(domain[0], domain[1]), 0);
+  }
+  if (baseValue === "dataMin") {
+    return domain[0];
+  }
+  if (baseValue === "dataMax") {
+    return domain[1];
+  }
+  return domain[0];
+});
+_defineProperty$5(Area, "getComposedData", function(_ref4) {
+  var props = _ref4.props, item = _ref4.item, xAxis = _ref4.xAxis, yAxis = _ref4.yAxis, xAxisTicks = _ref4.xAxisTicks, yAxisTicks = _ref4.yAxisTicks, bandSize = _ref4.bandSize, dataKey = _ref4.dataKey, stackedData = _ref4.stackedData, dataStartIndex = _ref4.dataStartIndex, displayedData = _ref4.displayedData, offset = _ref4.offset;
+  var layout = props.layout;
+  var hasStack = stackedData && stackedData.length;
+  var baseValue = _Area.getBaseValue(props, item, xAxis, yAxis);
+  var isHorizontalLayout = layout === "horizontal";
+  var isRange = false;
+  var points = displayedData.map(function(entry, index) {
+    var value;
+    if (hasStack) {
+      value = stackedData[dataStartIndex + index];
+    } else {
+      value = getValueByDataKey(entry, dataKey);
+      if (!Array.isArray(value)) {
+        value = [baseValue, value];
+      } else {
+        isRange = true;
+      }
+    }
+    var isBreakPoint = value[1] == null || hasStack && getValueByDataKey(entry, dataKey) == null;
+    if (isHorizontalLayout) {
+      return {
+        x: getCateCoordinateOfLine({
+          axis: xAxis,
+          ticks: xAxisTicks,
+          bandSize,
+          entry,
+          index
+        }),
+        y: isBreakPoint ? null : yAxis.scale(value[1]),
+        value,
+        payload: entry
+      };
+    }
+    return {
+      x: isBreakPoint ? null : xAxis.scale(value[1]),
+      y: getCateCoordinateOfLine({
+        axis: yAxis,
+        ticks: yAxisTicks,
+        bandSize,
+        entry,
+        index
+      }),
+      value,
+      payload: entry
+    };
+  });
+  var baseLine;
+  if (hasStack || isRange) {
+    baseLine = points.map(function(entry) {
+      var x2 = Array.isArray(entry.value) ? entry.value[0] : null;
+      if (isHorizontalLayout) {
+        return {
+          x: entry.x,
+          y: x2 != null && entry.y != null ? yAxis.scale(x2) : null
+        };
+      }
+      return {
+        x: x2 != null ? xAxis.scale(x2) : null,
+        y: entry.y
+      };
+    });
+  } else {
+    baseLine = isHorizontalLayout ? yAxis.scale(baseValue) : xAxis.scale(baseValue);
+  }
+  return _objectSpread$2({
+    points,
+    baseLine,
+    layout,
+    isRange
+  }, offset);
+});
+_defineProperty$5(Area, "renderDotItem", function(option, props) {
+  var dotItem;
+  if (/* @__PURE__ */ React.isValidElement(option)) {
+    dotItem = /* @__PURE__ */ React.cloneElement(option, props);
+  } else if (isFunction$3(option)) {
+    dotItem = option(props);
+  } else {
+    var className = clsx("recharts-area-dot", typeof option !== "boolean" ? option.className : "");
+    var key = props.key, rest = _objectWithoutProperties$1(props, _excluded2$1);
+    dotItem = /* @__PURE__ */ React.createElement(Dot, _extends$3({}, rest, {
+      key,
+      className
+    }));
+  }
+  return dotItem;
 });
 function _typeof$4(o) {
   "@babel/helpers - typeof";
@@ -30429,6 +31217,18 @@ var PieChart = generateCategoricalChart({
     outerRadius: "80%"
   }
 });
+var AreaChart = generateCategoricalChart({
+  chartName: "AreaChart",
+  GraphicalChild: Area,
+  axisComponents: [{
+    axisType: "xAxis",
+    AxisComp: XAxis
+  }, {
+    axisType: "yAxis",
+    AxisComp: YAxis
+  }],
+  formatAxisMap: formatAxisMap2
+});
 function useApi() {
   return window.api;
 }
@@ -30512,6 +31312,198 @@ function nextPaymentDate(paymentDay) {
   }
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
+function InfoTooltip({ text }) {
+  const [visible, setVisible] = reactExports.useState(false);
+  const ref = reactExports.useRef(null);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative inline-flex", ref, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        onMouseEnter: () => setVisible(true),
+        onMouseLeave: () => setVisible(false),
+        onClick: () => setVisible((v2) => !v2),
+        className: "text-gray-500 hover:text-gray-300 transition-colors",
+        type: "button",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(HelpCircle, { size: 14 })
+      }
+    ),
+    visible && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-60 bg-dark-700 border border-dark-500 rounded-xl p-3 shadow-xl pointer-events-none", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-300 leading-relaxed", children: text }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-dark-700" })
+    ] })
+  ] });
+}
+const COLORS = ["#22C55E", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"];
+function AddSavingsAccountModal({ editAccount, onClose, onSaved, focusGoal }) {
+  const api = useApi();
+  const [name, setName] = reactExports.useState(editAccount?.name ?? "");
+  const [rate, setRate] = reactExports.useState(editAccount ? String((editAccount.interest_rate * 100).toFixed(2)) : "");
+  const [mode, setMode] = reactExports.useState(editAccount?.interest_mode ?? "capitalize");
+  const [period, setPeriod] = reactExports.useState(editAccount?.payout_period ?? "monthly");
+  const [goalName, setGoalName] = reactExports.useState(editAccount?.goal_name ?? "");
+  const [goalAmount, setGoalAmount] = reactExports.useState(editAccount?.goal_amount ? String(editAccount.goal_amount) : "");
+  const [goalDate, setGoalDate] = reactExports.useState(editAccount?.goal_date ?? "");
+  const [autoContrib, setAutoContrib] = reactExports.useState(editAccount?.auto_contribute_pct ? String((editAccount.auto_contribute_pct * 100).toFixed(1)) : "");
+  const [autoContribEnabled, setAutoContribEnabled] = reactExports.useState(!!editAccount?.auto_contribute_pct);
+  const [notifyEnabled, setNotifyEnabled] = reactExports.useState(!!editAccount?.notify_contribution);
+  const [notifyDay, setNotifyDay] = reactExports.useState(editAccount?.notify_day ? String(editAccount.notify_day) : "");
+  const [initialBalance, setInitialBalance] = reactExports.useState("");
+  const [openedAt, setOpenedAt] = reactExports.useState(editAccount?.opened_at ?? today());
+  const [color2, setColor] = reactExports.useState(editAccount?.color ?? "#22C55E");
+  const [saving, setSaving] = reactExports.useState(false);
+  const [error, setError] = reactExports.useState("");
+  const goalSectionOpen = focusGoal || !!editAccount?.goal_name;
+  async function handleSave() {
+    if (!name.trim()) {
+      setError("Введите название счёта");
+      return;
+    }
+    if (!rate || parseFloat(rate) <= 0) {
+      setError("Укажите процентную ставку");
+      return;
+    }
+    setSaving(true);
+    try {
+      const data = {
+        name: name.trim(),
+        interest_rate: parseFloat(rate) / 100,
+        interest_mode: mode,
+        payout_period: period,
+        goal_name: goalName.trim() || null,
+        goal_amount: goalAmount ? parseFloat(goalAmount) : null,
+        goal_date: goalDate || null,
+        auto_contribute_pct: autoContribEnabled && autoContrib ? parseFloat(autoContrib) / 100 : null,
+        notify_contribution: notifyEnabled ? 1 : 0,
+        notify_day: notifyEnabled && notifyDay ? parseInt(notifyDay) : null,
+        color: color2,
+        opened_at: openedAt,
+        initial_balance: editAccount ? void 0 : initialBalance ? parseFloat(initialBalance) : void 0
+      };
+      if (editAccount) {
+        await api.updateSavingsAccount(editAccount.id, data);
+      } else {
+        await api.addSavingsAccount(data);
+      }
+      onSaved();
+    } catch {
+      setError("Ошибка при сохранении");
+    } finally {
+      setSaving(false);
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-dark-800 border border-dark-600 rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 border-b border-dark-600", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-white", children: editAccount ? "Редактировать счёт" : "Открыть накопительный счёт" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "text-gray-400 hover:text-white p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 18 }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-6 py-5 space-y-5", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide", children: "Цель накопления" }),
+        goalSectionOpen && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mb-3", children: "Для каждой цели открывается отдельный накопительный счёт. Укажите цель — и приложение покажет прогресс." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Название цели (необязательно)" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "text", value: goalName, onChange: (e3) => setGoalName(e3.target.value), placeholder: "На машину, Подушка безопасности...", className: "input" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма цели, ₽" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: goalAmount, onChange: (e3) => setGoalAmount(e3.target.value), className: "input" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дата цели" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: goalDate, onChange: (e3) => setGoalDate(e3.target.value), className: "input" })
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide", children: "Параметры счёта" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Название счёта *" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "text", value: name, onChange: (e3) => setName(e3.target.value), placeholder: "Подушка безопасности", className: "input" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Ставка, % годовых *" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", step: "0.1", value: rate, onChange: (e3) => setRate(e3.target.value), placeholder: "16", className: "input" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дата открытия" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: openedAt, onChange: (e3) => setOpenedAt(e3.target.value), className: "input" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Режим процентов" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: ["capitalize", "payout"].map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => setMode(m2),
+                className: `flex-1 py-2 px-3 rounded-lg text-sm border transition-colors ${mode === m2 ? "border-yellow-400 bg-yellow-400/10 text-yellow-400" : "border-dark-500 text-gray-400 hover:border-dark-400"}`,
+                children: m2 === "capitalize" ? "Капитализация" : "Выплата в бюджет"
+              },
+              m2
+            )) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Начисление" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: ["daily", "monthly"].map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => setPeriod(p2),
+                className: `flex-1 py-2 px-3 rounded-lg text-sm border transition-colors ${period === p2 ? "border-yellow-400 bg-yellow-400/10 text-yellow-400" : "border-dark-500 text-gray-400 hover:border-dark-400"}`,
+                children: p2 === "daily" ? "Ежедневно" : "Ежемесячно"
+              },
+              p2
+            )) })
+          ] }),
+          !editAccount && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Начальный баланс, ₽ (необязательно)" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: initialBalance, onChange: (e3) => setInitialBalance(e3.target.value), placeholder: "0", className: "input" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-2 cursor-pointer mb-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", checked: autoContribEnabled, onChange: (e3) => setAutoContribEnabled(e3.target.checked), className: "w-4 h-4 accent-yellow-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-300", children: "При получении дохода откладывать X%" })
+            ] }),
+            autoContribEnabled && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 ml-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", min: "0", max: "100", step: "0.5", value: autoContrib, onChange: (e3) => setAutoContrib(e3.target.value), placeholder: "10", className: "input w-24" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "% от дохода" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-2 cursor-pointer mb-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", checked: notifyEnabled, onChange: (e3) => setNotifyEnabled(e3.target.checked), className: "w-4 h-4 accent-yellow-400" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-300", children: "Напоминать пополнить X-го числа каждого месяца" })
+            ] }),
+            notifyEnabled && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 ml-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", min: "1", max: "28", value: notifyDay, onChange: (e3) => setNotifyDay(e3.target.value), placeholder: "1", className: "input w-24" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "число месяца" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Цвет карточки" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 flex-wrap", children: COLORS.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => setColor(c2),
+                className: `w-7 h-7 rounded-full border-2 transition-transform ${color2 === c2 ? "border-white scale-110" : "border-transparent"}`,
+                style: { backgroundColor: c2 }
+              },
+              c2
+            )) })
+          ] })
+        ] })
+      ] }),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-400 text-sm", children: error })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 px-6 pb-5", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "btn-secondary flex-1", children: "Отмена" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSave, disabled: saving, className: "btn-primary flex-1", children: saving ? "Сохранение..." : editAccount ? "Сохранить" : "Открыть счёт" })
+    ] })
+  ] }) });
+}
 const PRESETS = [
   { id: "week", label: "Нед" },
   { id: "month", label: "Мес" },
@@ -30525,6 +31517,11 @@ const EXPENSE_TYPES = [
   { id: "big", label: "Крупные" },
   { id: "apartment", label: "Квартира" }
 ];
+const TOOLTIP_STYLE$1 = {
+  contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
+  labelStyle: { color: "#FFFFFF", fontWeight: 600 },
+  itemStyle: { color: "#E5E5E5" }
+};
 function subtractPeriod(from, to) {
   const d1 = /* @__PURE__ */ new Date(from + "T00:00:00");
   const d2 = /* @__PURE__ */ new Date(to + "T00:00:00");
@@ -30538,49 +31535,87 @@ function subtractPeriod(from, to) {
     to: prev2.toISOString().slice(0, 10)
   };
 }
-function Dashboard() {
+function ExpandModal({ title, onClose, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm", onClick: onClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "bg-dark-800 rounded-3xl w-full max-w-4xl mx-4 shadow-2xl border border-dark-500 max-h-[90vh] flex flex-col",
+      onClick: (e3) => e3.stopPropagation(),
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 pt-5 pb-4 border-b border-dark-600", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-white", children: title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "text-gray-400 hover:text-white p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 20 }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto p-6 flex-1", children })
+      ]
+    }
+  ) });
+}
+function Dashboard({ onNavigateToOperations, onNavigateToSavings }) {
   const api = useApi();
-  const now2 = /* @__PURE__ */ new Date();
-  const initFrom = monthStart(now2.getFullYear(), now2.getMonth() + 1);
-  const initTo = monthEnd(now2.getFullYear(), now2.getMonth() + 1);
+  const initFrom = monthStart((/* @__PURE__ */ new Date()).getFullYear(), (/* @__PURE__ */ new Date()).getMonth() + 1);
+  const initTo = monthEnd((/* @__PURE__ */ new Date()).getFullYear(), (/* @__PURE__ */ new Date()).getMonth() + 1);
   const [dateFrom, setDateFrom] = reactExports.useState(initFrom);
   const [dateTo, setDateTo] = reactExports.useState(initTo);
   const [expenseTypeFilter, setExpenseTypeFilter] = reactExports.useState("");
   const [summary, setSummary] = reactExports.useState(null);
   const [prevSummary, setPrevSummary] = reactExports.useState(null);
   const [categories, setCategories] = reactExports.useState([]);
+  const [bigBreakdown, setBigBreakdown] = reactExports.useState([]);
   const [daily, setDaily] = reactExports.useState([]);
   const [monthly, setMonthly] = reactExports.useState([]);
   const [dowData, setDowData] = reactExports.useState([]);
   const [cashFlow, setCashFlow] = reactExports.useState(null);
   const [activeDebts, setActiveDebts] = reactExports.useState([]);
+  const [savingsAccounts, setSavingsAccounts] = reactExports.useState([]);
+  const [pendingRecurring, setPendingRecurring] = reactExports.useState([]);
   const [drillCategory, setDrillCategory] = reactExports.useState(null);
   const [drillOps, setDrillOps] = reactExports.useState([]);
+  const [drillSubcats, setDrillSubcats] = reactExports.useState([]);
+  const [selectedSubcat, setSelectedSubcat] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
+  const [expandedCard, setExpandedCard] = reactExports.useState(null);
+  const [showSavingsModal, setShowSavingsModal] = reactExports.useState(false);
+  const [showDebtOpsInChart, setShowDebtOpsInChart] = reactExports.useState(false);
+  const [showDebtInAvg, setShowDebtInAvg] = reactExports.useState(false);
   const periodDays = Math.round(((/* @__PURE__ */ new Date(dateTo + "T00:00:00")).getTime() - (/* @__PURE__ */ new Date(dateFrom + "T00:00:00")).getTime()) / 864e5) + 1;
   const load = reactExports.useCallback(async () => {
     setLoading(true);
+    const now2 = /* @__PURE__ */ new Date();
+    const et = expenseTypeFilter || void 0;
     const prev = subtractPeriod(dateFrom, dateTo);
-    const [s2, prevS, cats, d2, mo, dow, debts] = await Promise.all([
-      api.getSummary(dateFrom, dateTo),
-      api.getSummary(prev.from, prev.to),
-      api.getExpensesByCategory(dateFrom, dateTo),
-      api.getDailyExpenses(dateFrom, dateTo),
+    const [s2, prevS, cats, d2, mo, dow, debts, g2] = await Promise.all([
+      api.getSummary(dateFrom, dateTo, et),
+      api.getSummary(prev.from, prev.to, et),
+      api.getExpensesByCategory(dateFrom, dateTo, et),
+      api.getDailyExpenses(dateFrom, dateTo, et),
       api.getMonthlyExpenses(dateFrom, dateTo),
       api.getExpensesByDayOfWeek(dateFrom, dateTo),
-      api.getDebts("active")
+      api.getDebtsWithDetails(),
+      api.getSavingsAccounts()
     ]);
     setSummary(s2);
     setPrevSummary(prevS);
     setCategories(cats);
+    if (et === "big") {
+      const big = await api.getBigExpensesBreakdown(dateFrom, dateTo);
+      setBigBreakdown(big);
+    } else {
+      setBigBreakdown([]);
+    }
     setDaily(d2);
     setMonthly(mo);
     setDowData(dow);
     setActiveDebts(debts);
-    const cf2 = await api.getCashFlow(now2.getFullYear(), now2.getMonth() + 1);
+    setSavingsAccounts(g2);
+    const [cf2, pending] = await Promise.all([
+      api.getCashFlow(now2.getFullYear(), now2.getMonth() + 1),
+      api.getPendingRecurringOperations()
+    ]);
     setCashFlow(cf2);
+    setPendingRecurring(pending);
     setLoading(false);
-  }, [dateFrom, dateTo]);
+  }, [dateFrom, dateTo, expenseTypeFilter]);
   reactExports.useEffect(() => {
     load();
   }, [load]);
@@ -30591,23 +31626,181 @@ function Dashboard() {
   }
   async function openDrill(cat) {
     setDrillCategory(cat);
-    const ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id });
+    setDrillSubcats([]);
+    setSelectedSubcat(null);
+    let ops;
+    if (cat.id === -2) {
+      ops = await api.getOperations({ dateFrom, dateTo, type: "debt_op" });
+    } else if (cat.id === -1) {
+      ops = await api.getOperations({ dateFrom, dateTo, noCategory: true });
+    } else {
+      ops = await api.getOperations({ dateFrom, dateTo, categoryId: cat.id });
+      const subs = await api.getSubcategories(cat.id);
+      if (subs.length > 0) {
+        const subcatData = await api.getExpensesBySubcategory(cat.id, dateFrom, dateTo, expenseTypeFilter || void 0);
+        const palette = generateSubcatColors(cat.color, subcatData.length);
+        setDrillSubcats(subcatData.map((s2, i) => ({ ...s2, color: palette[i] })));
+      }
+    }
     setDrillOps(ops);
   }
-  expenseTypeFilter ? daily.map((d2) => ({ ...d2, expenses: 0 })) : daily;
+  async function handleSubcatClick(subcatId) {
+    if (!drillCategory) return;
+    if (selectedSubcat === subcatId) {
+      setSelectedSubcat(null);
+      const ops = await api.getOperations({ dateFrom, dateTo, categoryId: drillCategory.id });
+      setDrillOps(ops);
+    } else {
+      setSelectedSubcat(subcatId);
+      const filters = { dateFrom, dateTo, categoryId: drillCategory.id };
+      if (subcatId === -1) filters.noSubcategory = true;
+      else filters.subcategoryId = subcatId;
+      const ops = await api.getOperations(filters);
+      setDrillOps(ops);
+    }
+  }
+  function generateSubcatColors(baseColor, count) {
+    const r2 = parseInt(baseColor.slice(1, 3), 16) / 255;
+    const g2 = parseInt(baseColor.slice(3, 5), 16) / 255;
+    const b2 = parseInt(baseColor.slice(5, 7), 16) / 255;
+    const max2 = Math.max(r2, g2, b2), min2 = Math.min(r2, g2, b2);
+    let h2 = 0, s2 = 0;
+    const l2 = (max2 + min2) / 2;
+    if (max2 !== min2) {
+      const d2 = max2 - min2;
+      s2 = l2 > 0.5 ? d2 / (2 - max2 - min2) : d2 / (max2 + min2);
+      if (max2 === r2) h2 = ((g2 - b2) / d2 + (g2 < b2 ? 6 : 0)) / 6;
+      else if (max2 === g2) h2 = ((b2 - r2) / d2 + 2) / 6;
+      else h2 = ((r2 - g2) / d2 + 4) / 6;
+    }
+    return Array.from({ length: count }, (_, i) => {
+      const offset = i / count - 0.5;
+      const newL = Math.max(0.25, Math.min(0.75, l2 + offset * 0.4));
+      const newS = Math.max(0.4, Math.min(1, s2 + (i % 2 === 0 ? 0.1 : -0.1)));
+      const hDeg = Math.round(h2 * 360);
+      return `hsl(${hDeg},${Math.round(newS * 100)}%,${Math.round(newL * 100)}%)`;
+    });
+  }
   const topCategories = categories.slice(0, 5);
   const totalExpense = summary?.expense || 1;
   const showMonthly = periodDays > 45;
   const todayStr = today();
   const todayExpenses = daily.find((d2) => d2.date === todayStr)?.expenses ?? 0;
   const cfJournal = cashFlow?.journal ?? [];
-  const lastSaldo = cfJournal.length > 0 ? cfJournal[cfJournal.length - 1].saldo : null;
-  const totalDebtOwed = activeDebts.filter((d2) => d2.direction === "i_owe").reduce((s2, d2) => s2 + (d2.initial_amount || 0), 0);
+  const lastSaldo = cfJournal.find((r2) => r2.date === todayStr)?.saldo ?? null;
+  const nowDay = (/* @__PURE__ */ new Date()).getDate();
+  const upcomingDebts = activeDebts.filter((d2) => {
+    if (d2.status !== "active" || !d2.payment_day || d2.is_hidden) return false;
+    const daysUntil = d2.payment_day >= nowDay ? d2.payment_day - nowDay : 0;
+    if (daysUntil > 7) return false;
+    if (d2.last_payment_date) {
+      const lp = /* @__PURE__ */ new Date(d2.last_payment_date + "T00:00:00");
+      const now2 = /* @__PURE__ */ new Date();
+      if (lp.getFullYear() === now2.getFullYear() && lp.getMonth() === now2.getMonth()) return false;
+    }
+    return true;
+  });
+  const debtOwed = activeDebts.filter((d2) => d2.direction === "i_owe" && !d2.is_hidden);
+  const totalDebtOwed = debtOwed.reduce((s2, d2) => s2 + (d2.current_balance ?? d2.initial_amount ?? 0), 0);
+  const totalAccrued = debtOwed.reduce((s2, d2) => s2 + (d2.accrued_interest ?? 0), 0);
+  const totalMonthlyPayment = debtOwed.reduce((s2, d2) => s2 + (d2.monthly_payment ?? 0), 0);
   const dowRows = Array.from({ length: 7 }, (_, i) => {
     const found = dowData.find((d2) => d2.dow === i);
     return { dow: i, total: found?.total ?? 0, count: found?.count ?? 0 };
   });
   const maxDow = Math.max(...dowRows.map((r2) => r2.total), 1);
+  const RADIAN2 = Math.PI / 180;
+  function makeRadialLabel(outerRadius, threshold2) {
+    return ({ cx, cy, midAngle, name, value, percent }) => {
+      if (percent < threshold2) return null;
+      const cos2 = Math.cos(-midAngle * RADIAN2);
+      const sin2 = Math.sin(-midAngle * RADIAN2);
+      const r1 = outerRadius + 8;
+      const r2 = outerRadius + 28;
+      const x1 = cx + r1 * cos2;
+      const y1 = cy + r1 * sin2;
+      const x2 = cx + r2 * cos2;
+      const y2 = cy + r2 * sin2;
+      const isRight = cos2 >= 0;
+      const xText = isRight ? x2 + 6 : x2 - 6;
+      const anchor = isRight ? "start" : "end";
+      const pct = (percent * 100).toFixed(1);
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("g", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("line", { x1, y1, x2, y2, stroke: "#4B5563", strokeWidth: 1 }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("line", { x1: x2, y1: y2, x2: isRight ? x2 + 12 : x2 - 12, y2, stroke: "#4B5563", strokeWidth: 1 }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("text", { x: xText, y: y2 - 4, textAnchor: anchor, fill: "#E5E5E5", fontSize: 10, fontWeight: 500, children: name }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("text", { x: xText, y: y2 + 8, textAnchor: anchor, fill: "#9CA3AF", fontSize: 9, children: [
+          formatMoney(value),
+          " · ",
+          pct,
+          "%"
+        ] })
+      ] });
+    };
+  }
+  const BIG_COLORS = ["#F59E0B", "#EF4444", "#8B5CF6", "#06B6D4", "#10B981", "#F97316", "#EC4899", "#6366F1", "#84CC16", "#14B8A6"];
+  const DonutChart = ({ outerRadius = 105, innerRadius = 65, height = 280, threshold: threshold2 = 0.03 }) => {
+    if (expenseTypeFilter === "big") {
+      if (bigBreakdown.length === 0) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center text-gray-500", style: { height }, children: "Нет данных" });
+      const bigTotal = bigBreakdown.reduce((s2, r2) => s2 + r2.amount, 0);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Pie,
+          {
+            data: bigBreakdown,
+            cx: "50%",
+            cy: "50%",
+            innerRadius,
+            outerRadius,
+            dataKey: "amount",
+            nameKey: "label",
+            label: makeRadialLabel(outerRadius, threshold2),
+            labelLine: false,
+            children: bigBreakdown.map((r2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: BIG_COLORS[i % BIG_COLORS.length] }, r2.id))
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => [formatMoney(value), `${(value / bigTotal * 100).toFixed(1)}%`], ...TOOLTIP_STYLE$1 })
+      ] }) });
+    }
+    const debtOpsAmount = showDebtOpsInChart && summary?.debtOps ? summary.debtOps : 0;
+    const debtSegment = debtOpsAmount > 0 ? [{ id: -2, name: "Платежи по долгам", color: "#6366F1", total: debtOpsAmount }] : [];
+    const chartData = [...categories, ...debtSegment];
+    return chartData.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Pie,
+        {
+          data: chartData,
+          cx: "50%",
+          cy: "50%",
+          innerRadius,
+          outerRadius,
+          dataKey: "total",
+          nameKey: "name",
+          onClick: (data) => {
+            const d2 = data;
+            if (d2.id === -2) {
+              openDrill({ ...d2, id: -2 });
+            } else {
+              openDrill(d2);
+            }
+          },
+          className: "cursor-pointer",
+          label: makeRadialLabel(outerRadius, threshold2),
+          labelLine: false,
+          children: chartData.map((cat, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: cat.color || "#FFD600" }, i))
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), ...TOOLTIP_STYLE$1 })
+    ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center text-gray-500", style: { height }, children: "Нет данных" });
+  };
+  const DailyChart = ({ height = 220 }) => daily.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: daily, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "date", tickFormatter: formatDateShort, tick: { fontSize: 10, fill: "#6B7280" }, interval: "preserveStartEnd" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), ...TOOLTIP_STYLE$1 }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "expenses", fill: "#EF4444", name: "Расходы", radius: [4, 4, 0, 0] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "income", fill: "#22C55E", name: "Доходы", radius: [4, 4, 0, 0] })
+  ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center text-gray-500", style: { height }, children: "Нет данных" });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white flex-shrink-0", children: "Дашборд" }),
@@ -30635,14 +31828,28 @@ function Dashboard() {
             value: summary ? formatMoney(summary.expense) : "—",
             icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingDown, { className: "text-red-400", size: 20 }),
             valueClass: "text-red-400",
-            sub: prevSummary && prevSummary.expense > 0 ? (() => {
-              const pct = Math.round((summary.expense - prevSummary.expense) / prevSummary.expense * 100);
-              return /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: pct > 0 ? "text-red-400" : "text-green-400", children: [
-                pct > 0 ? "+" : "",
-                pct,
-                "% к пред. пер."
-              ] });
-            })() : null
+            tooltip: "Сумма расходных операций за период (без платежей по долгам)",
+            sub: (() => {
+              if (!summary) return null;
+              const parts = [];
+              if (summary.debtOps > 0) parts.push(/* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-orange-400", children: [
+                "+ ",
+                formatMoney(summary.debtOps),
+                " долги"
+              ] }, "d"));
+              if (prevSummary && prevSummary.expense > 0) {
+                const pct = Math.round((summary.expense - prevSummary.expense) / prevSummary.expense * 100);
+                parts.push(/* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: pct > 0 ? "text-red-400" : "text-green-400", children: [
+                  pct > 0 ? "+" : "",
+                  pct,
+                  "% к пред. пер."
+                ] }, "p"));
+              }
+              return parts.length ? /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: parts.map((p2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(React.Fragment, { children: [
+                i > 0 ? " · " : "",
+                p2
+              ] }, i)) }) : null;
+            })()
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -30651,7 +31858,8 @@ function Dashboard() {
             label: "Доходы",
             value: summary ? formatMoney(summary.income) : "—",
             icon: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingUp, { className: "text-green-400", size: 20 }),
-            valueClass: "text-green-400"
+            valueClass: "text-green-400",
+            tooltip: "Сумма всех доходных операций за выбранный период"
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -30660,16 +31868,30 @@ function Dashboard() {
             label: "Остаток",
             value: summary ? formatMoney(summary.balance) : "—",
             icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "text-yellow-400", size: 20 }),
-            valueClass: summary && summary.balance >= 0 ? "text-white" : "text-red-400"
+            valueClass: summary && summary.balance >= 0 ? "text-white" : "text-red-400",
+            tooltip: "Доходы − расходы − платежи по долгам за период"
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           StatCard,
           {
             label: "Средний расход/день",
-            value: summary ? formatMoney(summary.avgPerDay) : "—",
+            value: summary ? formatMoney(showDebtInAvg ? summary.avgPerDayWithDebt : summary.avgPerDay) : "—",
             icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "text-blue-400", size: 20 }),
-            valueClass: "text-white"
+            valueClass: "text-white",
+            tooltip: showDebtInAvg ? "С учётом платежей по долгам" : "Без учёта платежей по долгам",
+            sub: summary && summary.debtOps > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-1.5 cursor-pointer mt-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  type: "checkbox",
+                  checked: showDebtInAvg,
+                  onChange: (e3) => setShowDebtInAvg(e3.target.checked),
+                  className: "w-3 h-3 accent-blue-400"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "Учитывать долги" })
+            ] }) : null
           }
         )
       ] }),
@@ -30677,7 +31899,8 @@ function Dashboard() {
         cashFlow && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { size: 16, className: "text-yellow-400" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Бюджет на сегодня" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Бюджет на сегодня" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Дневной лимит = (доход месяца − обязательные платежи) ÷ число дней в месяце. Сальдо = накопленный лимит − фактические расходы." })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-end gap-3 mb-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -30696,36 +31919,159 @@ function Dashboard() {
               style: { width: `${Math.min(100, Math.round(todayExpenses / Math.max(cashFlow.dailyBudget, 1) * 100))}%` }
             }
           ) }),
-          lastSaldo !== null && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: `text-xs mt-2 ${lastSaldo >= 0 ? "text-green-400" : "text-red-400"}`, children: [
-            "Сальдо месяца: ",
-            lastSaldo >= 0 ? "+" : "",
-            formatMoney(lastSaldo),
-            " — ",
-            lastSaldo >= 0 ? "В норме" : "Превышение"
-          ] })
+          lastSaldo !== null && (() => {
+            const isGood = lastSaldo >= 0;
+            const isWarn = lastSaldo < 0 && lastSaldo > -(cashFlow.dailyBudget * 3);
+            const label = isGood ? "В норме" : isWarn ? "Внимание" : "Превышение";
+            const cls = isGood ? "bg-green-500/20 text-green-400 border-green-500/30" : isWarn ? "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" : "bg-red-500/20 text-red-400 border-red-500/30";
+            return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mt-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-xs px-2 py-0.5 rounded-full border font-medium ${cls}`, children: label }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: `text-xs ${isGood ? "text-green-400" : isWarn ? "text-yellow-400" : "text-red-400"}`, children: [
+                "Сальдо: ",
+                lastSaldo >= 0 ? "+" : "",
+                formatMoney(lastSaldo)
+              ] })
+            ] });
+          })()
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(CreditCard, { size: 16, className: "text-red-400" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Долговая нагрузка" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Долговая нагрузка" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Остаток тела — сумма невыплаченного основного долга. Нач. % — проценты, накопившиеся с последнего платежа по текущий момент. Обяз. платёж/мес — сумма ежемесячных платежей по всем активным долгам." })
           ] }),
-          activeDebts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Нет активных долгов" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400 mb-2", children: formatMoney(totalDebtOwed) }),
+          debtOwed.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Нет активных долгов" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400 mb-1", children: formatMoney(totalDebtOwed) }),
+            totalAccrued > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-orange-400 mb-2", children: [
+              "+ нач. % ≈ ",
+              formatMoney(totalAccrued)
+            ] }),
+            totalMonthlyPayment > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-400 mb-2", children: [
+              "Обяз. платёж/мес: ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: formatMoney(totalMonthlyPayment) })
+            ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
-              activeDebts.slice(0, 3).map((d2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-xs", children: [
+              debtOwed.slice(0, 3).map((d2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-xs", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400 truncate max-w-[60%]", children: d2.name }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: formatMoney(d2.initial_amount || 0) })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: formatMoney(d2.current_balance ?? d2.initial_amount ?? 0) })
               ] }, d2.id)),
-              activeDebts.length > 3 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500", children: [
+              debtOwed.length > 3 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500", children: [
                 "+",
-                activeDebts.length - 3,
+                debtOwed.length - 3,
                 " ещё"
               ] })
             ] })
           ] })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+      upcomingDebts.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-blue-400/30 bg-blue-400/5", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bell, { size: 15, className: "text-blue-400" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-white", children: "Ближайшие платежи по долгам" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-blue-400/20 text-blue-400", children: upcomingDebts.length })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: upcomingDebts.map((d2) => {
+          const daysUntil = d2.payment_day - nowDay;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between text-sm py-1 border-t border-dark-600 first:border-t-0", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white", children: d2.name }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+              d2.monthly_payment && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400", children: formatMoney(d2.monthly_payment) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: `text-xs px-2 py-0.5 rounded-full ${daysUntil === 0 ? "bg-red-500/20 text-red-400" : daysUntil <= 3 ? "bg-yellow-500/20 text-yellow-400" : "bg-blue-500/20 text-blue-400"}`, children: [
+                daysUntil === 0 ? "Сегодня" : `Через ${daysUntil} дн.`,
+                " (",
+                d2.payment_day,
+                "-го)"
+              ] })
+            ] })
+          ] }, d2.id);
+        }) })
+      ] }),
+      pendingRecurring.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-yellow-400/30 bg-yellow-400/5", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bell, { size: 15, className: "text-yellow-400" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-white", children: "Ожидают подтверждения" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-400/20 text-yellow-400", children: pendingRecurring.length })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: pendingRecurring.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between text-sm py-1 border-t border-dark-600 first:border-t-0", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white", children: r2.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+            r2.amount > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400", children: formatMoney(r2.amount) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: async () => {
+                  await api.confirmRecurringOperation(r2.id);
+                  load();
+                },
+                className: "text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/40 transition-colors",
+                children: "Подтвердить"
+              }
+            )
+          ] })
+        ] }, r2.id)) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card cursor-pointer hover:border-yellow-400/20 transition-colors", onClick: () => onNavigateToSavings?.(), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(PiggyBank, { size: 16, className: "text-green-400" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-sm font-semibold text-white", children: "Накопления" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: (e3) => {
+            e3.stopPropagation();
+            setShowSavingsModal(true);
+          }, className: "text-gray-500 hover:text-yellow-400 p-1 transition-colors", title: "Добавить цель", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 }) })
+        ] }),
+        savingsAccounts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-gray-500 text-sm", children: [
+          "Нет активных счётов. ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: (e3) => {
+            e3.stopPropagation();
+            setShowSavingsModal(true);
+          }, className: "text-yellow-400 hover:underline", children: "Открыть →" })
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1 mb-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Суммарный баланс" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-bold text-white", children: formatMoney(savingsAccounts.reduce((s2, a2) => s2 + a2.balance, 0)) })
+          ] }),
+          savingsAccounts.reduce((s2, a2) => s2 + a2.accrued_interest, 0) > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "+ начислено % на сегодня" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-orange-400", children: [
+              "+",
+              formatMoney(savingsAccounts.reduce((s2, a2) => s2 + a2.accrued_interest, 0))
+            ] })
+          ] })
+        ] }),
+        savingsAccounts.filter((a2) => a2.goal_amount).map((acc) => {
+          const pct = Math.min(100, Math.round(acc.balance / acc.goal_amount * 100));
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3", onClick: (e3) => {
+            e3.stopPropagation();
+            onNavigateToSavings?.(acc.id);
+          }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full", style: { backgroundColor: acc.color } }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-300", children: acc.goal_name ?? acc.name })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-400", children: [
+                formatMoney(acc.balance),
+                " / ",
+                formatMoney(acc.goal_amount)
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 bg-dark-600 rounded-full h-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-1.5 rounded-full transition-all", style: { width: `${pct}%`, backgroundColor: acc.color } }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-500 w-7 text-right", children: [
+                pct,
+                "%"
+              ] })
+            ] }),
+            acc.goal_date && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-600 mt-0.5", children: [
+              "До ",
+              acc.goal_date
+            ] })
+          ] }, acc.id);
+        })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-3", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "Тип расхода:" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: EXPENSE_TYPES.map((et) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
@@ -30735,72 +32081,51 @@ function Dashboard() {
             children: et.label
           },
           et.id
-        )) })
+        )) }),
+        expenseTypeFilter === "" && summary && summary.debtOps > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-1.5 cursor-pointer text-xs text-gray-400 hover:text-white", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              type: "checkbox",
+              checked: showDebtOpsInChart,
+              onChange: (e3) => setShowDebtOpsInChart(e3.target.checked),
+              className: "w-3.5 h-3.5 accent-indigo-400"
+            }
+          ),
+          "Включая платежи по долгам"
+        ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-6", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-1", children: "Расходы по категориям" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "Расходы по категориям" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setExpandedCard("donut"), className: "text-gray-500 hover:text-white p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize2, { size: 14 }) })
+          ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mb-3", children: "Нажмите на сегмент для просмотра операций" }),
-          categories.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 220, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Pie,
-              {
-                data: categories,
-                cx: "50%",
-                cy: "50%",
-                innerRadius: 55,
-                outerRadius: 90,
-                dataKey: "total",
-                nameKey: "name",
-                onClick: (data) => openDrill(data),
-                className: "cursor-pointer",
-                children: categories.map((cat, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: cat.color || "#FFD600" }, i))
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Tooltip,
-              {
-                formatter: (value) => formatMoney(value),
-                contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
-                labelStyle: { color: "#fff" }
-              }
-            )
-          ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-56 flex items-center justify-center text-gray-500", children: "Нет данных" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(DonutChart, {})
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Динамика расходов" }),
-          daily.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 220, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: daily, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "date", tickFormatter: formatDateShort, tick: { fontSize: 10, fill: "#6B7280" }, interval: "preserveStartEnd" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Tooltip,
-              {
-                formatter: (value) => formatMoney(value),
-                contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
-                labelStyle: { color: "#fff" }
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "expenses", fill: "#EF4444", name: "Расходы", radius: [4, 4, 0, 0] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "income", fill: "#22C55E", name: "Доходы", radius: [4, 4, 0, 0] })
-          ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-56 flex items-center justify-center text-gray-500", children: "Нет данных" })
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "Динамика расходов" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setExpandedCard("daily"), className: "text-gray-500 hover:text-white p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize2, { size: 14 }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(DailyChart, {})
         ] })
       ] }),
       showMonthly && monthly.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Расходы по месяцам" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: monthly, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "Расходы по месяцам" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setExpandedCard("monthly"), className: "text-gray-500 hover:text-white p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize2, { size: 14 }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 220, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: monthly, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "month", tick: { fontSize: 11, fill: "#6B7280" } }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Tooltip,
-            {
-              formatter: (value) => formatMoney(value),
-              contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
-              labelStyle: { color: "#fff" }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "total", fill: "#FFD600", name: "Расходы", radius: [4, 4, 0, 0] })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), ...TOOLTIP_STYLE$1 }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, color: "#9CA3AF" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "daily", stackId: "a", fill: "#FFD600", name: "Повседневные" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "big", stackId: "a", fill: "#F97316", name: "Крупные" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "apartment", stackId: "a", fill: "#3B82F6", name: "Квартира", radius: [4, 4, 0, 0] })
         ] }) })
       ] }),
       dowData.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
@@ -30844,7 +32169,10 @@ function Dashboard() {
         })()
       ] }),
       topCategories.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Топ-5 категорий" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "Топ-5 категорий" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setExpandedCard("top5"), className: "text-gray-500 hover:text-white p-1", title: "Все категории", children: /* @__PURE__ */ jsxRuntimeExports.jsx(List, { size: 14 }) })
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: topCategories.map((cat, i) => {
           const pct = Math.round(cat.total / totalExpense * 100);
           return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 cursor-pointer hover:opacity-80", onClick: () => openDrill(cat), children: [
@@ -30877,7 +32205,63 @@ function Dashboard() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold text-white", children: drillCategory.name }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-400 text-sm", children: formatMoney(drillCategory.total) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setDrillCategory(null), className: "text-gray-500 hover:text-white text-xl", children: "×" })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+          onNavigateToOperations && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              onClick: () => {
+                const base = drillCategory.id === -2 ? { type: "debt_op", dateFrom, dateTo } : { categoryId: drillCategory.id === -1 ? void 0 : drillCategory.id, noCategory: drillCategory.id === -1, dateFrom, dateTo };
+                const withSubcat = selectedSubcat !== null ? { ...base, ...selectedSubcat === -1 ? { noSubcategory: true } : { subcategoryId: selectedSubcat } } : base;
+                setDrillCategory(null);
+                onNavigateToOperations(withSubcat);
+              },
+              className: "flex items-center gap-1.5 text-xs text-gray-400 hover:text-yellow-400 transition-colors border border-dark-500 hover:border-yellow-400/40 rounded-lg px-2.5 py-1.5",
+              title: "Открыть в общем списке",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { size: 12 }),
+                " В общий список"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setDrillCategory(null), className: "text-gray-500 hover:text-white text-xl", children: "×" })
+        ] })
+      ] }),
+      drillSubcats.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-6 pt-4 pb-2 border-b border-dark-700", children: [
+        selectedSubcat !== null && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-400", children: [
+            "Фильтр: ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white", children: drillSubcats.find((s2) => s2.id === selectedSubcat)?.name })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleSubcatClick(selectedSubcat), className: "text-xs text-gray-500 hover:text-white", children: "Сбросить ×" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Pie,
+            {
+              data: drillSubcats,
+              cx: "50%",
+              cy: "50%",
+              innerRadius: 55,
+              outerRadius: 85,
+              dataKey: "total",
+              nameKey: "name",
+              onClick: (d2) => handleSubcatClick(d2.id),
+              className: "cursor-pointer",
+              label: makeRadialLabel(85, 0.04),
+              labelLine: false,
+              children: drillSubcats.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Cell,
+                {
+                  fill: s2.color,
+                  stroke: selectedSubcat === s2.id ? "#fff" : "transparent",
+                  strokeWidth: selectedSubcat === s2.id ? 2 : 0
+                },
+                i
+              ))
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), ...TOOLTIP_STYLE$1 })
+        ] }) })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "overflow-y-auto scrollbar-thin", children: drillOps.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-center text-gray-500 py-8", children: "Нет операций" }) : drillOps.map((op) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-3 border-b border-dark-700", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -30890,13 +32274,61 @@ function Dashboard() {
           formatMoney(op.amount)
         ] })
       ] }, op.id)) })
-    ] }) })
+    ] }) }),
+    expandedCard === "donut" && /* @__PURE__ */ jsxRuntimeExports.jsx(ExpandModal, { title: "Расходы по категориям", onClose: () => setExpandedCard(null), children: /* @__PURE__ */ jsxRuntimeExports.jsx(DonutChart, { outerRadius: 180, innerRadius: 110, height: 480, threshold: 0.02 }) }),
+    expandedCard === "daily" && /* @__PURE__ */ jsxRuntimeExports.jsx(ExpandModal, { title: "Динамика расходов", onClose: () => setExpandedCard(null), children: /* @__PURE__ */ jsxRuntimeExports.jsx(DailyChart, { height: 400 }) }),
+    expandedCard === "top5" && /* @__PURE__ */ jsxRuntimeExports.jsx(ExpandModal, { title: "Все категории за период", onClose: () => setExpandedCard(null), children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+        categories.map((cat, i) => {
+          const pct = Math.round(cat.total / totalExpense * 100);
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 cursor-pointer hover:opacity-80", onClick: () => {
+            openDrill(cat);
+            setExpandedCard(null);
+          }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-500 text-sm w-6", children: i + 1 }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full flex-shrink-0", style: { backgroundColor: cat.color || "#FFD600" } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: cat.name }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-gray-400 text-sm w-10 text-right", children: [
+              pct,
+              "%"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium text-sm w-32 text-right", children: formatMoney(cat.total) })
+          ] }, cat.id);
+        }),
+        categories.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Нет данных" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(DonutChart, { outerRadius: 140, innerRadius: 85, height: 420, threshold: 0.02 })
+    ] }) }),
+    showSavingsModal && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AddSavingsAccountModal,
+      {
+        focusGoal: true,
+        onClose: () => setShowSavingsModal(false),
+        onSaved: () => {
+          setShowSavingsModal(false);
+          load();
+        }
+      }
+    ),
+    expandedCard === "monthly" && showMonthly && monthly.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(ExpandModal, { title: "Расходы по месяцам", onClose: () => setExpandedCard(null), children: /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 400, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: monthly, margin: { top: 5, right: 5, left: 5, bottom: 5 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "month", tick: { fontSize: 11, fill: "#6B7280" } }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (value) => formatMoney(value), ...TOOLTIP_STYLE$1 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, color: "#9CA3AF" } }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "daily", stackId: "a", fill: "#FFD600", name: "Повседневные" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "big", stackId: "a", fill: "#F97316", name: "Крупные" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "apartment", stackId: "a", fill: "#3B82F6", name: "Квартира", radius: [4, 4, 0, 0] })
+    ] }) }) })
   ] });
 }
-function StatCard({ label, value, icon, valueClass, sub }) {
+function StatCard({ label, value, icon, valueClass, sub, tooltip }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-400 uppercase tracking-wide", children: label }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-400 uppercase tracking-wide", children: label }),
+        tooltip && /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: tooltip })
+      ] }),
       icon
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `text-2xl font-bold ${valueClass}`, children: value }),
@@ -30916,8 +32348,11 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
   const [categories, setCategories] = reactExports.useState([]);
   const [subcategories, setSubcategories] = reactExports.useState([]);
   const [debts, setDebts] = reactExports.useState([]);
+  const [pendingAutoContrib, setPendingAutoContrib] = reactExports.useState([]);
   const [errors, setErrors] = reactExports.useState({});
   const [saving, setSaving] = reactExports.useState(false);
+  const [isRecurring, setIsRecurring] = reactExports.useState(false);
+  const [recurringDay, setRecurringDay] = reactExports.useState((/* @__PURE__ */ new Date()).getDate());
   reactExports.useEffect(() => {
     const catType = type === "income" ? "income" : "expense";
     api.getCategories(catType).then((d2) => setCategories(d2));
@@ -30956,13 +32391,41 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
       };
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id, op);
+        onSaved();
       } else {
         await api.addOperation(op);
+        if (isRecurring && (type === "expense" || type === "income")) {
+          await api.addRecurringOperation({
+            type,
+            amount: parseFloat(amount),
+            category_id: categoryId || null,
+            subcategory_id: subcategoryId || null,
+            expense_type: type === "expense" ? expenseType : null,
+            day_of_month: recurringDay,
+            comment: comment || null
+          });
+        }
+        if (type === "income") {
+          const accounts = await api.getAccountsForAutoContribute();
+          if (accounts.length > 0) {
+            const incomeAmount = parseFloat(amount);
+            const suggestions = accounts.map((a2) => ({ id: a2.id, name: a2.name, amount: Math.round(incomeAmount * a2.auto_contribute_pct) }));
+            setPendingAutoContrib(suggestions);
+            return;
+          }
+        }
+        onSaved();
       }
-      onSaved();
     } finally {
       setSaving(false);
     }
+  }
+  async function handleAutoContrib(accepted) {
+    for (const a2 of accepted) {
+      await api.addSavingsDeposit(a2.id, a2.amount, date2, `Автопополнение от дохода`);
+    }
+    setPendingAutoContrib([]);
+    onSaved();
   }
   const opTypes = [
     { id: "expense", label: "Расход" },
@@ -31082,6 +32545,26 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
           }
         )
       ] }),
+      !editOperation && (type === "expense" || type === "income") && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-2 cursor-pointer", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", checked: isRecurring, onChange: (e3) => setIsRecurring(e3.target.checked), className: "w-4 h-4 accent-yellow-400" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-300", children: "Повторять ежемесячно" })
+        ] }),
+        isRecurring && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "День месяца" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              type: "number",
+              min: 1,
+              max: 31,
+              value: recurringDay,
+              onChange: (e3) => setRecurringDay(Number(e3.target.value)),
+              className: "input w-24"
+            }
+          )
+        ] })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Комментарий" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -31095,7 +32578,21 @@ function TransactionModal({ onClose, onSaved, editOperation }) {
           }
         )
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 pt-2", children: [
+      pendingAutoContrib.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-dark-700 border border-yellow-400/30 rounded-xl p-4 space-y-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-semibold text-yellow-400", children: "Автопополнение накоплений" }),
+        pendingAutoContrib.map((a2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between text-sm text-gray-300", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: a2.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-semibold text-white", children: formatMoney(a2.amount) })
+        ] }, a2.id)),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 pt-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleAutoContrib(pendingAutoContrib), className: "btn-primary flex-1 text-sm", children: "Применить" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+            setPendingAutoContrib([]);
+            onSaved();
+          }, className: "btn-secondary flex-1 text-sm", children: "Пропустить" })
+        ] })
+      ] }),
+      pendingAutoContrib.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 pt-2", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onClose, className: "btn-secondary flex-1", children: "Отмена" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSave, disabled: saving, className: "btn-primary flex-1", children: saving ? "Сохранение..." : editOperation ? "Сохранить" : "Добавить" })
       ] })
@@ -31135,7 +32632,6 @@ function ImportModal({ onClose, onImported }) {
   const [categories, setCategories] = reactExports.useState([]);
   const [subcategories, setSubcategories] = reactExports.useState([]);
   const [catMapping, setCatMapping] = reactExports.useState({});
-  const [subcatMapping, setSubcatMapping] = reactExports.useState({});
   const [newCatNames, setNewCatNames] = reactExports.useState(/* @__PURE__ */ new Set());
   const [importing, setImporting] = reactExports.useState(false);
   const [error, setError] = reactExports.useState("");
@@ -31226,35 +32722,41 @@ function ImportModal({ onClose, onImported }) {
   }
   async function runImport() {
     setImporting(true);
-    const newCatMap = { ...catMapping };
-    for (const name of newCatNames) {
-      if (!newCatMap[name]) {
-        const id2 = await api.addCategory({ name, type: "expense", color: "#94A3B8" });
-        newCatMap[name] = id2;
+    setError("");
+    try {
+      const newCatMap = { ...catMapping };
+      for (const name of newCatNames) {
+        if (!newCatMap[name]) {
+          const id2 = await api.addCategory({ name, type: "expense", color: "#94A3B8" });
+          newCatMap[name] = id2;
+        }
       }
+      const catCol = colRoles.indexOf("category");
+      const subcatCol = colRoles.indexOf("subcategory");
+      const commentCol = colRoles.indexOf("comment");
+      const dateCol = colRoles.indexOf("date");
+      const amtCol = colRoles.indexOf("amount");
+      const ops = rows.map((row) => {
+        const rawAmt = amtCol >= 0 ? row[amtCol] ?? "" : "";
+        const amount = parseAmount(rawAmt);
+        if (!amount) return null;
+        const rawDate = dateCol >= 0 ? row[dateCol] ?? "" : "";
+        const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? "" : "";
+        const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? "" : "";
+        const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? "" : "";
+        const date2 = parseDate(rawDate) ?? today();
+        const catId = rawCat ? newCatMap[rawCat] ?? null : null;
+        const subcatId = rawSubcat && catId ? subcategories.find((s2) => s2.category_id === catId && s2.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null : null;
+        return { date: date2, type: "expense", amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null };
+      }).filter(Boolean);
+      const count = await api.importOperations(ops);
+      setImportedCount(count);
+      setStep("done");
+    } catch (e3) {
+      setError(String(e3));
+    } finally {
+      setImporting(false);
     }
-    const catCol = colRoles.indexOf("category");
-    const subcatCol = colRoles.indexOf("subcategory");
-    const commentCol = colRoles.indexOf("comment");
-    const dateCol = colRoles.indexOf("date");
-    const amtCol = colRoles.indexOf("amount");
-    const ops = rows.map((row) => {
-      const rawAmt = amtCol >= 0 ? row[amtCol] ?? "" : "";
-      const amount = parseAmount(rawAmt);
-      if (!amount) return null;
-      const rawDate = dateCol >= 0 ? row[dateCol] ?? "" : "";
-      const rawCat = catCol >= 0 ? row[catCol]?.trim() ?? "" : "";
-      const rawSubcat = subcatCol >= 0 ? row[subcatCol]?.trim() ?? "" : "";
-      const comment = commentCol >= 0 ? row[commentCol]?.trim() ?? "" : "";
-      const date2 = parseDate(rawDate) ?? today();
-      const catId = rawCat ? newCatMap[rawCat] ?? null : null;
-      const subcatId = rawSubcat && catId ? subcategories.find((s2) => s2.category_id === catId && s2.name.toLowerCase() === rawSubcat.toLowerCase())?.id ?? null : null;
-      return { date: date2, type: "expense", amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null };
-    }).filter(Boolean);
-    const count = await api.importOperations(ops);
-    setImportedCount(count);
-    setImporting(false);
-    setStep("done");
   }
   const parsed = step === "preview" ? parsedRows() : [];
   const validCount = parsed.filter((r2) => r2.valid).length;
@@ -31442,23 +32944,94 @@ const PERIODS = [
   { id: "quarter", label: "Квартал" },
   { id: "year", label: "Год" }
 ];
-function Operations({ onAdd }) {
+function Operations({ onAdd, initialFilter, onInitialFilterApplied }) {
   const api = useApi();
   const [operations, setOperations] = reactExports.useState([]);
   const [period, setPeriod] = reactExports.useState("month");
+  const [noPeriod, setNoPeriod] = reactExports.useState(false);
   const [typeFilter, setTypeFilter] = reactExports.useState("");
+  const [catFilter, setCatFilter] = reactExports.useState("");
+  const [dateFromCustom, setDateFromCustom] = reactExports.useState(null);
+  const [dateToCustom, setDateToCustom] = reactExports.useState(null);
+  const [subcatFilter, setSubcatFilter] = reactExports.useState("");
+  const [noSubcatFilter, setNoSubcatFilter] = reactExports.useState(false);
+  const [commentSearch, setCommentSearch] = reactExports.useState("");
+  const [debouncedComment, setDebouncedComment] = reactExports.useState("");
+  const [cats, setCats] = reactExports.useState([]);
+  const [subcats, setSubcats] = reactExports.useState([]);
   const [editOp, setEditOp] = reactExports.useState(null);
   const [showImport, setShowImport] = reactExports.useState(false);
   const [loading, setLoading] = reactExports.useState(true);
+  const [pendingRecurring, setPendingRecurring] = reactExports.useState([]);
+  const [recurringDates, setRecurringDates] = reactExports.useState({});
+  const [showRecurring, setShowRecurring] = reactExports.useState(true);
+  const [confirmingAll, setConfirmingAll] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    api.getCategories().then((d2) => setCats(d2));
+    loadPending();
+  }, []);
+  reactExports.useEffect(() => {
+    if (!initialFilter) return;
+    if (initialFilter.noCategory) setCatFilter("none");
+    else if (initialFilter.categoryId != null) setCatFilter(initialFilter.categoryId);
+    if (initialFilter.noSubcategory) setNoSubcatFilter(true);
+    else if (initialFilter.subcategoryId != null) setSubcatFilter(initialFilter.subcategoryId);
+    if (initialFilter.type) setTypeFilter(initialFilter.type);
+    if (initialFilter.dateFrom && initialFilter.dateTo) {
+      setDateFromCustom(initialFilter.dateFrom);
+      setDateToCustom(initialFilter.dateTo);
+      setNoPeriod(true);
+    }
+    onInitialFilterApplied?.();
+  }, [initialFilter]);
+  async function loadPending() {
+    const pending = await api.getPendingRecurringOperations();
+    setPendingRecurring(pending);
+    const dates = {};
+    pending.forEach((r2) => {
+      dates[r2.id] = today();
+    });
+    setRecurringDates(dates);
+  }
+  reactExports.useEffect(() => {
+    if (catFilter && catFilter !== "none") {
+      api.getSubcategories(catFilter).then((d2) => setSubcats(d2));
+    } else {
+      setSubcats([]);
+      setSubcatFilter("");
+    }
+  }, [catFilter]);
+  reactExports.useEffect(() => {
+    const t2 = setTimeout(() => setDebouncedComment(commentSearch), 300);
+    return () => clearTimeout(t2);
+  }, [commentSearch]);
   const load = reactExports.useCallback(async () => {
     setLoading(true);
-    const { from, to } = getPeriodDates(period);
-    const filters = { dateFrom: from, dateTo: to };
+    const filters = {};
+    if (noPeriod && dateFromCustom && dateToCustom) {
+      filters.dateFrom = dateFromCustom;
+      filters.dateTo = dateToCustom;
+    } else if (!noPeriod) {
+      const { from, to } = getPeriodDates(period);
+      filters.dateFrom = from;
+      filters.dateTo = to;
+    }
     if (typeFilter) filters.type = typeFilter;
+    if (catFilter === "none") {
+      filters.noCategory = true;
+    } else if (catFilter) {
+      filters.categoryId = catFilter;
+    }
+    if (noSubcatFilter) {
+      filters.noSubcategory = true;
+    } else if (subcatFilter) {
+      filters.subcategoryId = subcatFilter;
+    }
+    if (debouncedComment) filters.commentSearch = debouncedComment;
     const ops = await api.getOperations(filters);
     setOperations(ops);
     setLoading(false);
-  }, [period, typeFilter]);
+  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, noSubcatFilter, debouncedComment]);
   reactExports.useEffect(() => {
     load();
   }, [load]);
@@ -31466,6 +33039,24 @@ function Operations({ onAdd }) {
     if (!confirm("Удалить операцию?")) return;
     await api.deleteOperation(id2);
     load();
+  }
+  async function handleConfirmRecurring(id2) {
+    const date2 = recurringDates[id2] || today();
+    await api.confirmRecurringOperation(id2, date2);
+    await loadPending();
+    load();
+  }
+  async function handleConfirmAll() {
+    setConfirmingAll(true);
+    try {
+      for (const r2 of pendingRecurring) {
+        await api.confirmRecurringOperation(r2.id, recurringDates[r2.id] || today());
+      }
+      await loadPending();
+      load();
+    } finally {
+      setConfirmingAll(false);
+    }
   }
   function typeLabel(type) {
     switch (type) {
@@ -31507,22 +33098,108 @@ function Operations({ onAdd }) {
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 items-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: PERIODS.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          onClick: () => setPeriod(p2.id),
-          className: `px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${period === p2.id ? "bg-yellow-400 text-dark-900" : "text-gray-400 hover:text-white"}`,
-          children: p2.label
-        },
-        p2.id
-      )) }),
+    pendingRecurring.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-yellow-400/30 bg-yellow-400/5", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(RefreshCw, { size: 16, className: "text-yellow-400" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-white", children: "Регулярные операции за этот месяц" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-400/20 text-yellow-400", children: pendingRecurring.length })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              onClick: handleConfirmAll,
+              disabled: confirmingAll,
+              className: "btn-primary text-xs py-1 px-3 flex items-center gap-1",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 12 }),
+                " Подтвердить все"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setShowRecurring((v2) => !v2),
+              className: "text-gray-500 hover:text-white p-1",
+              children: showRecurring ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronUp, { size: 16 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { size: 16 })
+            }
+          )
+        ] })
+      ] }),
+      showRecurring && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: pendingRecurring.map((r2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 py-1.5 border-t border-dark-600", children: [
+        r2.category_color && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2.5 h-2.5 rounded-full flex-shrink-0", style: { backgroundColor: r2.category_color } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex-1 text-sm text-white", children: [
+          r2.category_name || r2.type,
+          " — ",
+          formatMoney(r2.amount)
+        ] }),
+        r2.comment && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 truncate max-w-[150px]", children: r2.comment }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-500", children: [
+          r2.day_of_month,
+          "-го"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "date",
+            value: recurringDates[r2.id] || today(),
+            onChange: (e3) => setRecurringDates((prev) => ({ ...prev, [r2.id]: e3.target.value })),
+            className: "input py-0.5 text-xs w-32"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => handleConfirmRecurring(r2.id),
+            className: "p-1 text-green-500 hover:text-green-400 transition-colors",
+            title: "Создать",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 14 })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => setPendingRecurring((prev) => prev.filter((x2) => x2.id !== r2.id)),
+            className: "p-1 text-gray-500 hover:text-gray-300 transition-colors",
+            title: "Пропустить",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 })
+          }
+        )
+      ] }, r2.id)) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 items-center flex-wrap", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 bg-dark-800 rounded-xl p-1 border border-dark-600", children: [
+        PERIODS.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => {
+              setPeriod(p2.id);
+              setNoPeriod(false);
+              setDateFromCustom(null);
+              setDateToCustom(null);
+            },
+            className: `px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${period === p2.id && !noPeriod ? "bg-yellow-400 text-dark-900" : "text-gray-400 hover:text-white"}`,
+            children: p2.label
+          },
+          p2.id
+        )),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => setNoPeriod((v2) => !v2),
+            className: `px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${noPeriod ? "bg-yellow-400 text-dark-900" : "text-gray-400 hover:text-white"}`,
+            children: "Все"
+          }
+        )
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "select",
         {
           value: typeFilter,
           onChange: (e3) => setTypeFilter(e3.target.value),
-          className: "select w-40",
+          className: "select w-36",
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: "Все типы" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "expense", children: "Расходы" }),
@@ -31531,8 +33208,48 @@ function Operations({ onAdd }) {
             /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "debt_op", children: "По долгу" })
           ]
         }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "select",
+        {
+          value: catFilter,
+          onChange: (e3) => {
+            const v2 = e3.target.value;
+            setCatFilter(v2 === "" ? "" : v2 === "none" ? "none" : Number(v2));
+            setDateFromCustom(null);
+            setDateToCustom(null);
+          },
+          className: "select w-44",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: "Все категории" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "none", children: "Без категории" }),
+            cats.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: c2.id, children: c2.name }, c2.id))
+          ]
+        }
+      ),
+      subcats.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "select",
+        {
+          value: subcatFilter,
+          onChange: (e3) => setSubcatFilter(e3.target.value ? Number(e3.target.value) : ""),
+          className: "select w-44",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: "Все подкатегории" }),
+            subcats.map((s2) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: s2.id, children: s2.name }, s2.id))
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          type: "text",
+          value: commentSearch,
+          onChange: (e3) => setCommentSearch(e3.target.value),
+          placeholder: "Поиск по комментарию...",
+          className: "input w-52 py-1.5 text-sm"
+        }
       )
-    ] }),
+    ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card p-0 overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Дата" }),
@@ -31564,7 +33281,7 @@ function Operations({ onAdd }) {
           formatMoney(op.amount)
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-400 max-w-xs truncate", children: op.comment || "" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: op.type === "debt_op" ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-600 px-2", title: "Платёж по долгу — редактируйте на странице долга", children: "на стр. долга" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
@@ -31621,13 +33338,21 @@ const MONTHS_RU = [
   "Ноябрь",
   "Декабрь"
 ];
-function CashFlow() {
+function CashFlow({ onGoToDebt }) {
   const api = useApi();
   const now2 = /* @__PURE__ */ new Date();
   const [year, setYear] = reactExports.useState(now2.getFullYear());
   const [month, setMonth] = reactExports.useState(now2.getMonth() + 1);
   const [data, setData] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
+  const [mandatoryExpanded, setMandatoryExpanded] = reactExports.useState(true);
+  const [editItemId, setEditItemId] = reactExports.useState(null);
+  const [editPlanned, setEditPlanned] = reactExports.useState("");
+  const [editActual, setEditActual] = reactExports.useState("");
+  const [showAddItem, setShowAddItem] = reactExports.useState(false);
+  const [newCategory, setNewCategory] = reactExports.useState("");
+  const [newAmount, setNewAmount] = reactExports.useState("");
+  const [savingItem, setSavingItem] = reactExports.useState(false);
   const load = reactExports.useCallback(async () => {
     setLoading(true);
     const d2 = await api.getCashFlow(year, month);
@@ -31649,6 +33374,35 @@ function CashFlow() {
       setMonth(1);
     } else setMonth((m2) => m2 + 1);
   }
+  function startEditItem(item) {
+    setEditItemId(item.id);
+    setEditPlanned(String(item.plannedAmount));
+    setEditActual(item.actualAmount != null ? String(item.actualAmount) : "");
+  }
+  async function saveEditItem(item) {
+    if (item.id == null) return;
+    await api.updateMandatoryExpenseItem(item.id, {
+      planned_amount: parseFloat(editPlanned) || 0,
+      actual_amount: editActual !== "" ? parseFloat(editActual) : null
+    });
+    setEditItemId(null);
+    load();
+  }
+  async function handleDeleteItem(id2) {
+    if (!confirm("Удалить статью?")) return;
+    await api.deleteMandatoryExpenseItem(id2);
+    load();
+  }
+  async function handleAddItem() {
+    if (!newCategory.trim() || !newAmount) return;
+    setSavingItem(true);
+    await api.addMandatoryExpenseItem(year, month, newCategory.trim(), parseFloat(newAmount));
+    setNewCategory("");
+    setNewAmount("");
+    setShowAddItem(false);
+    setSavingItem(false);
+    load();
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Кассовый поток" }),
@@ -31663,7 +33417,7 @@ function CashFlow() {
       ] })
     ] }),
     loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-16 text-gray-500", children: "Загрузка..." }) : data && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-3 gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-4 gap-4", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 uppercase tracking-wide mb-2", children: "Доходы за период" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-green-400", children: formatMoney(data.income) })
@@ -31673,10 +33427,125 @@ function CashFlow() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400", children: formatMoney(data.mandatory) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 uppercase tracking-wide mb-2", children: "Бюджет на день" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 uppercase tracking-wide mb-2", children: "Средний бюджет на день" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-yellow-400", children: formatMoney(data.dailyBudget) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "(Доходы − Обязательные) / дни" })
-        ] })
+        ] }),
+        (() => {
+          const today2 = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+          const todayRow = data.journal.find((r2) => r2.date === today2);
+          return todayRow ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 uppercase tracking-wide mb-2", children: "Сальдо на сегодня" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: `text-2xl font-bold ${todayRow.saldo >= 0 ? "text-green-400" : "text-red-400"}`, children: [
+              todayRow.saldo >= 0 ? "+" : "",
+              formatMoney(todayRow.saldo)
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "Лимит накоплен с начала месяца" })
+          ] }) : null;
+        })()
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-5 py-4 border-b border-dark-600 flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              onClick: () => setMandatoryExpanded((v2) => !v2),
+              className: "flex items-center gap-2 text-white hover:text-gray-300 transition-colors",
+              children: [
+                mandatoryExpanded ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronUp, { size: 16, className: "text-gray-400" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { size: 16, className: "text-gray-400" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-base font-semibold", children: "Обязательные расходы месяца" }),
+                !mandatoryExpanded && data.mandatoryItems.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-sm text-gray-400 ml-1", children: [
+                  "— ",
+                  formatMoney(data.mandatoryItems.reduce((s2, i) => s2 + i.plannedAmount, 0)),
+                  " план"
+                ] })
+              ]
+            }
+          ),
+          mandatoryExpanded && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setShowAddItem((v2) => !v2),
+              className: "text-gray-500 hover:text-yellow-400 transition-colors p-1",
+              title: "Добавить статью",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 })
+            }
+          )
+        ] }),
+        mandatoryExpanded && showAddItem && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-5 py-3 border-b border-dark-600 bg-dark-700 flex items-center gap-3 flex-wrap", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              type: "text",
+              value: newCategory,
+              onChange: (e3) => setNewCategory(e3.target.value),
+              placeholder: "Название (Аренда, ЖКХ...)",
+              className: "input py-1 text-sm flex-1 min-w-40"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              type: "number",
+              value: newAmount,
+              onChange: (e3) => setNewAmount(e3.target.value),
+              placeholder: "Сумма, ₽",
+              className: "input py-1 text-sm w-32"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleAddItem, disabled: savingItem, className: "btn-primary text-sm py-1 px-3", children: savingItem ? "..." : "Добавить" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowAddItem(false), className: "btn-secondary text-sm py-1 px-3", children: "Отмена" })
+        ] }),
+        mandatoryExpanded && data.mandatoryItems.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 py-8 text-center text-gray-500 text-sm", children: "Нет статей обязательных расходов. Нажмите + чтобы добавить." }) : mandatoryExpanded ? /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Статья" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "План" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Факт" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "px-5 py-3" })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("tbody", { children: [
+            data.mandatoryItems.map((item, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs(React.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "px-5 py-3 text-sm text-gray-300 flex items-center gap-2", children: [
+                  item.isDebtLinked && /* @__PURE__ */ jsxRuntimeExports.jsx(Lock, { size: 12, className: "text-gray-600 flex-shrink-0", title: "Автоматически из долга" }),
+                  item.category
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-white", children: formatMoney(item.plannedAmount) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: `px-5 py-3 text-sm text-right ${item.actualAmount == null ? "text-gray-500" : item.isDebtLinked ? item.actualAmount >= item.plannedAmount ? "text-green-400" : "text-yellow-400" : item.actualAmount > item.plannedAmount ? "text-red-400" : "text-green-400"}`, children: item.actualAmount != null ? formatMoney(item.actualAmount) : "—" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: item.isDebtLinked && item.debtId != null && onGoToDebt ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "button",
+                  {
+                    onClick: () => onGoToDebt(item.debtId),
+                    className: "text-xs text-gray-600 hover:text-blue-400 transition-colors px-2 py-1 rounded-lg hover:bg-dark-600",
+                    title: "Перейти на страницу долга для редактирования",
+                    children: "→ долг"
+                  }
+                ) }) : !item.isDebtLinked && item.id != null ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => startEditItem(item), className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 }) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleDeleteItem(item.id), className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 13 }) })
+                ] }) : null })
+              ] }),
+              editItemId !== null && editItemId === item.id && /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { className: "bg-dark-700 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 4, className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 flex-wrap", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "План, ₽:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editPlanned, onChange: (e3) => setEditPlanned(e3.target.value), className: "input py-1 text-sm w-32" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Факт, ₽:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editActual, onChange: (e3) => setEditActual(e3.target.value), placeholder: "не указан", className: "input py-1 text-sm w-32" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => saveEditItem(item), className: "btn-primary text-sm py-1 px-3", children: "Сохранить" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditItemId(null), className: "btn-secondary text-sm py-1 px-3", children: "Отмена" })
+              ] }) }) })
+            ] }, item.id ?? `debt-${idx}`)),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "bg-dark-800", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm font-semibold text-gray-300", children: "Итого" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(data.mandatoryItems.reduce((s2, i) => s2 + i.plannedAmount, 0)) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-gray-300", children: data.mandatoryItems.some((i) => i.actualAmount != null) ? formatMoney(data.mandatoryItems.reduce((s2, i) => s2 + (i.actualAmount ?? 0), 0)) : "—" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", {})
+            ] })
+          ] })
+        ] }) : null
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 py-4 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold text-white", children: "Дневной журнал" }) }),
@@ -31684,7 +33553,10 @@ function CashFlow() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Дата" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Траты за день" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Накопленный лимит" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 justify-end", children: [
+              "Накопленный лимит",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { title: "Лимит с начала месяца по эту дату: средний бюджет на день × прошедшие дни, скорректированный на фактические траты предыдущих дней", className: "cursor-help text-gray-600 hover:text-gray-400", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Info, { size: 11 }) })
+            ] }) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Сальдо" })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: data.journal.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 4, className: "text-center py-10 text-gray-500", children: "Нет операций за выбранный период" }) }) : data.journal.map((row) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -31712,17 +33584,26 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
   const api = useApi();
   const isEdit = !!editDebt;
   const [name, setName] = reactExports.useState(editDebt?.name ?? "");
+  const [category, setCategory] = reactExports.useState(editDebt?.category ?? "");
   const [direction, setDirection] = reactExports.useState(editDebt?.direction ?? "i_owe");
   const [debtType, setDebtType] = reactExports.useState(editDebt?.debt_type ?? "simple");
   const [initialAmount, setInitialAmount] = reactExports.useState(editDebt?.initial_amount != null ? String(editDebt.initial_amount) : "");
   const [interestRate, setInterestRate] = reactExports.useState(editDebt?.interest_rate != null ? String((editDebt.interest_rate * 100).toFixed(2)) : "");
   const [paymentDay, setPaymentDay] = reactExports.useState(editDebt?.payment_day != null ? String(editDebt.payment_day) : "");
   const [monthlyPayment, setMonthlyPayment] = reactExports.useState(editDebt?.monthly_payment != null ? String(editDebt.monthly_payment) : "");
+  const [loanDate, setLoanDate] = reactExports.useState(editDebt?.loan_date ?? today());
   const [trancheDate, setTrancheDate] = reactExports.useState(today());
   const [trancheAmount, setTrancheAmount] = reactExports.useState("");
   const [trancheRate, setTrancheRate] = reactExports.useState("");
   const [saving, setSaving] = reactExports.useState(false);
   const [error, setError] = reactExports.useState("");
+  const [existingCategories, setExistingCategories] = reactExports.useState([]);
+  reactExports.useEffect(() => {
+    api.getDebtsWithBalance().then((debts) => {
+      const cats = [...new Set(debts.map((d2) => d2.category).filter(Boolean))];
+      setExistingCategories(cats);
+    });
+  }, []);
   async function handleSave() {
     if (!name.trim()) {
       setError("Укажите имя/название долга");
@@ -31734,11 +33615,13 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
       if (isEdit) {
         await api.updateDebt(editDebt.id, {
           name,
+          category: category.trim() || null,
           direction,
           initial_amount: initialAmount ? parseFloat(initialAmount) : null,
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
           payment_day: paymentDay ? parseInt(paymentDay) : null,
-          monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null
+          monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null,
+          loan_date: editDebt?.debt_type === "simple" ? loanDate || null : void 0
         });
       } else if (debtType === "dad") {
         if (!trancheAmount || !trancheRate) {
@@ -31748,6 +33631,7 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
         }
         const debtId = await api.addDebt({
           name,
+          category: category.trim() || null,
           direction,
           debt_type: "dad",
           initial_amount: parseFloat(trancheAmount),
@@ -31768,12 +33652,14 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
         }
         await api.addDebt({
           name,
+          category: category.trim() || null,
           direction,
           debt_type: "simple",
           initial_amount: parseFloat(initialAmount),
           interest_rate: interestRate ? parseFloat(interestRate) / 100 : null,
           payment_day: paymentDay ? parseInt(paymentDay) : null,
-          monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null
+          monthly_payment: monthlyPayment ? parseFloat(monthlyPayment) : null,
+          loan_date: loanDate || null
         });
       }
       onSaved();
@@ -31793,6 +33679,20 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Имя / Название" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("input", { value: name, onChange: (e3) => setName(e3.target.value), placeholder: "Папа, Альфабанк...", className: "input" })
       ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Категория (необязательно)" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            value: category,
+            onChange: (e3) => setCategory(e3.target.value),
+            placeholder: "Банк, Родственники...",
+            list: "debt-categories-list",
+            className: "input"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("datalist", { id: "debt-categories-list", children: existingCategories.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: c2 }, c2)) })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Направление" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: [["i_owe", "Я должен"], ["owe_me", "Мне должны"]].map(([v2, l2]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -31807,7 +33707,7 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
       ] }) }),
       !isEdit && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Тип долга" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: [["simple", "Обычный"], ["dad", "Долг папе (транши)"]].map(([v2, l2]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2", children: [["simple", "Обычный"], ["dad", "Сложный (несколько траншей)"]].map(([v2, l2]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
           {
             onClick: () => setDebtType(v2),
@@ -31820,23 +33720,27 @@ function AddDebtModal({ onClose, onSaved, editDebt }) {
       (isEdit ? editDebt?.debt_type === "simple" : debtType === "simple") ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма долга, ₽" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: initialAmount, onChange: (e3) => setInitialAmount(e3.target.value), className: "input" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дата получения" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: loanDate, onChange: (e3) => setLoanDate(e3.target.value), className: "input" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Ставка, % год." }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: interestRate, onChange: (e3) => setInterestRate(e3.target.value), placeholder: "0", className: "input" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма долга, ₽" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: initialAmount, onChange: (e3) => setInitialAmount(e3.target.value), className: "input" })
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "День платежа (число месяца)" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: paymentDay, onChange: (e3) => setPaymentDay(e3.target.value), placeholder: "30", min: "1", max: "31", className: "input" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Ставка, % год." }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: interestRate, onChange: (e3) => setInterestRate(e3.target.value), placeholder: "0", className: "input" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Ежемесячный платёж, ₽" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: monthlyPayment, onChange: (e3) => setMonthlyPayment(e3.target.value), className: "input" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "День платежа (число месяца)" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: paymentDay, onChange: (e3) => setPaymentDay(e3.target.value), placeholder: "30", min: "1", max: "31", className: "input" })
           ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Ежемесячный платёж, ₽" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: monthlyPayment, onChange: (e3) => setMonthlyPayment(e3.target.value), className: "input" })
         ] })
       ] }) : !isEdit ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Первый транш. Следующие можно добавить в карточке долга." }),
@@ -31873,12 +33777,14 @@ function Debts({ onOpenDebt, onOpenForecast }) {
   const api = useApi();
   const [debts, setDebts] = reactExports.useState([]);
   const [showClosed, setShowClosed] = reactExports.useState(false);
+  const [showHidden, setShowHidden] = reactExports.useState(false);
   const [showAddModal, setShowAddModal] = reactExports.useState(false);
   const [editDebt, setEditDebt] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
+  const dragId = reactExports.useRef(null);
   async function load() {
     setLoading(true);
-    const d2 = await api.getDebts();
+    const d2 = await api.getDebtsWithDetails();
     setDebts(d2);
     setLoading(false);
   }
@@ -31891,9 +33797,48 @@ function Debts({ onOpenDebt, onOpenForecast }) {
     await api.deleteDebt(debt.id);
     load();
   }
+  async function handleToggleHidden(debt, e3) {
+    e3.stopPropagation();
+    await api.updateDebt(debt.id, { is_hidden: debt.is_hidden ? 0 : 1 });
+    load();
+  }
+  function handleDragStart(id2) {
+    dragId.current = id2;
+  }
+  async function handleDrop(targetId, groupDebts) {
+    if (dragId.current === null || dragId.current === targetId) return;
+    const fromIdx = groupDebts.findIndex((d2) => d2.id === dragId.current);
+    const toIdx = groupDebts.findIndex((d2) => d2.id === targetId);
+    if (fromIdx < 0 || toIdx < 0) return;
+    const reordered = [...groupDebts];
+    const [moved] = reordered.splice(fromIdx, 1);
+    reordered.splice(toIdx, 0, moved);
+    dragId.current = null;
+    const activeVisible = active.filter((d2) => !d2.is_hidden);
+    activeVisible.map((d2) => {
+      const found = reordered.find((r2) => r2.id === d2.id);
+      return found ?? d2;
+    });
+    await api.updateDebtsOrder(reordered.map((d2) => d2.id));
+    load();
+  }
   const active = debts.filter((d2) => d2.status === "active");
   const closed = debts.filter((d2) => d2.status === "closed");
-  const totalOwed = active.filter((d2) => d2.direction === "i_owe").reduce((s2, d2) => s2 + (d2.initial_amount || 0), 0);
+  const visibleActive = active.filter((d2) => !d2.is_hidden);
+  const hiddenActive = active.filter((d2) => d2.is_hidden);
+  const iOweDebts = visibleActive.filter((d2) => d2.direction === "i_owe");
+  const totalOwed = iOweDebts.reduce((s2, d2) => s2 + (d2.current_balance ?? d2.initial_amount ?? 0), 0);
+  const totalAccrued = iOweDebts.reduce((s2, d2) => s2 + (d2.accrued_interest ?? 0), 0);
+  const groups = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const d2 of visibleActive) {
+    const key = d2.category ?? null;
+    if (!seen.has(key)) {
+      seen.add(key);
+      groups.push({ category: key, debts: [] });
+    }
+    groups.find((g2) => g2.category === key).debts.push(d2);
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Долги" }),
@@ -31905,27 +33850,75 @@ function Debts({ onOpenDebt, onOpenForecast }) {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 uppercase tracking-wide mb-2", children: "Общая долговая нагрузка" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-3xl font-bold text-red-400", children: formatMoney(totalOwed) }),
+      totalAccrued > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-orange-400 mt-1", children: [
+        "+ ",
+        formatMoney(totalAccrued),
+        " накопленных %"
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-gray-500 mt-1", children: [
-        active.filter((d2) => d2.direction === "i_owe").length,
+        iOweDebts.length,
         " активных долга"
       ] })
     ] }),
-    loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-10 text-gray-500", children: "Загрузка..." }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-      active.map((debt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-10 text-gray-500", children: "Загрузка..." }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+      groups.map((group) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        group.category && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-gray-400 uppercase tracking-wide", children: group.category }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: formatMoney(group.debts.filter((d2) => d2.direction === "i_owe").reduce((s2, d2) => s2 + (d2.current_balance ?? d2.initial_amount ?? 0), 0)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: group.debts.map((debt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          DebtCard,
+          {
+            debt,
+            onClick: () => onOpenDebt(debt.id),
+            onForecast: () => onOpenForecast(debt.id),
+            onEdit: (e3) => {
+              e3.stopPropagation();
+              setEditDebt(debt);
+            },
+            onDelete: (e3) => handleDelete(debt, e3),
+            onToggleHidden: (e3) => handleToggleHidden(debt, e3),
+            onDragStart: () => handleDragStart(debt.id),
+            onDrop: () => handleDrop(debt.id, group.debts)
+          },
+          debt.id
+        )) })
+      ] }, group.category ?? "__no_cat__")),
+      visibleActive.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-10 text-gray-500", children: "Нет активных долгов" })
+    ] }),
+    hiddenActive.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          onClick: () => setShowHidden((v2) => !v2),
+          className: "text-sm text-gray-500 hover:text-gray-300 flex items-center gap-2 mb-3",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, { size: 14 }),
+            showHidden ? "Скрыть" : "Показать",
+            " скрытые долги (",
+            hiddenActive.length,
+            ")"
+          ]
+        }
+      ),
+      showHidden && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3 opacity-60", children: hiddenActive.map((debt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         DebtCard,
         {
           debt,
           onClick: () => onOpenDebt(debt.id),
-          onForecast: () => onOpenForecast(debt.id),
           onEdit: (e3) => {
             e3.stopPropagation();
             setEditDebt(debt);
           },
-          onDelete: (e3) => handleDelete(debt, e3)
+          onDelete: (e3) => handleDelete(debt, e3),
+          onToggleHidden: (e3) => handleToggleHidden(debt, e3),
+          onDragStart: () => {
+          },
+          onDrop: () => {
+          }
         },
         debt.id
-      )),
-      active.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-10 text-gray-500", children: "Нет активных долгов" })
+      )) })
     ] }),
     closed.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -31951,7 +33944,12 @@ function Debts({ onOpenDebt, onOpenForecast }) {
             e3.stopPropagation();
             setEditDebt(debt);
           },
-          onDelete: (e3) => handleDelete(debt, e3)
+          onDelete: (e3) => handleDelete(debt, e3),
+          onToggleHidden: (e3) => handleToggleHidden(debt, e3),
+          onDragStart: () => {
+          },
+          onDrop: () => {
+          }
         },
         debt.id
       )) })
@@ -31978,27 +33976,41 @@ function DebtCard({
   onClick,
   onForecast,
   onEdit,
-  onDelete
+  onDelete,
+  onToggleHidden,
+  onDragStart,
+  onDrop
 }) {
   const nextDate = debt.payment_day ? nextPaymentDate(debt.payment_day) : null;
-  const isOverduePayment = debt.payment_day ? /* @__PURE__ */ new Date() > new Date((/* @__PURE__ */ new Date()).getFullYear(), (/* @__PURE__ */ new Date()).getMonth(), debt.payment_day) : false;
+  const isOverduePayment = debt.is_overdue ?? false;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
       className: "card cursor-pointer hover:border-yellow-400/30 transition-all",
+      draggable: true,
+      onDragStart: (e3) => {
+        e3.stopPropagation();
+        onDragStart();
+      },
+      onDragOver: (e3) => e3.preventDefault(),
+      onDrop: (e3) => {
+        e3.preventDefault();
+        onDrop();
+      },
       onClick,
       children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2 mr-2 mt-1 text-gray-600 cursor-grab active:cursor-grabbing", onClick: (e3) => e3.stopPropagation(), children: /* @__PURE__ */ jsxRuntimeExports.jsx(GripVertical, { size: 16 }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-2", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-base font-semibold text-white", children: debt.name }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${debt.direction === "i_owe" ? "bg-red-900/40 text-red-400" : "bg-green-900/40 text-green-400"}`, children: debt.direction === "i_owe" ? "Я должен" : "Мне должны" }),
-            debt.debt_type === "dad" && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-900/40 text-yellow-400", children: "Папа" }),
+            debt.debt_type === "dad" && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-900/40 text-yellow-400", children: "Транши" }),
             debt.status === "closed" && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-dark-600 text-gray-400", children: "Закрыт" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-6", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Сумма" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-white", children: formatMoney(debt.initial_amount || 0) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Остаток" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-white", children: formatMoney(debt.current_balance ?? debt.initial_amount ?? 0) })
             ] }),
             debt.interest_rate && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Ставка" }),
@@ -32018,7 +34030,14 @@ function DebtCard({
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 ml-4", onClick: (e3) => e3.stopPropagation(), children: [
-          isOverduePayment && debt.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(AlertTriangle, { size: 16, className: "text-yellow-400 mr-1" }),
+          isOverduePayment && debt.status === "active" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            AlertTriangle,
+            {
+              size: 16,
+              className: "text-yellow-400 mr-1",
+              title: debt.debt_type === "simple" ? "Обязательный платёж за этот период ещё не внесён в полном объёме" : "Текущие проценты периода ещё не покрыты внесёнными платежами"
+            }
+          ),
           onForecast && /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
@@ -32028,6 +34047,15 @@ function DebtCard({
               },
               className: "text-xs text-gray-500 hover:text-yellow-400 px-2 py-1 rounded-lg border border-dark-500 hover:border-yellow-400 transition-all",
               children: "Прогноз"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: onToggleHidden,
+              className: "p-1.5 text-gray-500 hover:text-blue-400 transition-colors",
+              title: debt.is_hidden ? "Показать" : "Скрыть",
+              children: debt.is_hidden ? /* @__PURE__ */ jsxRuntimeExports.jsx(Eye, { size: 14 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, { size: 14 })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -32054,7 +34082,7 @@ function DebtCard({
     }
   );
 }
-function DebtDetail({ debtId, onBack, onForecast }) {
+function DebtDetail({ debtId, onBack, onForecast, onAnalytics }) {
   const api = useApi();
   const [debt, setDebt] = reactExports.useState(null);
   const [tranches, setTranches] = reactExports.useState([]);
@@ -32062,13 +34090,22 @@ function DebtDetail({ debtId, onBack, onForecast }) {
   const [simplePayments, setSimplePayments] = reactExports.useState([]);
   const [showPaymentForm, setShowPaymentForm] = reactExports.useState(false);
   const [showAddTranche, setShowAddTranche] = reactExports.useState(false);
+  const [editDadPay, setEditDadPay] = reactExports.useState(null);
+  const [editSimplePay, setEditSimplePay] = reactExports.useState(null);
+  const [editTranche, setEditTranche] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
   const [payAmount, setPayAmount] = reactExports.useState("");
   const [payDate, setPayDate] = reactExports.useState(today());
-  const [daysSince, setDaysSince] = reactExports.useState("30");
+  const [computedDays, setComputedDays] = reactExports.useState(null);
   const [interestPart, setInterestPart] = reactExports.useState("");
+  const [isEarlyRepayment, setIsEarlyRepayment] = reactExports.useState(false);
+  const [newMonthlyPayment, setNewMonthlyPayment] = reactExports.useState("");
   const [payError, setPayError] = reactExports.useState("");
   const [paying, setPaying] = reactExports.useState(false);
+  const [showAlgoSettings, setShowAlgoSettings] = reactExports.useState(false);
+  const [algoOrder, setAlgoOrder] = reactExports.useState("highest_rate");
+  const [algoPoolRatio, setAlgoPoolRatio] = reactExports.useState(50);
+  const [savingAlgo, setSavingAlgo] = reactExports.useState(false);
   const [trancheDate, setTrancheDate] = reactExports.useState(today());
   const [trancheAmount, setTrancheAmount] = reactExports.useState("");
   const [trancheRate, setTrancheRate] = reactExports.useState("");
@@ -32079,7 +34116,12 @@ function DebtDetail({ debtId, onBack, onForecast }) {
       api.getDebt(debtId),
       api.getTranches(debtId)
     ]);
-    setDebt(d2);
+    const debtData = d2;
+    setDebt(debtData);
+    if (debtData.debt_type === "dad") {
+      setAlgoOrder(debtData.tranche_payoff_order ?? "highest_rate");
+      setAlgoPoolRatio(Math.round((debtData.pool_ratio ?? 0.5) * 100));
+    }
     setTranches(t2);
     if (d2.debt_type === "dad") {
       const ph2 = await api.getDadPaymentHistory(debtId);
@@ -32093,6 +34135,10 @@ function DebtDetail({ debtId, onBack, onForecast }) {
   reactExports.useEffect(() => {
     load();
   }, [debtId]);
+  reactExports.useEffect(() => {
+    if (!showPaymentForm || debt?.debt_type !== "dad") return;
+    api.getDaysSinceLastPayment(debtId, payDate).then((r2) => setComputedDays(r2));
+  }, [payDate, showPaymentForm, debt?.debt_type]);
   async function handlePay() {
     if (!payAmount || parseFloat(payAmount) <= 0) {
       setPayError("Укажите сумму");
@@ -32101,18 +34147,39 @@ function DebtDetail({ debtId, onBack, onForecast }) {
     setPaying(true);
     try {
       if (debt?.debt_type === "dad") {
-        await api.processDadPayment(debtId, parseFloat(payAmount), payDate, parseInt(daysSince) || 30);
+        const result = await api.processDadPayment(debtId, parseFloat(payAmount), payDate);
+        if (result?.overpayment && result.overpayment > 0.01) {
+          alert(`Долг полностью погашен.
+Излишек платежа: ${result.overpayment.toFixed(2)} ₽ — эта сумма не была отнесена к телу долга.`);
+        } else if (result?.overdueAddedToPool && result.overdueAddedToPool > 0.01 && result?.paymentId) {
+          const confirm2 = window.confirm(
+            "Платёж не покрывает текущие проценты периода — обычно это означает, что начисленный процент уйдёт в просрочку.\n\nОтметить этот платёж как окончательный для месяца, чтобы не показывать предупреждение о просрочке на карточке долга?"
+          );
+          if (confirm2) {
+            await api.markDadPaymentSufficient(result.paymentId);
+          }
+        }
       } else {
         await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0);
       }
+      if (isEarlyRepayment && newMonthlyPayment && parseFloat(newMonthlyPayment) > 0) {
+        await api.updateDebt(debtId, { monthly_payment: parseFloat(newMonthlyPayment) });
+      }
       setShowPaymentForm(false);
       setPayAmount("");
+      setIsEarlyRepayment(false);
+      setNewMonthlyPayment("");
       load();
-    } catch (e3) {
+    } catch {
       setPayError("Ошибка при сохранении платежа");
     } finally {
       setPaying(false);
     }
+  }
+  async function handleSaveAlgoSettings() {
+    setSavingAlgo(true);
+    await api.updateDebt(debtId, { tranche_payoff_order: algoOrder, pool_ratio: algoPoolRatio / 100 });
+    setSavingAlgo(false);
   }
   async function handleAddTranche() {
     if (!trancheAmount || !trancheRate) return;
@@ -32124,9 +34191,6 @@ function DebtDetail({ debtId, onBack, onForecast }) {
         initial_amount: parseFloat(trancheAmount),
         interest_rate: parseFloat(trancheRate) / 100
       });
-      await api.updateDebt(debtId, {
-        initial_amount: tranches.reduce((s2, t2) => s2 + t2.initial_amount, 0) + parseFloat(trancheAmount)
-      });
       setShowAddTranche(false);
       setTrancheAmount("");
       setTrancheRate("");
@@ -32135,6 +34199,59 @@ function DebtDetail({ debtId, onBack, onForecast }) {
       setSavingTranche(false);
     }
   }
+  async function handleSaveTranche() {
+    if (!editTranche) return;
+    const result = await api.updateTranche(editTranche.id, {
+      date: editTranche.date,
+      interest_rate: parseFloat(editTranche.rate) / 100
+    });
+    if (!result.ok) {
+      alert(result.reason ?? "Ошибка при обновлении транша");
+      return;
+    }
+    setEditTranche(null);
+    load();
+  }
+  async function handleDeleteTranche(t2) {
+    if (!confirm(`Удалить транш от ${formatDate(t2.date)}?`)) return;
+    const result = await api.deleteTranche(t2.id);
+    if (!result.ok) {
+      alert(result.reason ?? "Невозможно удалить транш");
+      return;
+    }
+    load();
+  }
+  async function handleDeleteDadPayment(paymentId) {
+    if (!confirm("Удалить платёж? Все последующие платежи будут пересчитаны автоматически.")) return;
+    await api.deleteDadPayment(paymentId);
+    load();
+  }
+  async function handleDeleteSimplePayment(paymentId) {
+    const hasLater = await api.hasSimplePaymentsAfter(paymentId);
+    const warning = hasLater ? "\n⚠️ Этот платёж не последний. Удаление пересчитает общий остаток долга." : "";
+    if (!confirm(`Удалить платёж?${warning}`)) return;
+    await api.deleteSimpleDebtPayment(paymentId);
+    load();
+  }
+  async function handleSaveDadPayment() {
+    if (!editDadPay) return;
+    const amount = parseFloat(editDadPay.amount);
+    if (!amount || amount <= 0) return;
+    await api.updateDadPayment(editDadPay.id, editDadPay.date, amount);
+    setEditDadPay(null);
+    load();
+  }
+  async function handleSaveSimplePayment() {
+    if (!editSimplePay) return;
+    await api.updateSimpleDebtPayment(
+      editSimplePay.id,
+      parseFloat(editSimplePay.amount),
+      editSimplePay.date,
+      parseFloat(editSimplePay.interestPart) || 0
+    );
+    setEditSimplePay(null);
+    load();
+  }
   if (loading || !debt) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 text-center text-gray-500", children: "Загрузка..." });
   }
@@ -32142,6 +34259,26 @@ function DebtDetail({ debtId, onBack, onForecast }) {
   const totalBalance = activeTranches.reduce((s2, t2) => s2 + t2.current_balance, 0);
   const weightedRate = activeTranches.length > 0 ? activeTranches.reduce((s2, t2) => s2 + t2.current_balance * t2.interest_rate, 0) / totalBalance : 0;
   const totalPaid = debt.debt_type === "simple" ? simplePayments.reduce((s2, p2) => s2 + p2.body_part, 0) : dadPayments.reduce((s2, p2) => s2 + p2.body_covered, 0);
+  const todayMs = (/* @__PURE__ */ new Date()).getTime();
+  let accruedInterest = 0;
+  if (debt.debt_type === "dad") {
+    const lastPay = dadPayments.length > 0 ? dadPayments.reduce((a2, b2) => a2.payment_date > b2.payment_date ? a2 : b2) : null;
+    if (lastPay) {
+      const days = Math.max(0, Math.round((todayMs - (/* @__PURE__ */ new Date(lastPay.payment_date + "T00:00:00")).getTime()) / 864e5));
+      accruedInterest = activeTranches.reduce((s2, t2) => s2 + t2.current_balance * t2.interest_rate * (days / 365), 0);
+    } else {
+      accruedInterest = activeTranches.reduce((s2, t2) => {
+        const days = Math.max(0, Math.round((todayMs - (/* @__PURE__ */ new Date(t2.date + "T00:00:00")).getTime()) / 864e5));
+        return s2 + t2.current_balance * t2.interest_rate * (days / 365);
+      }, 0);
+    }
+  } else if (debt.interest_rate) {
+    const currentBalance = Math.max(0, (debt.initial_amount || 0) - totalPaid);
+    const lastPay = simplePayments.length > 0 ? simplePayments.reduce((a2, b2) => a2.payment_date > b2.payment_date ? a2 : b2) : null;
+    const startStr = lastPay?.payment_date ?? debt.loan_date ?? debt.created_at;
+    const days = Math.max(0, Math.round((todayMs - (/* @__PURE__ */ new Date(startStr + (startStr.includes("T") ? "" : "T00:00:00"))).getTime()) / 864e5));
+    accruedInterest = currentBalance * debt.interest_rate * (days / 365);
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onBack, className: "text-gray-400 hover:text-white p-2 -ml-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 20 }) }),
@@ -32149,9 +34286,13 @@ function DebtDetail({ debtId, onBack, onForecast }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: debt.name }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${debt.direction === "i_owe" ? "bg-red-900/40 text-red-400" : "bg-green-900/40 text-green-400"}`, children: debt.direction === "i_owe" ? "Я должен" : "Мне должны" })
       ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: onAnalytics, className: "btn-secondary text-sm flex items-center gap-1.5", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(BarChart2, { size: 14 }),
+        " Аналитика"
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onForecast, className: "btn-secondary text-sm", children: "Прогноз погашения" })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-4 gap-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Остаток тела" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-white", children: formatMoney(debt.debt_type === "dad" ? totalBalance : (debt.initial_amount || 0) - totalPaid) })
@@ -32180,6 +34321,14 @@ function DebtDetail({ debtId, onBack, onForecast }) {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Погашено тела" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-green-400", children: formatMoney(totalPaid) })
+      ] }),
+      (accruedInterest > 0 || debt.interest_rate) && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400", children: "Накопленный процент" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Проценты, начисленные с момента последнего платежа по текущей ставке. Не включает пул просроченных процентов (если есть) — он показан отдельной картой и гасится постепенно с каждым платежом." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-orange-400", children: formatMoney(accruedInterest) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-1", children: "На сегодня" })
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3", children: [
@@ -32204,19 +34353,50 @@ function DebtDetail({ debtId, onBack, onForecast }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: payAmount, onChange: (e3) => setPayAmount(e3.target.value), className: "input" })
         ] })
       ] }),
-      debt.debt_type === "dad" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дней с предыдущего платежа" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: daysSince, onChange: (e3) => setDaysSince(e3.target.value), className: "input w-40" })
+      debt.debt_type === "dad" && computedDays && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-gray-400", children: [
+        "Дней с предыдущего платежа:",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: computedDays.days }),
+        " ",
+        "(с ",
+        formatDate(computedDays.since),
+        ")"
       ] }),
       debt.debt_type === "simple" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Из них на проценты, ₽ (необязательно)" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: interestPart, onChange: (e3) => setInterestPart(e3.target.value), className: "input w-48" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-2 cursor-pointer", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "checkbox",
+            checked: isEarlyRepayment,
+            onChange: (e3) => setIsEarlyRepayment(e3.target.checked),
+            className: "w-4 h-4 accent-yellow-400"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-300", children: "Досрочное погашение (обновить ежемесячный платёж)" })
+      ] }),
+      isEarlyRepayment && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Новый ежемесячный платёж, ₽" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "number",
+            value: newMonthlyPayment,
+            onChange: (e3) => setNewMonthlyPayment(e3.target.value),
+            placeholder: debt.monthly_payment ? String(debt.monthly_payment) : "0",
+            className: "input w-48"
+          }
+        )
       ] }),
       payError && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-400 text-sm", children: payError }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
           setShowPaymentForm(false);
           setPayError("");
+          setIsEarlyRepayment(false);
         }, className: "btn-secondary", children: "Отмена" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handlePay, disabled: paying, className: "btn-primary", children: paying ? "Обработка..." : "Провести" })
       ] })
@@ -32242,6 +34422,108 @@ function DebtDetail({ debtId, onBack, onForecast }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleAddTranche, disabled: savingTranche, className: "btn-primary", children: savingTranche ? "Сохранение..." : "Добавить транш" })
       ] })
     ] }),
+    debt.debt_type === "dad" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          className: "flex items-center gap-2 w-full text-left",
+          onClick: () => setShowAlgoSettings((v2) => !v2),
+          children: [
+            showAlgoSettings ? /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronDown, { size: 16, className: "text-gray-400" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ChevronRight, { size: 16, className: "text-gray-400" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-semibold text-gray-200", children: "Настройки алгоритма погашения" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Параметры применяются автоматически ко всем будущим платежам. Уже проведённые платежи не пересчитываются." })
+          ]
+        }
+      ),
+      showAlgoSettings && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 space-y-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-gray-300", children: "Порядок погашения тела между траншами" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Когда ваш платёж покрывает текущие проценты и ещё остаётся сумма на погашение основного долга — в какой очерёдности уменьшать остатки разных траншей?" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: [
+            { value: "highest_rate", label: "Сначала с высокой ставкой", desc: "Выгоднее математически: экономит на будущих процентах, так как дорогие транши закрываются быстрее" },
+            { value: "smallest_balance", label: "Снежный ком (сначала меньший остаток)", desc: "Сначала полностью закрываем транши с наименьшим остатком тела. Количество активных траншей уменьшается быстрее — психологически легче видеть прогресс" },
+            { value: "earliest_first", label: "Сначала ранние (по дате)", desc: "Закрываем транши в порядке получения. Удобно, если хочется видеть, как исчезают самые первые обязательства" },
+            { value: "proportional", label: "Пропорционально остаткам", desc: "Каждый платёж уменьшает все транши одновременно, в соответствии с их текущими долями" }
+          ].map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${algoOrder === opt.value ? "border-yellow-400/50 bg-yellow-400/5" : "border-dark-500 hover:border-dark-400"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                type: "radio",
+                name: "tranche_order",
+                value: opt.value,
+                checked: algoOrder === opt.value,
+                onChange: () => setAlgoOrder(opt.value),
+                className: "mt-0.5 accent-yellow-400"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-gray-200", children: opt.label }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 mt-0.5", children: opt.desc })
+            ] })
+          ] }, opt.value)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-gray-300", children: "Распределение остатка после покрытия текущих процентов" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { text: "Шаг 1: платёж покрывает текущие проценты за период. Шаг 2: остаток распределяется между погашением накопленных просроченных процентов (пул) и погашением основного тела долга. При 0% на пул — тело уменьшается быстрее. При 100% на пул — сначала полностью закрываем долг по просроченным процентам." })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 text-xs text-gray-500 mb-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "← 100% на пул просроченных %" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex-1 text-center text-gray-300 font-medium", children: [
+              "На пул: ",
+              algoPoolRatio,
+              "% / На тело: ",
+              100 - algoPoolRatio,
+              "%"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "100% на тело долга →" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              type: "range",
+              min: 0,
+              max: 100,
+              step: 5,
+              value: algoPoolRatio,
+              onChange: (e3) => setAlgoPoolRatio(Number(e3.target.value)),
+              className: "w-full accent-yellow-400"
+            }
+          ),
+          (() => {
+            const lastPay = dadPayments.length > 0 ? dadPayments.reduce((a2, b2) => a2.payment_date > b2.payment_date ? a2 : b2) : null;
+            const examplePayment = lastPay?.total_amount ?? 27e3;
+            const exampleInterest = lastPay?.interest_covered ?? 19e3;
+            const remainder = Math.max(0, examplePayment - exampleInterest);
+            const toPool = Math.round(remainder * algoPoolRatio / 100);
+            const toBody = remainder - toPool;
+            return remainder > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 mt-2", children: [
+              "Пример: платёж ",
+              examplePayment.toLocaleString("ru"),
+              " ₽, проценты ",
+              exampleInterest.toLocaleString("ru"),
+              " ₽ → остаток ",
+              remainder.toLocaleString("ru"),
+              " ₽ →",
+              " ",
+              "на пул: ",
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-orange-400", children: [
+                toPool.toLocaleString("ru"),
+                " ₽"
+              ] }),
+              ", на тело: ",
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-green-400", children: [
+                toBody.toLocaleString("ru"),
+                " ₽"
+              ] })
+            ] }) : null;
+          })()
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSaveAlgoSettings, disabled: savingAlgo, className: "btn-primary", children: savingAlgo ? "Сохранение..." : "Сохранить настройки" })
+      ] })
+    ] }),
     debt.debt_type === "dad" && tranches.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 py-4 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "Транши" }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
@@ -32250,54 +34532,144 @@ function DebtDetail({ debtId, onBack, onForecast }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Изначальная сумма" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Остаток тела" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Ставка" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-center text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Статус" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-center text-xs text-gray-400 uppercase tracking-wide px-5 py-3", children: "Статус" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "px-5 py-3" })
         ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: tranches.map((t2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(t2.date) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-gray-300", children: formatMoney(t2.initial_amount) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(t2.current_balance) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "px-5 py-3 text-sm text-right text-yellow-400", children: [
-            (t2.interest_rate * 100).toFixed(1),
-            "%"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${t2.status === "active" ? "bg-green-900/40 text-green-400" : "bg-dark-600 text-gray-500"}`, children: t2.status === "active" ? "Активен" : "Погашен" }) })
-        ] }, t2.id)) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: tranches.map((t2) => {
+          const partiallyPaid = t2.current_balance < t2.initial_amount - 0.01;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(React.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(t2.date) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-gray-300", children: formatMoney(t2.initial_amount) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(t2.current_balance) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "px-5 py-3 text-sm text-right text-yellow-400", children: [
+                (t2.interest_rate * 100).toFixed(1),
+                "%"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${t2.status === "active" ? "bg-green-900/40 text-green-400" : "bg-dark-600 text-gray-500"}`, children: t2.status === "active" ? "Активен" : "Погашен" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "button",
+                  {
+                    onClick: () => setEditTranche({ id: t2.id, date: t2.date, rate: String((t2.interest_rate * 100).toFixed(2)) }),
+                    className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors",
+                    title: "Редактировать транш",
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "button",
+                  {
+                    onClick: () => handleDeleteTranche(t2),
+                    disabled: partiallyPaid,
+                    className: `p-1.5 transition-colors ${partiallyPaid ? "text-gray-700 cursor-not-allowed" : "text-gray-500 hover:text-red-400"}`,
+                    title: partiallyPaid ? "Нельзя удалить частично погашенный транш" : "Удалить транш",
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 13 })
+                  }
+                )
+              ] }) })
+            ] }),
+            editTranche?.id === t2.id && /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { className: "bg-dark-700 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 6, className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 flex-wrap", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Дата:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: editTranche.date, onChange: (e3) => setEditTranche({ ...editTranche, date: e3.target.value }), className: "input py-1 text-sm w-36" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Ставка, % год.:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editTranche.rate, onChange: (e3) => setEditTranche({ ...editTranche, rate: e3.target.value }), className: "input py-1 text-sm w-24" })
+              ] }),
+              partiallyPaid && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "Сумма транша не редактируется — уже частично погашен" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSaveTranche, className: "btn-primary text-sm py-1 px-3", children: "Сохранить" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditTranche(null), className: "btn-secondary text-sm py-1 px-3", children: "Отмена" })
+            ] }) }) })
+          ] }, t2.id);
+        }) })
       ] })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
+    debt.debt_type === "dad" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 py-4 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "История платежей" }) }),
-      debt.debt_type === "dad" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Дата" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Платёж" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Текущие %" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Пул %" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Тело" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "В пул" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "В пул" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "px-5 py-3" })
         ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: dadPayments.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 6, className: "text-center py-8 text-gray-500", children: "Платежей нет" }) }) : dadPayments.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(p2.payment_date) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(p2.total_amount) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-red-400", children: formatMoney(p2.interest_covered) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-orange-400", children: formatMoney(p2.pool_covered) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-green-400", children: formatMoney(p2.body_covered) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-gray-400", children: p2.overdue_added_to_pool > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-red-400", children: [
-            "+",
-            formatMoney(p2.overdue_added_to_pool)
-          ] }) : "—" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: dadPayments.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 7, className: "text-center py-8 text-gray-500", children: "Платежей нет" }) }) : dadPayments.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(React.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(p2.payment_date) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(p2.total_amount) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-red-400", children: formatMoney(p2.interest_covered) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-orange-400", children: formatMoney(p2.pool_covered) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-green-400", children: formatMoney(p2.body_covered) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-gray-400", children: p2.overdue_added_to_pool > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-red-400", children: [
+              "+",
+              formatMoney(p2.overdue_added_to_pool)
+            ] }) : "—" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditDadPay({ id: p2.id, date: p2.payment_date, amount: String(p2.total_amount) }), className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleDeleteDadPayment(p2.id), className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 13 }) })
+            ] }) })
+          ] }),
+          editDadPay?.id === p2.id && /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { className: "bg-dark-700 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 7, className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 flex-wrap", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Дата:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: editDadPay.date, onChange: (e3) => setEditDadPay({ ...editDadPay, date: e3.target.value }), className: "input py-1 text-sm w-36" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Сумма, ₽:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editDadPay.amount, onChange: (e3) => setEditDadPay({ ...editDadPay, amount: e3.target.value }), className: "input py-1 text-sm w-36" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500", children: "Все последующие платежи пересчитаются автоматически" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSaveDadPayment, className: "btn-primary text-sm py-1 px-3", children: "Сохранить" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditDadPay(null), className: "btn-secondary text-sm py-1 px-3", children: "Отмена" })
+          ] }) }) })
         ] }, p2.id)) })
-      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
+      ] })
+    ] }),
+    debt.debt_type === "simple" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 py-4 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "История платежей" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Дата" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Платёж" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Проценты" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Тело" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Тело" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "px-5 py-3" })
         ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: simplePayments.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 4, className: "text-center py-8 text-gray-500", children: "Платежей нет" }) }) : simplePayments.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(p2.payment_date) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(p2.total_amount) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-red-400", children: formatMoney(p2.interest_part) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-green-400", children: formatMoney(p2.body_part) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: simplePayments.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 5, className: "text-center py-8 text-gray-500", children: "Платежей нет" }) }) : simplePayments.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(React.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600 hover:bg-dark-700", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(p2.payment_date) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right font-semibold text-white", children: formatMoney(p2.total_amount) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-red-400", children: formatMoney(p2.interest_part) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-green-400", children: formatMoney(p2.body_part) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1 justify-end", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => setEditSimplePay({ id: p2.id, date: p2.payment_date, amount: String(p2.total_amount), interestPart: String(p2.interest_part) }),
+                  className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleDeleteSimplePayment(p2.id), className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 13 }) })
+            ] }) })
+          ] }),
+          editSimplePay?.id === p2.id && /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { className: "bg-dark-700 border-b border-dark-600", children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 5, className: "px-5 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 flex-wrap", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Дата:" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: editSimplePay.date, onChange: (e3) => setEditSimplePay({ ...editSimplePay, date: e3.target.value }), className: "input py-1 text-sm w-36" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Сумма:" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editSimplePay.amount, onChange: (e3) => setEditSimplePay({ ...editSimplePay, amount: e3.target.value }), className: "input py-1 text-sm w-32" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-gray-400", children: "Из них %:" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: editSimplePay.interestPart, onChange: (e3) => setEditSimplePay({ ...editSimplePay, interestPart: e3.target.value }), className: "input py-1 text-sm w-28" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleSaveSimplePayment, className: "btn-primary text-sm py-1 px-3", children: "Сохранить" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditSimplePay(null), className: "btn-secondary text-sm py-1 px-3", children: "Отмена" })
+          ] }) }) })
         ] }, p2.id)) })
       ] })
     ] })
@@ -32397,6 +34769,21 @@ function DebtForecast({ debtId, onBack }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: generate, disabled: !payment1 || loading || !debt, className: "btn-primary", children: loading ? "Расчёт..." : "Рассчитать прогноз" })
     ] }),
     generated && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      forecast1.length > 0 && forecast1[0].bodyCovered === 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "rounded-xl border border-orange-500/40 bg-orange-500/10 px-5 py-4 text-sm text-orange-300", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold mb-1", children: "⚠️ Платёж не покрывает проценты — долг не уменьшается" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+          "При ",
+          formatMoney(parseFloat(payment1)),
+          "/мес начисляемые проценты (",
+          formatMoney(forecast1[0].interestCovered),
+          "/мес) не покрываются полностью, тело долга не гасится. Для начала погашения необходим платёж более ",
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-semibold text-orange-200", children: [
+            formatMoney(Math.ceil(forecast1[0].interestCovered + 1)),
+            "/мес"
+          ] }),
+          "."
+        ] })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { borderColor: "rgba(255,214,0,0.3)" }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-400 uppercase mb-2", children: [
@@ -32512,6 +34899,737 @@ function DebtForecast({ debtId, onBack }) {
     ] })
   ] });
 }
+const TOOLTIP_STYLE = {
+  contentStyle: { backgroundColor: "#242424", border: "1px solid #3A3A3A", borderRadius: "12px" },
+  labelStyle: { color: "#FFFFFF", fontWeight: 600 },
+  itemStyle: { color: "#E5E5E5" }
+};
+function DebtAnalytics({ debtId, onBack }) {
+  const api = useApi();
+  const [debt, setDebt] = reactExports.useState(null);
+  const [dadPayments, setDadPayments] = reactExports.useState([]);
+  const [simplePayments, setSimplePayments] = reactExports.useState([]);
+  const [loading, setLoading] = reactExports.useState(true);
+  reactExports.useEffect(() => {
+    async function load() {
+      setLoading(true);
+      const d2 = await api.getDebt(debtId);
+      setDebt(d2);
+      if (d2.debt_type === "dad") {
+        const ph2 = await api.getDadPaymentHistory(debtId);
+        setDadPayments(ph2);
+      } else {
+        const ph2 = await api.getSimpleDebtPayments(debtId);
+        setSimplePayments(ph2);
+      }
+      setLoading(false);
+    }
+    load();
+  }, [debtId]);
+  if (loading || !debt) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 text-center text-gray-500", children: "Загрузка..." });
+  }
+  const isDad = debt.debt_type === "dad";
+  const balanceHistory = [];
+  if (isDad) {
+    const sorted = [...dadPayments].sort((a2, b2) => a2.payment_date.localeCompare(b2.payment_date));
+    let cumulativePaid = 0;
+    sorted.forEach((p2) => {
+      cumulativePaid += p2.body_covered;
+      balanceHistory.push({ date: p2.payment_date, balance: 0, totalPaid: cumulativePaid });
+    });
+  } else {
+    const sorted = [...simplePayments].sort((a2, b2) => a2.payment_date.localeCompare(b2.payment_date));
+    let remaining = debt.initial_amount || 0;
+    sorted.forEach((p2) => {
+      remaining -= p2.body_part;
+      balanceHistory.push({ date: p2.payment_date, balance: Math.max(0, remaining), totalPaid: (debt.initial_amount || 0) - Math.max(0, remaining) });
+    });
+  }
+  const paymentStructure = isDad ? dadPayments.slice().reverse().map((p2) => ({
+    date: formatDate(p2.payment_date),
+    body: p2.body_covered,
+    interest: p2.interest_covered,
+    pool: p2.pool_covered
+  })) : simplePayments.slice().reverse().map((p2) => ({
+    date: formatDate(p2.payment_date),
+    body: p2.body_part,
+    interest: p2.interest_part,
+    pool: 0
+  }));
+  const totalPaid = isDad ? dadPayments.reduce((s2, p2) => s2 + p2.total_amount, 0) : simplePayments.reduce((s2, p2) => s2 + p2.total_amount, 0);
+  const totalBodyPaid = isDad ? dadPayments.reduce((s2, p2) => s2 + p2.body_covered, 0) : simplePayments.reduce((s2, p2) => s2 + p2.body_part, 0);
+  const totalInterestPaid = isDad ? dadPayments.reduce((s2, p2) => s2 + p2.interest_covered + p2.pool_covered, 0) : simplePayments.reduce((s2, p2) => s2 + p2.interest_part, 0);
+  const overpaymentPct = totalBodyPaid > 0 ? Math.round(totalInterestPaid / totalBodyPaid * 100) : 0;
+  const pieData = [
+    { name: "Тело долга", value: totalBodyPaid, color: "#22C55E" },
+    { name: "Проценты", value: totalInterestPaid, color: "#EF4444" }
+  ].filter((d2) => d2.value > 0);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onBack, className: "text-gray-400 hover:text-white p-2 -ml-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 20 }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-bold text-white", children: [
+        "Аналитика: ",
+        debt.name
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-4 gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Всего выплачено" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-white", children: formatMoney(totalPaid) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Погашено тела" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-green-400", children: formatMoney(totalBodyPaid) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Уплачено процентов" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-red-400", children: formatMoney(totalInterestPaid) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Переплата" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xl font-bold text-yellow-400", children: [
+          overpaymentPct,
+          "%"
+        ] })
+      ] })
+    ] }),
+    balanceHistory.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card text-center py-12 text-gray-500", children: "Нет истории платежей" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Динамика погашения тела" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(AreaChart, { data: balanceHistory, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "date", tickFormatter: (d2) => d2.slice(5), tick: { fontSize: 10, fill: "#6B7280" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (v2) => formatMoney(v2), ...TOOLTIP_STYLE }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, color: "#9CA3AF" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Area, { dataKey: "totalPaid", name: "Погашено тела", stroke: "#22C55E", fill: "#22C55E33" }),
+          !isDad && /* @__PURE__ */ jsxRuntimeExports.jsx(Area, { dataKey: "balance", name: "Остаток", stroke: "#EF4444", fill: "#EF444433" })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4", children: "Структура платежей" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(BarChart, { data: paymentStructure, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#2E2E2E" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(XAxis, { dataKey: "date", tick: { fontSize: 9, fill: "#6B7280" } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(YAxis, { tick: { fontSize: 10, fill: "#6B7280" }, tickFormatter: (v2) => `${(v2 / 1e3).toFixed(0)}к` }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (v2) => formatMoney(v2), ...TOOLTIP_STYLE }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, color: "#9CA3AF" } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "body", stackId: "a", fill: "#22C55E", name: "Тело" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "interest", stackId: "a", fill: "#EF4444", name: "Проценты" }),
+            isDad && /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "pool", stackId: "a", fill: "#F97316", name: "Пул %", radius: [4, 4, 0, 0] }),
+            !isDad && /* @__PURE__ */ jsxRuntimeExports.jsx(Bar, { dataKey: "interest", stackId: "a", fill: "#EF4444", name: "Проценты", radius: [4, 4, 0, 0] })
+          ] }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card flex flex-col items-center justify-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold mb-4 self-start", children: "Тело vs Проценты" }),
+          pieData.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ResponsiveContainer, { width: "100%", height: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(PieChart, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Pie, { data: pieData, cx: "50%", cy: "50%", innerRadius: 50, outerRadius: 80, dataKey: "value", nameKey: "name", children: pieData.map((entry, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Cell, { fill: entry.color }, i)) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Tooltip, { formatter: (v2) => formatMoney(v2), ...TOOLTIP_STYLE }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Legend, { wrapperStyle: { fontSize: 12, color: "#9CA3AF" } })
+          ] }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm", children: "Нет данных" })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+function Savings({ onOpenAccount, onOpenForecast }) {
+  const api = useApi();
+  const [accounts, setAccounts] = reactExports.useState([]);
+  const [loading, setLoading] = reactExports.useState(true);
+  const [showModal, setShowModal] = reactExports.useState(false);
+  const [editAccount, setEditAccount] = reactExports.useState(null);
+  const [focusGoal, setFocusGoal] = reactExports.useState(false);
+  const [pendingInterest, setPendingInterest] = reactExports.useState([]);
+  const [txForm, setTxForm] = reactExports.useState(null);
+  const [txAmount, setTxAmount] = reactExports.useState("");
+  const [txDate, setTxDate] = reactExports.useState(today());
+  const [txComment, setTxComment] = reactExports.useState("");
+  const [txError, setTxError] = reactExports.useState("");
+  const [dragId, setDragId] = reactExports.useState(null);
+  const orderRef = reactExports.useRef([]);
+  async function load() {
+    setLoading(true);
+    const [accs, pending] = await Promise.all([
+      api.getSavingsAccounts(),
+      api.getPendingSavingsInterest()
+    ]);
+    setAccounts(accs);
+    orderRef.current = accs.map((a2) => a2.id);
+    setPendingInterest(pending);
+    setLoading(false);
+  }
+  reactExports.useEffect(() => {
+    load();
+  }, []);
+  async function handleApplyInterest(id2) {
+    await api.applyAccruedInterest(id2);
+    load();
+  }
+  async function handleDelete(id2) {
+    if (!confirm("Удалить счёт? Все транзакции будут потеряны.")) return;
+    await api.deleteSavingsAccount(id2);
+    load();
+  }
+  async function handleTx() {
+    if (!txForm) return;
+    if (!txAmount || parseFloat(txAmount) <= 0) {
+      setTxError("Укажите сумму");
+      return;
+    }
+    try {
+      if (txForm.type === "deposit") {
+        await api.addSavingsDeposit(txForm.accountId, parseFloat(txAmount), txDate, txComment || void 0);
+      } else {
+        await api.addSavingsWithdrawal(txForm.accountId, parseFloat(txAmount), txDate, txComment || void 0);
+      }
+      setTxForm(null);
+      setTxAmount("");
+      setTxComment("");
+      setTxDate(today());
+      setTxError("");
+      load();
+    } catch (e3) {
+      setTxError(e3 instanceof Error ? e3.message : "Ошибка");
+    }
+  }
+  function handleDrop(targetId) {
+    if (dragId === null || dragId === targetId) return;
+    const ids = [...orderRef.current];
+    const from = ids.indexOf(dragId);
+    const to = ids.indexOf(targetId);
+    ids.splice(from, 1);
+    ids.splice(to, 0, dragId);
+    orderRef.current = ids;
+    api.updateSavingsAccountsOrder(ids);
+    setAccounts((prev) => {
+      const m2 = new Map(prev.map((a2) => [a2.id, a2]));
+      return ids.map((id2) => m2.get(id2)).filter(Boolean);
+    });
+    setDragId(null);
+  }
+  if (loading) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 text-center text-gray-500", children: "Загрузка..." });
+  const totalBalance = accounts.reduce((s2, a2) => s2 + a2.balance, 0);
+  const totalAccrued = accounts.reduce((s2, a2) => s2 + a2.accrued_interest, 0);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Накопления" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-gray-500 mt-0.5", children: [
+          accounts.length,
+          " счёт",
+          accounts.length === 1 ? "" : accounts.length < 5 ? "а" : "ов",
+          " ·",
+          " ",
+          formatMoney(totalBalance),
+          " баланс",
+          " ",
+          totalAccrued > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-yellow-400", children: [
+            "+ ",
+            formatMoney(totalAccrued),
+            " начислено %"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+          setFocusGoal(true);
+          setEditAccount(null);
+          setShowModal(true);
+        }, className: "btn-secondary text-sm", children: "+ Добавить цель" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => {
+          setFocusGoal(false);
+          setEditAccount(null);
+          setShowModal(true);
+        }, className: "btn-primary flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 }),
+          " Открыть счёт"
+        ] })
+      ] })
+    ] }),
+    pendingInterest.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card border-yellow-400/30 bg-yellow-400/5 space-y-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-yellow-400", children: "Есть непроведённые начисления процентов:" }),
+      pendingInterest.map((p2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-gray-300", children: [
+          p2.name,
+          " — за ",
+          p2.days,
+          " дн.: ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: formatMoney(p2.amount) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleApplyInterest(p2.id), className: "btn-primary text-xs py-1 px-3", children: "Применить" })
+      ] }, p2.id))
+    ] }),
+    txForm && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "font-semibold text-white", children: [
+        txForm.type === "deposit" ? "Пополнить" : "Снять",
+        ": ",
+        txForm.name
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-3 gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма, ₽" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: txAmount, onChange: (e3) => setTxAmount(e3.target.value), className: "input", autoFocus: true })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дата" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: txDate, onChange: (e3) => setTxDate(e3.target.value), className: "input" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Комментарий" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "text", value: txComment, onChange: (e3) => setTxComment(e3.target.value), className: "input" })
+        ] })
+      ] }),
+      txError && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-400 text-sm", children: txError }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+          setTxForm(null);
+          setTxError("");
+        }, className: "btn-secondary", children: "Отмена" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleTx, className: "btn-primary", children: txForm.type === "deposit" ? "Пополнить" : "Снять" })
+      ] })
+    ] }),
+    accounts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-16", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 mb-4", children: "Нет активных накопительных счётов" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setShowModal(true), className: "btn-primary", children: "Открыть первый счёт →" })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: accounts.map((acc) => {
+      const progress = acc.goal_amount ? Math.min(1, acc.balance / acc.goal_amount) : null;
+      const daysLeft = acc.goal_date ? Math.ceil(((/* @__PURE__ */ new Date(acc.goal_date + "T00:00:00")).getTime() - Date.now()) / 864e5) : null;
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: "card cursor-pointer hover:border-yellow-400/30 transition-all",
+          draggable: true,
+          onDragStart: () => setDragId(acc.id),
+          onDragOver: (e3) => e3.preventDefault(),
+          onDrop: () => handleDrop(acc.id),
+          onClick: () => onOpenAccount(acc.id),
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start justify-between", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center gap-2 mr-2 mt-1 text-gray-600 cursor-grab active:cursor-grabbing", onClick: (e3) => e3.stopPropagation(), children: /* @__PURE__ */ jsxRuntimeExports.jsx(GripVertical, { size: 16 }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full flex-shrink-0", style: { backgroundColor: acc.color } }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-base font-semibold text-white", children: acc.name }),
+                acc.goal_name && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-900/40 text-yellow-400", children: acc.goal_name })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-6 flex-wrap", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Баланс" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl font-bold text-white", children: formatMoney(acc.balance) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Ставка" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-semibold text-yellow-400", children: [
+                    (acc.interest_rate * 100).toFixed(2),
+                    "%"
+                  ] })
+                ] }),
+                acc.accrued_interest > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500", children: "Начислено %" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-semibold text-orange-400", children: [
+                    "+",
+                    formatMoney(acc.accrued_interest)
+                  ] })
+                ] }),
+                acc.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-40", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 mb-1", children: [
+                    "Цель: ",
+                    formatMoney(acc.balance),
+                    " из ",
+                    formatMoney(acc.goal_amount),
+                    daysLeft !== null && daysLeft > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "ml-2 text-gray-600", children: [
+                      "· ",
+                      daysLeft,
+                      " дн."
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full bg-dark-600 rounded-full h-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-1.5 rounded-full bg-green-400 transition-all", style: { width: `${Math.round((progress ?? 0) * 100)}%` } }) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-600 mt-0.5", children: [
+                    Math.round((progress ?? 0) * 100),
+                    "%",
+                    acc.goal_date && ` · до ${formatDate(acc.goal_date)}`
+                  ] })
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 ml-4", onClick: (e3) => e3.stopPropagation(), children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => {
+                    setTxForm({ accountId: acc.id, type: "deposit", name: acc.name });
+                    setTxAmount("");
+                    setTxDate(today());
+                    setTxComment("");
+                  },
+                  className: "p-1.5 text-gray-500 hover:text-green-400 transition-colors",
+                  title: "Пополнить",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingUp, { size: 15 })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => {
+                    setTxForm({ accountId: acc.id, type: "withdrawal", name: acc.name });
+                    setTxAmount("");
+                    setTxDate(today());
+                    setTxComment("");
+                  },
+                  className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors",
+                  title: "Снять",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingDown, { size: 15 })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => onOpenForecast(acc.id), className: "text-xs text-gray-500 hover:text-yellow-400 px-2 py-1 rounded-lg border border-dark-500 hover:border-yellow-400 transition-all", children: "Прогноз" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+                setEditAccount(acc);
+                setShowModal(true);
+              }, className: "p-1.5 text-gray-500 hover:text-yellow-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleDelete(acc.id), className: "p-1.5 text-gray-500 hover:text-red-400 transition-colors", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, { size: 13 }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { size: 14, className: "text-gray-600 ml-1" })
+            ] })
+          ] })
+        },
+        acc.id
+      );
+    }) }),
+    showModal && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      AddSavingsAccountModal,
+      {
+        editAccount,
+        focusGoal,
+        onClose: () => {
+          setShowModal(false);
+          setEditAccount(null);
+        },
+        onSaved: () => {
+          setShowModal(false);
+          setEditAccount(null);
+          load();
+        }
+      }
+    )
+  ] });
+}
+const TX_LABELS = { deposit: "Пополнение", withdrawal: "Снятие", interest: "Проценты" };
+const TX_COLORS = { deposit: "text-green-400", withdrawal: "text-red-400", interest: "text-yellow-400" };
+function SavingsDetail({ accountId, onBack, onForecast }) {
+  const api = useApi();
+  const [account, setAccount] = reactExports.useState(null);
+  const [transactions, setTransactions] = reactExports.useState([]);
+  const [loading, setLoading] = reactExports.useState(true);
+  const [txFilter, setTxFilter] = reactExports.useState("all");
+  const [showDepositForm, setShowDepositForm] = reactExports.useState(false);
+  const [showWithdrawForm, setShowWithdrawForm] = reactExports.useState(false);
+  const [txAmount, setTxAmount] = reactExports.useState("");
+  const [txDate, setTxDate] = reactExports.useState(today());
+  const [txComment, setTxComment] = reactExports.useState("");
+  const [txError, setTxError] = reactExports.useState("");
+  async function load() {
+    setLoading(true);
+    const [acc, txs] = await Promise.all([
+      api.getSavingsAccount(accountId),
+      api.getSavingsTransactions(accountId)
+    ]);
+    setAccount(acc);
+    setTransactions(txs);
+    setLoading(false);
+  }
+  reactExports.useEffect(() => {
+    load();
+  }, [accountId]);
+  async function handleApplyInterest() {
+    await api.applyAccruedInterest(accountId);
+    load();
+  }
+  async function handleTx(type) {
+    if (!txAmount || parseFloat(txAmount) <= 0) {
+      setTxError("Укажите сумму");
+      return;
+    }
+    try {
+      if (type === "deposit") await api.addSavingsDeposit(accountId, parseFloat(txAmount), txDate, txComment || void 0);
+      else await api.addSavingsWithdrawal(accountId, parseFloat(txAmount), txDate, txComment || void 0);
+      setShowDepositForm(false);
+      setShowWithdrawForm(false);
+      setTxAmount("");
+      setTxComment("");
+      setTxDate(today());
+      setTxError("");
+      load();
+    } catch (e3) {
+      setTxError(e3 instanceof Error ? e3.message : "Ошибка");
+    }
+  }
+  if (loading || !account) return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 text-center text-gray-500", children: "Загрузка..." });
+  const totalDeposits = transactions.filter((t2) => t2.type === "deposit").reduce((s2, t2) => s2 + t2.amount, 0);
+  const totalWithdrawals = transactions.filter((t2) => t2.type === "withdrawal").reduce((s2, t2) => s2 + t2.amount, 0);
+  const totalInterest = transactions.filter((t2) => t2.type === "interest").reduce((s2, t2) => s2 + t2.amount, 0);
+  const progress = account.goal_amount ? Math.min(1, account.balance / account.goal_amount) : null;
+  const filtered = txFilter === "all" ? transactions : transactions.filter((t2) => t2.type === txFilter);
+  let runningBalance = account.balance + (account.accrued_interest ?? 0);
+  const txsWithBalance = filtered.map((t2) => {
+    const balAfter = runningBalance;
+    if (t2.type === "deposit" || t2.type === "interest") runningBalance -= t2.amount;
+    else runningBalance += t2.amount;
+    return { ...t2, balanceAfter: balAfter };
+  });
+  const txForm = showDepositForm || showWithdrawForm;
+  const txType = showDepositForm ? "deposit" : "withdrawal";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onBack, className: "text-gray-400 hover:text-white p-2 -ml-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 20 }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: account.color } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: account.name }),
+        account.goal_name && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge bg-yellow-900/40 text-yellow-400", children: account.goal_name })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onForecast, className: "btn-secondary text-sm", children: "Калькулятор" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-5 gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Текущий баланс" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-white", children: formatMoney(account.balance) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Ставка" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-2xl font-bold text-yellow-400", children: [
+          (account.interest_rate * 100).toFixed(2),
+          "%"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 mt-1", children: [
+          account.interest_mode === "capitalize" ? "Капитализация" : "Выплата",
+          " · ",
+          account.payout_period === "daily" ? "ежедневно" : "ежемесячно"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Начислено процентов" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-2xl font-bold text-orange-400", children: [
+          "+",
+          formatMoney(account.accrued_interest)
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: handleApplyInterest, className: "text-xs text-yellow-400 mt-1 hover:underline", children: "Применить" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Всего пополнений" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-green-400", children: formatMoney(totalDeposits) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-400 mb-2", children: "Всего снятий" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-2xl font-bold text-red-400", children: formatMoney(totalWithdrawals) })
+      ] })
+    ] }),
+    account.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-medium text-gray-300", children: [
+          "Прогресс к цели: ",
+          formatMoney(account.balance),
+          " из ",
+          formatMoney(account.goal_amount)
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-bold text-white", children: [
+          Math.round((progress ?? 0) * 100),
+          "%"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full bg-dark-600 rounded-full h-2.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-2.5 rounded-full bg-green-400 transition-all", style: { width: `${Math.round((progress ?? 0) * 100)}%` } }) }),
+      account.goal_date && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 mt-2", children: [
+        "Дата цели: ",
+        formatDate(account.goal_date)
+      ] }),
+      totalInterest > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-500 mt-1", children: [
+        "Всего начислено процентов: ",
+        formatMoney(totalInterest)
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => {
+        setShowDepositForm((v2) => !v2);
+        setShowWithdrawForm(false);
+        setTxError("");
+      }, className: "btn-primary flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingUp, { size: 16 }),
+        " Пополнить"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => {
+        setShowWithdrawForm((v2) => !v2);
+        setShowDepositForm(false);
+        setTxError("");
+      }, className: "btn-secondary flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TrendingDown, { size: 16 }),
+        " Снять"
+      ] })
+    ] }),
+    txForm && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold text-white", children: txType === "deposit" ? "Пополнение" : "Снятие" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-3 gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Сумма, ₽" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: txAmount, onChange: (e3) => setTxAmount(e3.target.value), className: "input", autoFocus: true })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Дата" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "date", value: txDate, onChange: (e3) => setTxDate(e3.target.value), className: "input" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Комментарий" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "text", value: txComment, onChange: (e3) => setTxComment(e3.target.value), className: "input" })
+        ] })
+      ] }),
+      txError && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-400 text-sm", children: txError }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => {
+          setShowDepositForm(false);
+          setShowWithdrawForm(false);
+          setTxError("");
+        }, className: "btn-secondary", children: "Отмена" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => handleTx(txType), className: "btn-primary", children: txType === "deposit" ? "Пополнить" : "Снять" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card p-0 overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-5 py-4 border-b border-dark-600 flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: "История транзакций" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: ["all", "deposit", "withdrawal", "interest"].map((f2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => setTxFilter(f2),
+            className: `text-xs px-3 py-1 rounded-lg border transition-colors ${txFilter === f2 ? "border-yellow-400 text-yellow-400" : "border-dark-500 text-gray-400 hover:border-dark-400"}`,
+            children: f2 === "all" ? "Все" : TX_LABELS[f2]
+          },
+          f2
+        )) })
+      ] }),
+      txsWithBalance.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "px-5 py-4 text-sm text-gray-500", children: "Нет транзакций" }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Дата" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Тип" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Сумма" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Баланс после" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Комментарий" })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: txsWithBalance.map((t2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-700 hover:bg-dark-700", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-300", children: formatDate(t2.date) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: TX_COLORS[t2.type], children: TX_LABELS[t2.type] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: `px-5 py-3 text-sm text-right font-semibold ${TX_COLORS[t2.type]}`, children: [
+            t2.type === "withdrawal" ? "-" : "+",
+            formatMoney(t2.amount)
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-right text-gray-300", children: formatMoney(t2.balanceAfter) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-3 text-sm text-gray-500", children: t2.comment ?? "" })
+        ] }, t2.id)) })
+      ] })
+    ] })
+  ] });
+}
+function SavingsForecast({ accountId, onBack }) {
+  const api = useApi();
+  const [account, setAccount] = reactExports.useState(null);
+  const [monthly, setMonthly] = reactExports.useState("");
+  const [months, setMonths] = reactExports.useState("24");
+  const [forecast, setForecast] = reactExports.useState([]);
+  const [loading, setLoading] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    api.getSavingsAccount(accountId).then((a2) => setAccount(a2));
+  }, [accountId]);
+  async function calcForecast() {
+    setLoading(true);
+    const rows = await api.getSavingsForecast(accountId, parseFloat(monthly) || 0, parseInt(months) || 24);
+    setForecast(rows);
+    setLoading(false);
+  }
+  const goalReachedAt = account?.goal_amount ? forecast.find((r2) => r2.balance >= account.goal_amount) : null;
+  const monthLabel = (m2) => {
+    const d2 = /* @__PURE__ */ new Date();
+    d2.setMonth(d2.getMonth() + m2);
+    return `${d2.toLocaleString("ru", { month: "short" })} ${d2.getFullYear()}`;
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 space-y-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: onBack, className: "text-gray-400 hover:text-white p-2 -ml-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { size: 20 }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-white", children: "Калькулятор накоплений" }),
+        account && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-500", children: account.name })
+      ] })
+    ] }),
+    account && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4 text-sm", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500", children: "Текущий баланс" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-white", children: formatMoney(account.balance + account.accrued_interest) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500", children: "Ставка" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-semibold text-yellow-400", children: [
+            (account.interest_rate * 100).toFixed(2),
+            "%"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500", children: "Режим" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-gray-300", children: account.interest_mode === "capitalize" ? "Капитализация" : "Выплата" })
+        ] }),
+        account.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500", children: "Цель" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-green-400", children: formatMoney(account.goal_amount) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 items-end", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Пополнение в месяц, ₽" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: monthly, onChange: (e3) => setMonthly(e3.target.value), placeholder: "0", className: "input w-40" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "Горизонт, месяцев" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "number", value: months, onChange: (e3) => setMonths(e3.target.value), className: "input w-28" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: calcForecast, disabled: loading, className: "btn-primary", children: "Рассчитать" })
+      ] }),
+      goalReachedAt && account.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-green-900/20 border border-green-400/30 rounded-lg px-4 py-2 text-sm text-green-400", children: [
+        "Цель ",
+        formatMoney(account.goal_amount),
+        " будет достигнута на месяц ",
+        goalReachedAt.month,
+        " (",
+        monthLabel(goalReachedAt.month),
+        ")"
+      ] }),
+      forecast.length > 0 && account.goal_amount && !goalReachedAt && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-yellow-900/20 border border-yellow-400/30 rounded-lg px-4 py-2 text-sm text-yellow-400", children: [
+        "При таком темпе цель не будет достигнута за ",
+        months,
+        " месяцев"
+      ] })
+    ] }),
+    forecast.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card p-0 overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full text-sm", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "border-b border-dark-600", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-left text-xs text-gray-400 uppercase px-5 py-3", children: "Месяц" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Пополнение" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Проценты" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Баланс" }),
+        account?.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "text-right text-xs text-gray-400 uppercase px-5 py-3", children: "Прогресс" })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: forecast.map((r2) => {
+        const isGoal = account?.goal_amount && r2.balance >= account.goal_amount;
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: `border-b border-dark-700 hover:bg-dark-700 ${isGoal ? "bg-green-900/10" : ""}`, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "px-5 py-2 text-gray-300", children: [
+            r2.month,
+            ". ",
+            monthLabel(r2.month)
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2 text-right text-green-400", children: r2.contribution > 0 ? "+" + formatMoney(r2.contribution) : "—" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "px-5 py-2 text-right text-yellow-400", children: [
+            "+",
+            formatMoney(r2.interest)
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2 text-right font-semibold text-white", children: formatMoney(r2.balance) }),
+          account?.goal_amount && /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "px-5 py-2 text-right text-gray-400", children: r2.progress !== null ? Math.min(100, Math.round(r2.progress * 100)) + "%" : "—" })
+        ] }, r2.month);
+      }) })
+    ] }) })
+  ] });
+}
 function SettingsPage() {
   const api = useApi();
   const [categories, setCategories] = reactExports.useState([]);
@@ -32519,6 +35637,8 @@ function SettingsPage() {
   const [selectedCat, setSelectedCat] = reactExports.useState(null);
   const [dbPath, setDbPath] = reactExports.useState("");
   const [statusMsg, setStatusMsg] = reactExports.useState("");
+  const [editCat, setEditCat] = reactExports.useState(null);
+  const [editSub, setEditSub] = reactExports.useState(null);
   const [newCatName, setNewCatName] = reactExports.useState("");
   const [newCatType, setNewCatType] = reactExports.useState("expense");
   const [newCatColor, setNewCatColor] = reactExports.useState("#FFD600");
@@ -32563,6 +35683,20 @@ function SettingsPage() {
     await api.updateSubcategory(id2, { archived: 1 });
     if (selectedCat) loadSubs(selectedCat.id);
     showStatus("Подкатегория архивирована");
+  }
+  async function saveEditCat() {
+    if (!editCat || !editCat.name.trim()) return;
+    await api.updateCategory(editCat.id, { name: editCat.name.trim(), color: editCat.color });
+    setEditCat(null);
+    loadCategories();
+    showStatus("Категория обновлена");
+  }
+  async function saveEditSub() {
+    if (!editSub || !editSub.name.trim()) return;
+    await api.updateSubcategory(editSub.id, { name: editSub.name.trim() });
+    setEditSub(null);
+    if (selectedCat) loadSubs(selectedCat.id);
+    showStatus("Подкатегория обновлена");
   }
   async function handleExportDb() {
     const path = await api.exportDb();
@@ -32643,21 +35777,67 @@ function SettingsPage() {
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-6", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-medium text-gray-400 mb-2", children: [
-              "Расходы (",
-              expenseCats.length,
-              ")"
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-1 max-h-64 overflow-y-auto scrollbar-thin", children: expenseCats.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: [
+          { label: "Расходы", cats: expenseCats },
+          { label: "Доходы", cats: incomeCats }
+        ].map(({ label, cats }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-medium text-gray-400 mb-2", children: [
+            label,
+            " (",
+            cats.length,
+            ")"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1 max-h-64 overflow-y-auto scrollbar-thin", children: [
+            cats.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-600 px-3 py-1", children: "Нет категорий" }),
+            cats.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: editCat?.id === cat.id ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 px-2 py-1.5 rounded-xl bg-dark-600 border border-yellow-400/30", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  type: "color",
+                  value: editCat.color,
+                  onChange: (e3) => setEditCat({ ...editCat, color: e3.target.value }),
+                  className: "w-6 h-6 rounded cursor-pointer border-0 bg-transparent p-0 flex-shrink-0"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  value: editCat.name,
+                  onChange: (e3) => setEditCat({ ...editCat, name: e3.target.value }),
+                  onKeyDown: (e3) => {
+                    if (e3.key === "Enter") saveEditCat();
+                    if (e3.key === "Escape") setEditCat(null);
+                  },
+                  className: "input py-0.5 text-sm flex-1 h-7",
+                  autoFocus: true
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: saveEditCat, className: "text-green-400 hover:text-green-300 transition-colors p-1", title: "Сохранить", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 14 }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditCat(null), className: "text-gray-500 hover:text-white transition-colors p-1", title: "Отмена", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 }) })
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "div",
               {
-                onClick: () => setSelectedCat(selectedCat?.id === cat.id ? null : cat),
-                className: `flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all ${selectedCat?.id === cat.id ? "bg-dark-600 border border-yellow-400/30" : "hover:bg-dark-700"}`,
+                onClick: () => {
+                  setSelectedCat(selectedCat?.id === cat.id ? null : cat);
+                  setEditCat(null);
+                },
+                className: `flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all group ${selectedCat?.id === cat.id ? "bg-dark-600 border border-yellow-400/30" : "hover:bg-dark-700"}`,
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: cat.color } }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full flex-shrink-0", style: { backgroundColor: cat.color } }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: cat.name }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: (e3) => {
+                        e3.stopPropagation();
+                        setEditCat({ id: cat.id, name: cat.name, color: cat.color });
+                        setSelectedCat(null);
+                      },
+                      className: "text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100",
+                      title: "Переименовать",
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 })
+                    }
+                  ),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "button",
                     {
@@ -32665,47 +35845,16 @@ function SettingsPage() {
                         e3.stopPropagation();
                         archiveCategory(cat.id);
                       },
-                      className: "text-gray-600 hover:text-yellow-400 transition-colors",
+                      className: "text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100",
                       title: "Архивировать",
                       children: /* @__PURE__ */ jsxRuntimeExports.jsx(Archive, { size: 14 })
                     }
                   )
                 ]
-              },
-              cat.id
-            )) })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-medium text-gray-400 mb-2", children: [
-              "Доходы (",
-              incomeCats.length,
-              ")"
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-1 max-h-40 overflow-y-auto scrollbar-thin", children: incomeCats.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              "div",
-              {
-                onClick: () => setSelectedCat(selectedCat?.id === cat.id ? null : cat),
-                className: `flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all ${selectedCat?.id === cat.id ? "bg-dark-600 border border-yellow-400/30" : "hover:bg-dark-700"}`,
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: cat.color } }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: cat.name }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "button",
-                    {
-                      onClick: (e3) => {
-                        e3.stopPropagation();
-                        archiveCategory(cat.id);
-                      },
-                      className: "text-gray-600 hover:text-yellow-400 transition-colors",
-                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(Archive, { size: 14 })
-                    }
-                  )
-                ]
-              },
-              cat.id
-            )) })
+              }
+            ) }, cat.id))
           ] })
-        ] }),
+        ] }, label)) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: selectedCat ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-medium text-gray-300", children: [
             "Подкатегории — ",
@@ -32724,17 +35873,42 @@ function SettingsPage() {
             ),
             /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: addSubcategory, className: "btn-primary px-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { size: 16 }) })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-1 max-h-64 overflow-y-auto scrollbar-thin", children: subcategories.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-500 px-3", children: "Нет подкатегорий" }) : subcategories.map((sub) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-dark-700", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-1 max-h-64 overflow-y-auto scrollbar-thin", children: subcategories.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-500 px-3", children: "Нет подкатегорий" }) : subcategories.map((sub) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: editSub?.id === sub.id ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 px-2 py-1.5 rounded-xl bg-dark-600 border border-yellow-400/30", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                value: editSub.name,
+                onChange: (e3) => setEditSub({ ...editSub, name: e3.target.value }),
+                onKeyDown: (e3) => {
+                  if (e3.key === "Enter") saveEditSub();
+                  if (e3.key === "Escape") setEditSub(null);
+                },
+                className: "input py-0.5 text-sm flex-1 h-7",
+                autoFocus: true
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: saveEditSub, className: "text-green-400 hover:text-green-300 transition-colors p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 14 }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setEditSub(null), className: "text-gray-500 hover:text-white transition-colors p-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 14 }) })
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-dark-700 group", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-1 text-sm text-white", children: sub.name }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {
+                onClick: () => setEditSub({ id: sub.id, name: sub.name }),
+                className: "text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100",
+                title: "Переименовать",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Pencil, { size: 13 })
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
                 onClick: () => archiveSubcategory(sub.id),
-                className: "text-gray-600 hover:text-yellow-400 transition-colors",
+                className: "text-gray-600 hover:text-yellow-400 transition-colors opacity-0 group-hover:opacity-100",
                 children: /* @__PURE__ */ jsxRuntimeExports.jsx(Archive, { size: 14 })
               }
             )
-          ] }, sub.id)) })
+          ] }) }, sub.id)) })
         ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center h-full text-sm text-gray-500", children: "Выберите категорию для управления подкатегориями" }) })
       ] })
     ] })
@@ -32745,13 +35919,20 @@ const navItems = [
   { id: "operations", label: "Операции", icon: ListOrdered },
   { id: "cashflow", label: "Кассовый поток", icon: TrendingUp },
   { id: "debts", label: "Долги", icon: CreditCard },
+  { id: "savings", label: "Накопления", icon: PiggyBank },
   { id: "settings", label: "Настройки", icon: Settings }
 ];
 function App() {
   const [page, setPage] = reactExports.useState("dashboard");
   const [selectedDebtId, setSelectedDebtId] = reactExports.useState(null);
+  const [selectedSavingsId, setSelectedSavingsId] = reactExports.useState(null);
   const [showAddModal, setShowAddModal] = reactExports.useState(false);
   const [refreshKey, setRefreshKey] = reactExports.useState(0);
+  const [operationsFilter, setOperationsFilter] = reactExports.useState(null);
+  function navigateToFilteredOperations(filter) {
+    setOperationsFilter(filter);
+    setPage("operations");
+  }
   function handleRefresh() {
     setRefreshKey((k2) => k2 + 1);
   }
@@ -32763,6 +35944,18 @@ function App() {
     setSelectedDebtId(id2);
     setPage("debt-forecast");
   }
+  function navigateToSavings(id2) {
+    setSelectedSavingsId(id2);
+    setPage("savings-detail");
+  }
+  function navigateToSavingsForecast(id2) {
+    setSelectedSavingsId(id2);
+    setPage("savings-forecast");
+  }
+  function navigateToAnalytics(id2) {
+    setSelectedDebtId(id2);
+    setPage("debt-analytics");
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex h-screen overflow-hidden bg-dark-900", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "w-56 flex-shrink-0 bg-dark-800 border-r border-dark-600 flex flex-col py-6 px-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-2 mb-8", children: [
@@ -32773,7 +35966,7 @@ function App() {
         "button",
         {
           onClick: () => setPage(item.id),
-          className: `nav-item text-left ${page === item.id || page === "debt-detail" && item.id === "debts" || page === "debt-forecast" && item.id === "debts" ? "active" : ""}`,
+          className: `nav-item text-left ${page === item.id || page === "debt-detail" && item.id === "debts" || page === "debt-forecast" && item.id === "debts" || page === "debt-analytics" && item.id === "debts" || page === "savings-detail" && item.id === "savings" || page === "savings-forecast" && item.id === "savings" ? "active" : ""}`,
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(item.icon, { size: 18 }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-medium", children: item.label })
@@ -32794,9 +35987,9 @@ function App() {
       )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "flex-1 overflow-y-auto scrollbar-thin", children: [
-      page === "dashboard" && /* @__PURE__ */ jsxRuntimeExports.jsx(Dashboard, {}, refreshKey),
-      page === "operations" && /* @__PURE__ */ jsxRuntimeExports.jsx(Operations, { onAdd: () => setShowAddModal(true) }, refreshKey),
-      page === "cashflow" && /* @__PURE__ */ jsxRuntimeExports.jsx(CashFlow, {}, refreshKey),
+      page === "dashboard" && /* @__PURE__ */ jsxRuntimeExports.jsx(Dashboard, { onNavigateToOperations: navigateToFilteredOperations, onNavigateToSavings: (id2) => id2 ? navigateToSavings(id2) : setPage("savings") }, refreshKey),
+      page === "operations" && /* @__PURE__ */ jsxRuntimeExports.jsx(Operations, { onAdd: () => setShowAddModal(true), initialFilter: operationsFilter, onInitialFilterApplied: () => setOperationsFilter(null) }, refreshKey),
+      page === "cashflow" && /* @__PURE__ */ jsxRuntimeExports.jsx(CashFlow, { onGoToDebt: navigateToDebt }, refreshKey),
       page === "debts" && /* @__PURE__ */ jsxRuntimeExports.jsx(
         Debts,
         {
@@ -32810,7 +36003,16 @@ function App() {
         {
           debtId: selectedDebtId,
           onBack: () => setPage("debts"),
-          onForecast: () => navigateToForecast(selectedDebtId)
+          onForecast: () => navigateToForecast(selectedDebtId),
+          onAnalytics: () => navigateToAnalytics(selectedDebtId)
+        },
+        selectedDebtId
+      ),
+      page === "debt-analytics" && selectedDebtId && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        DebtAnalytics,
+        {
+          debtId: selectedDebtId,
+          onBack: () => navigateToDebt(selectedDebtId)
         },
         selectedDebtId
       ),
@@ -32823,6 +36025,31 @@ function App() {
           }
         },
         selectedDebtId
+      ),
+      page === "savings" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Savings,
+        {
+          onOpenAccount: navigateToSavings,
+          onOpenForecast: navigateToSavingsForecast
+        },
+        refreshKey
+      ),
+      page === "savings-detail" && selectedSavingsId && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SavingsDetail,
+        {
+          accountId: selectedSavingsId,
+          onBack: () => setPage("savings"),
+          onForecast: () => navigateToSavingsForecast(selectedSavingsId)
+        },
+        selectedSavingsId
+      ),
+      page === "savings-forecast" && selectedSavingsId && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SavingsForecast,
+        {
+          accountId: selectedSavingsId,
+          onBack: () => navigateToSavings(selectedSavingsId)
+        },
+        selectedSavingsId
       ),
       page === "settings" && /* @__PURE__ */ jsxRuntimeExports.jsx(SettingsPage, {}, refreshKey)
     ] }),
