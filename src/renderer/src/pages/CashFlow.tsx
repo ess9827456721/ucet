@@ -191,7 +191,8 @@ export default function CashFlow({ onGoToDebt }: Props) {
                 Нет статей обязательных расходов. Нажмите + чтобы добавить.
               </div>
             ) : mandatoryExpanded ? (
-              <table className="w-full">
+              <div className="overflow-x-auto">
+              <table className="w-full min-w-[700px]">
                 <thead>
                   <tr className="border-b border-dark-600">
                     <th className="text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Статья</th>
@@ -275,15 +276,17 @@ export default function CashFlow({ onGoToDebt }: Props) {
                   </tr>
                 </tbody>
               </table>
+              </div>
             ) : null}
           </div>
 
           {/* Daily journal */}
-          <div className="card p-0 overflow-hidden">
+          <div className="card p-0">
             <div className="px-5 py-4 border-b border-dark-600">
               <h2 className="text-base font-semibold text-white">Дневной журнал</h2>
             </div>
-            <table className="w-full">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[700px]">
               <thead>
                 <tr className="border-b border-dark-600">
                   <th className="text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Дата</th>
@@ -319,6 +322,7 @@ export default function CashFlow({ onGoToDebt }: Props) {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </>
       )}

@@ -27,7 +27,12 @@ export default function Debts({ onOpenDebt, onOpenForecast }: Props) {
     setLoading(false)
   }
 
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    load()
+    const handleFocus = () => load()
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, [])
 
   async function handleDelete(debt: Debt, e: React.MouseEvent) {
     e.stopPropagation()

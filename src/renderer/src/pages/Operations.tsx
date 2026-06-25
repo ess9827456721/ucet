@@ -307,8 +307,9 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
       </div>
 
       {/* Table */}
-      <div className="card p-0 overflow-hidden">
-        <table className="w-full">
+      <div className="card p-0">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[800px]">
           <thead>
             <tr className="border-b border-dark-600">
               <th className="text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Дата</th>
@@ -379,6 +380,7 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       {editOp && (

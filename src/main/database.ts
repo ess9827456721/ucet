@@ -196,6 +196,9 @@ function initSchema(): void {
   if (!simpleCols.includes('operation_id')) {
     d.exec('ALTER TABLE simple_debt_payments ADD COLUMN operation_id INTEGER')
   }
+  if (!simpleCols.includes('payment_type')) {
+    d.exec("ALTER TABLE simple_debt_payments ADD COLUMN payment_type TEXT DEFAULT 'mandatory'")
+  }
   const debtCols = (d.prepare('PRAGMA table_info(debts)').all() as Array<{ name: string }>).map(c => c.name)
   if (!debtCols.includes('category')) d.exec('ALTER TABLE debts ADD COLUMN category TEXT')
   if (!debtCols.includes('sort_order')) d.exec('ALTER TABLE debts ADD COLUMN sort_order INTEGER DEFAULT 0')
@@ -574,8 +577,9 @@ export function getDebtsWithDetails(): unknown[] {
         const endStr = fmtDate(currentMonthPayDate)
 
         if (debt.debt_type === 'simple') {
+          // Only mandatory payments close the period; early repayments don't count
           const paid = (d.prepare(
-            'SELECT COALESCE(SUM(total_amount), 0) as total FROM simple_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ?'
+            "SELECT COALESCE(SUM(total_amount), 0) as total FROM simple_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND (payment_type IS NULL OR payment_type = 'mandatory')"
           ).get(debt.id, startStr, endStr) as { total: number }).total
           isOverdue = paid < ((debt.monthly_payment as number | null) ?? 0)
         } else {
@@ -794,12 +798,12 @@ export function getSimpleDebtPayments(debtId: number): unknown[] {
   return getDb().prepare('SELECT * FROM simple_debt_payments WHERE debt_id = ? ORDER BY payment_date DESC').all(debtId)
 }
 
-export function processSimplePayment(debtId: number, amount: number, paymentDate: string, interestPart = 0): void {
+export function processSimplePayment(debtId: number, amount: number, paymentDate: string, interestPart = 0, paymentType: 'mandatory' | 'early' = 'mandatory'): void {
   const d = getDb()
   const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { initial_amount: number; name: string }
   d.transaction(() => {
     const bodyPart = amount - interestPart
-    const paymentId = d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part) VALUES (?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart).lastInsertRowid
+    const paymentId = d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part, payment_type) VALUES (?, ?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart, paymentType).lastInsertRowid
     const paid = (d.prepare('SELECT SUM(body_part) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total || 0
     if (paid >= debt.initial_amount) {
       d.prepare("UPDATE debts SET status = 'closed' WHERE id = ?").run(debtId)

@@ -31,7 +31,7 @@ export function useApi() {
     processDadPayment: (debtId: number, amount: number, date: string) => Promise<unknown>
     getDadPaymentHistory: (debtId: number) => Promise<unknown[]>
     getSimpleDebtPayments: (debtId: number) => Promise<unknown[]>
-    processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) => Promise<void>
+    processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number, paymentType?: string) => Promise<void>
     getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
     getSimpleForecast: (debtId: number, payment: number) => Promise<unknown[]>
     markDadPaymentSufficient: (paymentId: number) => Promise<void>

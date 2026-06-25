@@ -34,8 +34,8 @@ const api = {
     ipcRenderer.invoke('process-dad-payment', debtId, amount, date),
   getDadPaymentHistory: (debtId: number) => ipcRenderer.invoke('get-dad-payment-history', debtId),
   getSimpleDebtPayments: (debtId: number) => ipcRenderer.invoke('get-simple-debt-payments', debtId),
-  processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number) =>
-    ipcRenderer.invoke('process-simple-payment', debtId, amount, date, interestPart),
+  processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number, paymentType?: string) =>
+    ipcRenderer.invoke('process-simple-payment', debtId, amount, date, interestPart, paymentType),
   getDadForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-dad-forecast', debtId, payment),
   getSimpleForecast: (debtId: number, payment: number) => ipcRenderer.invoke('get-simple-forecast', debtId, payment),
   markDadPaymentSufficient: (paymentId: number) => ipcRenderer.invoke('mark-dad-payment-sufficient', paymentId),

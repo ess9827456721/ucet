@@ -34,7 +34,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
   const [payDate, setPayDate] = useState(today())
   const [computedDays, setComputedDays] = useState<{ days: number; since: string } | null>(null)
   const [interestPart, setInterestPart] = useState('')
-  const [isEarlyRepayment, setIsEarlyRepayment] = useState(false)
+  const [simplePaymentType, setSimplePaymentType] = useState<'mandatory' | 'early'>('mandatory')
   const [newMonthlyPayment, setNewMonthlyPayment] = useState('')
   const [payError, setPayError] = useState('')
   const [paying, setPaying] = useState(false)
@@ -99,14 +99,14 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
           }
         }
       } else {
-        await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0)
+        await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0, simplePaymentType)
       }
-      if (isEarlyRepayment && newMonthlyPayment && parseFloat(newMonthlyPayment) > 0) {
+      if (simplePaymentType === 'early' && newMonthlyPayment && parseFloat(newMonthlyPayment) > 0) {
         await api.updateDebt(debtId, { monthly_payment: parseFloat(newMonthlyPayment) })
       }
       setShowPaymentForm(false)
       setPayAmount('')
-      setIsEarlyRepayment(false)
+      setSimplePaymentType('mandatory')
       setNewMonthlyPayment('')
       load()
     } catch {
@@ -344,18 +344,36 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               <input type="number" value={interestPart} onChange={e => setInterestPart(e.target.value)} className="input w-48" />
             </div>
           )}
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isEarlyRepayment}
-              onChange={e => setIsEarlyRepayment(e.target.checked)}
-              className="w-4 h-4 accent-yellow-400"
-            />
-            <span className="text-sm text-gray-300">Досрочное погашение (обновить ежемесячный платёж)</span>
-          </label>
-          {isEarlyRepayment && (
+          {debt.debt_type === 'simple' && (
+            <div className="space-y-2">
+              <label className="label">Тип платежа</label>
+              <div className="flex gap-2">
+                {([['mandatory', 'Обязательный платёж'], ['early', 'Досрочное погашение']] as const).map(([val, label]) => (
+                  <button
+                    key={val}
+                    type="button"
+                    onClick={() => { setSimplePaymentType(val); setNewMonthlyPayment('') }}
+                    className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${
+                      simplePaymentType === val
+                        ? 'bg-yellow-400 text-dark-900'
+                        : 'bg-dark-700 text-gray-400 hover:text-white border border-dark-600'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {simplePaymentType === 'mandatory' && (
+                <p className="text-xs text-gray-500">Закрывает обязательный платёж периода — уведомление о просрочке снимется</p>
+              )}
+              {simplePaymentType === 'early' && (
+                <p className="text-xs text-gray-500">Досрочное погашение тела долга — не закрывает обязательный платёж периода</p>
+              )}
+            </div>
+          )}
+          {simplePaymentType === 'early' && debt.debt_type === 'simple' && (
             <div>
-              <label className="label">Новый ежемесячный платёж, ₽</label>
+              <label className="label">Новый ежемесячный платёж, ₽ (необязательно)</label>
               <input
                 type="number"
                 value={newMonthlyPayment}
@@ -497,11 +515,12 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
 
       {/* Tranches table (dad) */}
       {debt.debt_type === 'dad' && tranches.length > 0 && (
-        <div className="card p-0 overflow-hidden">
+        <div className="card p-0">
           <div className="px-5 py-4 border-b border-dark-600">
             <h2 className="text-base font-semibold">Транши</h2>
           </div>
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px]">
             <thead>
               <tr className="border-b border-dark-600">
                 <th className="text-left text-xs text-gray-400 uppercase tracking-wide px-5 py-3">Дата</th>
@@ -573,16 +592,18 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               })}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 
       {/* Payment history — dad */}
       {debt.debt_type === 'dad' && (
-        <div className="card p-0 overflow-hidden">
+        <div className="card p-0">
           <div className="px-5 py-4 border-b border-dark-600">
             <h2 className="text-base font-semibold">История платежей</h2>
           </div>
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px]">
             <thead>
               <tr className="border-b border-dark-600">
                 <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Дата</th>
@@ -638,16 +659,18 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 
       {/* Payment history — simple */}
       {debt.debt_type === 'simple' && (
-        <div className="card p-0 overflow-hidden">
+        <div className="card p-0">
           <div className="px-5 py-4 border-b border-dark-600">
             <h2 className="text-base font-semibold">История платежей</h2>
           </div>
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px]">
             <thead>
               <tr className="border-b border-dark-600">
                 <th className="text-left text-xs text-gray-400 uppercase px-5 py-3">Дата</th>
@@ -707,6 +730,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>

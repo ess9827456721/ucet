@@ -146,7 +146,12 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
     setLoading(false)
   }, [dateFrom, dateTo, expenseTypeFilter])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    load()
+    const handleFocus = () => load()
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, [load])
 
   function applyPreset(id: string) {
     const { from, to } = getPeriodDates(id)
@@ -227,20 +232,29 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
   const lastSaldo = cfJournal.find(r => r.date === todayStr)?.saldo ?? null
 
   const nowDay = new Date().getDate()
-  const upcomingDebts = activeDebts.filter(d => {
-    if (d.status !== 'active' || !d.payment_day || d.is_hidden) return false
-    const daysUntil = d.payment_day >= nowDay ? d.payment_day - nowDay : 0
-    if (daysUntil > 7) return false
-    // Skip if payment was already made this month
-    if (d.last_payment_date) {
-      const lp = new Date(d.last_payment_date + 'T00:00:00')
-      const now = new Date()
-      if (lp.getFullYear() === now.getFullYear() && lp.getMonth() === now.getMonth()) return false
-    }
-    return true
-  })
+  const upcomingDebts = activeDebts
+    .filter(d => {
+      if (d.status !== 'active' || !d.payment_day || d.is_hidden) return false
+      const daysUntil = d.payment_day >= nowDay ? d.payment_day - nowDay : 0
+      if (daysUntil > 7) return false
+      // Show only if the current period's mandatory payment hasn't been covered yet
+      return d.is_overdue === true
+    })
+    .sort((a, b) => {
+      const aIsBank = a.debt_type === 'simple' && (a.interest_rate ?? 0) > 0 ? 0 : 1
+      const bIsBank = b.debt_type === 'simple' && (b.interest_rate ?? 0) > 0 ? 0 : 1
+      if (aIsBank !== bIsBank) return aIsBank - bIsBank
+      return (a.payment_day ?? 0) - (b.payment_day ?? 0)
+    })
 
-  const debtOwed = activeDebts.filter(d => d.direction === 'i_owe' && !d.is_hidden)
+  const debtOwed = activeDebts
+    .filter(d => d.direction === 'i_owe' && !d.is_hidden)
+    .sort((a, b) => {
+      const aIsBank = a.debt_type === 'simple' && (a.interest_rate ?? 0) > 0 ? 0 : 1
+      const bIsBank = b.debt_type === 'simple' && (b.interest_rate ?? 0) > 0 ? 0 : 1
+      if (aIsBank !== bIsBank) return aIsBank - bIsBank
+      return (b.current_balance ?? b.initial_amount ?? 0) - (a.current_balance ?? a.initial_amount ?? 0)
+    })
   const totalDebtOwed = debtOwed.reduce((s, d) => s + (d.current_balance ?? d.initial_amount ?? 0), 0)
   const totalAccrued = debtOwed.reduce((s, d) => s + (d.accrued_interest ?? 0), 0)
   const totalMonthlyPayment = debtOwed.reduce((s, d) => s + (d.monthly_payment ?? 0), 0)
@@ -285,7 +299,7 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
   // Deterministic color palette for big expenses (no category color available)
   const BIG_COLORS = ['#F59E0B','#EF4444','#8B5CF6','#06B6D4','#10B981','#F97316','#EC4899','#6366F1','#84CC16','#14B8A6']
 
-  const DonutChart = ({ outerRadius = 105, innerRadius = 65, height = 280, threshold = 0.03 }: {
+  const DonutChart = ({ outerRadius = 105, innerRadius = 65, height = 320, threshold = 0.03 }: {
     outerRadius?: number; innerRadius?: number; height?: number; threshold?: number
   }) => {
     if (expenseTypeFilter === 'big') {
