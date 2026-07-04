@@ -1,10 +1,10 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron'
 
 const api = {
   // Operations
   getOperations: (filters: Record<string, unknown>) => ipcRenderer.invoke('get-operations', filters),
   addOperation: (op: Record<string, unknown>) => ipcRenderer.invoke('add-operation', op),
-  importOperations: (ops: Record<string, unknown>[]) => ipcRenderer.invoke('import-operations', ops),
+  importOperations: (ops: Record<string, unknown>[], options?: { skipDuplicates?: boolean }) => ipcRenderer.invoke('import-operations', ops, options),
   updateOperation: (id: number, op: Record<string, unknown>) => ipcRenderer.invoke('update-operation', id, op),
   deleteOperation: (id: number) => ipcRenderer.invoke('delete-operation', id),
 
@@ -45,6 +45,8 @@ const api = {
   updateSimpleDebtPayment: (paymentId: number, amount: number, date: string, interestPart: number) => ipcRenderer.invoke('update-simple-debt-payment', paymentId, amount, date, interestPart),
   hasDadPaymentsAfter: (paymentId: number) => ipcRenderer.invoke('has-dad-payments-after', paymentId),
   hasSimplePaymentsAfter: (paymentId: number) => ipcRenderer.invoke('has-simple-payments-after', paymentId),
+  getEarlyPaymentCandidates: () => ipcRenderer.invoke('get-early-payment-candidates'),
+  markPaymentsEarly: (ids: number[]) => ipcRenderer.invoke('mark-payments-early', ids),
 
   // Analytics
   getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo, expenseType),
@@ -94,6 +96,17 @@ const api = {
   importDb: () => ipcRenderer.invoke('import-db'),
   exportJson: (data: unknown) => ipcRenderer.invoke('export-json', data),
   getDbPath: () => ipcRenderer.invoke('get-db-path'),
+
+  // Updater
+  updaterCheck: () => ipcRenderer.invoke('updater:check'),
+  updaterDownload: () => ipcRenderer.invoke('updater:download'),
+  updaterInstall: () => ipcRenderer.invoke('updater:install'),
+  updaterVersion: () => ipcRenderer.invoke('updater:version'),
+  onUpdaterStatus: (cb: (payload: Record<string, unknown>) => void) => {
+    const listener = (_: IpcRendererEvent, payload: Record<string, unknown>): void => cb(payload)
+    ipcRenderer.on('updater:status', listener)
+    return () => ipcRenderer.removeListener('updater:status', listener)
+  },
 }
 
 contextBridge.exposeInMainWorld('api', api)

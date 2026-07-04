@@ -1,6 +1,8 @@
 node_modules/
 dist/
 dist-electron/
+out/
+*.tsbuildinfo
 .claude/
 *.local
 .DS_Store

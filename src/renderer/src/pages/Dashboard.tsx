@@ -237,8 +237,9 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
       if (d.status !== 'active' || !d.payment_day || d.is_hidden) return false
       const daysUntil = d.payment_day >= nowDay ? d.payment_day - nowDay : 0
       if (daysUntil > 7) return false
-      // Show only if the current period's mandatory payment hasn't been covered yet
-      return d.is_overdue === true
+      // Показываем, пока обязательный платёж текущего периода не внесён —
+      // и заранее (за 7 дней), и после дня платежа (просрочка)
+      return d.period_paid !== true
     })
     .sort((a, b) => {
       const aIsBank = a.debt_type === 'simple' && (a.interest_rate ?? 0) > 0 ? 0 : 1

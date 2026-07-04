@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Debt, SavingsAccount } from '../types'
+import { Category, Subcategory } from '../types'
 import { today, formatMoney } from '../utils'
 
 interface Props {
   onClose: () => void
   onSaved: () => void
   editOperation?: Record<string, unknown>
+  onGoToDebts?: () => void
 }
 
 type OpType = 'income' | 'expense' | 'transfer' | 'debt_op'
 type ExpenseType = 'daily' | 'big' | 'apartment'
 
-export default function TransactionModal({ onClose, onSaved, editOperation }: Props) {
+export default function TransactionModal({ onClose, onSaved, editOperation, onGoToDebts }: Props) {
   const api = useApi()
 
   const [type, setType] = useState<OpType>((editOperation?.type as OpType) || 'expense')
@@ -23,11 +24,9 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   const [subcategoryId, setSubcategoryId] = useState<number | ''>(editOperation?.subcategory_id as number || '')
   const [expenseType, setExpenseType] = useState<ExpenseType>((editOperation?.expense_type as ExpenseType) || 'daily')
   const [comment, setComment] = useState<string>((editOperation?.comment as string) || '')
-  const [debtId, setDebtId] = useState<number | ''>(editOperation?.debt_id as number || '')
 
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
-  const [debts, setDebts] = useState<Debt[]>([])
   const [pendingAutoContrib, setPendingAutoContrib] = useState<Array<{ id: number; name: string; amount: number }>>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
@@ -37,7 +36,6 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   useEffect(() => {
     const catType = type === 'income' ? 'income' : 'expense'
     api.getCategories(catType).then(d => setCategories(d as Category[]))
-    api.getDebts('active').then(d => setDebts(d as Debt[]))
   }, [type])
 
   useEffect(() => {
@@ -71,7 +69,7 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
         subcategory_id: subcategoryId || null,
         expense_type: type === 'expense' ? expenseType : null,
         comment: comment || null,
-        debt_id: type === 'debt_op' ? (debtId || null) : null,
+        debt_id: null,
       }
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id as number, op)
@@ -113,10 +111,11 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     onSaved()
   }
 
+  // Б2 (ТЗ #18): тип «По долгу» убран из ручной формы — addOperation не создаёт запись
+  // в simple/dad_debt_payments и не меняет баланс долга. Платежи вносятся на странице долга.
   const opTypes: Array<{ id: OpType; label: string }> = [
     { id: 'expense', label: 'Расход' },
     { id: 'income', label: 'Доход' },
-    { id: 'debt_op', label: 'По долгу' },
   ]
 
   const expenseTypes: Array<{ id: ExpenseType; label: string }> = [
@@ -239,20 +238,18 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             </div>
           )}
 
-          {/* Debt selector */}
-          {type === 'debt_op' && (
-            <div>
-              <label className="label">Долг</label>
-              <select
-                value={debtId}
-                onChange={e => setDebtId(e.target.value ? Number(e.target.value) : '')}
-                className="select"
-              >
-                <option value="">— Выберите долг —</option>
-                {debts.map(d => (
-                  <option key={d.id} value={d.id}>{d.name}</option>
-                ))}
-              </select>
+          {/* Подсказка о платежах по долгам */}
+          {!editOperation && (
+            <div className="bg-dark-700/60 border border-dark-600 rounded-xl px-4 py-3 text-xs text-gray-400">
+              Платежи по долгам вносятся на странице долга — там они корректно уменьшают остаток.
+              {onGoToDebts && (
+                <button
+                  onClick={onGoToDebts}
+                  className="ml-1 text-yellow-400 hover:underline"
+                >
+                  Перейти к долгам →
+                </button>
+              )}
             </div>
           )}
 

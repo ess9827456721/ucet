@@ -35,7 +35,8 @@ function parseDate(raw: string): string | null {
   return null
 }
 
-function parseAmount(raw: string): number | null {
+function parseAmount(raw: string | null | undefined): number | null {
+  if (raw == null) return null
   const s = raw.trim().replace(/\s/g, '').replace(',', '.')
   const n = parseFloat(s)
   return isNaN(n) || n <= 0 ? null : n
@@ -55,6 +56,8 @@ export default function ImportModal({ onClose, onImported }: Props) {
   const [importing, setImporting] = useState(false)
   const [error, setError] = useState('')
   const [importedCount, setImportedCount] = useState(0)
+  const [duplicatesSkipped, setDuplicatesSkipped] = useState(0)
+  const [importDuplicates, setImportDuplicates] = useState(false)
   const [loading, setLoading] = useState(false)
 
   async function openFile() {
@@ -181,8 +184,9 @@ export default function ImportModal({ onClose, onImported }: Props) {
         })
         .filter(Boolean) as Record<string, unknown>[]
 
-      const count = await api.importOperations(ops)
-      setImportedCount(count)
+      const result = await api.importOperations(ops, { skipDuplicates: !importDuplicates })
+      setImportedCount(result.imported)
+      setDuplicatesSkipped(result.skipped)
       setStep('done')
     } catch (e) {
       setError(String(e))
@@ -351,6 +355,15 @@ export default function ImportModal({ onClose, onImported }: Props) {
                   </div>
                 </details>
               )}
+              <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-400">
+                <input
+                  type="checkbox"
+                  checked={importDuplicates}
+                  onChange={e => setImportDuplicates(e.target.checked)}
+                  className="w-4 h-4 accent-yellow-400"
+                />
+                Импортировать дубликаты (по умолчанию строки, совпадающие по дате, сумме и комментарию с существующими операциями, пропускаются)
+              </label>
               <div className="max-h-48 overflow-y-auto scrollbar-thin">
                 <table className="w-full text-xs">
                   <thead className="sticky top-0 bg-dark-800">
@@ -381,6 +394,9 @@ export default function ImportModal({ onClose, onImported }: Props) {
               <Check size={48} className="text-green-400 mx-auto" />
               <p className="text-xl font-bold text-white">Импорт завершён</p>
               <p className="text-gray-400">Импортировано операций: <b className="text-white">{importedCount}</b></p>
+              {duplicatesSkipped > 0 && (
+                <p className="text-gray-400">Пропущено дубликатов: <b className="text-yellow-400">{duplicatesSkipped}</b></p>
+              )}
             </div>
           )}
         </div>

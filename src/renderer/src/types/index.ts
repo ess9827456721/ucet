@@ -53,6 +53,7 @@ export interface Debt {
   accrued_interest?: number
   last_payment_date?: string | null
   is_overdue?: boolean
+  period_paid?: boolean
 }
 
 export interface Tranche {

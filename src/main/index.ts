@@ -16,9 +16,36 @@ import {
   getSavingsAccounts, getSavingsAccount, addSavingsAccount, updateSavingsAccount, deleteSavingsAccount,
   getSavingsTransactions, addSavingsDeposit, addSavingsWithdrawal, applyAccruedInterest,
   getPendingSavingsInterest, getSavingsForecast, updateSavingsAccountsOrder, getAccountsForAutoContribute,
+  getEarlyPaymentCandidates, markPaymentsEarly,
   exportDb, importDb, getDbPath
 } from './database'
+import { buildAppMenu } from './menu'
+import { initUpdater, checkForUpdatesManual } from './updater'
 import ExcelJS from 'exceljs'
+
+// CSV-парсер с учётом кавычек: поле "Магазин; продукты" не режется по разделителю,
+// "" внутри кавычек — экранированная кавычка (RFC 4180)
+function parseCsvLine(line: string, sep: string): string[] {
+  const cells: string[] = []
+  let cur = ''
+  let inQuotes = false
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i]
+    if (inQuotes) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++ }
+        else inQuotes = false
+      } else cur += ch
+    } else if (ch === '"') {
+      inQuotes = true
+    } else if (ch === sep) {
+      cells.push(cur.trim())
+      cur = ''
+    } else cur += ch
+  }
+  cells.push(cur.trim())
+  return cells
+}
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -27,7 +54,6 @@ function createWindow(): void {
     minWidth: 900,
     minHeight: 600,
     show: false,
-    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -48,14 +74,49 @@ function createWindow(): void {
   }
 }
 
+async function doExportDb(): Promise<string | null> {
+  const result = await dialog.showSaveDialog({
+    defaultPath: `ucet-backup-${new Date().toISOString().slice(0, 10)}.db`,
+    filters: [{ name: 'SQLite Database', extensions: ['db'] }]
+  })
+  if (!result.canceled && result.filePath) {
+    await exportDb(result.filePath)
+    return result.filePath
+  }
+  return null
+}
+
+async function doImportDb(): Promise<boolean> {
+  const result = await dialog.showOpenDialog({
+    filters: [{ name: 'SQLite Database', extensions: ['db'] }],
+    properties: ['openFile']
+  })
+  if (!result.canceled && result.filePaths[0]) {
+    importDb(result.filePaths[0])
+    return true
+  }
+  return false
+}
+
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.ucet.app')
   app.on('browser-window-created', (_, w) => optimizer.watchWindowShortcuts(w))
 
+  // Русское меню — устанавливается до создания окна
+  buildAppMenu({
+    onExportDb: () => { doExportDb() },
+    onImportDb: async () => {
+      const ok = await doImportDb()
+      if (ok) BrowserWindow.getAllWindows().forEach(w => w.webContents.reload())
+    },
+    onCheckUpdates: () => checkForUpdatesManual(),
+  })
+  initUpdater()
+
   // ── Operations ──────────────────────────────────────
   ipcMain.handle('get-operations', (_, filters) => getOperations(filters))
   ipcMain.handle('add-operation', (_, op) => addOperation(op))
-  ipcMain.handle('import-operations', (_, ops) => importOperations(ops))
+  ipcMain.handle('import-operations', (_, ops, options) => importOperations(ops, options))
   ipcMain.handle('update-operation', (_, id, op) => updateOperation(id, op))
   ipcMain.handle('delete-operation', (_, id) => deleteOperation(id))
 
@@ -94,6 +155,8 @@ app.whenReady().then(() => {
   ipcMain.handle('update-simple-debt-payment', (_, paymentId, amount, date, interestPart) => updateSimpleDebtPayment(paymentId, amount, date, interestPart))
   ipcMain.handle('has-dad-payments-after', (_, paymentId) => hasDadPaymentsAfter(paymentId))
   ipcMain.handle('has-simple-payments-after', (_, paymentId) => hasSimplePaymentsAfter(paymentId))
+  ipcMain.handle('get-early-payment-candidates', () => getEarlyPaymentCandidates())
+  ipcMain.handle('mark-payments-early', (_, ids) => markPaymentsEarly(ids))
 
   // ── Recurring operations ─────────────────────────────
   ipcMain.handle('get-recurring-operations', (_, activeOnly) => getRecurringOperations(activeOnly))
@@ -139,29 +202,9 @@ app.whenReady().then(() => {
   ipcMain.handle('delete-mandatory-expense-item', (_, id) => deleteMandatoryExpenseItem(id))
 
   // ── Backup ───────────────────────────────────────────
-  ipcMain.handle('export-db', async () => {
-    const result = await dialog.showSaveDialog({
-      defaultPath: `ucet-backup-${new Date().toISOString().slice(0, 10)}.db`,
-      filters: [{ name: 'SQLite Database', extensions: ['db'] }]
-    })
-    if (!result.canceled && result.filePath) {
-      exportDb(result.filePath)
-      return result.filePath
-    }
-    return null
-  })
+  ipcMain.handle('export-db', () => doExportDb())
 
-  ipcMain.handle('import-db', async () => {
-    const result = await dialog.showOpenDialog({
-      filters: [{ name: 'SQLite Database', extensions: ['db'] }],
-      properties: ['openFile']
-    })
-    if (!result.canceled && result.filePaths[0]) {
-      importDb(result.filePaths[0])
-      return true
-    }
-    return false
-  })
+  ipcMain.handle('import-db', () => doImportDb())
 
   ipcMain.handle('export-json', async (_, data: unknown) => {
     const result = await dialog.showSaveDialog({
@@ -195,16 +238,23 @@ app.whenReady().then(() => {
         const lines = text.split(/\r?\n/).filter(l => l.trim())
         if (lines.length === 0) return { error: 'Файл пустой' }
         const sep = lines[0].includes(';') ? ';' : ','
-        const rows = lines.map(l => l.split(sep).map(c => c.trim().replace(/^"|"$/g, '')))
+        const rows = lines.map(l => parseCsvLine(l, sep))
         return { headers: rows[0], rows: rows.slice(1) }
       } else {
         const wb = new ExcelJS.Workbook()
         await wb.xlsx.readFile(filePath)
         const ws = wb.worksheets[0]
         if (!ws) return { error: 'Нет листов в файле' }
+        // row.values у ExcelJS — разреженный массив: пустые ячейки в середине строки
+        // дают дыры (undefined). Собираем строки плотно через getCell.
+        const colCount = ws.columnCount
         const rows: string[][] = []
         ws.eachRow(row => {
-          rows.push((row.values as (string | number | null | undefined)[]).slice(1).map(v => v == null ? '' : String(v)))
+          const cells: string[] = []
+          for (let i = 1; i <= colCount; i++) {
+            cells.push(row.getCell(i).text ?? '')
+          }
+          rows.push(cells)
         })
         if (rows.length === 0) return { error: 'Файл пустой' }
         return { headers: rows[0], rows: rows.slice(1) }

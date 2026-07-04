@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Plus, Archive, Download, Upload, FolderOpen, Pencil, Check, X as XIcon } from 'lucide-react'
+import { Plus, Archive, Download, Upload, FolderOpen, Pencil, Check, X as XIcon, RefreshCw } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { Category, Subcategory } from '../types'
 
@@ -13,6 +13,13 @@ export default function SettingsPage() {
   const [selectedCat, setSelectedCat] = useState<Category | null>(null)
   const [dbPath, setDbPath] = useState('')
   const [statusMsg, setStatusMsg] = useState('')
+
+  // Updater state
+  const [appVersion, setAppVersion] = useState('')
+  const [updStatus, setUpdStatus] = useState<string>('idle')
+  const [updVersion, setUpdVersion] = useState('')
+  const [updProgress, setUpdProgress] = useState(0)
+  const [updError, setUpdError] = useState('')
 
   // Inline edit state
   const [editCat, setEditCat] = useState<EditCatState | null>(null)
@@ -39,7 +46,27 @@ export default function SettingsPage() {
   useEffect(() => {
     loadCategories()
     api.getDbPath().then(p => setDbPath(p))
+    api.updaterVersion?.().then(v => setAppVersion(v)).catch(() => {})
+    const unsubscribe = api.onUpdaterStatus?.(payload => {
+      const st = payload.status as string
+      setUpdStatus(st)
+      if (st === 'available' || st === 'downloaded') setUpdVersion(String(payload.version ?? ''))
+      if (st === 'progress') setUpdProgress(Number(payload.percent ?? 0))
+      if (st === 'error') setUpdError(String(payload.message ?? ''))
+      else setUpdError('')
+    })
+    return () => { unsubscribe?.() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  async function handleCheckUpdates() {
+    setUpdError('')
+    const r = await api.updaterCheck()
+    if (r?.dev) {
+      setUpdStatus('idle')
+      showStatus('Проверка обновлений доступна только в установленной версии приложения')
+    }
+  }
 
   useEffect(() => {
     if (selectedCat) loadSubs(selectedCat.id)
@@ -135,6 +162,38 @@ export default function SettingsPage() {
             <Upload size={16} /> Импортировать базу данных
           </button>
         </div>
+      </div>
+
+      {/* Updates */}
+      <div className="card space-y-4">
+        <h2 className="text-base font-semibold text-white">Обновления</h2>
+        <p className="text-xs text-gray-500">Текущая версия: <span className="text-white font-mono">{appVersion || '—'}</span></p>
+        {updStatus === 'checking' && <p className="text-sm text-gray-400">Проверка обновлений…</p>}
+        {updStatus === 'not-available' && <p className="text-sm text-green-400">Установлена последняя версия</p>}
+        {updStatus === 'available' && (
+          <div className="flex items-center gap-3">
+            <p className="text-sm text-yellow-400">Доступна новая версия {updVersion}</p>
+            <button onClick={() => api.updaterDownload()} className="btn-primary text-sm">Скачать</button>
+          </div>
+        )}
+        {updStatus === 'progress' && (
+          <div className="space-y-1">
+            <p className="text-sm text-gray-400">Скачивание обновления: {updProgress}%</p>
+            <div className="h-2 bg-dark-700 rounded-full overflow-hidden">
+              <div className="h-full bg-yellow-400 transition-all" style={{ width: `${updProgress}%` }} />
+            </div>
+          </div>
+        )}
+        {updStatus === 'downloaded' && (
+          <div className="flex items-center gap-3">
+            <p className="text-sm text-green-400">Обновление {updVersion} скачано</p>
+            <button onClick={() => api.updaterInstall()} className="btn-primary text-sm">Перезапустить и установить</button>
+          </div>
+        )}
+        {updError && <p className="text-sm text-red-400">Ошибка обновления: {updError}</p>}
+        <button onClick={handleCheckUpdates} className="btn-secondary flex items-center gap-2 text-sm">
+          <RefreshCw size={14} /> Проверить обновления
+        </button>
       </div>
 
       {/* Categories */}

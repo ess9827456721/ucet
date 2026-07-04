@@ -3,6 +3,7 @@ import { app } from 'electron'
 import path from 'path'
 import fs from 'fs'
 import { calculateDadDebtPayment, getForecastPayments, DadDebtSettings } from './debtAlgorithm'
+import { fmtDateLocal, paymentPeriod, isOverdue as computeIsOverdue, trancheAccruedInterest, splitSimplePayment, dailySavingsInterest, SavingsTxLike } from './finance'
 
 const DB_PATH = path.join(app.getPath('userData'), 'ucet.db')
 let db: Database.Database
@@ -287,9 +288,10 @@ export function getOperations(filters: {
   if (filters.dateFrom) { parts.push('o.date >= ?'); params.push(filters.dateFrom) }
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
+  // Независимые условия (Б7): категория + «без подкатегории» должны работать вместе
   if (filters.noCategory) { parts.push("o.category_id IS NULL AND o.type = 'expense'") }
-  else if (filters.noSubcategory) { parts.push('o.subcategory_id IS NULL') }
-  else if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
+  if (filters.noSubcategory) { parts.push('o.subcategory_id IS NULL') }
+  if (filters.categoryId) { parts.push('o.category_id = ?'); params.push(filters.categoryId) }
   if (filters.subcategoryId) { parts.push('o.subcategory_id = ?'); params.push(filters.subcategoryId) }
   if (filters.commentSearch) { parts.push('o.comment LIKE ?'); params.push(`%${filters.commentSearch}%`) }
   if (filters.amountFrom != null) { parts.push('o.amount >= ?'); params.push(filters.amountFrom) }
@@ -351,14 +353,34 @@ export function importOperations(ops: Array<{
   subcategory_id?: number | null
   expense_type?: string | null
   comment?: string | null
-}>): number {
+}>, options?: { skipDuplicates?: boolean }): { imported: number; skipped: number } {
   const d = getDb()
+  const skipDuplicates = options?.skipDuplicates ?? true
   const stmt = d.prepare(`
     INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id)
     VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, NULL, @comment, NULL)
   `)
+
+  // Б9: защита от повторного импорта — ключ date|amount|comment по существующим операциям
+  // в диапазоне дат импортируемого файла
+  const makeKey = (date: string, amount: number, comment: string | null | undefined): string =>
+    `${date}|${amount.toFixed(2)}|${comment ?? ''}`
+  let existingKeys = new Set<string>()
+  if (skipDuplicates && ops.length > 0) {
+    const dates = ops.map(o => o.date).sort()
+    const existing = d.prepare('SELECT date, amount, comment FROM operations WHERE date >= ? AND date <= ?')
+      .all(dates[0], dates[dates.length - 1]) as Array<{ date: string; amount: number; comment: string | null }>
+    existingKeys = new Set(existing.map(e => makeKey(e.date, e.amount, e.comment)))
+  }
+
   const insertMany = d.transaction((rows: typeof ops) => {
+    let imported = 0
+    let skipped = 0
     for (const op of rows) {
+      if (skipDuplicates && existingKeys.has(makeKey(op.date, op.amount, op.comment))) {
+        skipped++
+        continue
+      }
       stmt.run({
         ...op,
         category_id: op.category_id ?? null,
@@ -366,10 +388,11 @@ export function importOperations(ops: Array<{
         expense_type: op.expense_type ?? null,
         comment: op.comment ?? null,
       })
+      imported++
     }
-    return rows.length
+    return { imported, skipped }
   })
-  return insertMany(ops) as number
+  return insertMany(ops) as { imported: number; skipped: number }
 }
 
 export function updateOperation(id: number, op: {
@@ -447,7 +470,32 @@ export function getDebts(status?: string): unknown[] {
 }
 
 export function getDebt(id: number): unknown {
-  return getDb().prepare('SELECT * FROM debts WHERE id = ?').get(id)
+  const d = getDb()
+  const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(id) as {
+    id: number; debt_type: string; initial_amount: number | null
+    interest_rate: number | null; loan_date: string | null; created_at: string
+  } | undefined
+  if (!debt) return undefined
+
+  // accrued_interest считается на backend (Б4) — фронт не дублирует расчёт
+  const today = new Date()
+  let accruedInterest = 0
+  if (debt.debt_type === 'dad') {
+    const lastPay = d.prepare('SELECT MAX(payment_date) as dt FROM dad_debt_payments WHERE debt_id = ?').get(debt.id) as { dt: string | null }
+    const tranches = d.prepare(
+      "SELECT current_balance, interest_rate, date FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
+    ).all(debt.id) as Array<{ current_balance: number; interest_rate: number; date: string }>
+    accruedInterest = trancheAccruedInterest(tranches, lastPay.dt, today)
+  } else if (debt.interest_rate) {
+    const paid = (d.prepare('SELECT COALESCE(SUM(body_part),0) as paid FROM simple_debt_payments WHERE debt_id = ?').get(debt.id) as { paid: number }).paid
+    const currentBalance = Math.max(0, (debt.initial_amount || 0) - paid)
+    const lastPay = d.prepare('SELECT MAX(payment_date) as dt FROM simple_debt_payments WHERE debt_id = ?').get(debt.id) as { dt: string | null }
+    const startStr = lastPay.dt ?? debt.loan_date ?? debt.created_at
+    const startDate = new Date(startStr + (startStr.includes('T') ? '' : 'T00:00:00'))
+    const days = Math.max(0, Math.round((today.getTime() - startDate.getTime()) / 86400000))
+    accruedInterest = currentBalance * debt.interest_rate * (days / 365)
+  }
+  return { ...debt, accrued_interest: accruedInterest }
 }
 
 export function addDebt(debt: {
@@ -531,20 +579,9 @@ export function getDebtsWithDetails(): unknown[] {
         "SELECT current_balance, interest_rate, date FROM debt_tranches WHERE debt_id = ? AND status = 'active'"
       ).all(debt.id) as Array<{ current_balance: number; interest_rate: number; date: string }>
 
-      if (lastPay.dt) {
-        const lastPaymentDate = new Date(lastPay.dt + 'T00:00:00')
-        const days = Math.max(0, Math.round((today.getTime() - lastPaymentDate.getTime()) / 86400000))
-        const trancheInterest = tranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
-        accruedInterest = trancheInterest
-      } else {
-        // No payments yet — compute per-tranche interest from each tranche's own date
-        const trancheInterest = tranches.reduce((s, t) => {
-          const tDate = new Date(t.date + 'T00:00:00')
-          const days = Math.max(0, Math.round((today.getTime() - tDate.getTime()) / 86400000))
-          return s + t.current_balance * t.interest_rate * (days / 365)
-        }, 0)
-        accruedInterest = trancheInterest
-      }
+      // Per-tranche: interest accrues from max(trancheDate, lastPaymentDate) —
+      // a tranche issued after the last payment must not accrue interest for days before it existed
+      accruedInterest = trancheAccruedInterest(tranches, lastPay.dt, today)
     } else {
       const row = d.prepare(
         'SELECT COALESCE(SUM(body_part),0) as paid FROM simple_debt_payments WHERE debt_id = ?'
@@ -562,36 +599,32 @@ export function getDebtsWithDetails(): unknown[] {
       accruedInterest = debt.interest_rate ? currentBalance * debt.interest_rate * (days / 365) : 0
     }
 
-    // Compute is_overdue
+    // period_paid: обязательный платёж текущего периода [payDay прошлого месяца .. payDay текущего]
+    // внесён — считается независимо от того, наступила ли дата платежа (Б1).
+    // is_overdue: дата платежа прошла (со следующего дня, Б11) И period_paid=false.
+    let periodPaid = false
     let isOverdue = false
     const payDay = debt.payment_day as number | null
     const debtStatus = debt.status as string
     if (payDay && debtStatus === 'active') {
-      const currentMonthPayDate = new Date(today.getFullYear(), today.getMonth(), payDay)
-      if (today > currentMonthPayDate) {
-        const prevYear = currentMonthPayDate.getMonth() === 0 ? currentMonthPayDate.getFullYear() - 1 : currentMonthPayDate.getFullYear()
-        const prevMonth = currentMonthPayDate.getMonth() === 0 ? 11 : currentMonthPayDate.getMonth() - 1
-        const periodStart = new Date(prevYear, prevMonth, payDay)
-        const fmtDate = (dt: Date) => dt.toISOString().slice(0, 10)
-        const startStr = fmtDate(periodStart)
-        const endStr = fmtDate(currentMonthPayDate)
+      const { startStr, endStr, todayStr } = paymentPeriod(today, payDay)
 
-        if (debt.debt_type === 'simple') {
-          // Only mandatory payments close the period; early repayments don't count
-          const paid = (d.prepare(
-            "SELECT COALESCE(SUM(total_amount), 0) as total FROM simple_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND (payment_type IS NULL OR payment_type = 'mandatory')"
-          ).get(debt.id, startStr, endStr) as { total: number }).total
-          isOverdue = paid < ((debt.monthly_payment as number | null) ?? 0)
-        } else {
-          const sufficient = (d.prepare(
-            'SELECT COUNT(*) as c FROM dad_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND total_amount > 0 AND (overdue_added_to_pool = 0 OR marked_sufficient = 1)'
-          ).get(debt.id, startStr, endStr) as { c: number }).c
-          isOverdue = sufficient === 0
-        }
+      if (debt.debt_type === 'simple') {
+        // Only mandatory payments close the period; early repayments don't count
+        const paid = (d.prepare(
+          "SELECT COALESCE(SUM(total_amount), 0) as total FROM simple_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND (payment_type IS NULL OR payment_type = 'mandatory')"
+        ).get(debt.id, startStr, endStr) as { total: number }).total
+        periodPaid = paid >= ((debt.monthly_payment as number | null) ?? 0)
+      } else {
+        const sufficient = (d.prepare(
+          'SELECT COUNT(*) as c FROM dad_debt_payments WHERE debt_id = ? AND payment_date >= ? AND payment_date <= ? AND total_amount > 0 AND (overdue_added_to_pool = 0 OR marked_sufficient = 1)'
+        ).get(debt.id, startStr, endStr) as { c: number }).c
+        periodPaid = sufficient > 0
       }
+      isOverdue = computeIsOverdue(todayStr, endStr, periodPaid)
     }
 
-    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest, last_payment_date: lastPaymentDateStr, is_overdue: isOverdue }
+    return { ...debt, current_balance: currentBalance, accrued_interest: accruedInterest, last_payment_date: lastPaymentDateStr, is_overdue: isOverdue, period_paid: periodPaid }
   })
 }
 
@@ -798,11 +831,14 @@ export function getSimpleDebtPayments(debtId: number): unknown[] {
   return getDb().prepare('SELECT * FROM simple_debt_payments WHERE debt_id = ? ORDER BY payment_date DESC').all(debtId)
 }
 
-export function processSimplePayment(debtId: number, amount: number, paymentDate: string, interestPart = 0, paymentType: 'mandatory' | 'early' = 'mandatory'): void {
+export function processSimplePayment(debtId: number, amount: number, paymentDate: string, interestPart = 0, paymentType: 'mandatory' | 'early' = 'mandatory'): { overpayment: number } {
   const d = getDb()
   const debt = d.prepare('SELECT * FROM debts WHERE id = ?').get(debtId) as { initial_amount: number; name: string }
-  d.transaction(() => {
-    const bodyPart = amount - interestPart
+  return d.transaction(() => {
+    // Б5: тело платежа ограничено остатком долга, излишек возвращается как overpayment
+    const paidBefore = (d.prepare('SELECT COALESCE(SUM(body_part),0) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total
+    const remaining = Math.max(0, (debt.initial_amount || 0) - paidBefore)
+    const { bodyPart, overpayment } = splitSimplePayment(amount, interestPart, remaining)
     const paymentId = d.prepare('INSERT INTO simple_debt_payments (debt_id, payment_date, total_amount, interest_part, body_part, payment_type) VALUES (?, ?, ?, ?, ?, ?)').run(debtId, paymentDate, amount, interestPart, bodyPart, paymentType).lastInsertRowid
     const paid = (d.prepare('SELECT SUM(body_part) as total FROM simple_debt_payments WHERE debt_id = ?').get(debtId) as { total: number }).total || 0
     if (paid >= debt.initial_amount) {
@@ -813,6 +849,7 @@ export function processSimplePayment(debtId: number, amount: number, paymentDate
       VALUES (?, 'debt_op', ?, NULL, NULL, NULL, NULL, ?, ?)
     `).run(paymentDate, amount, `Платёж по долгу: ${debt.name}`, debtId).lastInsertRowid
     d.prepare('UPDATE simple_debt_payments SET operation_id = ? WHERE id = ?').run(opId, paymentId)
+    return { overpayment }
   })()
 }
 
@@ -1052,7 +1089,7 @@ export function deleteRecurringOperation(id: number): void {
 
 export function getPendingRecurringOperations(): unknown[] {
   const d = getDb()
-  const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM
+  const currentMonth = fmtDateLocal(new Date()).slice(0, 7) // YYYY-MM
   return d.prepare(`
     SELECT r.*, c.name as category_name, c.color as category_color
     FROM recurring_operations r
@@ -1125,8 +1162,9 @@ export function deleteSavingsGoal(id: number): void {
 export function getSummary(dateFrom: string, dateTo: string, expenseType?: string): unknown {
   const d = getDb()
   const income = (d.prepare("SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='income' AND date >= ? AND date <= ?").get(dateFrom, dateTo) as { total: number }).total
-  const etClause = expenseType ? ` AND expense_type = '${expenseType}'` : ''
-  const expense = (d.prepare(`SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense'${etClause} AND date >= ? AND date <= ?`).get(dateFrom, dateTo) as { total: number }).total
+  const etClause = expenseType ? ' AND expense_type = ?' : ''
+  const etParams = expenseType ? [expenseType] : []
+  const expense = (d.prepare(`SELECT COALESCE(SUM(amount),0) as total FROM operations WHERE type='expense'${etClause} AND date >= ? AND date <= ?`).get(...etParams, dateFrom, dateTo) as { total: number }).total
   // debt_op — платежи по долгам; учитываются в балансе, но не имеют expense_type, поэтому отдельно
   const debtOps = expenseType
     ? 0
@@ -1136,25 +1174,27 @@ export function getSummary(dateFrom: string, dateTo: string, expenseType?: strin
 }
 
 export function getExpensesByCategory(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
-  const etClause = expenseType ? ` AND o.expense_type = '${expenseType}'` : ''
+  const etClause = expenseType ? ' AND o.expense_type = ?' : ''
+  const etParams = expenseType ? [expenseType] : []
   return getDb().prepare(`
     SELECT COALESCE(c.id, -1) as id, COALESCE(c.name, 'Без категории') as name, COALESCE(c.color, '#6B7280') as color, SUM(o.amount) as total
     FROM operations o
     LEFT JOIN categories c ON o.category_id = c.id
     WHERE o.type = 'expense'${etClause} AND o.date >= ? AND o.date <= ?
     GROUP BY COALESCE(c.id, -1) ORDER BY total DESC
-  `).all(dateFrom, dateTo)
+  `).all(...etParams, dateFrom, dateTo)
 }
 
 export function getExpensesBySubcategory(categoryId: number, dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
-  const etClause = expenseType ? ` AND o.expense_type = '${expenseType}'` : ''
+  const etClause = expenseType ? ' AND o.expense_type = ?' : ''
+  const etParams = expenseType ? [expenseType] : []
   return getDb().prepare(`
     SELECT COALESCE(s.id, -1) as id, COALESCE(s.name, 'Без подкатегории') as name, SUM(o.amount) as total
     FROM operations o
     LEFT JOIN subcategories s ON o.subcategory_id = s.id
     WHERE o.type = 'expense' AND o.category_id = ?${etClause} AND o.date >= ? AND o.date <= ?
     GROUP BY COALESCE(s.id, -1) ORDER BY total DESC
-  `).all(categoryId, dateFrom, dateTo)
+  `).all(categoryId, ...etParams, dateFrom, dateTo)
 }
 
 export function getBigExpensesBreakdown(dateFrom: string, dateTo: string): unknown[] {
@@ -1167,14 +1207,15 @@ export function getBigExpensesBreakdown(dateFrom: string, dateTo: string): unkno
 }
 
 export function getDailyExpenses(dateFrom: string, dateTo: string, expenseType?: string): unknown[] {
-  const etFilter = expenseType ? ` AND expense_type = '${expenseType}'` : ''
+  const etFilter = expenseType ? ' AND expense_type = ?' : ''
+  const etParams = expenseType ? [expenseType] : []
   return getDb().prepare(`
     SELECT date,
       SUM(CASE WHEN type='expense'${etFilter} THEN amount ELSE 0 END) as expenses,
       SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as income
     FROM operations WHERE date >= ? AND date <= ?
     GROUP BY date ORDER BY date ASC
-  `).all(dateFrom, dateTo)
+  `).all(...etParams, dateFrom, dateTo)
 }
 
 export function getExpensesByType(dateFrom: string, dateTo: string): unknown[] {
@@ -1326,10 +1367,12 @@ function calcAccruedInterest(account: SavingsAccountRow, asOf: Date): number {
   const lastInt = d.prepare(
     "SELECT MAX(date) as dt FROM savings_transactions WHERE account_id = ? AND type = 'interest'"
   ).get(account.id) as { dt: string | null }
-  const sinceStr = lastInt.dt ?? account.opened_at
-  const sinceDate = new Date(sinceStr + 'T00:00:00')
-  const days = Math.max(0, Math.round((asOf.getTime() - sinceDate.getTime()) / 86400000))
-  return account.balance * account.interest_rate * (days / 365)
+  const sinceStr = (lastInt.dt ?? account.opened_at).slice(0, 10)
+  // Б6: проценты по фактическим дневным остаткам, а не по текущему балансу за весь период
+  const txs = d.prepare(
+    'SELECT type, amount, date FROM savings_transactions WHERE account_id = ? AND date > ? ORDER BY date ASC, id ASC'
+  ).all(account.id, sinceStr) as SavingsTxLike[]
+  return dailySavingsInterest(account.balance, account.interest_rate, account.interest_mode, sinceStr, asOf, txs)
 }
 
 export function getSavingsAccounts(): unknown[] {
@@ -1373,11 +1416,11 @@ export function addSavingsAccount(data: {
       notify_contribution: data.notify_contribution ?? 0,
       notify_day: data.notify_day ?? null,
       color: data.color ?? '#22C55E',
-      opened_at: data.opened_at ?? new Date().toISOString().slice(0, 10),
+      opened_at: data.opened_at ?? fmtDateLocal(new Date()),
     }).lastInsertRowid as number
 
     if (data.initial_balance && data.initial_balance > 0) {
-      const dateStr = data.opened_at ?? new Date().toISOString().slice(0, 10)
+      const dateStr = data.opened_at ?? fmtDateLocal(new Date())
       const txId = d.prepare(
         "INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'deposit', ?, ?, 'Начальный баланс')"
       ).run(id, data.initial_balance, dateStr).lastInsertRowid
@@ -1452,7 +1495,7 @@ export function applyAccruedInterest(accountId: number): void {
   const today = new Date()
   const amount = calcAccruedInterest(acc, today)
   if (amount < 0.01) return
-  const dateStr = today.toISOString().slice(0, 10)
+  const dateStr = fmtDateLocal(today)
 
   d.transaction(() => {
     d.prepare("INSERT INTO savings_transactions (account_id, type, amount, date, comment) VALUES (?, 'interest', ?, ?, 'Начисление процентов')").run(accountId, amount, dateStr)
@@ -1478,11 +1521,11 @@ export function getPendingSavingsInterest(): unknown[] {
     const lastInt = d.prepare(
       "SELECT MAX(date) as dt FROM savings_transactions WHERE account_id = ? AND type = 'interest'"
     ).get(acc.id) as { dt: string | null }
-    const sinceStr = lastInt.dt ?? acc.opened_at
+    const sinceStr = (lastInt.dt ?? acc.opened_at).slice(0, 10)
     const sinceDate = new Date(sinceStr + 'T00:00:00')
     const days = Math.round((today.getTime() - sinceDate.getTime()) / 86400000)
     if (days < 1) continue
-    const amount = acc.balance * acc.interest_rate * (days / 365)
+    const amount = calcAccruedInterest(acc, today)
     if (amount < 0.01) continue
 
     // Check payout_period timing
@@ -1532,12 +1575,42 @@ export function getAccountsForAutoContribute(): unknown[] {
 }
 
 // ──────────────────────────────────────────────────────────────
+// Разовая разметка исторических досрочных платежей (Б12)
+// ──────────────────────────────────────────────────────────────
+
+// Кандидаты в «досрочные»: mandatory-платежи с суммой > 2 × monthly_payment долга.
+// Показывается один раз после обновления (флаг early_markup_done в budget_settings).
+export function getEarlyPaymentCandidates(): unknown[] {
+  const d = getDb()
+  const done = d.prepare("SELECT value FROM budget_settings WHERE key = 'early_markup_done'").get() as { value: string } | undefined
+  if (done?.value === '1') return []
+  return d.prepare(`
+    SELECT p.id, p.debt_id, p.payment_date, p.total_amount, d.name as debt_name, d.monthly_payment
+    FROM simple_debt_payments p
+    JOIN debts d ON p.debt_id = d.id
+    WHERE (p.payment_type IS NULL OR p.payment_type = 'mandatory')
+      AND d.monthly_payment IS NOT NULL AND d.monthly_payment > 0
+      AND p.total_amount > 2 * d.monthly_payment
+    ORDER BY p.payment_date ASC
+  `).all()
+}
+
+export function markPaymentsEarly(paymentIds: number[]): void {
+  const d = getDb()
+  d.transaction(() => {
+    const stmt = d.prepare("UPDATE simple_debt_payments SET payment_type = 'early' WHERE id = ?")
+    for (const id of paymentIds) stmt.run(id)
+    d.prepare("INSERT OR REPLACE INTO budget_settings (key, value) VALUES ('early_markup_done', '1')").run()
+  })()
+}
+
+// ──────────────────────────────────────────────────────────────
 // Backup / Export
 // ──────────────────────────────────────────────────────────────
 
-export function exportDb(targetPath: string): void {
+export async function exportDb(targetPath: string): Promise<void> {
   const d = getDb()
-  d.backup(targetPath)
+  await d.backup(targetPath)
 }
 
 export function importDb(sourcePath: string): void {

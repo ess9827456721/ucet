@@ -6,7 +6,7 @@ export function useApi() {
     addOperation: (op: Record<string, unknown>) => Promise<number>
     updateOperation: (id: number, op: Record<string, unknown>) => Promise<void>
     deleteOperation: (id: number) => Promise<void>
-    importOperations: (ops: Record<string, unknown>[]) => Promise<number>
+    importOperations: (ops: Record<string, unknown>[], options?: { skipDuplicates?: boolean }) => Promise<{ imported: number; skipped: number }>
 
     getCategories: (type?: string) => Promise<unknown[]>
     getSubcategories: (catId?: number) => Promise<unknown[]>
@@ -31,7 +31,7 @@ export function useApi() {
     processDadPayment: (debtId: number, amount: number, date: string) => Promise<unknown>
     getDadPaymentHistory: (debtId: number) => Promise<unknown[]>
     getSimpleDebtPayments: (debtId: number) => Promise<unknown[]>
-    processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number, paymentType?: string) => Promise<void>
+    processSimplePayment: (debtId: number, amount: number, date: string, interestPart?: number, paymentType?: string) => Promise<{ overpayment: number }>
     getDadForecast: (debtId: number, payment: number) => Promise<unknown[]>
     getSimpleForecast: (debtId: number, payment: number) => Promise<unknown[]>
     markDadPaymentSufficient: (paymentId: number) => Promise<void>
@@ -41,6 +41,8 @@ export function useApi() {
     updateSimpleDebtPayment: (paymentId: number, amount: number, date: string, interestPart: number) => Promise<void>
     hasDadPaymentsAfter: (paymentId: number) => Promise<boolean>
     hasSimplePaymentsAfter: (paymentId: number) => Promise<boolean>
+    getEarlyPaymentCandidates: () => Promise<unknown[]>
+    markPaymentsEarly: (ids: number[]) => Promise<void>
 
     getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown>
     getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
@@ -85,5 +87,11 @@ export function useApi() {
     importDb: () => Promise<boolean>
     exportJson: (data: unknown) => Promise<string | null>
     getDbPath: () => Promise<string>
+
+    updaterCheck: () => Promise<{ dev: boolean }>
+    updaterDownload: () => Promise<void>
+    updaterInstall: () => Promise<void>
+    updaterVersion: () => Promise<string>
+    onUpdaterStatus: (cb: (payload: Record<string, unknown>) => void) => () => void
   }
 }
