@@ -1,6 +1,41 @@
 // Чистые финансовые функции, выделенные из database.ts для тестируемости (ТЗ #18, Этап 1).
 
 /**
+ * CSV-парсер строки с учётом кавычек (RFC 4180): поле "Магазин; продукты"
+ * не режется по разделителю, "" внутри кавычек — экранированная кавычка (Б8).
+ */
+export function parseCsvLine(line: string, sep: string): string[] {
+  const cells: string[] = []
+  let cur = ''
+  let inQuotes = false
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i]
+    if (inQuotes) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++ }
+        else inQuotes = false
+      } else cur += ch
+    } else if (ch === '"') {
+      inQuotes = true
+    } else if (ch === sep) {
+      cells.push(cur.trim())
+      cur = ''
+    } else cur += ch
+  }
+  cells.push(cur.trim())
+  return cells
+}
+
+/**
+ * Перенос остатка бюджета (Этап 7.3): неистраченная часть лимита прошлого
+ * месяца добавляется к лимиту текущего.
+ */
+export function budgetCarryover(monthlyLimit: number, spentPrev: number, rollover: boolean): number {
+  if (!rollover) return 0
+  return Math.max(0, monthlyLimit - spentPrev)
+}
+
+/**
  * Форматирование даты в YYYY-MM-DD по ЛОКАЛЬНОМУ времени.
  * Б3: toISOString() от локальной полуночи в UTC+N даёт предыдущий день —
  * границы платёжного периода сдвигались на сутки.

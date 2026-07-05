@@ -209,6 +209,34 @@ function initSchema(): void {
   if (!debtCols.includes('loan_date')) d.exec('ALTER TABLE debts ADD COLUMN loan_date TEXT')
   if (!debtCols.includes('tranche_payoff_order')) d.exec("ALTER TABLE debts ADD COLUMN tranche_payoff_order TEXT DEFAULT 'highest_rate'")
   if (!debtCols.includes('pool_ratio')) d.exec('ALTER TABLE debts ADD COLUMN pool_ratio REAL DEFAULT 0.5')
+
+  // ТЗ #18 Этап 7: счета, переводы, теги, бюджеты, правила импорта
+  const accCols = (d.prepare('PRAGMA table_info(accounts)').all() as Array<{ name: string }>).map(c => c.name)
+  if (!accCols.includes('archived')) d.exec('ALTER TABLE accounts ADD COLUMN archived INTEGER DEFAULT 0')
+  if (!accCols.includes('initial_balance')) d.exec('ALTER TABLE accounts ADD COLUMN initial_balance REAL DEFAULT 0')
+  if (!opCols.includes('transfer_to_account_id')) d.exec('ALTER TABLE operations ADD COLUMN transfer_to_account_id INTEGER REFERENCES accounts(id)')
+  if (!opCols.includes('tags')) d.exec('ALTER TABLE operations ADD COLUMN tags TEXT')
+  if ((d.prepare('SELECT COUNT(*) as c FROM accounts').get() as { c: number }).c === 0) {
+    d.prepare('INSERT INTO accounts (name, balance) VALUES (?, 0)').run('Основной счёт')
+  }
+  d.exec(`
+    CREATE TABLE IF NOT EXISTS category_budgets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      category_id INTEGER UNIQUE NOT NULL REFERENCES categories(id),
+      monthly_limit REAL NOT NULL,
+      rollover INTEGER DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS import_rules (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      pattern TEXT NOT NULL,
+      category_id INTEGER REFERENCES categories(id),
+      subcategory_id INTEGER REFERENCES subcategories(id),
+      split_amount REAL,
+      split_category_id INTEGER REFERENCES categories(id),
+      created_at TEXT DEFAULT (datetime('now'))
+    );
+  `)
 }
 
 function seedDefaultData(d: Database.Database): void {
@@ -279,12 +307,22 @@ export function getOperations(filters: {
   debtId?: number
   noCategory?: boolean
   noSubcategory?: boolean
+  accountId?: number
+  tag?: string
   limit?: number
   offset?: number
 }): unknown[] {
   const d = getDb()
   const parts: string[] = ['1=1']
   const params: unknown[] = []
+  if (filters.accountId) {
+    parts.push('(COALESCE(o.account_id, ?) = ? OR o.transfer_to_account_id = ?)')
+    params.push(getDefaultAccountId(), filters.accountId, filters.accountId)
+  }
+  if (filters.tag) {
+    parts.push("(',' || COALESCE(o.tags, '') || ',') LIKE ?")
+    params.push(`%,${filters.tag},%`)
+  }
   if (filters.dateFrom) { parts.push('o.date >= ?'); params.push(filters.dateFrom) }
   if (filters.dateTo) { parts.push('o.date <= ?'); params.push(filters.dateTo) }
   if (filters.type) { parts.push('o.type = ?'); params.push(filters.type) }
@@ -300,10 +338,13 @@ export function getOperations(filters: {
 
   const sql = `
     SELECT o.*, c.name as category_name, c.color as category_color,
-           s.name as subcategory_name
+           s.name as subcategory_name,
+           a.name as account_name, a2.name as transfer_to_account_name
     FROM operations o
     LEFT JOIN categories c ON o.category_id = c.id
     LEFT JOIN subcategories s ON o.subcategory_id = s.id
+    LEFT JOIN accounts a ON o.account_id = a.id
+    LEFT JOIN accounts a2 ON o.transfer_to_account_id = a2.id
     WHERE ${parts.join(' AND ')}
     ORDER BY o.date DESC, o.created_at DESC
     ${filters.limit ? `LIMIT ${filters.limit} OFFSET ${filters.offset || 0}` : ''}
@@ -322,12 +363,13 @@ export function addOperation(op: {
   comment?: string | null
   debt_id?: number | null
   goal_id?: number | null
+  tags?: string | null
 }): number {
   const d = getDb()
   return d.transaction(() => {
     const r = d.prepare(`
-      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id, goal_id)
-      VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id, @goal_id)
+      INSERT INTO operations (date, type, amount, category_id, subcategory_id, expense_type, account_id, comment, debt_id, goal_id, tags)
+      VALUES (@date, @type, @amount, @category_id, @subcategory_id, @expense_type, @account_id, @comment, @debt_id, @goal_id, @tags)
     `).run({
       ...op,
       category_id: op.category_id ?? null,
@@ -337,6 +379,7 @@ export function addOperation(op: {
       comment: op.comment ?? null,
       debt_id: op.debt_id ?? null,
       goal_id: op.goal_id ?? null,
+      tags: op.tags ?? null,
     })
     if (op.goal_id) {
       d.prepare('UPDATE savings_goals SET current_amount = current_amount + ? WHERE id = ?').run(op.amount, op.goal_id)
@@ -403,6 +446,8 @@ export function updateOperation(id: number, op: {
   subcategory_id?: number
   expense_type?: string
   comment?: string
+  account_id?: number | null
+  tags?: string | null
 }): void {
   const d = getDb()
   const fields = Object.entries(op)
@@ -457,6 +502,62 @@ export function addSubcategory(sub: { category_id: number; name: string }): numb
 export function updateSubcategory(id: number, data: { name?: string; archived?: number }): void {
   const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
   getDb().prepare(`UPDATE subcategories SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+// ──────────────────────────────────────────────────────────────
+// Accounts / кошельки (ТЗ #18, Этап 7.1)
+// ──────────────────────────────────────────────────────────────
+
+// Операции со старой схемой имеют account_id = NULL — они относятся к счёту
+// по умолчанию (первый незаархивированный). Данные не мигрируются.
+export function getDefaultAccountId(): number {
+  const d = getDb()
+  const row = d.prepare('SELECT id FROM accounts WHERE archived = 0 ORDER BY id ASC LIMIT 1').get() as { id: number } | undefined
+  return row?.id ?? 1
+}
+
+function computeAccountBalance(accountId: number, initialBalance: number, defaultId: number): number {
+  const d = getDb()
+  // income +, expense/debt_op −, transfer − (исходящий); NULL account_id = счёт по умолчанию
+  const net = (d.prepare(`
+    SELECT COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE -amount END), 0) as net
+    FROM operations
+    WHERE type IN ('income', 'expense', 'debt_op', 'transfer') AND COALESCE(account_id, ?) = ?
+  `).get(defaultId, accountId) as { net: number }).net
+  const transfersIn = (d.prepare(
+    "SELECT COALESCE(SUM(amount), 0) as t FROM operations WHERE type = 'transfer' AND transfer_to_account_id = ?"
+  ).get(accountId) as { t: number }).t
+  return initialBalance + net + transfersIn
+}
+
+export function getAccounts(includeArchived = false): unknown[] {
+  const d = getDb()
+  const rows = d.prepare(
+    `SELECT id, name, COALESCE(initial_balance, 0) as initial_balance, COALESCE(archived, 0) as archived
+     FROM accounts ${includeArchived ? '' : 'WHERE COALESCE(archived, 0) = 0'} ORDER BY id ASC`
+  ).all() as Array<{ id: number; name: string; initial_balance: number; archived: number }>
+  const defaultId = getDefaultAccountId()
+  return rows.map(a => ({ ...a, balance: computeAccountBalance(a.id, a.initial_balance, defaultId) }))
+}
+
+export function addAccount(data: { name: string; initial_balance?: number }): number {
+  const r = getDb().prepare('INSERT INTO accounts (name, balance, initial_balance) VALUES (?, 0, ?)')
+    .run(data.name, data.initial_balance ?? 0)
+  return r.lastInsertRowid as number
+}
+
+export function updateAccount(id: number, data: { name?: string; initial_balance?: number; archived?: number }): void {
+  const fields = Object.entries(data).filter(([, v]) => v !== undefined).map(([k]) => `${k} = @${k}`).join(', ')
+  if (!fields) return
+  getDb().prepare(`UPDATE accounts SET ${fields} WHERE id = @id`).run({ ...data, id })
+}
+
+export function addTransfer(fromAccountId: number, toAccountId: number, amount: number, date: string, comment?: string): number {
+  const r = getDb().prepare(`
+    INSERT INTO operations (date, type, amount, account_id, transfer_to_account_id, comment)
+    VALUES (?, 'transfer', ?, ?, ?, ?)
+  `).run(date, amount, fromAccountId, toAccountId, comment ?? null)
+  return r.lastInsertRowid as number
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -1575,6 +1676,162 @@ export function getAccountsForAutoContribute(): unknown[] {
 }
 
 // ──────────────────────────────────────────────────────────────
+// Бюджеты по категориям (ТЗ #18, Этап 7.3)
+// ──────────────────────────────────────────────────────────────
+
+function monthRange(year: number, month: number): { from: string; to: string } {
+  const lastDay = new Date(year, month, 0).getDate()
+  const mm = String(month).padStart(2, '0')
+  return { from: `${year}-${mm}-01`, to: `${year}-${mm}-${String(lastDay).padStart(2, '0')}` }
+}
+
+export function getCategoryBudgets(year: number, month: number): unknown[] {
+  const d = getDb()
+  const budgets = d.prepare(`
+    SELECT b.id, b.category_id, b.monthly_limit, b.rollover, c.name, c.color
+    FROM category_budgets b JOIN categories c ON b.category_id = c.id
+    WHERE c.archived = 0 ORDER BY c.name
+  `).all() as Array<{ id: number; category_id: number; monthly_limit: number; rollover: number; name: string; color: string }>
+  const cur = monthRange(year, month)
+  const prev = month === 1 ? monthRange(year - 1, 12) : monthRange(year, month - 1)
+  const spentStmt = d.prepare(
+    "SELECT COALESCE(SUM(amount),0) as s FROM operations WHERE type='expense' AND category_id = ? AND date >= ? AND date <= ?"
+  )
+  return budgets.map(b => {
+    const spent = (spentStmt.get(b.category_id, cur.from, cur.to) as { s: number }).s
+    // Перенос остатка: неистраченная часть лимита прошлого месяца добавляется к текущему
+    let carryover = 0
+    if (b.rollover) {
+      const spentPrev = (spentStmt.get(b.category_id, prev.from, prev.to) as { s: number }).s
+      carryover = Math.max(0, b.monthly_limit - spentPrev)
+    }
+    return { ...b, spent, carryover, effective_limit: b.monthly_limit + carryover }
+  })
+}
+
+export function setCategoryBudget(categoryId: number, monthlyLimit: number | null, rollover: boolean): void {
+  const d = getDb()
+  if (!monthlyLimit || monthlyLimit <= 0) {
+    d.prepare('DELETE FROM category_budgets WHERE category_id = ?').run(categoryId)
+  } else {
+    d.prepare(`
+      INSERT INTO category_budgets (category_id, monthly_limit, rollover) VALUES (?, ?, ?)
+      ON CONFLICT(category_id) DO UPDATE SET monthly_limit = excluded.monthly_limit, rollover = excluded.rollover
+    `).run(categoryId, monthlyLimit, rollover ? 1 : 0)
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// Правила категоризации импорта (ТЗ #18, Этап 7.5)
+// ──────────────────────────────────────────────────────────────
+
+export function getImportRules(): unknown[] {
+  return getDb().prepare(`
+    SELECT r.*, c.name as category_name, sc.name as split_category_name
+    FROM import_rules r
+    LEFT JOIN categories c ON r.category_id = c.id
+    LEFT JOIN categories sc ON r.split_category_id = sc.id
+    ORDER BY LENGTH(r.pattern) DESC
+  `).all()
+}
+
+export function saveImportRule(rule: {
+  pattern: string; category_id: number | null; subcategory_id?: number | null
+  split_amount?: number | null; split_category_id?: number | null
+}): number {
+  const d = getDb()
+  const existing = d.prepare('SELECT id FROM import_rules WHERE pattern = ?').get(rule.pattern) as { id: number } | undefined
+  if (existing) {
+    d.prepare('UPDATE import_rules SET category_id = ?, subcategory_id = ?, split_amount = ?, split_category_id = ? WHERE id = ?')
+      .run(rule.category_id, rule.subcategory_id ?? null, rule.split_amount ?? null, rule.split_category_id ?? null, existing.id)
+    return existing.id
+  }
+  return d.prepare('INSERT INTO import_rules (pattern, category_id, subcategory_id, split_amount, split_category_id) VALUES (?, ?, ?, ?, ?)')
+    .run(rule.pattern, rule.category_id, rule.subcategory_id ?? null, rule.split_amount ?? null, rule.split_category_id ?? null)
+    .lastInsertRowid as number
+}
+
+export function deleteImportRule(id: number): void {
+  getDb().prepare('DELETE FROM import_rules WHERE id = ?').run(id)
+}
+
+// ──────────────────────────────────────────────────────────────
+// Отчёты и чистый капитал (ТЗ #18, Этап 7.6–7.8)
+// ──────────────────────────────────────────────────────────────
+
+export function getMonthlyTotals(dateFrom: string, dateTo: string): unknown[] {
+  return getDb().prepare(`
+    SELECT strftime('%Y-%m', date) as month,
+           SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as income,
+           SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as expense,
+           SUM(CASE WHEN type='debt_op' THEN amount ELSE 0 END) as debt_ops
+    FROM operations WHERE date >= ? AND date <= ?
+    GROUP BY month ORDER BY month ASC
+  `).all(dateFrom, dateTo)
+}
+
+// Чистый капитал на конец каждого месяца: кошелёк + накопления − долги.
+// Всё реконструируется из истории операций/транзакций/платежей.
+export function getNetWorthHistory(months = 12): unknown[] {
+  const d = getDb()
+  const today = new Date()
+  const result: Array<{ month: string; wallet: number; savings: number; debts: number; net_worth: number }> = []
+
+  const initialTotal = (d.prepare('SELECT COALESCE(SUM(COALESCE(initial_balance, 0)), 0) as t FROM accounts').get() as { t: number }).t
+
+  for (let i = months - 1; i >= 0; i--) {
+    const mDate = new Date(today.getFullYear(), today.getMonth() - i + 1, 0) // конец месяца
+    const endStr = fmtDateLocal(mDate > today ? today : mDate)
+    const monthLabel = endStr.slice(0, 7)
+
+    // Кошелёк: переводы между своими счетами в сумме не меняют общий баланс
+    const walletNet = (d.prepare(`
+      SELECT COALESCE(SUM(CASE WHEN type='income' THEN amount WHEN type IN ('expense','debt_op') THEN -amount ELSE 0 END), 0) as net
+      FROM operations WHERE date <= ?
+    `).get(endStr) as { net: number }).net
+    const wallet = initialTotal + walletNet
+
+    // Накопления: deposit + interest(капитализация) − withdrawal
+    const savings = (d.prepare(`
+      SELECT COALESCE(SUM(CASE
+        WHEN st.type = 'deposit' THEN st.amount
+        WHEN st.type = 'withdrawal' THEN -st.amount
+        WHEN st.type = 'interest' AND sa.interest_mode = 'capitalize' THEN st.amount
+        ELSE 0 END), 0) as bal
+      FROM savings_transactions st JOIN savings_accounts sa ON st.account_id = sa.id
+      WHERE st.date <= ?
+    `).get(endStr) as { bal: number }).bal
+
+    // Долги (я должен): simple = initial − погашенное тело; dad = сумма остатков траншей
+    const simpleDebts = (d.prepare(`
+      SELECT COALESCE(SUM(MAX(0, dd.initial_amount - COALESCE(paid.p, 0))), 0) as total
+      FROM debts dd
+      LEFT JOIN (
+        SELECT debt_id, SUM(body_part) as p FROM simple_debt_payments WHERE payment_date <= ? GROUP BY debt_id
+      ) paid ON paid.debt_id = dd.id
+      WHERE dd.debt_type = 'simple' AND dd.direction = 'i_owe'
+        AND COALESCE(dd.loan_date, DATE(dd.created_at)) <= ?
+    `).get(endStr, endStr) as { total: number }).total
+    const dadDebts = (d.prepare(`
+      SELECT COALESCE(SUM(MAX(0, t.initial_amount - COALESCE(applied.a, 0))), 0) as total
+      FROM debt_tranches t
+      JOIN debts dd ON t.debt_id = dd.id
+      LEFT JOIN (
+        SELECT dtp.tranche_id, SUM(dtp.amount_applied) as a
+        FROM dad_debt_tranche_payments dtp
+        JOIN dad_debt_payments dp ON dtp.payment_id = dp.id
+        WHERE dp.payment_date <= ? GROUP BY dtp.tranche_id
+      ) applied ON applied.tranche_id = t.id
+      WHERE dd.direction = 'i_owe' AND t.date <= ?
+    `).get(endStr, endStr) as { total: number }).total
+
+    const debts = simpleDebts + dadDebts
+    result.push({ month: monthLabel, wallet, savings, debts, net_worth: wallet + savings - debts })
+  }
+  return result
+}
+
+// ──────────────────────────────────────────────────────────────
 // Разовая разметка исторических досрочных платежей (Б12)
 // ──────────────────────────────────────────────────────────────
 
@@ -1621,4 +1878,21 @@ export function importDb(sourcePath: string): void {
 
 export function getDbPath(): string {
   return DB_PATH
+}
+
+// Автоматический бэкап при запуске (ТЗ #18, Этап 7.10): раз в день копия БД
+// в папку бэкапов с ротацией (последние 14).
+export async function runAutoBackup(): Promise<string | null> {
+  const d = getDb()
+  const settings = getBudgetSettings()
+  const dir = settings['backup_dir'] || path.join(app.getPath('userData'), 'backups')
+  fs.mkdirSync(dir, { recursive: true })
+  const target = path.join(dir, `ucet-${fmtDateLocal(new Date())}.db`)
+  if (fs.existsSync(target)) return null // сегодня уже есть
+  await d.backup(target)
+  const files = fs.readdirSync(dir).filter(f => /^ucet-\d{4}-\d{2}-\d{2}\.db$/.test(f)).sort()
+  for (const f of files.slice(0, Math.max(0, files.length - 14))) {
+    fs.unlinkSync(path.join(dir, f))
+  }
+  return target
 }

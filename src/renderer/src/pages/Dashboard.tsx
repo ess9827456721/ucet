@@ -6,7 +6,7 @@ import {
 // Legend is used in monthly/daily charts
 import { TrendingDown, TrendingUp, Wallet, Calendar, CreditCard, Maximize2, X, List, Target, Plus, Pencil, Trash2, Bell, ExternalLink, PiggyBank } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Summary, Debt, Operation, SavingsAccount } from '../types'
+import { Summary, Debt, Operation, SavingsAccount, Account, CategoryBudget } from '../types'
 import { formatMoney, getPeriodDates, formatDateShort, today, monthStart, monthEnd } from '../utils'
 import InfoTooltip from '../components/InfoTooltip'
 import AddSavingsAccountModal from '../components/AddSavingsAccountModal'
@@ -93,6 +93,8 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
   const [cashFlow, setCashFlow] = useState<CashFlowData | null>(null)
   const [activeDebts, setActiveDebts] = useState<Debt[]>([])
   const [savingsAccounts, setSavingsAccounts] = useState<SavingsAccount[]>([])
+  const [walletAccounts, setWalletAccounts] = useState<Account[]>([])
+  const [budgets, setBudgets] = useState<CategoryBudget[]>([])
   const [pendingRecurring, setPendingRecurring] = useState<{ id: number; name: string; amount: number; category?: string }[]>([])
   const [drillCategory, setDrillCategory] = useState<CategoryData | null>(null)
   const [drillOps, setDrillOps] = useState<Operation[]>([])
@@ -137,12 +139,16 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
     setActiveDebts(debts as Debt[])
     setSavingsAccounts(g as SavingsAccount[])
 
-    const [cf, pending] = await Promise.all([
+    const [cf, pending, accs, bud] = await Promise.all([
       api.getCashFlow(now.getFullYear(), now.getMonth() + 1),
       api.getPendingRecurringOperations(),
+      api.getAccounts(),
+      api.getCategoryBudgets(now.getFullYear(), now.getMonth() + 1),
     ])
     setCashFlow(cf as CashFlowData)
     setPendingRecurring(pending as { id: number; name: string; amount: number; category?: string }[])
+    setWalletAccounts(accs as Account[])
+    setBudgets(bud as CategoryBudget[])
     setLoading(false)
   }, [dateFrom, dateTo, expenseTypeFilter])
 
@@ -412,6 +418,47 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
         <div className="text-center py-16 text-gray-500">Загрузка...</div>
       ) : (
         <>
+          {/* Total money across wallet accounts + savings */}
+          {(() => {
+            const walletTotal = walletAccounts.reduce((s, a) => s + a.balance, 0)
+            const savingsTotal = savingsAccounts.reduce((s, a) => s + a.balance, 0)
+            const grandTotal = walletTotal + savingsTotal
+            return (
+              <div className="card bg-gradient-to-br from-dark-700 to-dark-800 border-yellow-400/20">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <Wallet size={16} className="text-yellow-400" />
+                      <span className="text-sm font-semibold text-gray-300">Всего денег</span>
+                      <InfoTooltip text="Сумма остатков по всем счетам/кошелькам плюс остатки накопительных счетов." />
+                    </div>
+                    <p className="text-3xl font-bold text-white">{formatMoney(grandTotal)}</p>
+                  </div>
+                  <div className="flex gap-6 text-sm">
+                    <div>
+                      <p className="text-xs text-gray-500 mb-1">Счета/кошельки</p>
+                      <p className="text-lg font-semibold text-white">{formatMoney(walletTotal)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 mb-1">Накопления</p>
+                      <p className="text-lg font-semibold text-green-400">{formatMoney(savingsTotal)}</p>
+                    </div>
+                  </div>
+                </div>
+                {walletAccounts.length > 1 && (
+                  <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-dark-600">
+                    {walletAccounts.map(a => (
+                      <div key={a.id} className="bg-dark-700 rounded-xl px-3 py-1.5 text-xs">
+                        <span className="text-gray-400">{a.name}: </span>
+                        <span className={a.balance >= 0 ? 'text-white font-medium' : 'text-red-400 font-medium'}>{formatMoney(a.balance)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          })()}
+
           {/* Summary cards */}
           <div className="grid grid-cols-4 gap-4">
             <StatCard
@@ -541,6 +588,39 @@ export default function Dashboard({ onNavigateToOperations, onNavigateToSavings 
               )}
             </div>
           </div>
+
+          {/* Category budgets (Этап 7.3) */}
+          {budgets.length > 0 && (
+            <div className="card">
+              <div className="flex items-center gap-2 mb-3">
+                <Target size={16} className="text-yellow-400" />
+                <h2 className="text-sm font-semibold text-white">Бюджеты по категориям</h2>
+                <InfoTooltip text="Лимит расходов на текущий месяц по категории. Прогресс-бар меняет цвет при приближении к лимиту. Перенос остатка добавляет неистраченную часть прошлого месяца." />
+              </div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                {budgets.map(b => {
+                  const ratio = b.effective_limit > 0 ? b.spent / b.effective_limit : 0
+                  const barColor = ratio >= 1 ? 'bg-red-400' : ratio >= 0.8 ? 'bg-orange-400' : 'bg-green-400'
+                  const textColor = ratio >= 1 ? 'text-red-400' : ratio >= 0.8 ? 'text-orange-400' : 'text-gray-300'
+                  return (
+                    <div key={b.id}>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-gray-300 flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: b.color }} />
+                          {b.name}
+                          {b.carryover > 0 && <span className="text-gray-500">(+{formatMoney(b.carryover)})</span>}
+                        </span>
+                        <span className={textColor}>{formatMoney(b.spent)} / {formatMoney(b.effective_limit)}</span>
+                      </div>
+                      <div className="h-2 bg-dark-700 rounded-full overflow-hidden">
+                        <div className={`h-full ${barColor} transition-all`} style={{ width: `${Math.min(100, ratio * 100)}%` }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Upcoming debt payments (C) */}
           {upcomingDebts.length > 0 && (

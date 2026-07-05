@@ -48,6 +48,24 @@ const api = {
   getEarlyPaymentCandidates: () => ipcRenderer.invoke('get-early-payment-candidates'),
   markPaymentsEarly: (ids: number[]) => ipcRenderer.invoke('mark-payments-early', ids),
 
+  // Accounts / Budgets / Rules / Reports (ТЗ #18, Этап 7)
+  getAccounts: (includeArchived?: boolean) => ipcRenderer.invoke('get-accounts', includeArchived),
+  addAccount: (data: Record<string, unknown>) => ipcRenderer.invoke('add-account', data),
+  updateAccount: (id: number, data: Record<string, unknown>) => ipcRenderer.invoke('update-account', id, data),
+  addTransfer: (fromId: number, toId: number, amount: number, date: string, comment?: string) =>
+    ipcRenderer.invoke('add-transfer', fromId, toId, amount, date, comment),
+  getCategoryBudgets: (year: number, month: number) => ipcRenderer.invoke('get-category-budgets', year, month),
+  setCategoryBudget: (categoryId: number, limit: number | null, rollover: boolean) =>
+    ipcRenderer.invoke('set-category-budget', categoryId, limit, rollover),
+  getImportRules: () => ipcRenderer.invoke('get-import-rules'),
+  saveImportRule: (rule: Record<string, unknown>) => ipcRenderer.invoke('save-import-rule', rule),
+  deleteImportRule: (id: number) => ipcRenderer.invoke('delete-import-rule', id),
+  getMonthlyTotals: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('get-monthly-totals', dateFrom, dateTo),
+  getNetWorthHistory: (months?: number) => ipcRenderer.invoke('get-net-worth-history', months),
+  runAutoBackup: () => ipcRenderer.invoke('run-auto-backup'),
+  exportOperationsXlsx: () => ipcRenderer.invoke('export-operations-xlsx'),
+  exportReportXlsx: (dateFrom: string, dateTo: string) => ipcRenderer.invoke('export-report-xlsx', dateFrom, dateTo),
+
   // Analytics
   getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-summary', dateFrom, dateTo, expenseType),
   getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => ipcRenderer.invoke('get-expenses-by-category', dateFrom, dateTo, expenseType),

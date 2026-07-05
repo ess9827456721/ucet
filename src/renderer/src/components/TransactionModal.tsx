@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory } from '../types'
+import { Account, Category, Subcategory } from '../types'
 import { today, formatMoney } from '../utils'
 
 interface Props {
@@ -24,9 +24,13 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
   const [subcategoryId, setSubcategoryId] = useState<number | ''>(editOperation?.subcategory_id as number || '')
   const [expenseType, setExpenseType] = useState<ExpenseType>((editOperation?.expense_type as ExpenseType) || 'daily')
   const [comment, setComment] = useState<string>((editOperation?.comment as string) || '')
+  const [tags, setTags] = useState<string>((editOperation?.tags as string) || '')
+  const [accountId, setAccountId] = useState<number | ''>(editOperation?.account_id as number || '')
+  const [toAccountId, setToAccountId] = useState<number | ''>('')
 
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
+  const [accounts, setAccounts] = useState<Account[]>([])
   const [pendingAutoContrib, setPendingAutoContrib] = useState<Array<{ id: number; name: string; amount: number }>>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
@@ -37,6 +41,15 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
     const catType = type === 'income' ? 'income' : 'expense'
     api.getCategories(catType).then(d => setCategories(d as Category[]))
   }, [type])
+
+  useEffect(() => {
+    api.getAccounts().then(d => {
+      const list = d as Account[]
+      setAccounts(list)
+      if (!editOperation?.account_id && list.length > 0) setAccountId(list[0].id)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (categoryId) {
@@ -53,6 +66,10 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
     if (!amount || parseFloat(amount) <= 0) e.amount = 'Укажите сумму'
     if (type === 'expense' && !categoryId) e.category = 'Выберите категорию'
     if (type === 'income' && !categoryId) e.category = 'Выберите источник дохода'
+    if (type === 'transfer') {
+      if (!accountId || !toAccountId) e.transfer = 'Выберите оба счёта'
+      else if (accountId === toAccountId) e.transfer = 'Счета должны различаться'
+    }
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -61,6 +78,12 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
     if (!validate()) return
     setSaving(true)
     try {
+      if (type === 'transfer' && !editOperation?.id) {
+        await api.addTransfer(accountId as number, toAccountId as number, parseFloat(amount), date, comment || undefined)
+        onSaved()
+        return
+      }
+      const normalizedTags = tags.split(',').map(t => t.trim()).filter(Boolean).join(',')
       const op = {
         date,
         type,
@@ -70,6 +93,8 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
         expense_type: type === 'expense' ? expenseType : null,
         comment: comment || null,
         debt_id: null,
+        account_id: accountId || null,
+        tags: normalizedTags || null,
       }
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id as number, op)
@@ -116,6 +141,7 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
   const opTypes: Array<{ id: OpType; label: string }> = [
     { id: 'expense', label: 'Расход' },
     { id: 'income', label: 'Доход' },
+    ...(!editOperation && accounts.length > 1 ? [{ id: 'transfer' as OpType, label: 'Перевод' }] : []),
   ]
 
   const expenseTypes: Array<{ id: ExpenseType; label: string }> = [
@@ -180,6 +206,42 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
               {errors.amount && <p className="text-red-400 text-xs mt-1">{errors.amount}</p>}
             </div>
           </div>
+
+          {/* Account selector */}
+          {(type === 'expense' || type === 'income') && accounts.length > 1 && (
+            <div>
+              <label className="label">Счёт</label>
+              <select
+                value={accountId}
+                onChange={e => setAccountId(e.target.value ? Number(e.target.value) : '')}
+                className="select"
+              >
+                {accounts.map(a => (
+                  <option key={a.id} value={a.id}>{a.name} ({formatMoney(a.balance)})</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Transfer accounts */}
+          {type === 'transfer' && (
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="label">Со счёта</label>
+                <select value={accountId} onChange={e => setAccountId(e.target.value ? Number(e.target.value) : '')} className="select">
+                  {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({formatMoney(a.balance)})</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="label">На счёт</label>
+                <select value={toAccountId} onChange={e => setToAccountId(e.target.value ? Number(e.target.value) : '')} className="select">
+                  <option value="">— Выберите —</option>
+                  {accounts.filter(a => a.id !== accountId).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                </select>
+              </div>
+              {errors.transfer && <p className="text-red-400 text-xs col-span-2">{errors.transfer}</p>}
+            </div>
+          )}
 
           {/* Category (for expense/income) */}
           {(type === 'expense' || type === 'income') && (
@@ -273,6 +335,20 @@ export default function TransactionModal({ onClose, onSaved, editOperation, onGo
                   />
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Tags */}
+          {type !== 'transfer' && (
+            <div>
+              <label className="label">Теги (через запятую)</label>
+              <input
+                type="text"
+                value={tags}
+                onChange={e => setTags(e.target.value)}
+                placeholder="отпуск-2026, ремонт"
+                className="input"
+              />
             </div>
           )}
 

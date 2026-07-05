@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Pencil, Trash2, Upload, RefreshCw, Check, X, ChevronDown, ChevronUp } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Operation, RecurringOperation } from '../types'
+import { Account, Category, Subcategory, Operation, RecurringOperation } from '../types'
 import { formatMoney, formatDate, expenseTypeLabel, getPeriodDates, today } from '../utils'
 import TransactionModal from '../components/TransactionModal'
 import ImportModal from '../components/ImportModal'
@@ -32,6 +32,9 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
   const [noSubcatFilter, setNoSubcatFilter] = useState(false)
   const [commentSearch, setCommentSearch] = useState('')
   const [debouncedComment, setDebouncedComment] = useState('')
+  const [accountFilter, setAccountFilter] = useState<number | ''>('')
+  const [tagFilter, setTagFilter] = useState('')
+  const [accounts, setAccounts] = useState<Account[]>([])
   const [cats, setCats] = useState<Category[]>([])
   const [subcats, setSubcats] = useState<Subcategory[]>([])
   const [editOp, setEditOp] = useState<Operation | null>(null)
@@ -44,6 +47,7 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
 
   useEffect(() => {
     api.getCategories().then(d => setCats(d as Category[]))
+    api.getAccounts().then(d => setAccounts(d as Account[]))
     loadPending()
   }, [])
 
@@ -109,10 +113,12 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
       filters.subcategoryId = subcatFilter
     }
     if (debouncedComment) filters.commentSearch = debouncedComment
+    if (accountFilter) filters.accountId = accountFilter
+    if (tagFilter.trim()) filters.tag = tagFilter.trim()
     const ops = await api.getOperations(filters)
     setOperations(ops as Operation[])
     setLoading(false)
-  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, noSubcatFilter, debouncedComment])
+  }, [period, noPeriod, dateFromCustom, dateToCustom, typeFilter, catFilter, subcatFilter, noSubcatFilter, debouncedComment, accountFilter, tagFilter])
 
   useEffect(() => { load() }, [load])
 
@@ -296,12 +302,29 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
               {subcats.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           )}
+          {accounts.length > 1 && (
+            <select
+              value={accountFilter}
+              onChange={e => setAccountFilter(e.target.value ? Number(e.target.value) : '')}
+              className="select w-40"
+            >
+              <option value="">Все счета</option>
+              {accounts.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+            </select>
+          )}
           <input
             type="text"
             value={commentSearch}
             onChange={e => setCommentSearch(e.target.value)}
             placeholder="Поиск по комментарию..."
             className="input w-52 py-1.5 text-sm"
+          />
+          <input
+            type="text"
+            value={tagFilter}
+            onChange={e => setTagFilter(e.target.value)}
+            placeholder="Тег..."
+            className="input w-32 py-1.5 text-sm"
           />
         </div>
       </div>
@@ -355,7 +378,19 @@ export default function Operations({ onAdd, initialFilter, onInitialFilterApplie
                     {op.type === 'income' ? '+' : '−'}{formatMoney(op.amount)}
                   </span>
                 </td>
-                <td className="px-5 py-3 text-sm text-gray-400 max-w-xs truncate">{op.comment || ''}</td>
+                <td className="px-5 py-3 text-sm text-gray-400 max-w-xs">
+                  {op.type === 'transfer' && (
+                    <span className="text-blue-400">{op.account_name} → {op.transfer_to_account_name}</span>
+                  )}
+                  {op.comment && <span className="block truncate">{op.comment}</span>}
+                  {op.tags && (
+                    <span className="flex flex-wrap gap-1 mt-0.5">
+                      {op.tags.split(',').map(t => (
+                        <span key={t} className="text-[10px] bg-dark-600 text-gray-300 rounded px-1.5 py-0.5">#{t}</span>
+                      ))}
+                    </span>
+                  )}
+                </td>
                 <td className="px-5 py-3">
                   {op.type === 'debt_op' ? (
                     <span className="text-xs text-gray-600 px-2" title="Платёж по долгу — редактируйте на странице долга">на стр. долга</span>

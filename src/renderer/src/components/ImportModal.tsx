@@ -99,9 +99,14 @@ export default function ImportModal({ onClose, onImported }: Props) {
     const allSubs = await api.getSubcategories()
     setSubcategories(allSubs as Subcategory[])
 
+    // Загружаем сохранённые правила категоризации (Этап 7.5)
+    const rules = await api.getImportRules() as Array<{ pattern: string; category_id: number | null }>
     const uniqueCats = Array.from(new Set(rows.map(r => r[catCol]?.trim()).filter(Boolean)))
     const mapping: Record<string, number> = {}
     for (const name of uniqueCats) {
+      // Сначала — сохранённое правило (по подстроке описания), затем совпадение по имени
+      const rule = rules.find(r => name.toLowerCase().includes(r.pattern.toLowerCase()) && r.category_id != null)
+      if (rule?.category_id) { mapping[name] = rule.category_id; continue }
       const match = (allCats as Category[]).find(c => c.name.toLowerCase() === name.toLowerCase())
       if (match) mapping[name] = match.id
     }
@@ -183,6 +188,11 @@ export default function ImportModal({ onClose, onImported }: Props) {
           return { date, type: 'expense', amount, category_id: catId, subcategory_id: subcatId, expense_type: expenseType, comment: comment || null }
         })
         .filter(Boolean) as Record<string, unknown>[]
+
+      // Запоминаем правила категоризации: описание из файла → выбранная категория
+      for (const [name, catId] of Object.entries(newCatMap)) {
+        if (catId) await api.saveImportRule({ pattern: name, category_id: catId })
+      }
 
       const result = await api.importOperations(ops, { skipDuplicates: !importDuplicates })
       setImportedCount(result.imported)

@@ -44,6 +44,21 @@ export function useApi() {
     getEarlyPaymentCandidates: () => Promise<unknown[]>
     markPaymentsEarly: (ids: number[]) => Promise<void>
 
+    getAccounts: (includeArchived?: boolean) => Promise<unknown[]>
+    addAccount: (data: Record<string, unknown>) => Promise<number>
+    updateAccount: (id: number, data: Record<string, unknown>) => Promise<void>
+    addTransfer: (fromId: number, toId: number, amount: number, date: string, comment?: string) => Promise<number>
+    getCategoryBudgets: (year: number, month: number) => Promise<unknown[]>
+    setCategoryBudget: (categoryId: number, limit: number | null, rollover: boolean) => Promise<void>
+    getImportRules: () => Promise<unknown[]>
+    saveImportRule: (rule: Record<string, unknown>) => Promise<number>
+    deleteImportRule: (id: number) => Promise<void>
+    getMonthlyTotals: (dateFrom: string, dateTo: string) => Promise<unknown[]>
+    getNetWorthHistory: (months?: number) => Promise<unknown[]>
+    runAutoBackup: () => Promise<string | null>
+    exportOperationsXlsx: () => Promise<string | null>
+    exportReportXlsx: (dateFrom: string, dateTo: string) => Promise<string | null>
+
     getSummary: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown>
     getExpensesByCategory: (dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>
     getExpensesBySubcategory: (categoryId: number, dateFrom: string, dateTo: string, expenseType?: string) => Promise<unknown[]>

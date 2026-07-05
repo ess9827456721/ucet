@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useApi } from './hooks/useApi'
 import {
-  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus, PiggyBank
+  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus, PiggyBank, BarChart3
 } from 'lucide-react'
 import { Page } from './types'
 import Dashboard from './pages/Dashboard'
@@ -14,8 +14,10 @@ import DebtAnalytics from './pages/DebtAnalytics'
 import Savings from './pages/Savings'
 import SavingsDetail from './pages/SavingsDetail'
 import SavingsForecast from './pages/SavingsForecast'
+import Reports from './pages/Reports'
 import SettingsPage from './pages/SettingsPage'
 import TransactionModal from './components/TransactionModal'
+import PinLock from './components/PinLock'
 
 const navItems = [
   { id: 'dashboard' as Page, label: 'Дашборд', icon: LayoutDashboard },
@@ -23,6 +25,7 @@ const navItems = [
   { id: 'cashflow' as Page, label: 'Кассовый поток', icon: TrendingUp },
   { id: 'debts' as Page, label: 'Долги', icon: CreditCard },
   { id: 'savings' as Page, label: 'Накопления', icon: PiggyBank },
+  { id: 'reports' as Page, label: 'Отчёты', icon: BarChart3 },
   { id: 'settings' as Page, label: 'Настройки', icon: Settings },
 ]
 
@@ -33,6 +36,26 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
   const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
+  const [unlocked, setUnlocked] = useState(() => !localStorage.getItem('ucet-pin'))
+
+  // Горячие клавиши (Этап 7.12)
+  useEffect(() => {
+    const pageOrder: Page[] = ['dashboard', 'operations', 'cashflow', 'debts', 'savings', 'reports']
+    function onKey(e: KeyboardEvent) {
+      if (!e.ctrlKey && !e.metaKey) return
+      if (e.key === 'n' || e.key === 'N') { e.preventDefault(); setShowAddModal(true) }
+      else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); setPage('operations') }
+      else if (e.key >= '1' && e.key <= '6') {
+        e.preventDefault()
+        const p = pageOrder[parseInt(e.key) - 1]
+        if (p) setPage(p)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  if (!unlocked) return <PinLock onUnlock={() => setUnlocked(true)} />
 
   function navigateToFilteredOperations(filter: typeof operationsFilter) {
     setOperationsFilter(filter)
@@ -159,6 +182,7 @@ export default function App() {
             onBack={() => navigateToSavings(selectedSavingsId)}
           />
         )}
+        {page === 'reports' && <Reports key={refreshKey} />}
         {page === 'settings' && <SettingsPage key={refreshKey} />}
       </main>
 

@@ -17,35 +17,16 @@ import {
   getSavingsTransactions, addSavingsDeposit, addSavingsWithdrawal, applyAccruedInterest,
   getPendingSavingsInterest, getSavingsForecast, updateSavingsAccountsOrder, getAccountsForAutoContribute,
   getEarlyPaymentCandidates, markPaymentsEarly,
+  getAccounts, addAccount, updateAccount, addTransfer,
+  getCategoryBudgets, setCategoryBudget,
+  getImportRules, saveImportRule, deleteImportRule,
+  getMonthlyTotals, getNetWorthHistory, runAutoBackup,
   exportDb, importDb, getDbPath
 } from './database'
 import { buildAppMenu } from './menu'
 import { initUpdater, checkForUpdatesManual } from './updater'
 import ExcelJS from 'exceljs'
-
-// CSV-парсер с учётом кавычек: поле "Магазин; продукты" не режется по разделителю,
-// "" внутри кавычек — экранированная кавычка (RFC 4180)
-function parseCsvLine(line: string, sep: string): string[] {
-  const cells: string[] = []
-  let cur = ''
-  let inQuotes = false
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i]
-    if (inQuotes) {
-      if (ch === '"') {
-        if (line[i + 1] === '"') { cur += '"'; i++ }
-        else inQuotes = false
-      } else cur += ch
-    } else if (ch === '"') {
-      inQuotes = true
-    } else if (ch === sep) {
-      cells.push(cur.trim())
-      cur = ''
-    } else cur += ch
-  }
-  cells.push(cur.trim())
-  return cells
-}
+import { parseCsvLine } from './finance'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -157,6 +138,84 @@ app.whenReady().then(() => {
   ipcMain.handle('has-simple-payments-after', (_, paymentId) => hasSimplePaymentsAfter(paymentId))
   ipcMain.handle('get-early-payment-candidates', () => getEarlyPaymentCandidates())
   ipcMain.handle('mark-payments-early', (_, ids) => markPaymentsEarly(ids))
+
+  // ── Accounts / Budgets / Rules / Reports (Этап 7) ────
+  ipcMain.handle('get-accounts', (_, includeArchived) => getAccounts(includeArchived))
+  ipcMain.handle('add-account', (_, data) => addAccount(data))
+  ipcMain.handle('update-account', (_, id, data) => updateAccount(id, data))
+  ipcMain.handle('add-transfer', (_, fromId, toId, amount, date, comment) => addTransfer(fromId, toId, amount, date, comment))
+  ipcMain.handle('get-category-budgets', (_, year, month) => getCategoryBudgets(year, month))
+  ipcMain.handle('set-category-budget', (_, categoryId, limit, rollover) => setCategoryBudget(categoryId, limit, rollover))
+  ipcMain.handle('get-import-rules', () => getImportRules())
+  ipcMain.handle('save-import-rule', (_, rule) => saveImportRule(rule))
+  ipcMain.handle('delete-import-rule', (_, id) => deleteImportRule(id))
+  ipcMain.handle('get-monthly-totals', (_, dateFrom, dateTo) => getMonthlyTotals(dateFrom, dateTo))
+  ipcMain.handle('get-net-worth-history', (_, months) => getNetWorthHistory(months))
+  ipcMain.handle('run-auto-backup', () => runAutoBackup())
+
+  ipcMain.handle('export-operations-xlsx', async () => {
+    const result = await dialog.showSaveDialog({
+      defaultPath: `ucet-operations-${new Date().toISOString().slice(0, 10)}.xlsx`,
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+    if (result.canceled || !result.filePath) return null
+    const ops = getOperations({}) as Array<Record<string, unknown>>
+    const wb = new ExcelJS.Workbook()
+    const ws = wb.addWorksheet('Операции')
+    ws.columns = [
+      { header: 'Дата', key: 'date', width: 12 },
+      { header: 'Тип', key: 'type', width: 12 },
+      { header: 'Сумма', key: 'amount', width: 14 },
+      { header: 'Категория', key: 'category_name', width: 20 },
+      { header: 'Подкатегория', key: 'subcategory_name', width: 20 },
+      { header: 'Вид расхода', key: 'expense_type', width: 14 },
+      { header: 'Счёт', key: 'account_name', width: 16 },
+      { header: 'Теги', key: 'tags', width: 16 },
+      { header: 'Комментарий', key: 'comment', width: 40 },
+    ]
+    const typeLabels: Record<string, string> = { income: 'Доход', expense: 'Расход', debt_op: 'По долгу', transfer: 'Перевод' }
+    const etLabels: Record<string, string> = { daily: 'Повседневный', big: 'Крупный', apartment: 'На квартиру' }
+    for (const o of ops) {
+      ws.addRow({
+        ...o,
+        type: typeLabels[o.type as string] ?? o.type,
+        expense_type: o.expense_type ? etLabels[o.expense_type as string] ?? o.expense_type : '',
+      })
+    }
+    ws.getRow(1).font = { bold: true }
+    await wb.xlsx.writeFile(result.filePath)
+    return result.filePath
+  })
+
+  ipcMain.handle('export-report-xlsx', async (_, dateFrom: string, dateTo: string) => {
+    const result = await dialog.showSaveDialog({
+      defaultPath: `ucet-report-${dateFrom}-${dateTo}.xlsx`,
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+    if (result.canceled || !result.filePath) return null
+    const wb = new ExcelJS.Workbook()
+    const wsM = wb.addWorksheet('По месяцам')
+    wsM.columns = [
+      { header: 'Месяц', key: 'month', width: 12 },
+      { header: 'Доходы', key: 'income', width: 14 },
+      { header: 'Расходы', key: 'expense', width: 14 },
+      { header: 'Платежи по долгам', key: 'debt_ops', width: 18 },
+    ]
+    for (const row of getMonthlyTotals(dateFrom, dateTo) as Array<Record<string, unknown>>) wsM.addRow(row)
+    wsM.getRow(1).font = { bold: true }
+    const wsC = wb.addWorksheet('По категориям')
+    wsC.columns = [
+      { header: 'Категория', key: 'name', width: 24 },
+      { header: 'Сумма за период', key: 'total', width: 16 },
+    ]
+    for (const row of getExpensesByCategory(dateFrom, dateTo) as Array<Record<string, unknown>>) wsC.addRow(row)
+    wsC.getRow(1).font = { bold: true }
+    await wb.xlsx.writeFile(result.filePath)
+    return result.filePath
+  })
+
+  // Автобэкап при запуске (не блокирует старт)
+  runAutoBackup().catch(() => { /* нет прав на папку и т.п. — не мешаем запуску */ })
 
   // ── Recurring operations ─────────────────────────────
   ipcMain.handle('get-recurring-operations', (_, activeOnly) => getRecurringOperations(activeOnly))
