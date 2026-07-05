@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v*'
+  # Ручной запуск из вкладки Actions (кнопка «Run workflow»).
+  # electron-builder опубликует релиз с тегом vX.Y.Z из version в package.json.
+  workflow_dispatch:
 
 permissions:
   contents: write
