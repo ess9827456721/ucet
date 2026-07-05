@@ -10,12 +10,19 @@ module.exports = {
           500: '#FFD600',
         },
         dark: {
-          900: '#0F0F0F',
-          800: '#1A1A1A',
-          700: '#242424',
-          600: '#2E2E2E',
-          500: '#3A3A3A',
-        }
+          900: 'var(--c-dark-900)',
+          800: 'var(--c-dark-800)',
+          700: 'var(--c-dark-700)',
+          600: 'var(--c-dark-600)',
+          500: 'var(--c-dark-500)',
+        },
+        white: 'var(--c-white)',
+        gray: {
+          300: 'var(--c-gray-300)',
+          400: 'var(--c-gray-400)',
+          500: 'var(--c-gray-500)',
+          600: 'var(--c-gray-600)',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif']

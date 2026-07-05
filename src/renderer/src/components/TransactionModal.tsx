@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
-import { Category, Subcategory, Debt, SavingsAccount } from '../types'
+import { Account, Category, Subcategory } from '../types'
 import { today, formatMoney } from '../utils'
 
 interface Props {
   onClose: () => void
   onSaved: () => void
   editOperation?: Record<string, unknown>
+  onGoToDebts?: () => void
 }
 
 type OpType = 'income' | 'expense' | 'transfer' | 'debt_op'
 type ExpenseType = 'daily' | 'big' | 'apartment'
 
-export default function TransactionModal({ onClose, onSaved, editOperation }: Props) {
+export default function TransactionModal({ onClose, onSaved, editOperation, onGoToDebts }: Props) {
   const api = useApi()
 
   const [type, setType] = useState<OpType>((editOperation?.type as OpType) || 'expense')
@@ -23,11 +24,13 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   const [subcategoryId, setSubcategoryId] = useState<number | ''>(editOperation?.subcategory_id as number || '')
   const [expenseType, setExpenseType] = useState<ExpenseType>((editOperation?.expense_type as ExpenseType) || 'daily')
   const [comment, setComment] = useState<string>((editOperation?.comment as string) || '')
-  const [debtId, setDebtId] = useState<number | ''>(editOperation?.debt_id as number || '')
+  const [tags, setTags] = useState<string>((editOperation?.tags as string) || '')
+  const [accountId, setAccountId] = useState<number | ''>(editOperation?.account_id as number || '')
+  const [toAccountId, setToAccountId] = useState<number | ''>('')
 
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
-  const [debts, setDebts] = useState<Debt[]>([])
+  const [accounts, setAccounts] = useState<Account[]>([])
   const [pendingAutoContrib, setPendingAutoContrib] = useState<Array<{ id: number; name: string; amount: number }>>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
@@ -37,8 +40,16 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
   useEffect(() => {
     const catType = type === 'income' ? 'income' : 'expense'
     api.getCategories(catType).then(d => setCategories(d as Category[]))
-    api.getDebts('active').then(d => setDebts(d as Debt[]))
   }, [type])
+
+  useEffect(() => {
+    api.getAccounts().then(d => {
+      const list = d as Account[]
+      setAccounts(list)
+      if (!editOperation?.account_id && list.length > 0) setAccountId(list[0].id)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (categoryId) {
@@ -55,6 +66,10 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     if (!amount || parseFloat(amount) <= 0) e.amount = 'Укажите сумму'
     if (type === 'expense' && !categoryId) e.category = 'Выберите категорию'
     if (type === 'income' && !categoryId) e.category = 'Выберите источник дохода'
+    if (type === 'transfer') {
+      if (!accountId || !toAccountId) e.transfer = 'Выберите оба счёта'
+      else if (accountId === toAccountId) e.transfer = 'Счета должны различаться'
+    }
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -63,6 +78,12 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     if (!validate()) return
     setSaving(true)
     try {
+      if (type === 'transfer' && !editOperation?.id) {
+        await api.addTransfer(accountId as number, toAccountId as number, parseFloat(amount), date, comment || undefined)
+        onSaved()
+        return
+      }
+      const normalizedTags = tags.split(',').map(t => t.trim()).filter(Boolean).join(',')
       const op = {
         date,
         type,
@@ -71,7 +92,9 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
         subcategory_id: subcategoryId || null,
         expense_type: type === 'expense' ? expenseType : null,
         comment: comment || null,
-        debt_id: type === 'debt_op' ? (debtId || null) : null,
+        debt_id: null,
+        account_id: accountId || null,
+        tags: normalizedTags || null,
       }
       if (editOperation?.id) {
         await api.updateOperation(editOperation.id as number, op)
@@ -113,10 +136,12 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
     onSaved()
   }
 
+  // Б2 (ТЗ #18): тип «По долгу» убран из ручной формы — addOperation не создаёт запись
+  // в simple/dad_debt_payments и не меняет баланс долга. Платежи вносятся на странице долга.
   const opTypes: Array<{ id: OpType; label: string }> = [
     { id: 'expense', label: 'Расход' },
     { id: 'income', label: 'Доход' },
-    { id: 'debt_op', label: 'По долгу' },
+    ...(!editOperation && accounts.length > 1 ? [{ id: 'transfer' as OpType, label: 'Перевод' }] : []),
   ]
 
   const expenseTypes: Array<{ id: ExpenseType; label: string }> = [
@@ -182,6 +207,42 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             </div>
           </div>
 
+          {/* Account selector */}
+          {(type === 'expense' || type === 'income') && accounts.length > 1 && (
+            <div>
+              <label className="label">Счёт</label>
+              <select
+                value={accountId}
+                onChange={e => setAccountId(e.target.value ? Number(e.target.value) : '')}
+                className="select"
+              >
+                {accounts.map(a => (
+                  <option key={a.id} value={a.id}>{a.name} ({formatMoney(a.balance)})</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Transfer accounts */}
+          {type === 'transfer' && (
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="label">Со счёта</label>
+                <select value={accountId} onChange={e => setAccountId(e.target.value ? Number(e.target.value) : '')} className="select">
+                  {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({formatMoney(a.balance)})</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="label">На счёт</label>
+                <select value={toAccountId} onChange={e => setToAccountId(e.target.value ? Number(e.target.value) : '')} className="select">
+                  <option value="">— Выберите —</option>
+                  {accounts.filter(a => a.id !== accountId).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                </select>
+              </div>
+              {errors.transfer && <p className="text-red-400 text-xs col-span-2">{errors.transfer}</p>}
+            </div>
+          )}
+
           {/* Category (for expense/income) */}
           {(type === 'expense' || type === 'income') && (
             <div>
@@ -239,20 +300,18 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
             </div>
           )}
 
-          {/* Debt selector */}
-          {type === 'debt_op' && (
-            <div>
-              <label className="label">Долг</label>
-              <select
-                value={debtId}
-                onChange={e => setDebtId(e.target.value ? Number(e.target.value) : '')}
-                className="select"
-              >
-                <option value="">— Выберите долг —</option>
-                {debts.map(d => (
-                  <option key={d.id} value={d.id}>{d.name}</option>
-                ))}
-              </select>
+          {/* Подсказка о платежах по долгам */}
+          {!editOperation && (
+            <div className="bg-dark-700/60 border border-dark-600 rounded-xl px-4 py-3 text-xs text-gray-400">
+              Платежи по долгам вносятся на странице долга — там они корректно уменьшают остаток.
+              {onGoToDebts && (
+                <button
+                  onClick={onGoToDebts}
+                  className="ml-1 text-yellow-400 hover:underline"
+                >
+                  Перейти к долгам →
+                </button>
+              )}
             </div>
           )}
 
@@ -276,6 +335,20 @@ export default function TransactionModal({ onClose, onSaved, editOperation }: Pr
                   />
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Tags */}
+          {type !== 'transfer' && (
+            <div>
+              <label className="label">Теги (через запятую)</label>
+              <input
+                type="text"
+                value={tags}
+                onChange={e => setTags(e.target.value)}
+                placeholder="отпуск-2026, ремонт"
+                className="input"
+              />
             </div>
           )}
 

@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Тёмная тема — по умолчанию (ТЗ #18, Этап 7.11) */
+:root {
+  --c-dark-900: #0F0F0F;
+  --c-dark-800: #1A1A1A;
+  --c-dark-700: #242424;
+  --c-dark-600: #2E2E2E;
+  --c-dark-500: #3A3A3A;
+  --c-white: #FFFFFF;
+  --c-gray-300: #D1D5DB;
+  --c-gray-400: #9CA3AF;
+  --c-gray-500: #6B7280;
+  --c-gray-600: #4B5563;
+  --scrollbar-thumb: #3A3A3A;
+}
+
+/* Светлая тема */
+:root.light {
+  --c-dark-900: #F4F4F5;
+  --c-dark-800: #FFFFFF;
+  --c-dark-700: #EFEFF1;
+  --c-dark-600: #E2E2E5;
+  --c-dark-500: #CFCFD3;
+  --c-white: #18181B;
+  --c-gray-300: #3F3F46;
+  --c-gray-400: #52525B;
+  --c-gray-500: #71717A;
+  --c-gray-600: #A1A1AA;
+  --scrollbar-thumb: #CFCFD3;
+}
+
 @layer base {
   body {
     @apply bg-dark-900 text-white font-sans;
@@ -87,7 +117,7 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3A3A3A;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 

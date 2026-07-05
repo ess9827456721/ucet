@@ -99,7 +99,10 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
           }
         }
       } else {
-        await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0, simplePaymentType)
+        const result = await api.processSimplePayment(debtId, parseFloat(payAmount), payDate, parseFloat(interestPart) || 0, simplePaymentType)
+        if (result?.overpayment && result.overpayment > 0.01) {
+          alert(`Долг полностью погашен.\nИзлишек платежа: ${result.overpayment.toFixed(2)} ₽ — эта сумма не была отнесена к телу долга.`)
+        }
       }
       if (simplePaymentType === 'early' && newMonthlyPayment && parseFloat(newMonthlyPayment) > 0) {
         await api.updateDebt(debtId, { monthly_payment: parseFloat(newMonthlyPayment) })
@@ -214,30 +217,8 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
     ? simplePayments.reduce((s, p) => s + p.body_part, 0)
     : dadPayments.reduce((s, p) => s + p.body_covered, 0)
 
-  const todayMs = new Date().getTime()
-  let accruedInterest = 0
-  if (debt.debt_type === 'dad') {
-    const lastPay = dadPayments.length > 0
-      ? dadPayments.reduce((a, b) => a.payment_date > b.payment_date ? a : b)
-      : null
-    if (lastPay) {
-      const days = Math.max(0, Math.round((todayMs - new Date(lastPay.payment_date + 'T00:00:00').getTime()) / 86400000))
-      accruedInterest = activeTranches.reduce((s, t) => s + t.current_balance * t.interest_rate * (days / 365), 0)
-    } else {
-      accruedInterest = activeTranches.reduce((s, t) => {
-        const days = Math.max(0, Math.round((todayMs - new Date(t.date + 'T00:00:00').getTime()) / 86400000))
-        return s + t.current_balance * t.interest_rate * (days / 365)
-      }, 0)
-    }
-  } else if (debt.interest_rate) {
-    const currentBalance = Math.max(0, (debt.initial_amount || 0) - totalPaid)
-    const lastPay = simplePayments.length > 0
-      ? simplePayments.reduce((a, b) => a.payment_date > b.payment_date ? a : b)
-      : null
-    const startStr = lastPay?.payment_date ?? (debt as Debt & { loan_date?: string | null }).loan_date ?? debt.created_at
-    const days = Math.max(0, Math.round((todayMs - new Date(startStr + (startStr.includes('T') ? '' : 'T00:00:00')).getTime()) / 86400000))
-    accruedInterest = currentBalance * debt.interest_rate * (days / 365)
-  }
+  // Б4: расчёт накопленного процента выполняется на backend (getDebt), фронт не дублирует
+  const accruedInterest = debt.accrued_interest ?? 0
 
   return (
     <div className="p-6 space-y-6">
@@ -344,6 +325,13 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
               <input type="number" value={interestPart} onChange={e => setInterestPart(e.target.value)} className="input w-48" />
             </div>
           )}
+          {debt.debt_type === 'simple' && payAmount &&
+            parseFloat(payAmount) - (parseFloat(interestPart) || 0) > (debt.initial_amount || 0) - totalPaid + 0.01 && (
+            <p className="text-yellow-400 text-xs">
+              Сумма превышает остаток долга ({formatMoney((debt.initial_amount || 0) - totalPaid)} + проценты).
+              Излишек {formatMoney(parseFloat(payAmount) - (parseFloat(interestPart) || 0) - ((debt.initial_amount || 0) - totalPaid))} не будет отнесён к телу долга.
+            </p>
+          )}
           {debt.debt_type === 'simple' && (
             <div className="space-y-2">
               <label className="label">Тип платежа</label>
@@ -385,7 +373,7 @@ export default function DebtDetail({ debtId, onBack, onForecast, onAnalytics }: 
           )}
           {payError && <p className="text-red-400 text-sm">{payError}</p>}
           <div className="flex gap-3">
-            <button onClick={() => { setShowPaymentForm(false); setPayError(''); setIsEarlyRepayment(false) }} className="btn-secondary">Отмена</button>
+            <button onClick={() => { setShowPaymentForm(false); setPayError(''); setSimplePaymentType('mandatory') }} className="btn-secondary">Отмена</button>
             <button onClick={handlePay} disabled={paying} className="btn-primary">
               {paying ? 'Обработка...' : 'Провести'}
             </button>

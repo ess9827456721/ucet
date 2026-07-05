@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useApi } from './hooks/useApi'
 import {
-  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus, PiggyBank
+  LayoutDashboard, ListOrdered, TrendingUp, CreditCard, Settings, Plus, PiggyBank, BarChart3
 } from 'lucide-react'
 import { Page } from './types'
 import Dashboard from './pages/Dashboard'
@@ -13,8 +14,10 @@ import DebtAnalytics from './pages/DebtAnalytics'
 import Savings from './pages/Savings'
 import SavingsDetail from './pages/SavingsDetail'
 import SavingsForecast from './pages/SavingsForecast'
+import Reports from './pages/Reports'
 import SettingsPage from './pages/SettingsPage'
 import TransactionModal from './components/TransactionModal'
+import PinLock from './components/PinLock'
 
 const navItems = [
   { id: 'dashboard' as Page, label: 'Дашборд', icon: LayoutDashboard },
@@ -22,6 +25,7 @@ const navItems = [
   { id: 'cashflow' as Page, label: 'Кассовый поток', icon: TrendingUp },
   { id: 'debts' as Page, label: 'Долги', icon: CreditCard },
   { id: 'savings' as Page, label: 'Накопления', icon: PiggyBank },
+  { id: 'reports' as Page, label: 'Отчёты', icon: BarChart3 },
   { id: 'settings' as Page, label: 'Настройки', icon: Settings },
 ]
 
@@ -32,6 +36,26 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
   const [operationsFilter, setOperationsFilter] = useState<{ categoryId?: number; noCategory?: boolean; noSubcategory?: boolean; subcategoryId?: number; type?: string; dateFrom?: string; dateTo?: string } | null>(null)
+  const [unlocked, setUnlocked] = useState(() => !localStorage.getItem('ucet-pin'))
+
+  // Горячие клавиши (Этап 7.12)
+  useEffect(() => {
+    const pageOrder: Page[] = ['dashboard', 'operations', 'cashflow', 'debts', 'savings', 'reports']
+    function onKey(e: KeyboardEvent) {
+      if (!e.ctrlKey && !e.metaKey) return
+      if (e.key === 'n' || e.key === 'N') { e.preventDefault(); setShowAddModal(true) }
+      else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); setPage('operations') }
+      else if (e.key >= '1' && e.key <= '6') {
+        e.preventDefault()
+        const p = pageOrder[parseInt(e.key) - 1]
+        if (p) setPage(p)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  if (!unlocked) return <PinLock onUnlock={() => setUnlocked(true)} />
 
   function navigateToFilteredOperations(filter: typeof operationsFilter) {
     setOperationsFilter(filter)
@@ -158,6 +182,7 @@ export default function App() {
             onBack={() => navigateToSavings(selectedSavingsId)}
           />
         )}
+        {page === 'reports' && <Reports key={refreshKey} />}
         {page === 'settings' && <SettingsPage key={refreshKey} />}
       </main>
 
@@ -166,8 +191,109 @@ export default function App() {
         <TransactionModal
           onClose={() => setShowAddModal(false)}
           onSaved={() => { setShowAddModal(false); handleRefresh() }}
+          onGoToDebts={() => { setShowAddModal(false); setPage('debts') }}
         />
       )}
+
+      {/* Разовая разметка исторических досрочных платежей (ТЗ #18, Б12) */}
+      <EarlyPaymentMarkupModal onDone={handleRefresh} />
+
+      {/* Ненавязчивый индикатор скачанного обновления */}
+      <UpdateReadyBadge />
+    </div>
+  )
+}
+
+function UpdateReadyBadge() {
+  const api = useApi()
+  const [version, setVersion] = useState<string | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = api.onUpdaterStatus?.(payload => {
+      if (payload.status === 'downloaded') setVersion(String(payload.version ?? ''))
+    })
+    return () => { unsubscribe?.() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!version) return null
+  return (
+    <button
+      onClick={() => api.updaterInstall()}
+      className="fixed bottom-4 right-4 z-40 bg-yellow-400 text-dark-900 rounded-xl px-4 py-2 text-sm font-medium shadow-lg hover:bg-yellow-300"
+      title="Обновление скачано — нажмите, чтобы перезапустить и установить"
+    >
+      Обновление {version} готово — перезапустить
+    </button>
+  )
+}
+
+function EarlyPaymentMarkupModal({ onDone }: { onDone: () => void }) {
+  const api = useApi()
+  const [candidates, setCandidates] = useState<Array<{
+    id: number; debt_name: string; payment_date: string; total_amount: number; monthly_payment: number
+  }>>([])
+  const [checked, setChecked] = useState<Set<number>>(new Set())
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    api.getEarlyPaymentCandidates().then(list => {
+      const c = list as typeof candidates
+      if (c.length > 0) {
+        setCandidates(c)
+        setChecked(new Set(c.map(p => p.id)))
+        setVisible(true)
+      }
+    }).catch(() => { /* старая схема БД */ })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  async function apply(ids: number[]) {
+    await api.markPaymentsEarly(ids)
+    setVisible(false)
+    if (ids.length > 0) onDone()
+  }
+
+  if (!visible) return null
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+      <div className="bg-dark-800 rounded-3xl w-full max-w-lg mx-4 shadow-2xl border border-dark-500 p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-white">Разметка досрочных платежей</h2>
+        <p className="text-sm text-gray-400">
+          После обновления все прошлые платежи помечены как «обязательные». Эти платежи существенно
+          превышают ежемесячный платёж по долгу — вероятно, это досрочные погашения. Отметьте, какие
+          из них пометить как досрочные:
+        </p>
+        <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+          {candidates.map(p => (
+            <label key={p.id} className="flex items-center gap-3 bg-dark-700 rounded-xl px-4 py-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={checked.has(p.id)}
+                onChange={e => {
+                  setChecked(prev => {
+                    const s = new Set(prev)
+                    if (e.target.checked) s.add(p.id); else s.delete(p.id)
+                    return s
+                  })
+                }}
+                className="w-4 h-4 accent-yellow-400"
+              />
+              <div className="flex-1 text-sm">
+                <span className="text-white">{p.debt_name}</span>
+                <span className="text-gray-500"> · {p.payment_date}</span>
+              </div>
+              <span className="text-sm font-semibold text-white">{p.total_amount.toLocaleString('ru-RU')} ₽</span>
+            </label>
+          ))}
+        </div>
+        <div className="flex gap-3">
+          <button onClick={() => apply([])} className="btn-secondary flex-1">Оставить как есть</button>
+          <button onClick={() => apply([...checked])} disabled={checked.size === 0} className="btn-primary flex-1">
+            Пометить выбранные как досрочные
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

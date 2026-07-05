@@ -23,12 +23,62 @@ export interface Operation {
   subcategory_id: number | null
   expense_type: 'daily' | 'big' | 'apartment' | null
   account_id: number | null
+  transfer_to_account_id?: number | null
+  tags?: string | null
   comment: string | null
   debt_id: number | null
   created_at: string
   category_name?: string
   category_color?: string
   subcategory_name?: string
+  account_name?: string | null
+  transfer_to_account_name?: string | null
+}
+
+export interface Account {
+  id: number
+  name: string
+  initial_balance: number
+  archived: number
+  balance: number
+}
+
+export interface CategoryBudget {
+  id: number
+  category_id: number
+  monthly_limit: number
+  rollover: number
+  name: string
+  color: string
+  spent: number
+  carryover: number
+  effective_limit: number
+}
+
+export interface ImportRule {
+  id: number
+  pattern: string
+  category_id: number | null
+  subcategory_id: number | null
+  split_amount: number | null
+  split_category_id: number | null
+  category_name?: string | null
+  split_category_name?: string | null
+}
+
+export interface MonthlyTotal {
+  month: string
+  income: number
+  expense: number
+  debt_ops: number
+}
+
+export interface NetWorthPoint {
+  month: string
+  wallet: number
+  savings: number
+  debts: number
+  net_worth: number
 }
 
 export interface Debt {
@@ -53,6 +103,7 @@ export interface Debt {
   accrued_interest?: number
   last_payment_date?: string | null
   is_overdue?: boolean
+  period_paid?: boolean
 }
 
 export interface Tranche {
@@ -183,4 +234,4 @@ export interface SavingsTransaction {
   created_at: string
 }
 
-export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'savings' | 'savings-detail' | 'savings-forecast' | 'settings'
+export type Page = 'dashboard' | 'operations' | 'cashflow' | 'debts' | 'debt-detail' | 'debt-forecast' | 'debt-analytics' | 'savings' | 'savings-detail' | 'savings-forecast' | 'reports' | 'settings'

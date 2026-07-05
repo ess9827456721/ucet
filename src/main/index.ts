@@ -16,9 +16,17 @@ import {
   getSavingsAccounts, getSavingsAccount, addSavingsAccount, updateSavingsAccount, deleteSavingsAccount,
   getSavingsTransactions, addSavingsDeposit, addSavingsWithdrawal, applyAccruedInterest,
   getPendingSavingsInterest, getSavingsForecast, updateSavingsAccountsOrder, getAccountsForAutoContribute,
+  getEarlyPaymentCandidates, markPaymentsEarly,
+  getAccounts, addAccount, updateAccount, addTransfer,
+  getCategoryBudgets, setCategoryBudget,
+  getImportRules, saveImportRule, deleteImportRule,
+  getMonthlyTotals, getNetWorthHistory, runAutoBackup,
   exportDb, importDb, getDbPath
 } from './database'
+import { buildAppMenu } from './menu'
+import { initUpdater, checkForUpdatesManual } from './updater'
 import ExcelJS from 'exceljs'
+import { parseCsvLine } from './finance'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -27,7 +35,6 @@ function createWindow(): void {
     minWidth: 900,
     minHeight: 600,
     show: false,
-    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -48,14 +55,49 @@ function createWindow(): void {
   }
 }
 
+async function doExportDb(): Promise<string | null> {
+  const result = await dialog.showSaveDialog({
+    defaultPath: `ucet-backup-${new Date().toISOString().slice(0, 10)}.db`,
+    filters: [{ name: 'SQLite Database', extensions: ['db'] }]
+  })
+  if (!result.canceled && result.filePath) {
+    await exportDb(result.filePath)
+    return result.filePath
+  }
+  return null
+}
+
+async function doImportDb(): Promise<boolean> {
+  const result = await dialog.showOpenDialog({
+    filters: [{ name: 'SQLite Database', extensions: ['db'] }],
+    properties: ['openFile']
+  })
+  if (!result.canceled && result.filePaths[0]) {
+    importDb(result.filePaths[0])
+    return true
+  }
+  return false
+}
+
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.ucet.app')
   app.on('browser-window-created', (_, w) => optimizer.watchWindowShortcuts(w))
 
+  // Русское меню — устанавливается до создания окна
+  buildAppMenu({
+    onExportDb: () => { doExportDb() },
+    onImportDb: async () => {
+      const ok = await doImportDb()
+      if (ok) BrowserWindow.getAllWindows().forEach(w => w.webContents.reload())
+    },
+    onCheckUpdates: () => checkForUpdatesManual(),
+  })
+  initUpdater()
+
   // ── Operations ──────────────────────────────────────
   ipcMain.handle('get-operations', (_, filters) => getOperations(filters))
   ipcMain.handle('add-operation', (_, op) => addOperation(op))
-  ipcMain.handle('import-operations', (_, ops) => importOperations(ops))
+  ipcMain.handle('import-operations', (_, ops, options) => importOperations(ops, options))
   ipcMain.handle('update-operation', (_, id, op) => updateOperation(id, op))
   ipcMain.handle('delete-operation', (_, id) => deleteOperation(id))
 
@@ -94,6 +136,86 @@ app.whenReady().then(() => {
   ipcMain.handle('update-simple-debt-payment', (_, paymentId, amount, date, interestPart) => updateSimpleDebtPayment(paymentId, amount, date, interestPart))
   ipcMain.handle('has-dad-payments-after', (_, paymentId) => hasDadPaymentsAfter(paymentId))
   ipcMain.handle('has-simple-payments-after', (_, paymentId) => hasSimplePaymentsAfter(paymentId))
+  ipcMain.handle('get-early-payment-candidates', () => getEarlyPaymentCandidates())
+  ipcMain.handle('mark-payments-early', (_, ids) => markPaymentsEarly(ids))
+
+  // ── Accounts / Budgets / Rules / Reports (Этап 7) ────
+  ipcMain.handle('get-accounts', (_, includeArchived) => getAccounts(includeArchived))
+  ipcMain.handle('add-account', (_, data) => addAccount(data))
+  ipcMain.handle('update-account', (_, id, data) => updateAccount(id, data))
+  ipcMain.handle('add-transfer', (_, fromId, toId, amount, date, comment) => addTransfer(fromId, toId, amount, date, comment))
+  ipcMain.handle('get-category-budgets', (_, year, month) => getCategoryBudgets(year, month))
+  ipcMain.handle('set-category-budget', (_, categoryId, limit, rollover) => setCategoryBudget(categoryId, limit, rollover))
+  ipcMain.handle('get-import-rules', () => getImportRules())
+  ipcMain.handle('save-import-rule', (_, rule) => saveImportRule(rule))
+  ipcMain.handle('delete-import-rule', (_, id) => deleteImportRule(id))
+  ipcMain.handle('get-monthly-totals', (_, dateFrom, dateTo) => getMonthlyTotals(dateFrom, dateTo))
+  ipcMain.handle('get-net-worth-history', (_, months) => getNetWorthHistory(months))
+  ipcMain.handle('run-auto-backup', () => runAutoBackup())
+
+  ipcMain.handle('export-operations-xlsx', async () => {
+    const result = await dialog.showSaveDialog({
+      defaultPath: `ucet-operations-${new Date().toISOString().slice(0, 10)}.xlsx`,
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+    if (result.canceled || !result.filePath) return null
+    const ops = getOperations({}) as Array<Record<string, unknown>>
+    const wb = new ExcelJS.Workbook()
+    const ws = wb.addWorksheet('Операции')
+    ws.columns = [
+      { header: 'Дата', key: 'date', width: 12 },
+      { header: 'Тип', key: 'type', width: 12 },
+      { header: 'Сумма', key: 'amount', width: 14 },
+      { header: 'Категория', key: 'category_name', width: 20 },
+      { header: 'Подкатегория', key: 'subcategory_name', width: 20 },
+      { header: 'Вид расхода', key: 'expense_type', width: 14 },
+      { header: 'Счёт', key: 'account_name', width: 16 },
+      { header: 'Теги', key: 'tags', width: 16 },
+      { header: 'Комментарий', key: 'comment', width: 40 },
+    ]
+    const typeLabels: Record<string, string> = { income: 'Доход', expense: 'Расход', debt_op: 'По долгу', transfer: 'Перевод' }
+    const etLabels: Record<string, string> = { daily: 'Повседневный', big: 'Крупный', apartment: 'На квартиру' }
+    for (const o of ops) {
+      ws.addRow({
+        ...o,
+        type: typeLabels[o.type as string] ?? o.type,
+        expense_type: o.expense_type ? etLabels[o.expense_type as string] ?? o.expense_type : '',
+      })
+    }
+    ws.getRow(1).font = { bold: true }
+    await wb.xlsx.writeFile(result.filePath)
+    return result.filePath
+  })
+
+  ipcMain.handle('export-report-xlsx', async (_, dateFrom: string, dateTo: string) => {
+    const result = await dialog.showSaveDialog({
+      defaultPath: `ucet-report-${dateFrom}-${dateTo}.xlsx`,
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+    if (result.canceled || !result.filePath) return null
+    const wb = new ExcelJS.Workbook()
+    const wsM = wb.addWorksheet('По месяцам')
+    wsM.columns = [
+      { header: 'Месяц', key: 'month', width: 12 },
+      { header: 'Доходы', key: 'income', width: 14 },
+      { header: 'Расходы', key: 'expense', width: 14 },
+      { header: 'Платежи по долгам', key: 'debt_ops', width: 18 },
+    ]
+    for (const row of getMonthlyTotals(dateFrom, dateTo) as Array<Record<string, unknown>>) wsM.addRow(row)
+    wsM.getRow(1).font = { bold: true }
+    const wsC = wb.addWorksheet('По категориям')
+    wsC.columns = [
+      { header: 'Категория', key: 'name', width: 24 },
+      { header: 'Сумма за период', key: 'total', width: 16 },
+    ]
+    for (const row of getExpensesByCategory(dateFrom, dateTo) as Array<Record<string, unknown>>) wsC.addRow(row)
+    wsC.getRow(1).font = { bold: true }
+    await wb.xlsx.writeFile(result.filePath)
+    return result.filePath
+  })
+
+  // Автобэкап при запуске (не блокирует старт)
+  runAutoBackup().catch(() => { /* нет прав на папку и т.п. — не мешаем запуску */ })
 
   // ── Recurring operations ─────────────────────────────
   ipcMain.handle('get-recurring-operations', (_, activeOnly) => getRecurringOperations(activeOnly))
@@ -139,29 +261,9 @@ app.whenReady().then(() => {
   ipcMain.handle('delete-mandatory-expense-item', (_, id) => deleteMandatoryExpenseItem(id))
 
   // ── Backup ───────────────────────────────────────────
-  ipcMain.handle('export-db', async () => {
-    const result = await dialog.showSaveDialog({
-      defaultPath: `ucet-backup-${new Date().toISOString().slice(0, 10)}.db`,
-      filters: [{ name: 'SQLite Database', extensions: ['db'] }]
-    })
-    if (!result.canceled && result.filePath) {
-      exportDb(result.filePath)
-      return result.filePath
-    }
-    return null
-  })
+  ipcMain.handle('export-db', () => doExportDb())
 
-  ipcMain.handle('import-db', async () => {
-    const result = await dialog.showOpenDialog({
-      filters: [{ name: 'SQLite Database', extensions: ['db'] }],
-      properties: ['openFile']
-    })
-    if (!result.canceled && result.filePaths[0]) {
-      importDb(result.filePaths[0])
-      return true
-    }
-    return false
-  })
+  ipcMain.handle('import-db', () => doImportDb())
 
   ipcMain.handle('export-json', async (_, data: unknown) => {
     const result = await dialog.showSaveDialog({
@@ -195,16 +297,23 @@ app.whenReady().then(() => {
         const lines = text.split(/\r?\n/).filter(l => l.trim())
         if (lines.length === 0) return { error: 'Файл пустой' }
         const sep = lines[0].includes(';') ? ';' : ','
-        const rows = lines.map(l => l.split(sep).map(c => c.trim().replace(/^"|"$/g, '')))
+        const rows = lines.map(l => parseCsvLine(l, sep))
         return { headers: rows[0], rows: rows.slice(1) }
       } else {
         const wb = new ExcelJS.Workbook()
         await wb.xlsx.readFile(filePath)
         const ws = wb.worksheets[0]
         if (!ws) return { error: 'Нет листов в файле' }
+        // row.values у ExcelJS — разреженный массив: пустые ячейки в середине строки
+        // дают дыры (undefined). Собираем строки плотно через getCell.
+        const colCount = ws.columnCount
         const rows: string[][] = []
         ws.eachRow(row => {
-          rows.push((row.values as (string | number | null | undefined)[]).slice(1).map(v => v == null ? '' : String(v)))
+          const cells: string[] = []
+          for (let i = 1; i <= colCount; i++) {
+            cells.push(row.getCell(i).text ?? '')
+          }
+          rows.push(cells)
         })
         if (rows.length === 0) return { error: 'Файл пустой' }
         return { headers: rows[0], rows: rows.slice(1) }

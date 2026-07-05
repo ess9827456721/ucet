@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  # Ручной запуск из вкладки Actions (кнопка «Run workflow»).
+  # electron-builder опубликует релиз с тегом vX.Y.Z из version в package.json.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check bat files are ASCII-only
+        shell: bash
+        run: |
+          node -e "
+          const fs=require('fs');
+          const files=fs.readdirSync('.').filter(f=>/\.(bat|cmd)$/i.test(f));
+          let bad=false;
+          for(const f of files){
+            const buf=fs.readFileSync(f);
+            for(let i=0;i<buf.length;i++){
+              if(buf[i]>127){console.error(f+': non-ASCII byte at offset '+i);bad=true;break;}
+            }
+          }
+          process.exit(bad?1:0);"
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build and publish
+        run: npx electron-vite build && npx electron-builder --win --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
