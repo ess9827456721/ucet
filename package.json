@@ -30,7 +30,8 @@
       {
         "provider": "github",
         "owner": "ess9827456721",
-        "repo": "ucet"
+        "repo": "ucet",
+        "releaseType": "release"
       }
     ],
     "mac": {
